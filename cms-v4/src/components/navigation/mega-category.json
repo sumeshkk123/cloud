@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_navigation_mega_categories",
+  "info": {
+    "displayName": "Mega Category",
+    "description": "Category list inside a mega menu column"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "translate": true
+    },
+    "description": {
+      "type": "text",
+      "translate": true
+    },
+    "href": {
+      "type": "string"
+    },
+    "badge": {
+      "type": "string",
+      "translate": true
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": ["list", "pill"],
+      "default": "pill"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    }
+  }
+}

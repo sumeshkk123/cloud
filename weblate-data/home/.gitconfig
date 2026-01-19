@@ -1,0 +1,16 @@
+[user]
+	email = noreply@weblate.org
+	name = Weblate
+[protocol "file"]
+	allow = never
+[merge "weblate-merge-gettext-po"]
+	name = Weblate merge driver for gettext PO files
+	driver = /app/venv/lib/python3.14/site-packages/weblate/examples/git-merge-gettext-po %O %A %B %P
+[protocol "git"]
+	allow = never
+[protocol "http"]
+	allow = never
+[protocol "https"]
+	allow = always
+[protocol "ssh"]
+	allow = always

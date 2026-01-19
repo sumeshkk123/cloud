@@ -1,0 +1,808 @@
+{
+  "metadata": {
+    "title": "Logiciel MLM | ",
+    "description": "Développez-vous avec le logiciel Cloud MLM : plate-forme MLM alimentée par l'IA, évolutive et sécurisée pour les activités de marketing de réseau. "
+  },
+  "announcements": [],
+  "hero": {
+    "badgeLabel": "Plateforme MLM axée sur l'IA",
+    "title": "Meilleur logiciel MLM pour les entreprises de marketing multi-niveaux plus intelligentes",
+    "description": "Le logiciel Cloud MLM automatise les commissions, protège vos données et aide les équipes mondiales à lancer et à faire évoluer des plans de rémunération en toute confiance.",
+    "primaryCta": {
+      "label": "Voir les prix",
+      "href": "/pricing"
+    },
+    "secondaryCta": {
+      "label": "Démo du livre",
+      "href": "/free-mlm-software-demo"
+    },
+    "phoneCta": {
+      "label": "Parlez aux ventes",
+      "phoneDisplay": "+91 95677 28766",
+      "href": "tel:+919567728766"
+    },
+    "outcomesLabel": "Résultats de la plateforme",
+    "stats": [
+      {
+        "label": "Modules MLM",
+        "value": "56+"
+      },
+      {
+        "label": "Pays desservis",
+        "value": "100+"
+      },
+      {
+        "label": "Temps de disponibilité",
+        "value": "99.9%"
+      },
+      {
+        "label": "Soutien",
+        "value": "24/7"
+      }
+    ],
+    "logos": [
+      {
+        "name": "Healy",
+        "logo": "/wp-content/uploads/2024/09/hly.webp",
+        "position": {
+          "top": "10%",
+          "left": "25%"
+        },
+        "sizeClass": "h-16 w-16 sm:h-24 sm:s-24"
+      },
+      {
+        "name": "BitcoinTAF",
+        "logo": "/wp-content/uploads/2024/09/btlf.webp",
+        "position": {
+          "top": "6%",
+          "left": "82%"
+        },
+        "sizeClass": "h-16 w-16 sm:h-24 sm:s-24"
+      },
+      {
+        "name": "Sparisme",
+        "logo": "/wp-content/uploads/2024/08/logo-sparismo.webp",
+        "position": {
+          "top": "32%",
+          "left": "68%"
+        },
+        "sizeClass": "h-16 w-16 sm:h-24 sm:s-24"
+      },
+      {
+        "name": "UpOne",
+        "logo": "/wp-content/uploads/2024/09/up1.webp",
+        "position": {
+          "top": "26%",
+          "left": "92%"
+        },
+        "sizeClass": "h-16 w-16 sm:h-24 sm:s-24"
+      },
+      {
+        "name": "ImmobilierMonX",
+        "logo": "/wp-content/uploads/2024/09/rmx.webp",
+        "position": {
+          "top": "52%",
+          "left": "86%"
+        },
+        "sizeClass": "h-16 w-16 sm:h-24 sm:s-24"
+      },
+      {
+        "name": "Grinité",
+        "logo": "/wp-content/uploads/2024/08/grinity-loogo.webp",
+        "position": {
+          "bottom": "10%",
+          "left": "52%"
+        },
+        "sizeClass": "h-16 w-16 sm:h-24 sm:s-24"
+      },
+      {
+        "name": "iPromix",
+        "logo": "/wp-content/uploads/2024/09/iprx.webp",
+        "position": {
+          "top": "38%",
+          "left": "6%"
+        },
+        "sizeClass": "h-20 w-20 sm:h-28 sm:s-28"
+      },
+      {
+        "name": "Avalon",
+        "logo": "/wp-content/themes/cloudmlmdemo/assets/images/client-1.webp",
+        "position": {
+          "bottom": "32%",
+          "left": "30%"
+        },
+        "sizeClass": "h-20 w-20 sm:h-24 sm:s-24"
+      }
+    ]
+  },
+  "momentumStats": {
+    "heading": "Véritable dynamique client",
+    "description": "Mesures capturées auprès des marques d'entreprise modernisant leur domaine, leurs paiements et leurs opérations avec le logiciel Cloud MLM.",
+    "stats": [
+      {
+        "label": "Lancements d'entreprise",
+        "value": "210+",
+        "description": "Modernisations et migrations réalisées depuis 2012",
+        "highlight": "Spécialistes du lancement intégrés dans la région APAC, EMEA et Amériques",
+        "icon": "Rocket"
+      },
+      {
+        "label": "Couverture de l'automatisation",
+        "value": "82%",
+        "description": "Flux de travail moyens automatisés lors de la mise en œuvre",
+        "highlight": "Flux de rémunération, de conformité et de sensibilisation orchestrés automatiquement",
+        "icon": "Gauge"
+      },
+      {
+        "label": "Pays pris en charge",
+        "value": "45",
+        "description": "Régions exécutant le logiciel Cloud MLM avec conformité locale",
+        "highlight": "Paiements multidevises, gestion des taxes et localisation intégrés",
+        "icon": "Globe2"
+      },
+      {
+        "label": "Satisfaction du client",
+        "value": "4.8/5",
+        "description": "Évaluation post-implémentation par des clients vérifiés",
+        "highlight": "Réponse 24h/24 et 7j/7 avec des revues d'optimisation trimestrielles",
+        "icon": "HeartPulse"
+      }
+    ]
+  },
+  "trustBadges": {
+    "heading": "Approuvé par les plateformes évaluées par les analystes",
+    "description": "Des annuaires indépendants mettent en avant le logiciel Cloud MLM pour sa vitesse de lancement et la qualité de son support.",
+    "items": [
+      {
+        "name": "Capterra",
+        "logo": "/wp-content/uploads/2024/06/capture-img.webp",
+        "rating": 4.9,
+        "quote": "Expertise en matière de mise en œuvre et support réactif",
+        "href": "https://www.capterra.com/p/220236/Cloud-MLM-Software/#reviews"
+      },
+      {
+        "name": "Bonnes entreprises",
+        "logo": "/wp-content/uploads/2024/06/goodfirm-img.webp",
+        "rating": 4.8,
+        "quote": "Profondeur des fonctionnalités avec une configuration intuitive",
+        "href": "https://www.goodfirms.co/software/cloud-mlm-software"
+      },
+      {
+        "name": "Conseils logiciels",
+        "logo": "/wp-content/uploads/2024/06/sofware-advice-img.webp",
+        "rating": 4.9,
+        "quote": "Leader de catégorie pour l'intégration et l'automatisation",
+        "href": "https://www.softwareadvice.com/mlm/cloud-mlm-software-profile/"
+      },
+      {
+        "name": "LogicielSuggérer",
+        "logo": "/wp-content/uploads/2024/06/software-suggest-img.webp",
+        "rating": 4.8,
+        "quote": "Loué pour son évolutivité et ses déploiements multilingues",
+        "href": "https://www.softwaresuggest.com/cloud-mlm-software/reviews"
+      }
+    ]
+  },
+  "featureSection": {
+    "badge": "Que contient le logiciel Cloud MLM",
+    "heading": "Configurez la rémunération, les opérations et l'engagement à partir d'une seule plateforme modulaire",
+    "description": "Sélectionnez les éléments de base dont vous avez besoin aujourd'hui, ajoutez de nouvelles expériences à mesure que vous évoluez et laissez l'automatisation se charger du travail chargé.",
+    "cards": [
+      {
+        "title": "Studio de plan de rémunération",
+        "description": "Modélisez des plans binaires, uni-niveau, matriciels, hybrides ou sur mesure avec des simulations de paiement guidées avant le lancement.",
+        "icon": "Layers",
+        "accent": "du ciel-100 via-bleu-100 à transparent foncé : depuis-ciel-500/35 foncé : via-bleu-500/25 foncé : à transparent",
+        "points": [
+          "Comparaisons de scénarios pour les primes et les cagnottes de leadership",
+          "Exportations en un clic pour les cartes et les contrôles de conformité"
+        ]
+      },
+      {
+        "title": "Conformité et sécurité mondiales",
+        "description": "Les contrôles alignés sur le SOC, la liste blanche IP, l'authentification multifacteur et la résidence des données cryptées satisfont les régulateurs.",
+        "icon": "ShieldCheck",
+        "accent": "de-émeraude-100 via-sarcelle-50 à transparent foncé : de-émeraude-500/35 foncé : via-sarcelle-400/25 foncé : à transparent",
+        "points": [
+          "Hébergement régional, KYC et workflows fiscaux",
+          "Journaux prêts pour l'audit avec contrôles d'accès granulaires"
+        ]
+      },
+      {
+        "title": "Plateforme d'expérience distributeur",
+        "description": "Des portails, un inventaire, une généalogie et des récompenses axés sur le mobile qui maintiennent les équipes mondiales informées et motivées.",
+        "icon": "Users",
+        "accent": "du-violet-100 via-indigo-50 à-transparent foncé:du-violet-500/35 foncé:via-indigo-500/25 foncé:à-transparent",
+        "points": [
+          "Tableaux de bord, messages et parcours de formation tenant compte du classement",
+          "Bibliothèques de contenu localisées et modèles de campagne"
+        ]
+      },
+      {
+        "title": "Automatisation du flux de travail",
+        "description": "Automatisez les paiements, les communications et les escalades avec des créateurs visuels et des analyses de flux de travail.",
+        "icon": "Workflow",
+        "accent": "de-ambre-100 via-orange-50 à-transparent foncé: de-ambre-400/35 foncé:via-orange-400/25 foncé:à-transparent",
+        "points": [
+          "Orchestration par glisser-déposer pour les équipes financières et de réussite",
+          "Alertes pour les rétrofacturations, la conformité et les escalades des concessionnaires"
+        ]
+      }
+    ]
+  },
+  "whyChoose": {
+    "badge": "Pourquoi les dirigeants choisissent le logiciel Cloud MLM",
+    "heading": "Lancez et faites évoluer chaque marché avec un copilote IA",
+    "description": "Des plans de rémunération à l'activation sur le terrain, le logiciel Cloud MLM aide les marques mondiales à se lancer, à évoluer et à rester conformes plus rapidement que les piles traditionnelles.",
+    "reasons": [
+      {
+        "title": "Conseils de lancement",
+        "description": "Des spécialistes de la rémunération, des chefs de projet et des experts en automatisation dédiés s'associent à votre équipe depuis la découverte jusqu'à la mise en service.",
+        "icon": "Compass"
+      },
+      {
+        "title": "Copilote de lancement de l'IA",
+        "description": "Les stratèges de mise en œuvre s'associent à l'automatisation pour migrer les données, configurer votre plan et répéter les scénarios de mise en service avant le lancement.",
+        "icon": "Rocket"
+      },
+      {
+        "title": "Une infrastructure prête pour le monde",
+        "description": "L'hébergement aligné sur SOC2, la résidence des données régionales et les workflows financiers multidevises garantissent la confiance des équipes de conformité partout où vous vous développez.",
+        "icon": "ShieldCheck"
+      },
+      {
+        "title": "Adoption sur le terrain intégrée",
+        "description": "Les applications mobiles, les modèles LMS et les tableaux de bord d'incitations stimulent l'engagement quotidien tandis que la direction suit les KPI en temps réel.",
+        "icon": "Users"
+      }
+    ]
+  },
+  "integrations": {
+    "heading": "Connectez les outils qui gèrent votre organisation",
+    "description": "Des API ouvertes et des connecteurs prédéfinis intègrent le logiciel Cloud MLM à votre pile financière, CRM, marketing et analytique.",
+    "partners": [
+      "Paiements Stripe",
+      "Force de vente",
+      "Livres rapides",
+      "HubSpot",
+      "Bureau Zoho",
+      "AWSSES",
+      "Twilio",
+      "Paypal",
+      "Rasoirpay",
+      "Méta-Pixel",
+      "Shopify",
+      "Zapier"
+    ]
+  },
+  "aiHighlights": {
+    "heading": "Copilotes IA dans chaque département",
+    "description": "L'IA dans le logiciel Cloud MLM accélère l'intégration, la conformité, la précision de la rémunération et la communication sur le terrain.",
+    "highlights": [
+      "Informations prédictives sur les inscriptions et le taux de désabonnement",
+      "Assistants de chat IA pour les questions et réponses sur les produits et les plans",
+      "Automatisation du flux de travail pour le succès des distributeurs",
+      "Alertes de fraude et de conformité en temps réel",
+      "Récits de produits prêts à être recherchés et blogs multilingues"
+    ]
+  },
+  "industrySection": {
+    "badge": "Déploiements prêts pour l'industrie",
+    "heading": "Des playbooks sur mesure pour chaque secteur vertical",
+    "description": "Profitez de packs de fonctionnalités sélectionnés, de préréglages réglementaires et de modèles de formation conçus avec des leaders de la vente directe, du bien-être, de la beauté et de la finance.",
+    "solutions": [
+      {
+        "title": "Entreprises de vente directe",
+        "description": "Automatisez la généalogie, la libération des commissions et la conformité régionale pour des équipes de terrain à évolution rapide.",
+        "href": "/industries/direct-selling",
+        "icon": "Users"
+      },
+      {
+        "title": "Marques de santé et de bien-être",
+        "description": "Lancez des expériences omnicanales avec la facturation des abonnements, la livraison automatique et les programmes personnalisés.",
+        "href": "/industries/health-wellness",
+        "icon": "HeartPulse"
+      },
+      {
+        "title": "Beauté et cosmétiques",
+        "description": "Offrez aux consultants des catalogues sélectionnés, des incitations à l'échantillonnage et des campagnes de fidélisation.",
+        "href": "/industries/beauty-cosmetics",
+        "icon": "Sparkles"
+      },
+      {
+        "title": "Réseaux d'assurance",
+        "description": "Gardez les politiques, les commissions et les obligations réglementaires alignées avec les contrôles de conformité intégrés.",
+        "href": "/industries/insurance",
+        "icon": "ShieldCheck"
+      },
+      {
+        "title": "Collectifs immobiliers",
+        "description": "Suivez l'inventaire, les listes régionales et les incitations à des références à plusieurs niveaux au sein des équipes distribuées.",
+        "href": "/industries/real-estate",
+        "icon": "Building2"
+      },
+      {
+        "title": "Détaillants de commerce électronique",
+        "description": "Convertissez le trafic de votre vitrine numérique en distributeurs fidèles grâce à des catalogues synchronisés et à un traitement automatisé.",
+        "href": "/industries/ecommerce",
+        "icon": "Store"
+      },
+      {
+        "title": "Services financiers",
+        "description": "Prend en charge les paiements multi-grands livres, le KYC et les rapports prêts à l'audit pour les programmes de gestion de patrimoine et de prêt.",
+        "href": "/industries/finance",
+        "icon": "Coins"
+      },
+      {
+        "title": "Cryptomonnaie & Web3",
+        "description": "Offrez des récompenses transparentes en jetons, des portefeuilles en temps réel et des garde-fous de conformité pour les entreprises de cryptographie.",
+        "href": "/industries/cryptocurrency",
+        "icon": "Bitcoin"
+      }
+    ],
+    "focusTags": [
+      "Entreprises de vente directe",
+      "Santé et bien-être",
+      "Services financiers",
+      "Crypto & Web3",
+      "Beauté et cosmétiques",
+      "Réseaux éducatifs"
+    ],
+    "metrics": [
+      {
+        "value": "500+",
+        "label": "Lancements mondiaux",
+        "description": "Les organisations de marketing de réseau modernisées avec le logiciel Cloud MLM."
+      },
+      {
+        "value": "4.8/5",
+        "label": "Satisfaction du client",
+        "description": "Note moyenne sur Capterra, G2, GetApp et SoftwareSuggest."
+      },
+      {
+        "value": "45",
+        "label": "Pays pris en charge",
+        "description": "La conformité, la fiscalité et la localisation sont intégrées à chaque déploiement."
+      },
+      {
+        "value": "210+",
+        "label": "Migration d'entreprise",
+        "description": "Transitions héritées à grande échelle réalisées sans perturber les paiements."
+      }
+    ]
+  },
+  "clients": {
+    "heading": "Les marques évoluent avec le logiciel Cloud MLM",
+    "description": "Des innovateurs en matière de bien-être aux pionniers de la fintech, les équipes s'appuient sur le logiciel Cloud MLM pour la vitesse de lancement, la conformité et l'engagement sur le terrain basé sur l'IA.",
+    "metrics": [
+      {
+        "value": "500+",
+        "label": "Lancements mondiaux",
+        "description": "Les organisations de marketing de réseau modernisées avec le logiciel Cloud MLM."
+      },
+      {
+        "value": "4.8/5",
+        "label": "Satisfaction du client",
+        "description": "Note moyenne sur Capterra, G2, GetApp et SoftwareSuggest."
+      },
+      {
+        "value": "45",
+        "label": "Pays pris en charge",
+        "description": "La conformité, la fiscalité et la localisation sont intégrées à chaque déploiement."
+      },
+      {
+        "value": "210+",
+        "label": "Migration d'entreprise",
+        "description": "Transitions héritées à grande échelle réalisées sans perturber les paiements."
+      }
+    ],
+    "focusTags": [
+      "Entreprises de vente directe",
+      "Santé et bien-être",
+      "Services financiers",
+      "Crypto & Web3",
+      "Beauté et cosmétiques",
+      "Réseaux éducatifs"
+    ]
+  },
+  "planShowcase": {
+    "heading": "Modèles de plans de rémunération MLM optimisés avec des simulations d'IA",
+    "description": "Sélectionnez un modèle de plan prêt à l'emploi ou mélangez des structures hybrides. ",
+    "cards": [
+      {
+        "title": "Plan logiciel MLM binaire",
+        "intro": "Moteur de débordement à grande vitesse pour les organisations dynamiques.",
+        "description": "Optimisez l'équilibrage gauche-droite avec le report automatique, les bonus de cycle et l'aide au placement de l'IA afin que les lancements de logiciels MLM binaires se convertissent plus rapidement.",
+        "bullets": [
+          "Prévisions d'équilibrage des jambes par l'IA avec prévention des chasses d'eau",
+          "Des boosters de leadership liés au classement des KPI et des alertes",
+          "Visualisation d'arborescence binaire réactive sur le Web et sur mobile"
+        ]
+      },
+      {
+        "title": "Plan logiciel Unilevel MLM",
+        "intro": "Une profondeur de première ligne évolutive pour les marques axées sur l'éducation.",
+        "description": "Configurez une largeur illimitée, des remplacements de génération et des pools de fidélité pendant que l'IA du logiciel Cloud MLM surveille les risques de compression et de rétention.",
+        "bullets": [
+          "Tableaux de bord de compression et de cumul dynamiques",
+          "Pages de généalogie conviviales pour le marketing de recrutement",
+          "Recalculs de classement automatisés avec des playbooks guidés"
+        ]
+      },
+      {
+        "title": "Plan logiciel Matrix MLM",
+        "intro": "Positions de déversement équilibrées pour les équipes bien-être et beauté.",
+        "description": "Modèle 3x7, 5x9 ou toute grille matricielle personnalisée avec rentrée alimentée par l'IA, mise en commun des bonus et déclencheurs de contrôle des stocks intégrés au logiciel MLM.",
+        "bullets": [
+          "Rentrée chronométrée avec contrôles d'inventaire et de conformité",
+          "Répartitions du pool comparées aux paiements historiques",
+          "Alertes de placement gamifiées dans les applications des distributeurs"
+        ]
+      },
+      {
+        "title": "Plans de pension et d'évasion",
+        "intro": "Conseils d'administration progressistes pour les entreprises mondiales de vente directe.",
+        "description": "Automatisez les migrations des tableaux, réinvestissez la logique et les widgets de narration qui reconnaissent les réalisations tandis que l'IA prévoit la congestion du tableau.",
+        "bullets": [
+          "Studio d'automatisation pour le recyclage et les mises à niveau des cartes",
+          "Widgets d'histoire de réussite réutilisables pour les pages de destination à haute intention",
+          "Score de santé du conseil d’administration pour les équipes opérationnelles"
+        ]
+      },
+      {
+        "title": "Pools de génération et de leadership",
+        "intro": "Une richesse générationnelle profonde pour le développement du leadership.",
+        "description": "Mélangez une logique de rupture, une adéquation des dirigeants et des pools de performances alimentés par des analyses prédictives et des garde-fous réglementaires.",
+        "bullets": [
+          "Calculateurs de piscine basés sur la profondeur avec modélisation de simulation",
+          "Les tableaux de bord du leadership ont fait surface dans les profils publics",
+          "Alertes de conformité pour les risques de recrutement intersectoriels"
+        ]
+      },
+      {
+        "title": "Bonus monoline et file d'attente",
+        "intro": "Un élan unique pour les plans inspirés de la fintech et de la cryptographie.",
+        "description": "Offrez un placement de file d'attente transparent, des bonus de séquence et des versions de portefeuille instantanées avec des pistes d'audit complètes dans le logiciel MLM.",
+        "bullets": [
+          "Visualisation des files d'attente en temps réel et prévisions de vitesse",
+          "Automatisation de la publication du portefeuille liée aux politiques KYC",
+          "Widgets de classement public pour les campagnes promotionnelles"
+        ]
+      },
+      {
+        "title": "Plan hybride uni-binaire",
+        "intro": "Le meilleur du binaire et de l'unilevel pour les vendeurs omnicanaux.",
+        "description": "Modélisez des cartes de commissions hybrides qui mélangent la profondeur des sponsors avec des jambes de puissance binaires, orchestrées par le planificateur d'IA du logiciel Cloud MLM.",
+        "bullets": [
+          "Simulateur hybride comparant les stratégies des sponsors",
+          "Briefs de lancement générés automatiquement pour les articles sur la rémunération",
+          "Boîte à outils de migration pour les anciens paiements hybrides"
+        ]
+      },
+      {
+        "title": "Plan de récompenses d'abonnement et SaaS",
+        "intro": "Manuels de revenus récurrents pour les abonnements numériques.",
+        "description": "Gérez les abonnements de type SaaS, les primes de rétention et les expéditions automatiques respectueuses de la conformité grâce à la facturation multidevise et à la prévision du taux de désabonnement par l'IA.",
+        "bullets": [
+          "Tableaux de bord de prévision du taux de désabonnement et automatisations du cycle de vie",
+          "Intégration de contenu payant pour les centres de connaissances d'experts",
+          "Automatisation des taxes et de la TVA pour les abonnés internationaux"
+        ]
+      },
+      {
+        "title": "Plan de don et de financement participatif",
+        "intro": "Dons axés sur la communauté et soutenus par des contrôles prêts à l'audit.",
+        "description": "Lancez des plans de cadeaux, de dons ou de financement participatif conformes avec des registres transparents, des contrôles de dépôt et une notation des risques par IA intégrés au logiciel MLM.",
+        "bullets": [
+          "Règles de libération du séquestre avec détection de fraude",
+          "Microsites d'impact optimisés pour l'intention de recherche",
+          "Journaux d'audit réglementaire stockés dans des régions sécurisées"
+        ]
+      }
+    ]
+  },
+  "demoSection": {
+    "heading": "Explorez la plateforme selon vos conditions",
+    "description": "Réservez une visite guidée, lancez le bac à sable ou téléchargez la documentation technique. ",
+    "primaryCta": {
+      "label": "Réserver une démo d'IA",
+      "href": "/free-mlm-software-demo"
+    },
+    "secondaryCtas": [
+      {
+        "label": "Lancer le bac à sable",
+        "href": "https://demo.cloudmlmsoftware.com"
+      },
+      {
+        "label": "Plateforme de tarification",
+        "href": "/pricing#compare"
+      },
+      {
+        "label": "Plan de mise en œuvre",
+        "href": "/mlm-software/implementation-plan"
+      }
+    ],
+    "touchpoints": [
+      {
+        "label": "Modélisation de plans assistée par l'IA",
+        "description": "Téléchargez votre plan de rémunération et simulez les paiements avant le lancement."
+      },
+      {
+        "label": "Examen de la sécurité et de la conformité",
+        "description": "Parcourez les contrôles SOC2, les flux de travail KYC et les options d'hébergement régional."
+      },
+      {
+        "label": "Stratégie migratoire",
+        "description": "Découvrez comment la migration des données et le basculement des systèmes existants sont planifiés et exécutés."
+      }
+    ],
+    "callouts": [
+      {
+        "badge": "Pour les cadres",
+        "title": "Exactitude des commissions",
+        "description": "Les workflows d'assurance qualité automatisés garantissent que chaque paiement est vérifié avant sa publication."
+      },
+      {
+        "badge": "Pour les opérations",
+        "title": "Répétabilité du lancement",
+        "description": "Les modèles, les automatisations et l'assistance de l'IA standardisent chaque lancement de produit ou de marché."
+      },
+      {
+        "badge": "Pour la conformité",
+        "title": "Gouvernance d'entreprise",
+        "description": "Autorisations, journaux d'audit et contrôles de résidence des données conçus pour les secteurs réglementés."
+      }
+    ]
+  },
+  "testimonials": {
+    "heading": "Témoignages de clients",
+    "description": "Les équipes mondiales de vente directe font confiance au logiciel Cloud MLM pour améliorer la rémunération, les expériences numériques et la conformité.",
+    "items": [
+      {
+        "quote": "Le logiciel Cloud MLM a aidé nos dirigeants à consolider plusieurs outils existants en une seule plate-forme basée sur l'IA. ",
+        "author": "Harper Reynolds",
+        "role": "Directeur de la croissance, Healy World",
+        "avatar": "/wp-content/uploads/2024/08/avatar-1.webp"
+      },
+      {
+        "quote": "Les experts en mise en œuvre de Cloud MLM Software nous ont guidés à travers des réécritures de commissions complexes et des migrations de données. ",
+        "author": "Jordan López",
+        "role": "Directeur des opérations mondiales, Sparismo",
+        "avatar": "/wp-content/uploads/2024/08/avatar-2.webp"
+      },
+      {
+        "quote": "De l'automatisation du marketing à la conformité, chaque service bénéficie du modèle de données unifié. ",
+        "author": "Priya Desai",
+        "role": "Vice-président de l'activation sur le terrain, Avalon Collective",
+        "avatar": "/wp-content/uploads/2024/08/avatar-3.webp"
+      }
+    ]
+  },
+  "blogPosts": {
+    "heading": "Dernières ressources",
+    "description": "Guides, playbooks et stratégies d'IA pour les marques MLM modernes.",
+    "posts": [
+      {
+        "title": "Planification de la rémunération basée sur l'IA pour 2025",
+        "date": "octobre 2024",
+        "href": "/blog/ai-compensation-planning",
+        "image": "/wp-content/uploads/2024/09/blog-compensation-planning.webp"
+      },
+      {
+        "title": "Comment migrer les anciennes données MLM sans perturber les paiements",
+        "date": "septembre 2024",
+        "href": "/blog/mlm-data-migration-checklist",
+        "image": "/wp-content/uploads/2024/09/blog-data-migration.webp"
+      },
+      {
+        "title": "Des playbooks d'expérience sur le terrain qui favorisent l'adoption en 30 jours",
+        "date": "septembre 2024",
+        "href": "/blog/mlm-field-adoption-playbooks",
+        "image": "/wp-content/uploads/2024/09/blog-field-adoption.webp"
+      }
+    ]
+  },
+  "faq": {
+    "heading": "Questions fréquemment posées",
+    "description": "Des réponses pour les équipes chargées des logiciels, de la conformité et de la mise en œuvre qui planifient une mise à niveau.",
+    "categories": [
+      {
+        "title": "Fonctionnalités et capacités du logiciel",
+        "description": "Comprenez comment le logiciel Cloud MLM vous aide à fonctionner plus intelligemment.",
+        "icon": "Sparkles",
+        "faqs": [
+          {
+            "question": "Le logiciel Cloud MLM est-il compatible avec l'IA ?",
+            "answer": "Oui. "
+          },
+          {
+            "question": "Le logiciel peut-il être personnalisé pour refléter nos processus métier ?",
+            "answer": "Absolument. "
+          },
+          {
+            "question": "La plateforme est-elle connectée au commerce électronique pour la vente de produits ?",
+            "answer": "Oui. "
+          },
+          {
+            "question": "Dans quelle mesure l’interface est-elle conviviale pour les équipes non techniques ?",
+            "answer": "L'interface utilisateur est conçue pour les utilisateurs professionnels. "
+          },
+          {
+            "question": "Des outils de communication sont-ils inclus pour la gestion des distributeurs ?",
+            "answer": "La messagerie, les newsletters, les annonces et les notifications sont intégrées afin que vous puissiez garder chaque responsable de terrain aligné sans outils externes."
+          },
+          {
+            "question": "Est-il disponible en tant que solution logicielle MLM en marque blanche ?",
+            "answer": "Oui. "
+          }
+        ]
+      },
+      {
+        "title": "Exigences techniques et configuration",
+        "description": "Everything you need to run Cloud MLM Software reliably.",
+        "icon": "Server",
+        "faqs": [
+          {
+            "question": "Quelles sont les exigences d’hébergement ?",
+            "answer": "Vous pouvez déployer sur une infrastructure gérée Cloud MLM ou sur votre fournisseur cloud préféré. "
+          },
+          {
+            "question": "Combien de temps prend la mise en œuvre ?",
+            "answer": "La plupart des lancements d'entreprise sont mis en ligne dans un délai de 6 à 12 semaines, en fonction de la complexité du plan, du volume de données et du nombre d'intégrations."
+          },
+          {
+            "question": "En quoi consiste le processus de migration ?",
+            "answer": "Nous auditons les systèmes existants, cartographions les données, effectuons des importations de tests et fournissons une assistance en double exécution afin que votre expérience de distributeur reste ininterrompue."
+          },
+          {
+            "question": "Existe-t-il une option sur site ?",
+            "answer": "Oui. "
+          },
+          {
+            "question": "Comment les données sont-elles sécurisées ?",
+            "answer": "Le chiffrement au repos et en transit, l'accès basé sur les rôles, les pistes d'audit, les listes d'autorisation IP et les contrôles alignés sur SOC2 assurent la protection de votre organisation."
+          },
+          {
+            "question": "S'intègre-t-il aux plateformes CRM ou ERP ?",
+            "answer": "Les connecteurs et API prêts à l'emploi intègrent le logiciel Cloud MLM à Salesforce, HubSpot, Oracle NetSuite, Zoho, QuickBooks, etc."
+          }
+        ]
+      },
+      {
+        "title": "Tarifs, assistance et succès",
+        "description": "Planifiez votre feuille de route d’investissement et de réussite post-lancement.",
+        "icon": "CircleDollarSign",
+        "faqs": [
+          {
+            "question": "Quel est le prix du logiciel Cloud MLM ?",
+            "answer": "La tarification est transparente et basée sur les distributeurs actifs, les modules utilisés et le niveau de support. "
+          },
+          {
+            "question": "Quel type de support est inclus ?",
+            "answer": "Une assistance 24h/24 et 7j/7 avec des gestionnaires de réussite dédiés, des revues d'optimisation trimestrielles et des services cogérés en option sont disponibles."
+          },
+          {
+            "question": "Proposez-vous des formations pour les équipes ?",
+            "answer": "Oui. "
+          },
+          {
+            "question": "Pouvons-nous commencer avec un bac à sable ?",
+            "answer": "Un bac à sable guidé est disponible afin que les parties prenantes puissent explorer les flux de travail clés avant de s'engager dans une mise en œuvre complète."
+          },
+          {
+            "question": "Que se passe-t-il après la mise en ligne ?",
+            "answer": "Les modules de réussite surveillent l'état du système, gèrent les mises à jour et exécutent des analyses commerciales trimestrielles alignées sur votre plan de croissance."
+          },
+          {
+            "question": "Proposez-vous du développement personnalisé ?",
+            "answer": "Notre équipe d'ingénierie propose des modules personnalisés, des intégrations et des expériences mobiles lorsque vous avez besoin de fonctionnalités allant au-delà de la plate-forme principale."
+          }
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "heading": "Des centres de livraison mondiaux prêts à vous aider",
+    "description": "Connectez-vous avec les équipes régionales pour des lancements réglementés, des migrations d'entreprise ou une assistance localisée.",
+    "regions": [
+      {
+        "region": "Siège social en Inde",
+        "subheading": "Campus de Kozhikode",
+        "coverage": "Livraison mondiale et R&D",
+        "address": [
+          "Unité 1A, 4ème étage, KSITIL, Zone Economique Spéciale",
+          "Campus Cyberpark, bâtiment Sahya, Nillikkode P.O."
+        ],
+        "phones": [
+          "+91 9567 728 766",
+          "+91 85901 37114"
+        ],
+        "email": "support@cloudmlmsoftware.com",
+        "flag": "dans",
+        "specialties": [
+          "Sprints de mise en œuvre",
+          "Ingénierie de commande"
+        ],
+        "accent": "dégradé linéaire (135 degrés, rgba (14 165 233,0,28) 0 %, rgba (99 102 241,0,18) 40 %, rgba (255 255 255,0) 100 %)"
+      },
+      {
+        "region": "Moyen-Orient",
+        "subheading": "Dubaï et Abou Dhabi",
+        "coverage": "Déploiements sur les marchés réglementés",
+        "address": [
+          "Bureau 904, tour Al Thuraya",
+          "Cité Internet de Dubaï, Dubaï"
+        ],
+        "phones": [
+          "+971 4 580 4533"
+        ],
+        "email": "mea@cloudmlmsoftware.com",
+        "flag": "ae",
+        "specialties": [
+          "Prise en charge de l'arabe et de l'anglais",
+          "Partenariats de passerelle"
+        ],
+        "accent": "dégradé linéaire (135 degrés, rgba (16 185 129,0,28) 0 %, rgba (34 211 238,0,18) 42 %, rgba (255 255 255,0) 100 %)"
+      },
+      {
+        "region": "Amérique du Nord",
+        "subheading": "San Francisco et Toronto",
+        "coverage": "Migration d'entreprise",
+        "address": [
+          "795 Folsom St, San Francisco, Californie",
+          "120, rue Adelaide Ouest, Toronto, ON"
+        ],
+        "phones": [
+          "+1 415 968 9704",
+          "+1 437 747 2224"
+        ],
+        "email": "na@cloudmlmsoftware.com",
+        "flag": "n / A",
+        "specialties": [
+          "Avis de mise à l'échelle",
+          "Activation sur le terrain"
+        ],
+        "accent": "dégradé linéaire (135 degrés, rgba (59 130 246,0,28) 0 %, rgba (14 116 144,0,18) 45 %, rgba (255 255 255,0) 100 %)"
+      },
+      {
+        "region": "Europe",
+        "subheading": "Londres et Francfort",
+        "coverage": "Conformité et localisation",
+        "address": [
+          "90 High Holborn, Londres",
+          "Taunusanlage 8, Francfort"
+        ],
+        "phones": [
+          "+44 20 3289 7320"
+        ],
+        "email": "europe@cloudmlmsoftware.com",
+        "flag": "UE",
+        "specialties": [
+          "Gouvernance RGPD",
+          "Activation du distributeur"
+        ],
+        "accent": "dégradé linéaire (135 degrés, rgba (129 140 248,0,3) 0 %, rgba (196 181 253,0,2) 48 %, rgba (255 255 255,0) 100 %)"
+      },
+      {
+        "region": "Asie-Pacifique",
+        "subheading": "Singapour et Sydney",
+        "coverage": "Lancement et localisation",
+        "address": [
+          "8 Vue Marina, Place d'Asie",
+          "45, rue Clarence, Sydney"
+        ],
+        "phones": [
+          "+65 3165 0891",
+          "+61 2 7909 3220"
+        ],
+        "email": "apac@cloudmlmsoftware.com",
+        "flag": "apac",
+        "specialties": [
+          "Support pour suivre le soleil",
+          "Manuels d'entrée sur le marché"
+        ],
+        "accent": "dégradé linéaire (135 degrés, rgba (244 114 182,0,25) 0 %, rgba (6 182 212,0,18) 45 %, rgba (255 255 255,0) 100 %)"
+      }
+    ]
+  }
+}

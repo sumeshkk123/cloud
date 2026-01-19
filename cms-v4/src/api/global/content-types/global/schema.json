@@ -1,0 +1,96 @@
+{
+  "collectionName": "global_settings",
+  "info": {
+    "singularName": "global",
+    "pluralName": "globals",
+    "displayName": "Global Settings",
+    "description": "Site-wide navigation, footer, and metadata"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "siteName": {
+      "type": "string",
+      "required": true,
+      "translate": true
+    },
+    "siteTagline": {
+      "type": "text",
+      "translate": true
+    },
+    "metadataTitle": {
+      "type": "string",
+      "translate": true
+    },
+    "metadataDescription": {
+      "type": "text",
+      "translate": true
+    },
+    "metadataKeywords": {
+      "type": "string",
+      "translate": true
+    },
+    "languageLabel": {
+      "type": "string",
+      "translate": true
+    },
+    "languageAriaLabel": {
+      "type": "string",
+      "translate": true
+    },
+    "primaryNav": {
+      "type": "component",
+      "repeatable": true,
+      "component": "navigation.menu-item"
+    },
+    "headerCta": {
+      "type": "component",
+      "component": "shared.link"
+    },
+    "languageLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "footerColumns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.footer-column"
+    },
+    "footerCta": {
+      "type": "component",
+      "component": "shared.footer-cta"
+    },
+    "footerContacts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.contact-block"
+    },
+    "footerBottomLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "contactEmail": {
+      "type": "email"
+    },
+    "contactPhone": {
+      "type": "string"
+    },
+    "socialLinks": {
+      "type": "json"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo",
+      "translate": true
+    }
+  }
+}

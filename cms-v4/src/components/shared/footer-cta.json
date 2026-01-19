@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_footer_ctas",
+  "info": {
+    "displayName": "Footer CTA"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "translate": true
+    },
+    "description": {
+      "type": "text",
+      "translate": true
+    },
+    "actions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    }
+  }
+}

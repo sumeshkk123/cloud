@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_navigation_link_with_icons",
+  "info": {
+    "displayName": "Link With Icon"
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "translate": true
+    },
+    "href": {
+      "type": "string"
+    },
+    "iconUrl": {
+      "type": "string"
+    }
+  }
+}

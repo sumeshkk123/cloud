@@ -1,0 +1,17 @@
+{
+    "collectionName": "components_blocks_rich_html_sections",
+    "info": {
+        "displayName": "Rich HTML Section",
+        "icon": "code",
+        "description": "Section for raw HTML content"
+    },
+    "options": {},
+    "attributes": {
+        "html": {
+            "type": "text"
+        },
+        "source": {
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "collectionName": "components_blocks_grid_sections",
+    "info": {
+        "displayName": "Grid Section",
+        "icon": "grid",
+        "description": "Section with a grid of items"
+    },
+    "options": {},
+    "attributes": {
+        "theme": {
+            "type": "enumeration",
+            "enum": [
+                "light",
+                "dark",
+                "muted"
+            ],
+            "default": "light"
+        },
+        "kicker": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        },
+        "note": {
+            "type": "string"
+        },
+        "ctas": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.link"
+        },
+        "columns": {
+            "type": "integer",
+            "default": 3
+        },
+        "items": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.section-item"
+        }
+    }
+}

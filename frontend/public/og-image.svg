@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0F172A" />
+      <stop offset="1" stop-color="#0B1120" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="600" y2="315" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38BDF8" stop-opacity="0.8" />
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0.6" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" rx="32" />
+  <circle cx="980" cy="180" r="220" fill="url(#accent)" opacity="0.35" />
+  <circle cx="220" cy="470" r="170" fill="url(#accent)" opacity="0.35" />
+  <g fill="#1E293B" opacity="0.8">
+    <rect x="140" y="140" width="160" height="12" rx="6" />
+    <rect x="140" y="170" width="240" height="12" rx="6" />
+    <rect x="140" y="200" width="200" height="12" rx="6" />
+    <rect x="140" y="260" width="300" height="12" rx="6" />
+    <rect x="140" y="290" width="220" height="12" rx="6" />
+    <rect x="140" y="320" width="260" height="12" rx="6" />
+    <rect x="140" y="380" width="280" height="12" rx="6" />
+    <rect x="140" y="410" width="210" height="12" rx="6" />
+  </g>
+  <text x="140" y="120" fill="#38BDF8" font-family="Inter, sans-serif" font-size="18" letter-spacing="0.4em">
+    MLM SOFTWARE HUB
+  </text>
+  <text x="140" y="200" fill="#F8FAFC" font-family="Inter, sans-serif" font-size="72" font-weight="700" letter-spacing="-0.02em">
+    Enterprise MLM Software Scripts
+  </text>
+  <text x="140" y="270" fill="#CBD5F5" font-family="Inter, sans-serif" font-size="28" font-weight="400" letter-spacing="-0.01em">
+    Launch compliant compensation models faster with predictive payouts and guided onboarding.
+  </text>
+  <text x="140" y="420" fill="#94A3B8" font-family="Inter, sans-serif" font-size="22" font-weight="500">
+    Unilevel • Binary • Matrix • Board • Generation • Monoline • Hybrid
+  </text>
+</svg>

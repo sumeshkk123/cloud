@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_navigation_menu_items",
+  "info": {
+    "displayName": "Menu Item",
+    "description": "Top-level navigation entry"
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "translate": true
+    },
+    "href": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "enumeration",
+      "enum": ["link", "mega"],
+      "default": "link"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "mega": {
+      "type": "component",
+      "repeatable": false,
+      "component": "navigation.mega-menu"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_navigation_mega_callouts",
+  "info": {
+    "displayName": "Mega Callout",
+    "description": "Prominent action card inside a mega menu"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "translate": true
+    },
+    "description": {
+      "type": "text",
+      "translate": true
+    },
+    "href": {
+      "type": "string"
+    },
+    "ctaLabel": {
+      "type": "string",
+      "translate": true
+    },
+    "tone": {
+      "type": "enumeration",
+      "enum": ["default", "primary", "success", "warning"],
+      "default": "default"
+    }
+  }
+}

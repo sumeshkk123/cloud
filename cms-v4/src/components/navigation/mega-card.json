@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_navigation_mega_cards",
+  "info": {
+    "displayName": "Mega Card"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "translate": true
+    },
+    "description": {
+      "type": "text",
+      "translate": true
+    },
+    "href": {
+      "type": "string"
+    },
+    "iconUrl": {
+      "type": "string"
+    },
+    "bullets": {
+      "type": "json",
+      "description": "Optional bullet list to render under the card description"
+    }
+  }
+}

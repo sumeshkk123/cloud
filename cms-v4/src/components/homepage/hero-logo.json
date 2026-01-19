@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_homepage_hero_logos",
+  "info": {
+    "displayName": "Hero Logo"
+  },
+  "attributes": {
+    "imageUrl": {
+      "type": "string",
+      "required": true
+    },
+    "alt": {
+      "type": "string",
+      "translate": true
+    },
+    "title": {
+      "type": "string",
+      "translate": true
+    }
+  }
+}

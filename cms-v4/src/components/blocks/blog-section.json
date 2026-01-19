@@ -1,0 +1,42 @@
+{
+    "collectionName": "components_blocks_blog_sections",
+    "info": {
+        "displayName": "Blog Section",
+        "icon": "pen-nib",
+        "description": "Section to display blog posts"
+    },
+    "options": {},
+    "attributes": {
+        "theme": {
+            "type": "enumeration",
+            "enum": [
+                "light",
+                "dark",
+                "muted"
+            ],
+            "default": "light"
+        },
+        "kicker": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        },
+        "note": {
+            "type": "string"
+        },
+        "ctas": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.link"
+        },
+        "items": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.section-item"
+        }
+    }
+}

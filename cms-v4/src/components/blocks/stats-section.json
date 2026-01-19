@@ -1,0 +1,42 @@
+{
+    "collectionName": "components_blocks_stats_sections",
+    "info": {
+        "displayName": "Stats Section",
+        "icon": "chart-bar",
+        "description": "Section to display statistics"
+    },
+    "options": {},
+    "attributes": {
+        "theme": {
+            "type": "enumeration",
+            "enum": [
+                "light",
+                "dark",
+                "muted"
+            ],
+            "default": "light"
+        },
+        "kicker": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        },
+        "note": {
+            "type": "string"
+        },
+        "ctas": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.link"
+        },
+        "items": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.section-item"
+        }
+    }
+}

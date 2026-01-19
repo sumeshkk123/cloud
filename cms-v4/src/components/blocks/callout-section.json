@@ -1,0 +1,52 @@
+{
+    "collectionName": "components_blocks_callout_sections",
+    "info": {
+        "displayName": "Callout Section",
+        "icon": "bullhorn",
+        "description": "Section for important callouts"
+    },
+    "options": {},
+    "attributes": {
+        "theme": {
+            "type": "enumeration",
+            "enum": [
+                "light",
+                "dark",
+                "muted"
+            ],
+            "default": "light"
+        },
+        "kicker": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        },
+        "note": {
+            "type": "string"
+        },
+        "ctas": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.link"
+        },
+        "media": {
+            "type": "media",
+            "multiple": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "items": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.section-item"
+        }
+    }
+}

@@ -1,0 +1,72 @@
+WEBLATE_SITE_DOMAIN: 127.0.0.1:8090
+DATABASE_URL: postgres://weblate:weblate@weblate-db:5432/weblate
+HOSTNAME: 54089e1645b3
+WEB_WORKERS: '2'
+WEBLATE_ADMIN_PASSWORD: changeme
+HOME: /home/weblate
+WEBLATE_EMAIL_HOST: localhost
+PYTHONUNBUFFERED: '1'
+PS1: '(venv) $ '
+PYVERSION: '3.14'
+WEBLATE_ADMIN_EMAIL: admin@example.com
+CELERY_NOTIFY_OPTIONS: --concurrency 4
+CELERY_MEMORY_OPTIONS: --concurrency 2
+BROKER_URL: redis://weblate-redis:6379/2
+WEBLATE_EMAIL_PORT: '25'
+UV_PYTHON_INSTALL_DIR: /opt/python
+WEBLATE_ALLOWED_HOSTS: '*'
+WEBLATE_SECRET_KEY: dev-weblate-secret-key
+CA_VERSION: '20250419'
+PGSSLMODE: prefer
+CELERY_BACKUP_OPTIONS: --concurrency 1
+WEBLATE_VERSION: 5.15.1
+CELERY_BEAT_OPTIONS: ''
+POSTGRES_PASSWORD: weblate
+GIT_VERSION: 1:2.52.0-0ppa1~ubuntu25.10.3
+PATH: /app/venv/bin:/app/venv/bin:/usr/local/bin:/usr/bin:/bin
+WEBLATE_EMAIL_BACKEND: django.core.mail.backends.console.EmailBackend
+UV_CACHE_DIR: /tmp/.uv-cache
+POSTGRESQL_VERSION: 18.1-1.pgdg24.04+2
+POSTGRES_HOST: weblate-db
+DJANGO_SETTINGS_MODULE: weblate.settings_docker
+POSTGRES_SSL_MODE: prefer
+POSTGRES_USER: weblate
+LANG: en_US.UTF-8
+VIRTUAL_ENV_PROMPT: venv
+WEBLATE_TIME_ZONE: UTC
+CELERY_MAIN_OPTIONS: --concurrency 4
+WEBLATE_CACHE_URL: redis://weblate-redis:6379/1
+CELERY_SINGLE_OPTIONS: ''
+POSTGRES_PORT: ''
+CELERY_BROKER_URL: redis://weblate-redis:6379/2
+UV_VERSION: 0.9.21
+WEBLATE_CMD: /app/venv/bin/weblate
+CELERY_TRANSLATE_OPTIONS: --concurrency 4
+VIRTUAL_ENV: /app/venv
+LC_ALL: en_US.UTF-8
+PWD: /
+WEBLATE_PY_PATH: /app/data/python/customize
+CACHE_URL: redis://weblate-redis:6379/1
+POSTGRES_DB: weblate
+OPENSSH_VERSION: 1:10.0p1-5ubuntu5
+WEBLATE_LANGUAGE_CODE: en
+WEBLATE_EMAIL_FROM: Weblate <noreply@mlmsoftwarehub.local>
+REDIS_URL: redis://weblate-redis:6379/0
+WEBLATE_SITE_URL: http://127.0.0.1:8090/
+WEBLATE_ENABLE_HTTPS: 'False'
+CURL_VERSION: 8.14.1-2ubuntu1
+CLIENT_MAX_BODY_SIZE: 1000m
+SUPERVISOR_ENABLED: '1'
+SUPERVISOR_SERVER_URL: unix:///run/supervisor.sock
+SUPERVISOR_PROCESS_NAME: celery-backup
+SUPERVISOR_GROUP_NAME: celery-backup
+CELERY_WORKER_RUNNING: '1'
+CELERY_APP: weblate.utils
+TZ: UTC
+_MP_FORK_LOGLEVEL_: '20'
+_MP_FORK_LOGFILE_: ''
+_MP_FORK_LOGFORMAT_: '[%(asctime)s: %(levelname)s/%(processName)s] %(message)s'
+CELERY_LOG_LEVEL: '20'
+CELERY_LOG_FILE: ''
+CELERY_LOG_REDIRECT: '1'
+CELERY_LOG_REDIRECT_LEVEL: WARNING

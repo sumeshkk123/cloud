@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_navigation_highlight_cards",
+  "info": {
+    "displayName": "Highlight Card"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "translate": true
+    },
+    "description": {
+      "type": "text",
+      "translate": true
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "ctaLabel": {
+      "type": "string",
+      "translate": true
+    },
+    "href": {
+      "type": "string"
+    }
+  }
+}

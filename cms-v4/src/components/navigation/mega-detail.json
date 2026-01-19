@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_navigation_mega_details",
+  "info": {
+    "displayName": "Mega Detail"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "translate": true
+    },
+    "description": {
+      "type": "text",
+      "translate": true
+    },
+    "href": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "ctaLabel": {
+      "type": "string",
+      "translate": true
+    }
+  }
+}

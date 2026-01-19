@@ -1,0 +1,62 @@
+{
+    "collectionName": "components_blocks_split_sections",
+    "info": {
+        "displayName": "Split Section",
+        "icon": "columns",
+        "description": "Section with split layout (media + content)"
+    },
+    "options": {},
+    "attributes": {
+        "theme": {
+            "type": "enumeration",
+            "enum": [
+                "light",
+                "dark",
+                "muted"
+            ],
+            "default": "light"
+        },
+        "kicker": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        },
+        "note": {
+            "type": "string"
+        },
+        "ctas": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.link"
+        },
+        "mediaPosition": {
+            "type": "enumeration",
+            "enum": [
+                "start",
+                "end",
+                "center",
+                "background"
+            ],
+            "default": "start"
+        },
+        "media": {
+            "type": "media",
+            "multiple": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "items": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.section-item"
+        }
+    }
+}

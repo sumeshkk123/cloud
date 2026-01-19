@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_shared_media_assets",
+  "info": {
+    "displayName": "Media Asset",
+    "description": "Stores a remote or uploaded media reference"
+  },
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "alt": {
+      "type": "string",
+      "translate": true
+    },
+    "title": {
+      "type": "string",
+      "translate": true
+    },
+    "caption": {
+      "type": "string",
+      "translate": true
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "collectionName": "components_homepage_sections",
+  "info": {
+    "displayName": "Section"
+  },
+  "attributes": {
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "tabbed",
+        "grid",
+        "split",
+        "callout",
+        "cta",
+        "stats",
+        "faq",
+        "testimonials",
+        "logos",
+        "blog"
+      ],
+      "default": "grid"
+    },
+    "tabOrientation": {
+      "type": "enumeration",
+      "enum": [
+        "horizontal",
+        "vertical"
+      ],
+      "default": "horizontal"
+    },
+    "mediaPosition": {
+      "type": "enumeration",
+      "enum": [
+        "start",
+        "end",
+        "center",
+        "background"
+      ],
+      "default": "end"
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "muted"],
+      "default": "light"
+    },
+    "kicker": {
+      "type": "string",
+      "translate": true
+    },
+    "title": {
+      "type": "string",
+      "translate": true
+    },
+    "description": {
+      "type": "text",
+      "translate": true
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.section-item"
+    },
+    "media": {
+      "type": "component",
+      "component": "shared.media-asset"
+    },
+    "ctas": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "columns": {
+      "type": "integer"
+    },
+    "note": {
+      "type": "string"
+    }
+  }
+}

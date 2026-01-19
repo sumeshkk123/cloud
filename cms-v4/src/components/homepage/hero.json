@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_homepage_heroes",
+  "info": {
+    "displayName": "Hero"
+  },
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "translate": true
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "translate": true
+    },
+    "byline": {
+      "type": "text",
+      "translate": true
+    },
+    "primaryCta": {
+      "type": "component",
+      "component": "shared.link"
+    },
+    "secondaryCta": {
+      "type": "component",
+      "component": "shared.link"
+    },
+    "tertiaryCta": {
+      "type": "component",
+      "component": "shared.link"
+    },
+    "logos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.hero-logo"
+    }
+  }
+}
