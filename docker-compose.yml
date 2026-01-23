@@ -1,8 +1,26 @@
 services:
-  frontend:
+  db:
+    image: postgres:16-alpine
+    container_name: cloud-next-db
+    restart: always
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppass
+      POSTGRES_DB: appdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U appuser -d appdb" ]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+  web:
     image: node:20-alpine
     working_dir: /app
-    command: sh -c "npm install && npm run dev -- --hostname 0.0.0.0 --port 3000"
+    command: sh -c "npm install && npm run db:generate && npm run dev -- --hostname 0.0.0.0 --port 3000"
     environment:
       NODE_ENV: development
       NEXT_TELEMETRY_DISABLED: "1"
@@ -12,44 +30,19 @@ services:
       CHOKIDAR_INTERVAL: "1000"
       # Optimize Next.js for development
       NEXT_PRIVATE_STANDALONE: "false"
-      # Strapi connection URL (use service name in Docker)
-      NEXT_PUBLIC_STRAPI_URL: "http://strapi:1337"
+      # Database connection
+      DATABASE_URL: postgresql://appuser:apppass@db:5432/appdb?schema=public
     depends_on:
-      - strapi
+      db:
+        condition: service_healthy
     ports:
       - "3001:3000"
     volumes:
-      - ./frontend:/app
-      - frontend_node_modules:/app/node_modules
+      - .:/app
+      - node_modules:/app/node_modules
     # Use tmpfs for .next directory (much faster than volume mount)
     tmpfs:
       - /app/.next:size=1G
-    restart: unless-stopped
-
-  strapi:
-    image: node:20-alpine
-    working_dir: /srv/app
-    command: sh -c "npm install && npm run develop"
-    env_file:
-      - ./cms-v4/.env
-    environment:
-      NODE_ENV: development
-      STRAPI_TELEMETRY_DISABLED: "true"
-      STRAPI_DISABLE_UPDATE_NOTIFICATION: "true"
-      HOST: 0.0.0.0
-      PORT: 1337
-      # Required Strapi security keys (generate new ones for production)
-      APP_KEYS: "iYbw9lErPcl0/LW8eXQ54UvlhkzyF6Upm9cD3W4/x78=,d+AGQP93BD7cq7Nmyzk4yO9IHzffKXUWy1YAvBuc+B4=,O0IMOSQOJWkzqlvzfB/B7eW6mCV8kpYT7jL6zq51hyQ=,Ps7QH7sCVNnmFsCK/vVYuF++AiDLzM5zyz1eta7GAug="
-      ADMIN_JWT_SECRET: "IBilbg3TytOoWM/84/SzYgHBU8H10pvLAYoajzmQ/k8="
-      API_TOKEN_SALT: "iYbw9lErPcl0/LW8eXQ54UvlhkzyF6Upm9cD3W4/x78="
-      TRANSFER_TOKEN_SALT: "d+AGQP93BD7cq7Nmyzk4yO9IHzffKXUWy1YAvBuc+B4="
-      ENCRYPTION_KEY: "O0IMOSQOJWkzqlvzfB/B7eW6mCV8kpYT7jL6zq51hyQ="
-    ports:
-      - "1338:1337"
-    volumes:
-      - ./cms-v4:/srv/app
-      - strapi_v4_node_modules:/srv/app/node_modules
-      - strapi_v4_app_tmp:/srv/app/.tmp
     restart: unless-stopped
 
   weblate-db:
@@ -94,9 +87,9 @@ services:
       - "8091:8080"
     restart: unless-stopped
 
-  frontend-prod:
+  web-prod:
     build:
-      context: ./frontend
+      context: .
       dockerfile: Dockerfile
     environment:
       NODE_ENV: production
@@ -108,8 +101,7 @@ services:
       - prod
 
 volumes:
-  frontend_node_modules:
-  strapi_v4_node_modules:
-  strapi_v4_app_tmp:
+  node_modules:
+  pgdata:
   weblate_db_data:
   weblate_redis_data:

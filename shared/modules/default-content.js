@@ -1,0 +1,100 @@
+export default {
+  hero: {
+    badgeText: "Modular MLM platform",
+    description: "Mix and match compensation, commerce, marketing, compliance, and analytics modules to build a unified platform that scales with every market launch.",
+    primaryCta: "Talk to a module specialist",
+    secondaryCta: "View pricing",
+    metrics: {
+      configurableModules: {
+        label: "Configurable modules",
+        detail: "Pre-built modules ready to configure"
+      },
+      integrationPartners: {
+        label: "Integration partners",
+        detail: "Seamless third-party integrations"
+      },
+      marketsServed: {
+        label: "Markets served",
+        detail: "Global reach across continents"
+      }
+    },
+    fallbackTitle: {
+      highlightText: "Configure",
+      afterText: "the exact MLM software modules your field needs to grow."
+    }
+  },
+  primarySection: {
+    heading: "Start with the essentials, scale with confidence",
+    description: "Every deployment includes a curated mix of core modules. Add specialized capabilities as you expand into new regions, business models, or product lines.",
+    modules: [
+      {
+        title: "Commission engine",
+        description: "Automate complex plan logic, qualification rules, and payout schedules with audit-ready controls and sandbox testing.",
+        bullets: [
+          "Support binary, unilevel, matrix, board, hybrid, and pools",
+          "Preview run results before payroll closes",
+          "Export GL-ready statements and tax documents"
+        ]
+      },
+      {
+        title: "Distributor CRM",
+        description: "Track leads, onboarding stages, compliance, and coaching tasks in one workspace connected to replicated sites.",
+        bullets: [
+          "Automations for welcome, nurture, and reactivation",
+          "Role-aware dashboards for upline coaching",
+          "Built-in ticketing and knowledge base"
+        ]
+      },
+      {
+        title: "Marketing automation",
+        description: "Orchestrate campaigns, funnels, and content libraries with AI-assisted copy and real-time attribution.",
+        bullets: [
+          "Journey builder with email, SMS, and push",
+          "Template library for promotions and launches",
+          "Embedded analytics for enrollments and LTV"
+        ]
+      },
+      {
+        title: "Commerce & fulfillment",
+        description: "Connect storefronts, manage autoship, and orchestrate global inventory with unified product and tax controls.",
+        bullets: [
+          "Sync Shopify, WooCommerce, Magento, and OpenCart",
+          "Regional pricing, vouchers, and bundles",
+          "Warehouse, pick-pack, and logistics tracking"
+        ]
+      }
+    ]
+  },
+  ctaSection: {
+    title: "Ready to design your module roadmap?",
+    description: "Partner with our implementation strategists to prioritize the modules that deliver the fastest impact for your network.",
+    primaryButton: "Schedule a planning session",
+    secondaryButton: "Browse demo environments",
+    trustIndicators: {
+      quickImplementation: "Quick Implementation",
+      expertConsultation: "Expert Consultation",
+      provenResults: "Proven Results"
+    }
+  },
+  faqSection: {
+    badge: "Frequently asked questions",
+    heading: "Everything you need to know about MLM Software Modules",
+    description: "Answers to the most common questions from teams planning their Cloud MLM Software module rollout.",
+    loadingText: "Loading FAQs...",
+    noFaqsText: "No FAQs available yet.",
+    infoBoxText: "Find answers to common questions about our MLM software modules.",
+    infoBoxButtonText: "Explore all FAQs"
+  },
+  listSection: {
+    badge: "Spotlight",
+    heading: "Modules in action",
+    description: "Layer advanced capabilities to solve high-impact scenarios for launches, expansions, and revenue acceleration.",
+    noModulesText: "No modules available yet."
+  },
+  homeSection: {
+    sandboxText: "Guided sandbox environments ready in",
+    sandboxHours: "48 hours",
+    exploreAllModules: "Explore all modules",
+    noModulesText: "No modules available yet."
+  }
+};

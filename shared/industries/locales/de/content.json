@@ -1,0 +1,24 @@
+{
+  "heroSection": {
+    "badgeText": "Industrie-Betriebssystem",
+    "fallbackTitle": {
+      "highlightText": "Skalieren",
+      "afterText": "Sie jedes Branchennetzwerk mit Intelligenz, Compliance und Erfahrungsdesign."
+    },
+    "description": "Cloud MLM Software orchestriert Wellness-, Finanz-, Lifestyle- und Technologiemarken auf einer Plattform. Von regulierten Aussagen bis hin zu gemeinschaftsgetriebenem Handel komprimieren unsere Branchenpläne die Startzeiten und halten die Führung auf Wachstumssignale ausgerichtet.",
+    "primaryCta": "Sprechen Sie mit einem Branchenstrategen",
+    "secondaryCta": "Kundenberichte ansehen",
+    "metrics": {
+      "discoveryLabs": { "label": "Branchen-Entdeckungslabore", "detail": "Erfassen Sie regulatorischen, kulturellen und Go-to-Market-Kontext." },
+      "advisoryCouncils": { "label": "Feld-Beratungsräte", "detail": "Drucktest-Journeys vor dem Rollout." },
+      "programmeOffices": { "label": "Globale Programm-Büros", "detail": "Überwachen Sie Launch-, Expansions- und Erhaltungs-KPIs." }
+    }
+  },
+  "listSection": {
+    "badge": "Branchenlösungen",
+    "heading": "Entdecken Sie Branchen, die mit Cloud MLM Software florieren",
+    "description": "Cloud MLM Software ist eine KI-gestützte Lösung zur Optimierung von MLM-Netzwerken. Mit intelligenter Automatisierung, Datenanalyse und nahtloser Skalierbarkeit ermöglicht es Unternehmen, effizient und strategisch zu wachsen.",
+    "exploreButton": "Kommerzielle Optionen erkunden",
+    "readMoreButton": "Mehr erfahren"
+  }
+}

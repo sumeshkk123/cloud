@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "badgeText": "Wissen, dem Sie vertrauen können",
+    "description": "Von Implementierungszeitplänen bis hin zu KI-Copiloten - erkunden Sie die häufigsten Fragen, die Kunden unseren Strategen, Ingenieuren und Erfolgsteams stellen.",
+    "primaryCta": "Fragen Sie unser Team direkt",
+    "secondaryCta": "Besuchen Sie die Ressourcen-Hub",
+    "metrics": {
+      "faqsAnswered": {
+        "label": "Beantwortete FAQs",
+        "detail": "Häufige Fragen zu Implementierung, Funktionen und Support abgedeckt."
+      },
+      "responseTime": {
+        "label": "Antwortzeit",
+        "detail": "Durchschnittliche Zeit für die Beantwortung individueller Fragen durch unser Team."
+      },
+      "languagesSupported": {
+        "label": "Unterstützte Sprachen",
+        "detail": "FAQs auf Deutsch verfügbar."
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Antworten",
+      "afterText": "für jede Phase Ihrer Cloud MLM Software Reise."
+    }
+  }
+}

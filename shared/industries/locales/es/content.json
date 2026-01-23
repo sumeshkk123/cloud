@@ -1,0 +1,24 @@
+{
+  "heroSection": {
+    "badgeText": "Sistema operativo de la industria",
+    "fallbackTitle": {
+      "highlightText": "Escala",
+      "afterText": "cada red de la industria con inteligencia, cumplimiento y diseño de experiencias."
+    },
+    "description": "Cloud MLM Software orquesta marcas de bienestar, finanzas, estilo de vida y tecnología en una plataforma. Desde declaraciones reguladas hasta comercio impulsado por la comunidad, nuestros planos de la industria comprimen los plazos de lanzamiento y mantienen el liderazgo alineado con las señales de crecimiento.",
+    "primaryCta": "Habla con un estratega de la industria",
+    "secondaryCta": "Revisa historias de clientes",
+    "metrics": {
+      "discoveryLabs": { "label": "Laboratorios de descubrimiento de la industria", "detail": "Captura el contexto regulatorio, cultural y de comercialización." },
+      "advisoryCouncils": { "label": "Consejos asesores de campo", "detail": "Prueba de presión de los viajes antes del lanzamiento." },
+      "programmeOffices": { "label": "Oficinas de programas globales", "detail": "Monitorea los KPI de lanzamiento, expansión y sostenimiento." }
+    }
+  },
+  "listSection": {
+    "badge": "Soluciones para la industria",
+    "heading": "Descubre industrias que prosperan con Cloud MLM Software",
+    "description": "Cloud MLM Software es una solución impulsada por IA diseñada para optimizar las redes MLM. Con su automatización inteligente, análisis de datos y escalabilidad perfecta, permite a las empresas crecer de manera eficiente y estratégica.",
+    "exploreButton": "Explorar opciones comerciales",
+    "readMoreButton": "Explorar más"
+  }
+}

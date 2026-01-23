@@ -1,0 +1,65 @@
+{
+  "hero": {
+    "badgeText": "Fidato da marchi ambiziosi",
+    "description": "Queste testimonianze coprono categorie di prodotti, geografie e modelli di business. Ognuna cattura come Cloud MLM Software semplifica la compensazione, la conformità e i percorsi dei clienti.",
+    "primaryCta": "Condividi i tuoi obiettivi",
+    "secondaryCta": "Esplora pacchetti di soluzioni",
+    "metrics": {
+      "clientsServed": {
+        "label": "Clienti serviti",
+        "detail": "Aziende di tutti i settori si fidano della nostra piattaforma."
+      },
+      "satisfactionRate": {
+        "label": "Tasso di soddisfazione",
+        "detail": "Valutazione media di soddisfazione del cliente dalle testimonianze."
+      },
+      "industriesCovered": {
+        "label": "Settori coperti",
+        "detail": "Dalla tecnologia al benessere, serviamo settori diversi."
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Voci",
+      "afterText": "dal campo, finanza e team tecnologici che supportiamo."
+    }
+  },
+  "homeSection": {
+    "noTestimonials": "Nessuna testimonianza disponibile al momento.",
+    "infoBoxText": "Vedi cosa dicono i nostri clienti su Cloud MLM Software. Leggi più testimonianze e storie di successo.",
+    "exploreButton": "Esplora più testimonianze",
+    "previousAriaLabel": "Testimonianza precedente",
+    "nextAriaLabel": "Testimonianza successiva"
+  },
+  "listSection": {
+    "noTestimonials": "Nessuna testimonianza disponibile al momento."
+  },
+  "highlightsSection": {
+    "heading": "Aspetti evidenziati che i nostri clienti menzionano di più",
+    "description": "Temi coerenti emergono in ogni coinvolgimento. I dati seguenti derivano da sondaggi post-lancio negli ultimi due anni.",
+    "highlights": [
+      {
+        "title": "Affidabilità globale",
+        "detail": "99.97% di uptime della piattaforma e piani di recupero a livelli mantengono i mercati ad alto volume online."
+      },
+      {
+        "title": "Consulenza orientata ai risultati",
+        "detail": "I workshop di strategia riducono il deployment in media di 7 settimane."
+      },
+      {
+        "title": "Collaborazione umana + IA",
+        "detail": "I copiloti IA sono abbinati a consulenti umani in modo che i team si fidino di ogni raccomandazione."
+      },
+      {
+        "title": "Delizia sul campo",
+        "detail": "95% dei distributori intervistati valutano l'esperienza con 4 stelle o più dopo il lancio."
+      }
+    ],
+    "snapshotLabel": "Riepilogo recensioni clienti",
+    "averageRating": "4.8/5",
+    "averageRatingLabel": "Valutazione media di soddisfazione",
+    "industriesServed": "17+",
+    "industriesServedLabel": "Settori serviti",
+    "callToAction": "Pronto a unirti ai brand che innovano con Cloud MLM Software? Creiamo un programma su misura per le tue ambizioni.",
+    "ctaButton": "Inizia il tuo coinvolgimento"
+  }
+}

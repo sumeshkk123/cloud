@@ -1,0 +1,100 @@
+{
+  "hero": {
+    "badgeText": "Plataforma MLM modular",
+    "description": "Combine módulos de compensação, comércio, marketing, conformidade e análise para construir uma plataforma unificada que escala com cada lançamento de mercado.",
+    "primaryCta": "Fale com um especialista em módulos",
+    "secondaryCta": "Ver preços",
+    "metrics": {
+      "configurableModules": {
+        "label": "Módulos configuráveis",
+        "detail": "Módulos pré-construídos prontos para configurar"
+      },
+      "integrationPartners": {
+        "label": "Parceiros de integração",
+        "detail": "Integrações perfeitas de terceiros"
+      },
+      "marketsServed": {
+        "label": "Mercados atendidos",
+        "detail": "Alcance global em todos os continentes"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Configure",
+      "afterText": "os módulos exatos de software MLM que seu campo precisa para crescer."
+    }
+  },
+  "primarySection": {
+    "heading": "Comece com o essencial, escale com confiança",
+    "description": "Cada implantação inclui uma mistura selecionada de módulos principais. Adicione capacidades especializadas conforme você se expande para novas regiões, modelos de negócios ou linhas de produtos.",
+    "modules": [
+      {
+        "title": "Motor de comissão",
+        "description": "Automatize a lógica de plano complexo, regras de qualificação e cronogramas de pagamento com controles prontos para auditoria e testes em ambiente de testes.",
+        "bullets": [
+          "Suporte para binário, unilevel, matriz, quadro, híbrido e pools",
+          "Visualize os resultados antes do fechamento da folha de pagamento",
+          "Exporte extratos e documentos fiscais prontos para GL"
+        ]
+      },
+      {
+        "title": "CRM de Distribuidor",
+        "description": "Rastreie leads, estágios de integração, conformidade e tarefas de coaching em um espaço de trabalho conectado a sites replicados.",
+        "bullets": [
+          "Automações para boas-vindas, nutrição e reativação",
+          "Dashboards conscientes de função para coaching de linha superior",
+          "Sistema de tickets e base de conhecimento integrado"
+        ]
+      },
+      {
+        "title": "Automação de marketing",
+        "description": "Orquestre campanhas, funis e bibliotecas de conteúdo com cópia assistida por IA e atribuição em tempo real.",
+        "bullets": [
+          "Construtor de jornadas com email, SMS e push",
+          "Biblioteca de modelos para promoções e lançamentos",
+          "Análises integradas para inscrições e LTV"
+        ]
+      },
+      {
+        "title": "Comércio e cumprimento",
+        "description": "Conecte lojas, gerencie envio automático e orquestre inventário global com controles unificados de produtos e impostos.",
+        "bullets": [
+          "Sincronize Shopify, WooCommerce, Magento e OpenCart",
+          "Preços regionais, vouchers e pacotes",
+          "Rastreamento de warehouse, pick-pack e logística"
+        ]
+      }
+    ]
+  },
+  "ctaSection": {
+    "title": "Pronto para projetar sua rota de módulos?",
+    "description": "Parceria com nossos estrategistas de implementação para priorizar os módulos que geram o maior impacto para sua rede.",
+    "primaryButton": "Agendar uma sessão de planejamento",
+    "secondaryButton": "Explorar ambientes de demonstração",
+    "trustIndicators": {
+      "quickImplementation": "Implementação Rápida",
+      "expertConsultation": "Consultoria de Especialistas",
+      "provenResults": "Resultados Comprovados"
+    }
+  },
+  "faqSection": {
+    "badge": "Perguntas frequentes",
+    "heading": "Tudo o que você precisa saber sobre módulos de software MLM",
+    "description": "Respostas às perguntas mais comuns de equipes que planejam sua implementação de módulos Cloud MLM Software.",
+    "loadingText": "Carregando perguntas frequentes...",
+    "noFaqsText": "Ainda não há perguntas frequentes disponíveis.",
+    "infoBoxText": "Encontre respostas para perguntas comuns sobre nossos módulos de software MLM.",
+    "infoBoxButtonText": "Explorar todas as perguntas frequentes"
+  },
+  "listSection": {
+    "badge": "Destaque",
+    "heading": "Módulos em ação",
+    "description": "Sobreponha capacidades avançadas para resolver cenários de alto impacto para lançamentos, expansões e aceleração de receita.",
+    "noModulesText": "Ainda não há módulos disponíveis."
+  },
+  "homeSection": {
+    "sandboxText": "Ambientes de sandbox guiados prontos em",
+    "sandboxHours": "48 horas",
+    "exploreAllModules": "Explorar todos os módulos",
+    "noModulesText": "Ainda não há módulos disponíveis."
+  }
+}

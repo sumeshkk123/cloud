@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "badgeText": "值得信赖的知识",
+    "description": "从实施时间表到AI副驾驶，探索客户向我们的策略师、工程师和成功团队提出的最常见问题。",
+    "primaryCta": "直接询问我们的团队",
+    "secondaryCta": "访问资源中心",
+    "metrics": {
+      "faqsAnswered": {
+        "label": "已回答的常见问题",
+        "detail": "涵盖实施、功能和支持的常见问题。"
+      },
+      "responseTime": {
+        "label": "响应时间",
+        "detail": "我们团队回复定制问题的平均时间。"
+      },
+      "languagesSupported": {
+        "label": "支持的语言",
+        "detail": "提供中文常见问题。"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "答案",
+      "afterText": "为您的Cloud MLM Software之旅的每个阶段提供。"
+    }
+  }
+}

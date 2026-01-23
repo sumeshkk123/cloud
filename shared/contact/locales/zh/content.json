@@ -1,0 +1,104 @@
+{
+  "heroSection": {
+    "badgeText": "您的成功服务台",
+    "fallbackTitle": {
+      "beforeText": "让我们",
+      "highlightText": "共同规划",
+      "afterText": "您的MLM计划的下一个里程碑。"
+    },
+    "description": "无论您是在现代化薪酬体系、推出新市场还是激活AI副驾驶，Cloud MLM Software的专家都随时准备合作。分享您的目标，我们将组建合适的团队来响应。",
+    "primaryCta": "提交项目简介",
+    "secondaryCta": "访问支持门户",
+    "metrics": {
+      "averageResponse": {
+        "label": "平均首次响应时间",
+        "value": "< 2 hrs",
+        "detail": "在亚太、欧洲、中东和非洲以及美洲设有全球成功服务台。"
+      },
+      "dedicatedExperts": {
+        "label": "专职专家",
+        "value": "80+",
+        "detail": "分析师、解决方案架构师和合规专家随时准备合作。"
+      },
+      "customerSatisfaction": {
+        "label": "客户满意度",
+        "value": "4.9 / 5",
+        "detail": "支持、入职和咨询服务的对话评分。"
+      },
+      "copilotAssistance": {
+        "label": "副驾驶协助",
+        "value": "2025",
+        "detail": "AI副驾驶为每次互动总结工单和后续步骤。"
+      }
+    }
+  },
+  "channelsSection": {
+    "heading": "我们的区域办事处",
+    "description": "与我们在世界各地的团队成员联系。找到离您最近的办事处。",
+    "noAddressesMessage": "没有可用的联系地址。"
+  },
+  "tabsSection": {
+    "addressTab": "地址",
+    "faqTab": "常见问题",
+    "noAddressesMessage": "没有可用的联系地址。",
+    "noFaqsMessage": "还没有常见问题。"
+  },
+  "faqSection": {
+    "badge": "FAQ",
+    "heading": "常见问题",
+    "description": "为准备下一次Cloud MLM Software对话的团队提供快速答案。",
+    "faqs": [
+      {
+        "question": "联系销售时我应该包含哪些信息？",
+        "answer": "分享您的计划规模、现有技术栈、产品目录和启动目标。您提供的详细信息越多，您的路线图和预算指导就越量身定制。"
+      },
+      {
+        "question": "支持服务台响应速度有多快？",
+        "answer": "关键问题在30分钟内收到回复。标准请求在不到两小时内得到确认，并在解决之前提供主动更新。"
+      },
+      {
+        "question": "你们提供现场或虚拟研讨会吗？",
+        "answer": "是的。我们的团队根据您的日程安排和地区法规，提供远程和现场规划会议、启用之旅和执行简报。"
+      },
+      {
+        "question": "合作伙伴可以访问相同的资源吗？",
+        "answer": "认证合作伙伴通过合作伙伴成功团队和知识门户获得启用资产、技术沙箱和联合销售支持。"
+      }
+    ]
+  },
+  "businessInfoSection": {
+    "badge": "商业信息",
+    "heading": "支持可用性和联系详情",
+    "description": "我们的全球团队在多个时区提供服务，协助您处理销售咨询、技术支持和合作机会。",
+    "workingHours": {
+      "label": "工作时间",
+      "value": "周一 - 周五, 上午9:00 - 下午6:00",
+      "detail": "IST（印度标准时间）"
+    },
+    "timeZones": {
+      "label": "时区",
+      "value": "全球覆盖",
+      "detail": "亚太、欧洲、中东和非洲以及美洲"
+    },
+    "responseTime": {
+      "label": "响应时间",
+      "value": "< 2小时",
+      "detail": "标准咨询的平均首次响应时间"
+    },
+    "supportTeam": {
+      "label": "支持团队",
+      "value": "80+ 专家",
+      "detail": "分析师、架构师和合规专家"
+    },
+    "emailSupport": {
+      "label": "邮件支持",
+      "value": "24/7 可用",
+      "detail": "support@cloudmlmsoftware.com"
+    },
+    "phoneSupport": {
+      "label": "电话支持",
+      "value": "工作时间",
+      "detail": "+91 85901 37114"
+    }
+  }
+}

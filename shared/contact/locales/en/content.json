@@ -1,0 +1,104 @@
+{
+  "heroSection": {
+    "badgeText": "Your success desk",
+    "fallbackTitle": {
+      "beforeText": "Let's",
+      "highlightText": "plan",
+      "afterText": "the next milestone for your MLM programme together."
+    },
+    "description": "Whether you are modernising compensation, launching new markets, or activating AI copilots, Cloud MLM Software experts are ready to collaborate. Share your goals and we will assemble the right team to respond.",
+    "primaryCta": "Submit a project brief",
+    "secondaryCta": "Visit the support portal",
+    "metrics": {
+      "averageResponse": {
+        "label": "Average first response",
+        "value": "< 2 hrs",
+        "detail": "Global success desk staffed across APAC, EMEA, and the Americas."
+      },
+      "dedicatedExperts": {
+        "label": "Dedicated experts",
+        "value": "80+",
+        "detail": "Analysts, solution architects, and compliance specialists ready to collaborate."
+      },
+      "customerSatisfaction": {
+        "label": "Customer satisfaction",
+        "value": "4.9 / 5",
+        "detail": "Conversation ratings for support, onboarding, and advisory engagements."
+      },
+      "copilotAssistance": {
+        "label": "Copilot assistance",
+        "value": "2025",
+        "detail": "AI copilots summarise tickets and next steps for every engagement."
+      }
+    }
+  },
+  "channelsSection": {
+    "heading": "Our regional offices",
+    "description": "Connect with our team members across the globe. Find the office closest to you.",
+    "noAddressesMessage": "No contact addresses available."
+  },
+  "tabsSection": {
+    "addressTab": "Address",
+    "faqTab": "FAQ",
+    "noAddressesMessage": "No contact addresses available.",
+    "noFaqsMessage": "No FAQs available yet."
+  },
+  "faqSection": {
+    "badge": "FAQ",
+    "heading": "Frequently asked questions",
+    "description": "Quick answers for teams preparing the next Cloud MLM Software conversation.",
+    "faqs": [
+      {
+        "question": "What information should I include when contacting sales?",
+        "answer": "Share your programme size, existing technology stack, product catalogue, and launch goals. The more detail you provide, the more tailored your roadmap and budget guidance will be."
+      },
+      {
+        "question": "How quickly does the support desk respond?",
+        "answer": "Critical issues receive a response within 30 minutes. Standard requests are acknowledged in under two hours, with proactive updates until resolution."
+      },
+      {
+        "question": "Do you offer onsite or virtual workshops?",
+        "answer": "Yes. Our team delivers remote and onsite blueprint sessions, enablement tours, and executive briefings in coordination with your schedule and regional regulations."
+      },
+      {
+        "question": "Can partners access the same resources?",
+        "answer": "Certified partners receive enablement assets, technical sandboxes, and co-selling support through the partner success team and knowledge portal."
+      }
+    ]
+  },
+  "businessInfoSection": {
+    "badge": "Business information",
+    "heading": "Support availability & contact details",
+    "description": "Our global team is available across multiple time zones to assist you with sales inquiries, technical support, and partnership opportunities.",
+    "workingHours": {
+      "label": "Working hours",
+      "value": "Monday - Friday, 9:00 AM - 6:00 PM",
+      "detail": "IST (Indian Standard Time)"
+    },
+    "timeZones": {
+      "label": "Time zones",
+      "value": "Global coverage",
+      "detail": "APAC, EMEA, and Americas"
+    },
+    "responseTime": {
+      "label": "Response time",
+      "value": "< 2 hours",
+      "detail": "Average first response for standard inquiries"
+    },
+    "supportTeam": {
+      "label": "Support team",
+      "value": "80+ experts",
+      "detail": "Analysts, architects, and compliance specialists"
+    },
+    "emailSupport": {
+      "label": "Email support",
+      "value": "24/7 available",
+      "detail": "support@cloudmlmsoftware.com"
+    },
+    "phoneSupport": {
+      "label": "Phone support",
+      "value": "Business hours",
+      "detail": "+91 85901 37114"
+    }
+  }
+}

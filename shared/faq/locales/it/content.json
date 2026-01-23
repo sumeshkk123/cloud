@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "badgeText": "Conoscenza di cui puoi fidarti",
+    "description": "Dai tempi di implementazione ai copiloti AI, esplora le domande più comuni che i clienti pongono ai nostri strategisti, ingegneri e team di successo.",
+    "primaryCta": "Chiedi direttamente al nostro team",
+    "secondaryCta": "Visita il centro risorse",
+    "metrics": {
+      "faqsAnswered": {
+        "label": "FAQ risposte",
+        "detail": "Domande comuni su implementazione, funzionalità e supporto coperte."
+      },
+      "responseTime": {
+        "label": "Tempo di risposta",
+        "detail": "Tempo medio per rispondere alle domande personalizzate del nostro team."
+      },
+      "languagesSupported": {
+        "label": "Lingue supportate",
+        "detail": "FAQ disponibili in italiano."
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Risposte",
+      "afterText": "per ogni fase del tuo viaggio con Cloud MLM Software."
+    }
+  }
+}

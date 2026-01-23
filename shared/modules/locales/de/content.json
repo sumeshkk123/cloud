@@ -1,0 +1,100 @@
+{
+  "hero": {
+    "badgeText": "Modulare MLM-Plattform",
+    "description": "Kombinieren Sie Module für Vergütung, Handel, Marketing, Compliance und Analyse, um eine einheitliche Plattform zu erstellen, die mit jedem Marktstart skaliert.",
+    "primaryCta": "Sprechen Sie mit einem Modulspezialisten",
+    "secondaryCta": "Preise anzeigen",
+    "metrics": {
+      "configurableModules": {
+        "label": "Konfigurierbare Module",
+        "detail": "Vorgefertigte Module bereit zur Konfiguration"
+      },
+      "integrationPartners": {
+        "label": "Integrationspartner",
+        "detail": "Nahtlose Drittanbieter-Integrationen"
+      },
+      "marketsServed": {
+        "label": "Bediente Märkte",
+        "detail": "Globale Reichweite auf allen Kontinenten"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Konfigurieren Sie",
+      "afterText": "die exakten MLM-Software-Module, die Ihr Feld zum Wachstum benötigt."
+    }
+  },
+  "primarySection": {
+    "heading": "Beginnen Sie mit dem Wesentlichen, skalieren Sie mit Vertrauen",
+    "description": "Jede Bereitstellung umfasst eine kuratierte Mischung aus Kernmodulen. Fügen Sie spezialisierte Funktionen hinzu, während Sie in neue Regionen, Geschäftsmodelle oder Produktlinien expandieren.",
+    "modules": [
+      {
+        "title": "Provisions-Engine",
+        "description": "Automatisieren Sie komplexe Planlogik, Qualifikationsregeln und Auszahlungspläne mit auditbereiten Kontrollen und Sandbox-Tests.",
+        "bullets": [
+          "Unterstützung für binär, unilevel, Matrix, Board, Hybrid und Pools",
+          "Vorschau der Ergebnisse vor der Lohnabrechnung",
+          "Export von GL-fertigen Aussagen und Steuerdokumenten"
+        ]
+      },
+      {
+        "title": "Distributor-CRM",
+        "description": "Verfolgen Sie Leads, Onboarding-Phasen, Compliance und Coaching-Aufgaben in einem Arbeitsbereich, der mit replizierten Sites verbunden ist.",
+        "bullets": [
+          "Automatisierungen für Begrüßung, Pflege und Reaktivierung",
+          "Rollenbewusste Dashboards für Upline-Coaching",
+          "Integriertes Ticketsystem und Wissensdatenbank"
+        ]
+      },
+      {
+        "title": "Marketing-Automatisierung",
+        "description": "Orchestrieren Sie Kampagnen, Trichter und Content-Bibliotheken mit KI-unterstützten Texten und Echtzeit-Attribution.",
+        "bullets": [
+          "Journey-Builder mit E-Mail, SMS und Push",
+          "Vorlagenbibliothek für Promotionen und Launches",
+          "Integrierte Analysen für Einschreibungen und LTV"
+        ]
+      },
+      {
+        "title": "Commerce & Erfüllung",
+        "description": "Verbinden Sie Shopfronten, verwalten Sie Autoversand und orchestrieren Sie globales Inventar mit einheitlichen Produkt- und Steuerkontrollen.",
+        "bullets": [
+          "Synchronisierung mit Shopify, WooCommerce, Magento und OpenCart",
+          "Regionale Preisgestaltung, Gutscheine und Bündel",
+          "Lager-, Pick-Pack- und Logistik-Tracking"
+        ]
+      }
+    ]
+  },
+  "ctaSection": {
+    "title": "Bereit, Ihre Modul-Roadmap zu gestalten?",
+    "description": "Arbeiten Sie mit unseren Implementierungsstrategen zusammen, um die Module zu priorisieren, die die schnellste Wirkung für Ihr Netzwerk erzielen.",
+    "primaryButton": "Planungssitzung vereinbaren",
+    "secondaryButton": "Demo-Umgebungen durchsuchen",
+    "trustIndicators": {
+      "quickImplementation": "Schnelle Implementierung",
+      "expertConsultation": "Expertenberatung",
+      "provenResults": "Bewährte Ergebnisse"
+    }
+  },
+  "faqSection": {
+    "badge": "Häufig gestellte Fragen",
+    "heading": "Alles, was Sie über MLM-Software-Module wissen müssen",
+    "description": "Antworten auf die häufigsten Fragen von Teams, die ihre Cloud MLM Software-Modulimplementierung planen.",
+    "loadingText": "Häufig gestellte Fragen werden geladen...",
+    "noFaqsText": "Noch keine häufig gestellten Fragen verfügbar.",
+    "infoBoxText": "Finden Sie Antworten auf häufige Fragen zu unseren MLM-Software-Modulen.",
+    "infoBoxButtonText": "Alle häufig gestellten Fragen erkunden"
+  },
+  "listSection": {
+    "badge": "Spotlight",
+    "heading": "Module in Aktion",
+    "description": "Schichten Sie erweiterte Funktionen, um Szenarien mit hoher Wirkung für Starts, Expansionen und Umsatzbeschleunigung zu lösen.",
+    "noModulesText": "Noch keine Module verfügbar."
+  },
+  "homeSection": {
+    "sandboxText": "Geführte Sandbox-Umgebungen bereit in",
+    "sandboxHours": "48 Stunden",
+    "exploreAllModules": "Alle Module erkunden",
+    "noModulesText": "Noch keine Module verfügbar."
+  }
+}

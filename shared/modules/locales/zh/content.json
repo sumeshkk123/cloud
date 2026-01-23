@@ -1,0 +1,100 @@
+{
+  "hero": {
+    "badgeText": "模块化 MLM 平台",
+    "description": "混合搭配薪酬、商务、营销、合规和分析模块，构建一个随着每次市场发布而扩展的统一平台。",
+    "primaryCta": "与模块专家交谈",
+    "secondaryCta": "查看价格",
+    "metrics": {
+      "configurableModules": {
+        "label": "可配置模块",
+        "detail": "预构建模块，随时可以配置"
+      },
+      "integrationPartners": {
+        "label": "集成合作伙伴",
+        "detail": "无缝的第三方集成"
+      },
+      "marketsServed": {
+        "label": "服务市场",
+        "detail": "覆盖全球各大洲"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "配置",
+      "afterText": "您的领域需要成长的确切 MLM 软件模块。"
+    }
+  },
+  "primarySection": {
+    "heading": "从基础开始，自信扩展",
+    "description": "每次部署都包含精心策划的核心模块组合。当您扩展到新地区、商业模式或产品线时，添加专业功能。",
+    "modules": [
+      {
+        "title": "佣金引擎",
+        "description": "自动化复杂的计划逻辑、资格规则和支付计划，提供审计就绪的控件和沙盒测试。",
+        "bullets": [
+          "支持二进制、单层、矩阵、板式、混合和池",
+          "在薪资结算前预览运行结果",
+          "导出GL就绪的报表和税务文件"
+        ]
+      },
+      {
+        "title": "经销商CRM",
+        "description": "在一个连接到复制网站的工作空间中跟踪潜在客户、入职阶段、合规性和辅导任务。",
+        "bullets": [
+          "欢迎、培育和重新激活的自动化",
+          "用于上线辅导的角色感知仪表板",
+          "内置工单和知识库"
+        ]
+      },
+      {
+        "title": "营销自动化",
+        "description": "使用AI辅助文案和实时归因编排活动、漏斗和内容库。",
+        "bullets": [
+          "带有电子邮件、短信和推送的旅程构建器",
+          "促销和发布的模板库",
+          "注册和LTV的嵌入式分析"
+        ]
+      },
+      {
+        "title": "商务和履约",
+        "description": "连接店面，管理自动发货，并通过统一的产品和税务控制编排全球库存。",
+        "bullets": [
+          "同步Shopify、WooCommerce、Magento和OpenCart",
+          "区域定价、代金券和捆绑包",
+          "仓库、拣货打包和物流跟踪"
+        ]
+      }
+    ]
+  },
+  "ctaSection": {
+    "title": "准备好设计您的模块路线图了吗？",
+    "description": "与我们的实施策略师合作，优先考虑为您的网络带来最快影响的模块。",
+    "primaryButton": "安排规划会议",
+    "secondaryButton": "浏览演示环境",
+    "trustIndicators": {
+      "quickImplementation": "快速实施",
+      "expertConsultation": "专家咨询",
+      "provenResults": "经过验证的结果"
+    }
+  },
+  "faqSection": {
+    "badge": "常见问题",
+    "heading": "关于MLM软件模块您需要了解的一切",
+    "description": "计划实施Cloud MLM Software模块的团队最常见问题的答案。",
+    "loadingText": "正在加载常见问题...",
+    "noFaqsText": "暂无常见问题。",
+    "infoBoxText": "查找有关我们MLM软件模块的常见问题答案。",
+    "infoBoxButtonText": "浏览所有常见问题"
+  },
+  "listSection": {
+    "badge": "聚焦",
+    "heading": "模块实战",
+    "description": "叠加高级功能，解决发布、扩展和收入加速的高影响场景。",
+    "noModulesText": "暂无可用模块。"
+  },
+  "homeSection": {
+    "sandboxText": "引导式沙盒环境可在",
+    "sandboxHours": "48小时",
+    "exploreAllModules": "探索所有模块",
+    "noModulesText": "暂无可用模块。"
+  }
+}

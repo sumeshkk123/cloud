@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "badgeText": "Conhecimento em que pode confiar",
+    "description": "Desde cronogramas de implementação até copilotos de IA, explore as perguntas mais comuns que os clientes fazem aos nossos estrategistas, engenheiros e equipas de sucesso.",
+    "primaryCta": "Pergunte diretamente à nossa equipa",
+    "secondaryCta": "Visite o centro de recursos",
+    "metrics": {
+      "faqsAnswered": {
+        "label": "Perguntas frequentes respondidas",
+        "detail": "Perguntas comuns sobre implementação, funcionalidades e suporte cobertas."
+      },
+      "responseTime": {
+        "label": "Tempo de resposta",
+        "detail": "Tempo médio para responder a perguntas personalizadas da nossa equipa."
+      },
+      "languagesSupported": {
+        "label": "Idiomas suportados",
+        "detail": "Perguntas frequentes disponíveis em português."
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Respostas",
+      "afterText": "para cada etapa da sua jornada Cloud MLM Software."
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "buttons": {
+    "exploreMore": "Explorar mais",
+    "readMore": "Ler mais",
+    "learnMore": "Saber mais"
+  },
+  "labels": {
+    "keyBenefits": "Benefícios Principais",
+    "serviceHighlights": "Destaques do Serviço"
+  }
+}

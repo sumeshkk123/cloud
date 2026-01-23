@@ -1,0 +1,65 @@
+{
+  "hero": {
+    "badgeText": "Vertraut von ehrgeizigen Marken",
+    "description": "Diese Testimonials umfassen Produktkategorien, Geografien und Geschäftsmodelle. Jedes zeigt, wie Cloud MLM Software Vergütung, Compliance und Kundenreisen optimiert.",
+    "primaryCta": "Teilen Sie Ihre Ziele",
+    "secondaryCta": "Lösungspakete erkunden",
+    "metrics": {
+      "clientsServed": {
+        "label": "Bediente Kunden",
+        "detail": "Unternehmen aus verschiedenen Branchen vertrauen unserer Plattform."
+      },
+      "satisfactionRate": {
+        "label": "Zufriedenheitsrate",
+        "detail": "Durchschnittliche Kundenzufriedenheitsbewertung aus Testimonials."
+      },
+      "industriesCovered": {
+        "label": "Abgedeckte Branchen",
+        "detail": "Von Technologie bis Wellness, wir bedienen vielfältige Sektoren."
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Stimmen",
+      "afterText": "aus dem Feld, Finanzen und Technologieteams, die wir unterstützen."
+    }
+  },
+  "homeSection": {
+    "noTestimonials": "Noch keine Testimonials verfügbar.",
+    "infoBoxText": "Sehen Sie, was unsere Kunden über Cloud MLM Software sagen. Lesen Sie mehr Testimonials und Erfolgsgeschichten.",
+    "exploreButton": "Weitere Testimonials erkunden",
+    "previousAriaLabel": "Vorheriges Testimonial",
+    "nextAriaLabel": "Nächstes Testimonial"
+  },
+  "listSection": {
+    "noTestimonials": "Noch keine Testimonials verfügbar."
+  },
+  "highlightsSection": {
+    "heading": "Highlights, die unsere Kunden am häufigsten erwähnen",
+    "description": "Konsistente Themen tauchen bei jedem Engagement auf. Die folgenden Daten stammen aus Umfragen nach dem Launch in den letzten zwei Jahren.",
+    "highlights": [
+      {
+        "title": "Globale Zuverlässigkeit",
+        "detail": "99.97% Plattform-Uptime und gestufte Wiederherstellungspläne halten volumenstarke Märkte online."
+      },
+      {
+        "title": "Ergebnisorientierte Beratung",
+        "detail": "Strategie-Workshops verkürzen die Bereitstellung im Durchschnitt um 7 Wochen."
+      },
+      {
+        "title": "Mensch + KI Zusammenarbeit",
+        "detail": "KI-Copiloten werden mit menschlichen Beratern gepaart, damit Teams jeder Empfehlung vertrauen."
+      },
+      {
+        "title": "Feld-Freude",
+        "detail": "95% der befragten Distributoren bewerten die Erfahrung mit 4 Sternen oder höher nach dem Launch."
+      }
+    ],
+    "snapshotLabel": "Client-Review-Snapshot",
+    "averageRating": "4.8/5",
+    "averageRatingLabel": "Durchschnittliche Zufriedenheitsbewertung",
+    "industriesServed": "17+",
+    "industriesServedLabel": "Bediente Branchen",
+    "callToAction": "Bereit, sich den Marken anzuschließen, die mit Cloud MLM Software innovieren? Lassen Sie uns ein Programm erstellen, das auf Ihre Ambitionen zugeschnitten ist.",
+    "ctaButton": "Starten Sie Ihr Engagement"
+  }
+}

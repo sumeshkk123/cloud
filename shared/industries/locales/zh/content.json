@@ -1,0 +1,24 @@
+{
+  "heroSection": {
+    "badgeText": "行业操作系统",
+    "fallbackTitle": {
+      "highlightText": "扩展",
+      "afterText": "每个行业网络，具有智能、合规性和体验设计。"
+    },
+    "description": "Cloud MLM Software 在一个平台上编排健康、金融、生活方式和技术品牌。从受监管的声明到社区驱动的商业，我们的行业蓝图压缩了启动时间表，并使领导层与增长信号保持一致。",
+    "primaryCta": "与行业策略师交谈",
+    "secondaryCta": "查看客户故事",
+    "metrics": {
+      "discoveryLabs": { "label": "行业发现实验室", "detail": "捕获监管、文化和市场进入背景。" },
+      "advisoryCouncils": { "label": "现场咨询委员会", "detail": "在推出前进行压力测试。" },
+      "programmeOffices": { "label": "全球项目办公室", "detail": "监控启动、扩展和维持 KPI。" }
+    }
+  },
+  "listSection": {
+    "badge": "行业解决方案",
+    "heading": "发现使用 Cloud MLM Software 蓬勃发展的行业",
+    "description": "Cloud MLM Software 是一款由 AI 驱动的解决方案，旨在优化 MLM 网络。凭借其智能自动化、数据洞察和无缝可扩展性，使企业能够高效、战略性地发展。",
+    "exploreButton": "探索商业选项",
+    "readMoreButton": "探索更多"
+  }
+}

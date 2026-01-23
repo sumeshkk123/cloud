@@ -1,0 +1,24 @@
+export default {
+  heroSection: {
+    badgeText: "Industry operating system",
+    fallbackTitle: {
+      highlightText: "Scale",
+      afterText: "every industry network with intelligence, compliance, and experience design."
+    },
+    description: "Cloud MLM Software orchestrates wellness, finance, lifestyle, and technology brands in one platform. From regulated statements to community-driven commerce, our industry blueprints compress launch timelines and keep leadership aligned on growth signals.",
+    primaryCta: "Talk to an industry strategist",
+    secondaryCta: "Review customer stories",
+    metrics: {
+      discoveryLabs: { label: "Industry discovery labs", detail: "Capture regulatory, cultural, and go-to-market context." },
+      advisoryCouncils: { label: "Field advisory councils", detail: "Pressure-test journeys before rollout." },
+      programmeOffices: { label: "Global programme offices", detail: "Monitor launch, expansion, and sustainment KPIs." }
+    }
+  },
+  listSection: {
+    badge: "Industry Solutions",
+    heading: "Discover Industries Flourishing with Cloud MLM Software",
+    description: "Cloud MLM Software is an AI-driven solution designed to optimize MLM networks. With its intelligent automation, data insights, and seamless scalability enables businesses to grow efficiently and strategically.",
+    exploreButton: "Explore commercial options",
+    readMoreButton: "Explore more"
+  }
+};

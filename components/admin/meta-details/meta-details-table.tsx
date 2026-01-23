@@ -1,0 +1,344 @@
+'use client';
+
+import React, { useEffect, useMemo, useState } from 'react';
+import { Plus } from 'lucide-react';
+import { Button } from '@/components/ui/adminUi/button';
+import { Table } from '@/components/ui/adminUi/table';
+import { Pagination } from '@/components/ui/adminUi/pagination';
+import { useToast } from '@/components/ui/toast';
+import { Modal } from '@/components/ui/adminUi/modal';
+import { ActionMenu } from '@/components/ui/adminUi/action-menu';
+import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal';
+import { MetaDetailsForm } from './meta-details-form';
+import { LanguageBadges } from '@/components/admin/common/language-badges';
+import { pageDisplayNames } from '@/components/admin/common/page-options';
+
+interface MetaDetailsRow {
+    page: string;
+    title: string;
+    description: string;
+    keywords: string;
+    locale: string;
+    availableLocales?: string[];
+    updatedAt?: Date | string;
+}
+
+const ITEMS_PER_PAGE = 20;
+
+export function MetaDetailsTable() {
+    const { showToast, ToastComponent } = useToast();
+    const [metaDetails, setMetaDetails] = useState<MetaDetailsRow[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isFormOpen, setIsFormOpen] = useState(false);
+    const [editingMetaDetail, setEditingMetaDetail] = useState<{ page: string; locale: string } | null>(null);
+    const [formToast, setFormToast] = useState<React.ReactNode>(null);
+    const [isFormLoading, setIsFormLoading] = useState(false);
+    const [isFormSaving, setIsFormSaving] = useState(false);
+    const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+    const [metaToDelete, setMetaToDelete] = useState<{ page: string; locale?: string } | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const loadMetaDetails = async () => {
+        try {
+            setIsLoading(true);
+            const res = await fetch('/api/admin/meta-details', {
+                next: { revalidate: 0 },
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                if (res.status >= 500) {
+                    showToast(data?.error || 'Unable to load meta details.', 'error');
+                }
+                setMetaDetails([]);
+                setCurrentPage(1);
+                setIsLoading(false);
+                return;
+            }
+
+            if (!data || !Array.isArray(data)) {
+                setMetaDetails([]);
+                setCurrentPage(1);
+                setIsLoading(false);
+                return;
+            }
+
+            // Optimized: Process data more efficiently
+            const pageMap = new Map<string, MetaDetailsRow>();
+            const pageUpdatedAtMap = new Map<string, number>();
+            
+            // Single pass through data
+            for (const item of data) {
+                const pageKey = String(item.page || '');
+                if (!pageKey) continue;
+
+                // Track latest updatedAt timestamp (use number for faster comparison)
+                if (item.updatedAt) {
+                    const itemTime = new Date(item.updatedAt).getTime();
+                    const currentLatest = pageUpdatedAtMap.get(pageKey) || 0;
+                    if (itemTime > currentLatest) {
+                        pageUpdatedAtMap.set(pageKey, itemTime);
+                    }
+                }
+
+                let metaDetail = pageMap.get(pageKey);
+                if (!metaDetail) {
+                    metaDetail = {
+                        page: pageKey,
+                        title: '',
+                        description: '',
+                        keywords: '',
+                        locale: 'en',
+                        availableLocales: [],
+                        updatedAt: undefined,
+                    };
+                    pageMap.set(pageKey, metaDetail);
+                }
+                
+                // Add locale to available locales
+                if (item.locale && !metaDetail.availableLocales.includes(item.locale)) {
+                    metaDetail.availableLocales.push(item.locale);
+                }
+                
+                // Use English version for display if available
+                if (item.locale === 'en') {
+                    metaDetail.title = item.title || '';
+                    metaDetail.description = item.description || '';
+                    metaDetail.keywords = item.keywords || '';
+                }
+            }
+
+            // Convert to array and sort (optimized)
+            const items: MetaDetailsRow[] = Array.from(pageMap.values());
+            for (const item of items) {
+                const timestamp = pageUpdatedAtMap.get(item.page);
+                if (timestamp) {
+                    item.updatedAt = new Date(timestamp);
+                }
+            }
+            
+            // Sort by updatedAt (descending - most recent first)
+            items.sort((a, b) => {
+                const aTime = a.updatedAt?.getTime() || 0;
+                const bTime = b.updatedAt?.getTime() || 0;
+                return bTime - aTime;
+            });
+
+            setMetaDetails(items);
+        } catch (error) {
+            showToast('Failed to load meta details. Please try again.', 'error');
+            setMetaDetails([]);
+            setCurrentPage(1);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        loadMetaDetails();
+    }, []);
+
+    // Optimized: Direct use of metaDetails, no unnecessary filtering
+    const totalItems = metaDetails.length;
+    const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+    const paginated = useMemo(() => {
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        return metaDetails.slice(start, start + ITEMS_PER_PAGE);
+    }, [metaDetails, currentPage]);
+
+    const columns = [
+        { key: 'page', label: 'Page', className: 'w-48' },
+        { key: 'title', label: 'Title', className: 'w-1/4' },
+        { key: 'description', label: 'Description', className: 'w-1/3' },
+        { key: 'keywords', label: 'Keywords', className: 'w-32' },
+        { key: 'languages', label: 'Languages', className: 'w-48' },
+        { key: 'actions', label: 'Actions', className: 'w-24 text-right' },
+    ];
+
+    const handleCreate = () => {
+        setEditingMetaDetail(null);
+        setIsFormOpen(true);
+    };
+
+    const handleEdit = (page: string, locale: string = 'en') => {
+        setEditingMetaDetail({ page, locale });
+        setIsFormOpen(true);
+    };
+
+    return (
+        <div className="space-y-4">
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-end w-full md:-mt-16 md:mb-8 md:justify-end">
+                <div className="flex items-center gap-1">
+                    <Button
+                        type="button"
+                        variant="primary"
+                        size="md"
+                        rounded="default"
+                        leftIcon={<Plus className="h-4 w-4" />}
+                        className="whitespace-nowrap"
+                        onClick={handleCreate}
+                    >
+                        New Meta Detail
+                    </Button>
+                </div>
+            </div>
+
+            <Table
+                columns={columns}
+                data={paginated}
+                isLoading={isLoading}
+                emptyMessage="No meta details yet. Create your first meta detail!"
+                renderCell={(column, row) => {
+                    if (column.key === 'page') {
+                        return (
+                            <span className="font-medium text-gray-900">
+                                {pageDisplayNames[row.page] || row.page}
+                            </span>
+                        );
+                    }
+                    if (column.key === 'title') {
+                        return <span className="font-medium text-gray-900 line-clamp-2">{row.title}</span>;
+                    }
+                    if (column.key === 'description') {
+                        return (
+                            <span className="text-sm text-gray-600 line-clamp-2">
+                                {row.description || <span className="text-gray-400 italic">No description</span>}
+                            </span>
+                        );
+                    }
+                    if (column.key === 'keywords') {
+                        return (
+                            <span className="text-sm text-gray-600 line-clamp-1">
+                                {row.keywords || <span className="text-gray-400 italic">No keywords</span>}
+                            </span>
+                        );
+                    }
+                    if (column.key === 'languages') {
+                        const locales = row.availableLocales || ['en'];
+                        return (
+                            <LanguageBadges
+                                availableLocales={locales}
+                                allLocales={['en', 'es', 'it', 'de', 'pt', 'zh']}
+                                layout="grid"
+                            />
+                        );
+                    }
+                    if (column.key === 'actions') {
+                        return (
+                            <ActionMenu
+                                onEdit={() => handleEdit(row.page, 'en')}
+                                onDelete={() => {
+                                    setMetaToDelete({ page: row.page });
+                                    setDeleteConfirmOpen(true);
+                                }}
+                                showDelete={true}
+                            />
+                        );
+                    }
+                    return row[column.key as keyof MetaDetailsRow] as string;
+                }}
+            />
+
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                itemsPerPage={ITEMS_PER_PAGE}
+                totalItems={totalItems}
+                onPageChange={setCurrentPage}
+            />
+
+            <Modal
+                isOpen={isFormOpen}
+                onClose={() => {
+                    setIsFormOpen(false);
+                    setEditingMetaDetail(null);
+                    setFormToast(null);
+                }}
+                title={editingMetaDetail ? 'Edit Meta Detail' : 'Add Meta Detail'}
+                size="4xl"
+                isLoading={isFormLoading}
+                footer={
+                    <div className="flex justify-end items-center gap-2">
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={() => {
+                                setIsFormOpen(false);
+                                setEditingMetaDetail(null);
+                                setFormToast(null);
+                            }}
+                            disabled={isFormSaving}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            type="submit"
+                            form="meta-details-form"
+                            variant="primary"
+                            disabled={isFormSaving || isFormLoading}
+                        >
+                            {isFormSaving ? 'Saving...' : 'Save Meta Detail'}
+                        </Button>
+                    </div>
+                }
+            >
+                <MetaDetailsForm
+                    page={editingMetaDetail?.page}
+                    locale={editingMetaDetail?.locale || 'en'}
+                    onClose={() => {
+                        setIsFormOpen(false);
+                        setEditingMetaDetail(null);
+                        setFormToast(null);
+                    }}
+                    onSave={async () => {
+                        await loadMetaDetails();
+                    }}
+                    onToastChange={(toast) => {
+                        setFormToast(toast || null);
+                    }}
+                    onLoadingChange={setIsFormLoading}
+                    onSavingChange={setIsFormSaving}
+                />
+            </Modal>
+
+            <DeleteConfirmModal
+                isOpen={deleteConfirmOpen}
+                onClose={() => {
+                    setDeleteConfirmOpen(false);
+                    setMetaToDelete(null);
+                }}
+                onConfirm={async () => {
+                    if (!metaToDelete) return;
+                    try {
+                        setIsDeleting(true);
+                        const query = metaToDelete.locale 
+                            ? `page=${encodeURIComponent(metaToDelete.page)}&locale=${encodeURIComponent(metaToDelete.locale)}`
+                            : `page=${encodeURIComponent(metaToDelete.page)}`;
+                        const res = await fetch(`/api/admin/meta-details?${query}`, {
+                            method: 'DELETE',
+                            cache: 'no-store',
+                        });
+                        const payload = await res.json();
+                        if (!res.ok) throw new Error(payload?.error || 'Failed to delete meta detail');
+                        showToast('Meta detail deleted successfully.', 'success');
+                        setDeleteConfirmOpen(false);
+                        setMetaToDelete(null);
+                        await loadMetaDetails();
+                    } catch (error) {
+                        const message = error instanceof Error ? error.message : 'Unable to delete meta detail.';
+                        showToast(message, 'error');
+                    } finally {
+                        setIsDeleting(false);
+                    }
+                }}
+                title="Delete Meta Detail"
+                message={`Are you sure you want to delete all meta details for "${pageDisplayNames[metaToDelete?.page || ''] || metaToDelete?.page}"? This will delete all language translations for this page. This action cannot be reversed.`}
+                isLoading={isDeleting}
+            />
+
+            {ToastComponent}
+            {formToast}
+        </div>
+    );
+}

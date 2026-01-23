@@ -1,0 +1,104 @@
+{
+  "heroSection": {
+    "badgeText": "La tua scrivania del successo",
+    "fallbackTitle": {
+      "beforeText": "Pianifichiamo",
+      "highlightText": "insieme",
+      "afterText": "la prossima pietra miliare del tuo programma MLM."
+    },
+    "description": "Che tu stia modernizzando la compensazione, lanciando nuovi mercati o attivando copiloti IA, gli esperti di Cloud MLM Software sono pronti a collaborare. Condividi i tuoi obiettivi e assembleremo il team giusto per rispondere.",
+    "primaryCta": "Invia un riepilogo del progetto",
+    "secondaryCta": "Visita il portale di supporto",
+    "metrics": {
+      "averageResponse": {
+        "label": "Tempo medio di prima risposta",
+        "value": "< 2 hrs",
+        "detail": "Scrivania del successo globale con personale in APAC, EMEA e nelle Americhe."
+      },
+      "dedicatedExperts": {
+        "label": "Esperti dedicati",
+        "value": "80+",
+        "detail": "Analisti, architetti di soluzioni e specialisti della conformità pronti a collaborare."
+      },
+      "customerSatisfaction": {
+        "label": "Soddisfazione del cliente",
+        "value": "4.9 / 5",
+        "detail": "Valutazioni delle conversazioni per supporto, onboarding e impegni consultivi."
+      },
+      "copilotAssistance": {
+        "label": "Assistenza copilota",
+        "value": "2025",
+        "detail": "I copiloti IA riassumono i ticket e i prossimi passi per ogni impegno."
+      }
+    }
+  },
+  "channelsSection": {
+    "heading": "I nostri uffici regionali",
+    "description": "Connettiti con i membri del nostro team in tutto il mondo. Trova l'ufficio più vicino a te.",
+    "noAddressesMessage": "Nessun indirizzo di contatto disponibile."
+  },
+  "tabsSection": {
+    "addressTab": "Indirizzo",
+    "faqTab": "FAQ",
+    "noAddressesMessage": "Nessun indirizzo di contatto disponibile.",
+    "noFaqsMessage": "Nessuna FAQ disponibile ancora."
+  },
+  "faqSection": {
+    "badge": "FAQ",
+    "heading": "Domande frequenti",
+    "description": "Risposte rapide per i team che si preparano alla prossima conversazione con Cloud MLM Software.",
+    "faqs": [
+      {
+        "question": "Quali informazioni devo includere quando contatto le vendite?",
+        "answer": "Condividi le dimensioni del tuo programma, lo stack tecnologico esistente, il catalogo prodotti e gli obiettivi di lancio. Più dettagli fornisci, più personalizzata sarà la tua roadmap e la guida al budget."
+      },
+      {
+        "question": "Quanto velocemente risponde il supporto?",
+        "answer": "I problemi critici ricevono una risposta entro 30 minuti. Le richieste standard vengono riconosciute in meno di due ore, con aggiornamenti proattivi fino alla risoluzione."
+      },
+      {
+        "question": "Offrite workshop in loco o virtuali?",
+        "answer": "Sì. Il nostro team offre sessioni di pianificazione remote e in loco, tour di abilitazione e briefing esecutivi in coordinamento con il tuo programma e le normative regionali."
+      },
+      {
+        "question": "I partner possono accedere alle stesse risorse?",
+        "answer": "I partner certificati ricevono risorse di abilitazione, sandbox tecnici e supporto di vendita congiunta attraverso il team di successo dei partner e il portale della conoscenza."
+      }
+    ]
+  },
+  "businessInfoSection": {
+    "badge": "Informazioni aziendali",
+    "heading": "Disponibilità del supporto e dettagli di contatto",
+    "description": "Il nostro team globale è disponibile in più fusi orari per assisterti con richieste di vendita, supporto tecnico e opportunità di partnership.",
+    "workingHours": {
+      "label": "Orari di lavoro",
+      "value": "Lunedì - Venerdì, 9:00 - 18:00",
+      "detail": "IST (Ora standard indiana)"
+    },
+    "timeZones": {
+      "label": "Fusi orari",
+      "value": "Copertura globale",
+      "detail": "APAC, EMEA e Americhe"
+    },
+    "responseTime": {
+      "label": "Tempo di risposta",
+      "value": "< 2 ore",
+      "detail": "Prima risposta media per richieste standard"
+    },
+    "supportTeam": {
+      "label": "Team di supporto",
+      "value": "Oltre 80 esperti",
+      "detail": "Analisti, architetti e specialisti della conformità"
+    },
+    "emailSupport": {
+      "label": "Supporto e-mail",
+      "value": "Disponibile 24/7",
+      "detail": "support@cloudmlmsoftware.com"
+    },
+    "phoneSupport": {
+      "label": "Supporto telefonico",
+      "value": "Orari d'ufficio",
+      "detail": "+91 85901 37114"
+    }
+  }
+}

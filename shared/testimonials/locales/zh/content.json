@@ -1,0 +1,65 @@
+{
+  "hero": {
+    "badgeText": "受雄心勃勃的品牌信赖",
+    "description": "这些推荐涵盖产品类别、地理区域和商业模式。每一个都展示了 Cloud MLM Software 如何简化薪酬、合规性和客户旅程。",
+    "primaryCta": "分享您的目标",
+    "secondaryCta": "探索解决方案包",
+    "metrics": {
+      "clientsServed": {
+        "label": "服务的客户",
+        "detail": "各行各业的公司都信任我们的平台。"
+      },
+      "satisfactionRate": {
+        "label": "满意度",
+        "detail": "来自推荐的平均客户满意度评分。"
+      },
+      "industriesCovered": {
+        "label": "涵盖的行业",
+        "detail": "从技术到健康，我们服务于多元化行业。"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "声音",
+      "afterText": "来自我们支持的现场、财务和技术团队。"
+    }
+  },
+  "homeSection": {
+    "noTestimonials": "目前还没有可用的推荐。",
+    "infoBoxText": "了解我们的客户对 Cloud MLM Software 的评价。阅读更多推荐和成功案例。",
+    "exploreButton": "探索更多推荐",
+    "previousAriaLabel": "上一个推荐",
+    "nextAriaLabel": "下一个推荐"
+  },
+  "listSection": {
+    "noTestimonials": "目前还没有可用的推荐。"
+  },
+  "highlightsSection": {
+    "heading": "客户最常提及的亮点",
+    "description": "在每个参与中都会出现一致的主题。以下数据来自过去两年的发布后调查。",
+    "highlights": [
+      {
+        "title": "全球可靠性",
+        "detail": "99.97% 的平台正常运行时间和分层恢复计划保持高流量市场在线。"
+      },
+      {
+        "title": "以结果为导向的咨询",
+        "detail": "战略研讨会平均缩短部署时间 7 周。"
+      },
+      {
+        "title": "人类 + AI 协作",
+        "detail": "AI 副驾驶与人类顾问配对，以便团队信任每个建议。"
+      },
+      {
+        "title": "现场满意度",
+        "detail": "95% 的受访经销商在发布后将体验评为 4 星或以上。"
+      }
+    ],
+    "snapshotLabel": "客户评价快照",
+    "averageRating": "4.8/5",
+    "averageRatingLabel": "平均满意度评分",
+    "industriesServed": "17+",
+    "industriesServedLabel": "服务的行业",
+    "callToAction": "准备好加入使用 Cloud MLM Software 创新的品牌了吗？让我们为您量身定制一个计划。",
+    "ctaButton": "开始您的参与"
+  }
+}

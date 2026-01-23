@@ -1,0 +1,65 @@
+{
+  "hero": {
+    "badgeText": "Trusted by ambitious brands",
+    "description": "These testimonials span product categories, geographies, and business models. Each captures how Cloud MLM Software streamlines compensation, compliance, and customer journeys.",
+    "primaryCta": "Share your goals",
+    "secondaryCta": "Explore solution bundles",
+    "metrics": {
+      "clientsServed": {
+        "label": "Clients served",
+        "detail": "Businesses across industries trust our platform."
+      },
+      "satisfactionRate": {
+        "label": "Satisfaction rate",
+        "detail": "Average client satisfaction rating from testimonials."
+      },
+      "industriesCovered": {
+        "label": "Industries covered",
+        "detail": "From technology to wellness, we serve diverse sectors."
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Voices",
+      "afterText": "from the field, finance, and technology teams we support."
+    }
+  },
+  "homeSection": {
+    "noTestimonials": "No testimonials available yet.",
+    "infoBoxText": "See what our customers are saying about Cloud MLM Software. Read more testimonials and success stories.",
+    "exploreButton": "Explore more testimonials",
+    "previousAriaLabel": "Previous testimonial",
+    "nextAriaLabel": "Next testimonial"
+  },
+  "listSection": {
+    "noTestimonials": "No testimonials available yet."
+  },
+  "highlightsSection": {
+    "heading": "Highlights our clients mention most",
+    "description": "Consistent themes emerge across every engagement. The data below derives from post-launch surveys across the last two years.",
+    "highlights": [
+      {
+        "title": "Global reliability",
+        "detail": "99.97% platform uptime and tiered recovery plans keep high-volume markets online."
+      },
+      {
+        "title": "Outcome-focused consulting",
+        "detail": "Strategy workshops shorten deployment by an average of 7 weeks."
+      },
+      {
+        "title": "Human + AI collaboration",
+        "detail": "AI copilots are paired with human advisors so teams trust every recommendation."
+      },
+      {
+        "title": "Field delight",
+        "detail": "95% of surveyed distributors rate the experience 4 stars or above post-launch."
+      }
+    ],
+    "snapshotLabel": "Client review snapshot",
+    "averageRating": "4.8/5",
+    "averageRatingLabel": "Average satisfaction rating",
+    "industriesServed": "17+",
+    "industriesServedLabel": "Industries served",
+    "callToAction": "Ready to join the brands innovating with Cloud MLM Software? Let's craft a programme tailored to your ambitions.",
+    "ctaButton": "Start your engagement"
+  }
+}
