@@ -23,7 +23,7 @@ export function LanguageBadges({
   return (
     <Container className={`${containerClassName} ${className}`}>
       {allLocales.map((loc) => {
-        const exists = availableLocales.includes(loc);
+        const exists = (availableLocales || []).includes(loc);
         return (
           <span
             key={loc}

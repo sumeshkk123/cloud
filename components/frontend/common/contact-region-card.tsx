@@ -4,8 +4,6 @@ import { MapPin, PhoneCall, EnvelopeSimple } from "phosphor-react";
 import { cn } from "@/lib/utils";
 import { Typography } from "@/components/ui/typography";
 
-export type FlagCode = "in" | "ae" | "na" | "eu" | "apac";
-
 // WhatsApp Icon Component
 function WhatsAppIcon({ className }: { className?: string }) {
     return (
@@ -27,7 +25,7 @@ export interface ContactRegionCardProps extends React.HTMLAttributes<HTMLElement
     phones: string[];
     email: string;
     whatsapp?: string;
-    flag: FlagCode;
+    flag?: string; // Flag emoji from COUNTRY_CODES
 }
 
 const ContactRegionCard = React.forwardRef<HTMLElement, ContactRegionCardProps>(
@@ -62,7 +60,7 @@ const ContactRegionCard = React.forwardRef<HTMLElement, ContactRegionCardProps>(
                     {/* Header with flag and region */}
                     <div className="flex items-start gap-4">
                         <div className="relative">
-                            <FlagBadge code={flag} />
+                            <FlagBadge flag={flag} />
                             <div className="absolute -inset-1 rounded-full bg-primary/20 blur opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                         </div>
                         <div className="flex-1 space-y-1">
@@ -139,7 +137,7 @@ const ContactRegionCard = React.forwardRef<HTMLElement, ContactRegionCardProps>(
                                     href={`https://wa.me/${whatsapp.replace(/\s+/g, "").replace(/[^0-9]/g, "")}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-sm font-semibold text-green-600 dark:text-green-400 hover:underline transition-colors"
+                                    className="text-sm font-semibold  hover:underline transition-colors"
                                 >
                                     {whatsapp}
                                 </Link>
@@ -165,79 +163,21 @@ const ContactRegionCard = React.forwardRef<HTMLElement, ContactRegionCardProps>(
 ContactRegionCard.displayName = "ContactRegionCard";
 
 type FlagBadgeProps = {
-    code: FlagCode;
+    flag?: string; // Flag emoji
 };
 
-function FlagBadge({ code }: FlagBadgeProps) {
+function FlagBadge({ flag }: FlagBadgeProps) {
     return (
         <div className="relative">
             <span className="inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border-2 border-border/60 bg-card shadow-lg shadow-[0_8px_20px_-8px_rgba(15,23,42,0.3)] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                {renderFlag(code)}
+                {flag ? (
+                    <span className="text-3xl">{flag}</span>
+                ) : (
+                    <span className="text-gray-400 dark:text-gray-500 text-sm">—</span>
+                )}
             </span>
         </div>
     );
-}
-
-function renderFlag(code: FlagCode) {
-    switch (code) {
-        case "in":
-            return (
-                <svg viewBox="0 0 32 32" className="h-full w-full">
-                    <rect width="32" height="32" fill="#f47c20" />
-                    <rect y="10.67" width="32" height="10.66" fill="#ffffff" />
-                    <rect y="21.33" width="32" height="10.67" fill="#138808" />
-                    <circle cx="16" cy="16" r="3.2" fill="#054187" />
-                    <circle cx="16" cy="16" r="2.2" fill="none" stroke="#ffffff" strokeWidth="0.8" />
-                </svg>
-            );
-        case "ae":
-            return (
-                <svg viewBox="0 0 32 32" className="h-full w-full">
-                    <rect width="32" height="32" fill="#ffffff" />
-                    <rect width="9" height="32" fill="#ef2b2d" />
-                    <rect x="9" width="23" height="10.67" fill="#009e49" />
-                    <rect x="9" y="10.67" width="23" height="10.66" fill="#ffffff" />
-                    <rect x="9" y="21.33" width="23" height="10.67" fill="#141414" />
-                </svg>
-            );
-        case "na":
-            return (
-                <svg viewBox="0 0 32 32" className="h-full w-full">
-                    <rect width="32" height="32" fill="#b22234" />
-                    <rect y="4" width="32" height="4" fill="#ffffff" />
-                    <rect y="12" width="32" height="4" fill="#ffffff" />
-                    <rect y="20" width="32" height="4" fill="#ffffff" />
-                    <rect y="28" width="32" height="4" fill="#ffffff" />
-                    <rect width="16" height="16" fill="#3c3b6e" />
-                    <polygon points="6,2 7.2,5.3 10.8,5.3 7.9,7.4 9.1,10.6 6,8.7 2.9,10.6 4.1,7.4 1.2,5.3 4.8,5.3" fill="#ffffff" />
-                    <rect x="20" width="12" height="32" fill="#ffffff" opacity="0.75" />
-                </svg>
-            );
-        case "eu":
-            return (
-                <svg viewBox="0 0 32 32" className="h-full w-full">
-                    <rect width="32" height="32" fill="#1f4ab8" />
-                    {[...Array(8)].map((_, index) => {
-                        const angle = (index / 8) * Math.PI * 2;
-                        const cx = 16 + Math.cos(angle) * 9;
-                        const cy = 16 + Math.sin(angle) * 9;
-                        return <circle key={index} cx={cx} cy={cy} r={1.4} fill="#facc15" />;
-                    })}
-                </svg>
-            );
-        case "apac":
-            return (
-                <svg viewBox="0 0 32 32" className="h-full w-full">
-                    <rect width="32" height="32" fill="#d90429" />
-                    <rect y="12" width="32" height="8" fill="#ffffff" />
-                    <circle cx="10" cy="16" r="4" fill="#ffffff" />
-                    <circle cx="11.5" cy="16" r="2.4" fill="#d90429" />
-                    <path d="M22 10l2 4 4 .5-3 2.7.9 4.8-3.9-2.3-3.9 2.3.9-4.8-3-2.7 4-.5z" fill="#ffffff" />
-                </svg>
-            );
-        default:
-            return null;
-    }
 }
 
 export { ContactRegionCard };

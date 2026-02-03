@@ -20,7 +20,13 @@ export async function GET(request: Request) {
       finalModules = englishModules;
     }
     
-    return NextResponse.json(finalModules);
+    return NextResponse.json(finalModules, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        'CDN-Cache-Control': 'public, s-maxage=300',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=300',
+      },
+    });
   } catch (error) {
     return NextResponse.json(
       { error: 'Failed to fetch modules', details: error instanceof Error ? error.message : String(error) },

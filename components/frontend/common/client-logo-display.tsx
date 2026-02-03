@@ -9,7 +9,7 @@ export interface ClientLogoDisplayProps {
 
 export function ClientLogoDisplay({ logos, className }: ClientLogoDisplayProps) {
   return (
-    <div className={`sticky top-24 self-start ${className || ""}`}>
+    <div className={className || ""}>
       <div className="relative pt-10">
         <div className="absolute inset-x-0 top-10 -z-10 mx-auto h-[420px] w-[420px] rounded-full bg-primary/10 blur-3xl sm:top-16 sm:h-[520px] sm:w-[520px]" aria-hidden />
         <div className="relative mx-auto h-[360px] w-[360px] sm:h-[520px] sm:w-[520px]">
@@ -21,7 +21,7 @@ export function ClientLogoDisplay({ logos, className }: ClientLogoDisplayProps) 
               className="absolute inset-0 animate-[spin_60s_linear_infinite]"
               style={{
                 backgroundImage:
-                  "url('https://cloudmlmsoftware.com/wp-content/themes/cloudmlmdemo/assets/images/world-map.webp')",
+                  "url('/images/world-map.webp')",
                 backgroundSize: "170% auto",
                 backgroundPosition: "center",
                 opacity: 0.6

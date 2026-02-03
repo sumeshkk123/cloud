@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     const locale = searchParams.get('locale') || 'en';
 
     if (id) {
-      // If all translations requested, return all locales for this address (linked by country)
+      // If all translations requested, return all locales for this address (linked by English country or flag)
       if (allTranslations) {
         const entry = await prisma.contact_addresses.findUnique({
           where: { id },
@@ -38,11 +38,34 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: 'Contact address not found' }, { status: 404 });
         }
 
-        // Find all entries with the same country (translations)
-        const translations = await prisma.contact_addresses.findMany({
-          where: { country: entry.country },
+        // Find English entry first to get the original country name for linking
+        const englishEntry = entry.locale === 'en' 
+          ? entry 
+          : await prisma.contact_addresses.findFirst({
+              where: {
+                flag: entry.flag,
+                locale: 'en',
+              },
+            });
+
+        // Find all translations by matching flag (all translations share the same flag from English country)
+        // If flag exists, use it; otherwise fall back to English country name matching
+        let translations;
+        if (entry.flag) {
+          translations = await prisma.contact_addresses.findMany({
+            where: { flag: entry.flag },
+            orderBy: { locale: 'asc' },
+          });
+        } else if (englishEntry) {
+          // Fallback: find by English country name if flag is missing
+          translations = await prisma.contact_addresses.findMany({
+            where: { country: englishEntry.country },
           orderBy: { locale: 'asc' },
         });
+        } else {
+          // Last resort: just return the current entry
+          translations = [entry];
+        }
 
         // Parse phones for each translation
         const translationsWithParsedPhones = translations.map((t: any) => {
@@ -61,6 +84,7 @@ export async function GET(request: NextRequest) {
           return {
             ...t,
             phones: phonesArray,
+            flag: t.flag || null, // Ensure flag is included even if null
           };
         });
 
@@ -91,6 +115,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({
         ...address,
         phones: phonesArray,
+        flag: address.flag || null, // Ensure flag is included even if null
       });
     }
 
@@ -116,14 +141,38 @@ export async function GET(request: NextRequest) {
       return {
         ...addr,
         phones: phonesArray,
+        flag: addr.flag || null, // Ensure flag is included even if null
       };
     });
 
     return NextResponse.json({ items: addressesWithParsedPhones });
   } catch (error: any) {
     console.error('[GET /api/admin/contact-addresses] Error:', error);
+    
+    // Check if it's a schema mismatch error (flag field doesn't exist)
+    if (error?.code === 'P2011' || error?.message?.includes('column') || error?.message?.includes('flag')) {
+      return NextResponse.json(
+        { 
+          error: 'Database schema needs to be updated. Please run: npx prisma db push',
+          items: [] 
+        },
+        { status: 500 }
+      );
+    }
+    
+    // Check if table doesn't exist
+    if (error?.code === 'P2021' || error?.message?.includes('does not exist') || error?.message?.includes('relation')) {
+      return NextResponse.json(
+        { 
+          error: 'Contact addresses table does not exist. Please run: npx prisma db push',
+          items: [] 
+        },
+        { status: 500 }
+      );
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to fetch contact addresses', items: [] },
+      { error: error?.message || 'Failed to fetch contact addresses', items: [] },
       { status: 500 }
     );
   }
@@ -138,7 +187,7 @@ export async function POST(request: NextRequest) {
     if (!hasAccess) return forbidden();
 
     const body = await request.json();
-    const { country, place, address, phones, whatsapp, email, locale = 'en' } = body;
+    const { country, place, address, phones, whatsapp, email, flag, locale = 'en' } = body;
 
     if (!country || !address || !email) {
       return NextResponse.json(
@@ -166,6 +215,7 @@ export async function POST(request: NextRequest) {
         phones: phonesArray,
         whatsapp: whatsapp ? whatsapp.trim() : null,
         email: email.trim(),
+        flag: flag ? flag.trim() : null,
         locale: String(locale),
         updatedAt: new Date(),
       },
@@ -260,7 +310,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { country, place, address, phones, whatsapp, email, locale = 'en' } = body;
+    const { country, place, address, phones, whatsapp, email, flag, locale = 'en' } = body;
 
     if (!country || !address || !email) {
       return NextResponse.json(
@@ -324,31 +374,70 @@ export async function PUT(request: NextRequest) {
     // Check if we're updating the same locale or creating a translation
     const targetLocale = String(locale);
 
-    // If locale is different and entry with same country+locale exists, update that one
+    // If locale is different, find existing translation by matching flag and locale
+    // (translations share the same flag from English country selection)
     if (targetLocale !== existing.locale) {
-      const existingTranslation = await prisma.contact_addresses.findFirst({
+      // Find English entry to get the original country name and flag for linking
+      const englishEntry = existing.locale === 'en'
+        ? existing
+        : await prisma.contact_addresses.findFirst({
+            where: {
+              OR: [
+                { flag: existing.flag, locale: 'en' },
+                { id: id }, // Fallback: if we can't find by flag, the current entry might be English
+              ],
+            },
+          });
+
+      // Use English entry's flag for matching (or existing flag if English not found)
+      const flagToMatch = englishEntry?.flag || existing.flag || flag?.trim() || null;
+
+      // Find existing translation by matching flag and locale
+      // All translations share the same flag from English country selection
+      let finalTranslation = null;
+      
+      if (flagToMatch) {
+        // First try to find by flag and locale (most reliable)
+        finalTranslation = await prisma.contact_addresses.findFirst({
         where: {
-          country: country.trim(),
+            flag: flagToMatch,
           locale: targetLocale,
         },
       });
+      }
+      
+      // If not found and we have English entry, try finding by English country name
+      // (for backward compatibility with old data that might not have flags)
+      if (!finalTranslation && englishEntry) {
+        const allWithEnglishCountry = await prisma.contact_addresses.findMany({
+          where: {
+            OR: [
+              { country: englishEntry.country },
+              { flag: englishEntry.flag },
+            ],
+          },
+        });
+        finalTranslation = allWithEnglishCountry.find(t => t.locale === targetLocale) || null;
+      }
 
-      // If translation exists, update it
-      if (existingTranslation) {
+      // If translation exists, update it (including country and place which are translatable)
+      if (finalTranslation) {
         await prisma.contact_addresses.update({
-          where: { id: existingTranslation.id },
+          where: { id: finalTranslation.id },
           data: {
-            phones: phonesArray,
+            country: country.trim(), // Save translated country name
             place: place ? place.trim() : null,
+            phones: phonesArray,
             address: address.trim(),
             whatsapp: whatsapp ? whatsapp.trim() : null,
             email: email.trim(),
+            flag: flagToMatch || flag?.trim() || null, // Keep flag from English country
             updatedAt: new Date(),
           },
         });
 
         const updated = await prisma.contact_addresses.findUnique({
-          where: { id: existingTranslation.id },
+          where: { id: finalTranslation.id },
         });
 
         let phonesResult: string[] = [];
@@ -375,15 +464,19 @@ export async function PUT(request: NextRequest) {
         });
       } else {
         // Create new translation entry
+        // Use English entry's flag to ensure all translations are linked correctly
+        const flagToUse = flagToMatch || flag?.trim() || englishEntry?.flag || existing.flag || null;
+        
         const newRecord = await prisma.contact_addresses.create({
           data: {
             id: randomUUID(),
-            country: country.trim(),
+            country: country.trim(), // Translated country name
             place: place ? place.trim() : null,
             address: address.trim(),
             phones: phonesArray,
             whatsapp: whatsapp ? whatsapp.trim() : null,
             email: email.trim(),
+            flag: flagToUse, // Use flag from English country to link translations
             locale: targetLocale,
             updatedAt: new Date(),
           },
@@ -424,6 +517,7 @@ export async function PUT(request: NextRequest) {
         address: address.trim(),
         whatsapp: whatsapp ? whatsapp.trim() : null,
         email: email.trim(),
+        flag: flag ? flag.trim() : null,
         locale: targetLocale,
         updatedAt: new Date(),
       },

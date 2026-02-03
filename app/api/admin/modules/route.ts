@@ -9,6 +9,7 @@ import {
   deleteModule,
   getAllModuleTranslations,
 } from '@/lib/api/modules';
+import { prisma } from '@/lib/db/prisma';
 
 export async function GET(request: Request) {
   try {
@@ -20,6 +21,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const allTranslations = searchParams.get('all') === 'true';
+    const withTranslations = searchParams.get('withTranslations') === 'true';
 
     if (id) {
       if (allTranslations) {
@@ -34,7 +36,72 @@ export async function GET(request: Request) {
       return NextResponse.json(moduleRecord);
     }
 
+    // Fetch English modules
     const modules = await listModules('en');
+    
+    // If withTranslations is true, fetch all translations and group by image+showOnHomePage
+    if (withTranslations) {
+      // Get all unique image+showOnHomePage combinations
+      const moduleGroups = new Map<string, typeof modules>();
+      modules.forEach(module => {
+        const groupKey = `${module.image || 'no-image'}_${module.showOnHomePage ? 'home' : 'no-home'}`;
+        if (!moduleGroups.has(groupKey)) {
+          moduleGroups.set(groupKey, []);
+        }
+        moduleGroups.get(groupKey)!.push(module);
+      });
+
+      // Fetch all translations for all groups in parallel
+      const allTranslations = await Promise.all(
+        Array.from(moduleGroups.entries()).map(async ([groupKey, groupModules]) => {
+          if (groupModules.length === 0) return [];
+          const firstModule = groupModules[0];
+          return await prisma.modules.findMany({
+            where: {
+              image: firstModule.image || undefined,
+              showOnHomePage: firstModule.showOnHomePage,
+            },
+            orderBy: { locale: 'asc' },
+            select: {
+              id: true,
+              slug: true,
+              title: true,
+              description: true,
+              image: true,
+              hasDetailPage: true,
+              showOnHomePage: true,
+              locale: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          });
+        })
+      );
+
+      // Create a map of module group to available locales
+      const localeMap = new Map<string, string[]>();
+      allTranslations.flat().forEach(module => {
+        const groupKey = `${module.image || 'no-image'}_${module.showOnHomePage ? 'home' : 'no-home'}`;
+        if (!localeMap.has(groupKey)) {
+          localeMap.set(groupKey, []);
+        }
+        localeMap.get(groupKey)!.push(module.locale);
+      });
+
+      // Map modules with their available locales
+      const modulesWithLocales = modules.map((module) => {
+        const groupKey = `${module.image || 'no-image'}_${module.showOnHomePage ? 'home' : 'no-home'}`;
+        const availableLocales = localeMap.get(groupKey) || [module.locale];
+        
+        return {
+          ...module,
+          availableLocales, // Include translation info
+        };
+      });
+      
+      return NextResponse.json(modulesWithLocales);
+    }
+
     return NextResponse.json(modules);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to process request.';

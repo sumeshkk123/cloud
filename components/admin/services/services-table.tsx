@@ -62,7 +62,8 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
     try {
       setIsLoading(true);
       const timestamp = Date.now();
-      const res = await fetch(`/api/admin/services?locale=en&_t=${timestamp}`, {
+      // Use withTranslations=true to get all translation info in one request
+      const res = await fetch(`/api/admin/services?locale=en&withTranslations=true&_t=${timestamp}`, {
         cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache',
@@ -86,30 +87,11 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
           image: item.image ? String(item.image) : undefined,
           locale: String(item.locale || 'en'),
           showOnHomePage: Boolean(item.showOnHomePage ?? false),
+          availableLocales: item.availableLocales || [item.locale], // Use pre-fetched locales
         }))
         : [];
 
-      // Fetch available locales for each service
-      const itemsWithLocales = await Promise.all(
-        mapped.map(async (item) => {
-          try {
-            const translationsRes = await fetch(
-              `/api/admin/services?id=${encodeURIComponent(item.id)}&all=true&_t=${timestamp}`,
-              { cache: 'no-store' }
-            );
-            if (translationsRes.ok) {
-              const translationsData = await translationsRes.json();
-              const locales = translationsData?.translations?.map((t: any) => t.locale) || [item.locale];
-              return { ...item, availableLocales: locales };
-            }
-          } catch (error) {
-            // Silent fail
-          }
-          return { ...item, availableLocales: [item.locale] };
-        })
-      );
-
-      setItems(itemsWithLocales);
+      setItems(mapped);
       setCurrentPage(1);
     } catch (error) {
       setItems([]);

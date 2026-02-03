@@ -47,6 +47,7 @@
     "badge": "FAQ",
     "heading": "常见问题",
     "description": "为准备下一次Cloud MLM Software对话的团队提供快速答案。",
+    "noFaqsMessage": "还没有常见问题。",
     "faqs": [
       {
         "question": "联系销售时我应该包含哪些信息？",
@@ -100,5 +101,44 @@
       "value": "工作时间",
       "detail": "+91 85901 37114"
     }
+  },
+  "formSection": {
+    "badge": "联系我们",
+    "heading": "给我们留言。",
+    "headingHighlight": "给我们留言。",
+    "fields": {
+      "name": {
+        "label": "全名",
+        "placeholder": "全名 *"
+      },
+      "email": {
+        "label": "电子邮件地址",
+        "placeholder": "电子邮件地址 *"
+      },
+      "country": {
+        "label": "国家",
+        "placeholder": "选择一个选项 *"
+      },
+      "phone": {
+        "label": "电话号码",
+        "placeholder": "电话号码"
+      },
+      "message": {
+        "label": "消息",
+        "placeholder": "输入消息 *"
+      }
+    },
+    "submitButton": "发送消息",
+    "errors": {
+      "nameRequired": "姓名是必填项",
+      "emailRequired": "电子邮件是必填项",
+      "emailInvalid": "请输入有效的电子邮件地址",
+      "countryRequired": "请选择国家",
+      "phoneRequired": "电话号码是必填项",
+      "phoneInvalid": "请输入有效的电话号码（6-15位数字）",
+      "messageRequired": "消息是必填项",
+      "selectCountryFirst": "请先选择国家"
+    },
+    "successMessage": "消息发送成功！"
   }
 }

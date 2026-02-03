@@ -44,7 +44,7 @@ export function PageTitlesTable() {
             setIsLoading(true);
             // Fetch all page titles (all locales) to show available translations
             const res = await fetch('/api/admin/page-titles', {
-                next: { revalidate: 0 },
+                cache: 'no-store',
             });
             const data = await res.json();
 
@@ -138,6 +138,7 @@ export function PageTitlesTable() {
 
     useEffect(() => {
         loadPageTitles();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Optimized: Direct use of pageTitles, no unnecessary filtering
@@ -200,15 +201,17 @@ export function PageTitlesTable() {
                 isLoading={isLoading}
                 emptyMessage="No page titles yet. Create your first page title!"
                 renderCell={(column, row) => {
+                    if (!row) return <span className="text-gray-400">-</span>;
+                    
                     if (column.key === 'page') {
                         return (
                             <span className="font-medium text-gray-900">
-                                {pageDisplayNames[row.page] || row.page}
+                                {pageDisplayNames[row.page] || row.page || '-'}
                             </span>
                         );
                     }
                     if (column.key === 'title') {
-                        return <span className="font-medium text-gray-900 line-clamp-2">{row.title}</span>;
+                        return <span className="font-medium text-gray-900 line-clamp-2">{row.title || '-'}</span>;
                     }
                     if (column.key === 'pagePill') {
                         return (
@@ -235,18 +238,20 @@ export function PageTitlesTable() {
                         );
                     }
                     if (column.key === 'actions') {
-                        return (
+                        if (!row.page) return <span className="text-gray-400">-</span>;
+                        const actionMenu = (
                             <ActionMenu
                                 onEdit={() => handleEdit(row.page, 'en')}
                                 onDelete={() => {
                                     setPageToDelete(row.page);
                                     setDeleteConfirmOpen(true);
                                 }}
-                                showDelete={true}
                             />
                         );
+                        return actionMenu || <span className="text-gray-400">-</span>;
                     }
-                    return row[column.key as keyof PageTitleRow] as string;
+                    const value = row[column.key as keyof PageTitleRow];
+                    return value ? String(value) : '-';
                 }}
             />
 

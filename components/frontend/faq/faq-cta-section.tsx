@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { ArrowUpRight, CheckCircle2, Clock, Users } from "lucide-react";
+import { Section } from "@/components/ui/section";
 
 interface FaqCtaSectionProps {
   contactHref: string;
@@ -10,7 +11,7 @@ interface FaqCtaSectionProps {
 
 export function FaqCtaSection({ contactHref, resourcesHref }: FaqCtaSectionProps) {
   return (
-    <section className="container py-8">
+    <Section variant="gradient" padding="md" containerClassName="">
       <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-primary via-blue-500 via-purple-500 to-pink-500 p-12 text-center shadow-2xl transition-all duration-300 hover:shadow-3xl">
         {/* Animated grid pattern */}
         <div className="pointer-events-none absolute inset-0 opacity-20">
@@ -38,16 +39,16 @@ export function FaqCtaSection({ contactHref, resourcesHref }: FaqCtaSectionProps
           <Typography variant="h2" as="h2" className="mb-6 text-3xl font-bold tracking-tight text-white drop-shadow-lg sm:text-5xl">
             Still have questions?
           </Typography>
-          
+
           <Typography variant="p" className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-white/95 sm:text-lg">
             Our specialists can walk through your roadmap, integrations, and change management plans in detail.
           </Typography>
 
           {/* Enhanced buttons with decorative elements */}
           <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button 
-              asChild 
-              size="lg" 
+            <Button
+              asChild
+              size="lg"
               className="group relative overflow-hidden rounded-xl bg-white px-8 py-6 text-base font-semibold text-primary shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-white/95"
             >
               <Link href={contactHref} className="relative z-10 flex items-center gap-2">
@@ -56,10 +57,10 @@ export function FaqCtaSection({ contactHref, resourcesHref }: FaqCtaSectionProps
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
               </Link>
             </Button>
-            
-            <Button 
-              asChild 
-              variant="outline" 
+
+            <Button
+              asChild
+              variant="outline"
               size="lg"
               className="group relative overflow-hidden rounded-xl border-2 border-white/90 bg-white/10 px-8 py-6 text-base font-semibold !text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white !hover:text-white hover:shadow-xl"
             >
@@ -88,6 +89,6 @@ export function FaqCtaSection({ contactHref, resourcesHref }: FaqCtaSectionProps
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -5,6 +5,7 @@ export { TrustBadgesSection } from "./trust-badges-section";
 export { WhyChooseSection } from "./why-choose-section";
 export { MlmSoftwareDemo } from "./mlm-software-demo";
 export { IndustriesSection } from "./industries-section";
+export { FeaturesSection } from "./features-section";
 export { IntegrationsSection } from "./integrations-section";
 export { AiToolsSection } from "./ai-tools-section";
 export { MlmSoftwarePlans } from "./mlm-software-plans";

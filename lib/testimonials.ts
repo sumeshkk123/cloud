@@ -36,6 +36,7 @@ export interface TestimonialsContent {
       title: string;
       detail: string;
     }>;
+    noHighlights: string;
     snapshotLabel: string;
     averageRating: string;
     averageRatingLabel: string;

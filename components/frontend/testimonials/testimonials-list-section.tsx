@@ -51,7 +51,20 @@ export function TestimonialsListSection({ locale }: TestimonialsListSectionProps
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-10 py-24">
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="h-64 animate-pulse rounded-3xl border border-border/60 bg-background" />
+            <div key={i} className="animate-pulse rounded-3xl border border-border/60 bg-background p-6">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="h-12 w-12 bg-muted rounded-full shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-5 bg-muted rounded w-2/3" />
+                  <div className="h-4 bg-muted rounded w-1/2" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="h-4 bg-muted rounded w-full" />
+                <div className="h-4 bg-muted rounded w-5/6" />
+                <div className="h-4 bg-muted rounded w-4/5" />
+              </div>
+            </div>
           ))}
         </div>
       </section>

@@ -34,11 +34,18 @@ export async function GET(request: NextRequest) {
         phones: phonesArray,
         whatsapp: address.whatsapp,
         email: address.email,
+        flag: address.flag,
         locale: address.locale,
       };
     });
 
-    return NextResponse.json(addressesWithParsedPhones);
+    return NextResponse.json(addressesWithParsedPhones, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        'CDN-Cache-Control': 'public, s-maxage=300',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=300',
+      },
+    });
   } catch (error: any) {
     console.error('[GET /api/contact-addresses] Error:', error);
     

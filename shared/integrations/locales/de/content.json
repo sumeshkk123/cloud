@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "badgeText": "INTEGRATIONEN",
+    "description": "Verbinden Sie nahtlos Ihre MLM-Software mit Zahlungsgateways, CRMs, Marketing-Automatisierung und mehr. Erweitern Sie die Fähigkeiten Ihrer Plattform mit unserer umfangreichen Integrationsbibliothek.",
+    "primaryCta": "Integrationen anzeigen",
+    "secondaryCta": "Loslegen",
+    "metrics": {
+      "integrationPartners": {
+        "label": "Integrationspartner",
+        "detail": "Verbinden Sie sich mit Zahlungsgateways, CRMs und Marketing-Tools"
+      },
+      "connectorsAvailable": {
+        "label": "Verfügbare Connectors",
+        "detail": "Vorgefertigte Integrationen für nahtlosen Datenfluss"
+      },
+      "setupTime": {
+        "label": "Einrichtungszeit",
+        "detail": "Schnelle Integrationskonfiguration mit Experten-Support"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Integrieren",
+      "afterText": "Sie Ihre MLM-Software mit führenden Plattformen"
+    }
+  },
+  "primarySection": {
+    "heading": "Verbinden Sie sich mit führenden Plattformen",
+    "description": "Erweitern Sie die Fähigkeiten Ihrer MLM-Software mit Integrationen in Zahlungsabwicklung, CRM, Marketing und E-Commerce-Plattformen."
+  },
+  "listSection": {
+    "badge": "Integrationen",
+    "heading": "Verbinden Sie sich mit führenden Plattformen",
+    "description": "Erweitern Sie die Fähigkeiten Ihrer MLM-Software mit unserer umfangreichen Integrationsbibliothek. Verbinden Sie Zahlungsgateways, CRMs, Marketing-Tools und mehr.",
+    "noIntegrationsText": "Noch keine Integrationen verfügbar."
+  },
+  "ctaSection": {
+    "title": "Bereit, Ihre MLM-Software zu integrieren?",
+    "description": "Verbinden Sie Ihre MLM-Plattform mit führenden Zahlungsgateways, CRMs, Marketing-Tools und mehr. Beginnen Sie mit Experten-Konfiguration und kontinuierlichem Support.",
+    "primaryButton": "Kontaktieren Sie uns",
+    "secondaryButton": "Demo anfordern",
+    "trustIndicators": {
+      "quickImplementation": "Schnelle Einrichtung in 24 Stunden",
+      "expertConsultation": "Expertenberatung",
+      "provenResults": "Bewährte Integrationen"
+    }
+  }
+}

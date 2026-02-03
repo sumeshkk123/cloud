@@ -20,7 +20,7 @@ export function ContactFormSection({ locale, data }: { locale: Locale; data: Hom
         <div className="relative h-full w-full">
           <Image
             src="/images/home/map.svg"
-            alt="World map"
+            alt="Global MLM Software Coverage - Network Marketing Platform Available Worldwide"
             fill
             className="object-cover"
             priority

@@ -1,4 +1,11 @@
 export { FeaturesHeroSection } from "./features-hero-section";
 export { FeatureCardGrid, type FeatureHighlight } from "./feature-card-grid";
 export { FeaturesSectionNav } from "./features-section-nav";
-export { FeatureSection } from "./feature-section";
+export { FeaturesListSection } from "./features-list-section";
+export { FeaturesFaqSection } from "./features-faq-section";
+export { FeaturesCtaSection } from "./features-cta-section";
+export { FeaturesBundleSection } from "./features-bundle-section";
+export { FeaturesPersonaSection } from "./features-persona-section";
+export { FeaturesSuccessProgramsSection } from "./features-success-programs-section";
+export { FeaturesTracksSection } from "./features-tracks-section";
+export { FeaturesMilestonesSection } from "./features-milestones-section";

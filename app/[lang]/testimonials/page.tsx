@@ -17,14 +17,17 @@ import { getPageMetadata } from "@/components/frontend/common/page-metadata";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } }): Promise<Metadata> {
+  const { getPageKeywords } = await import("@/lib/seo-keywords");
+  const resolvedParams = params instanceof Promise ? await params : params;
+  
   return getPageMetadata(
     params,
     "/testimonials",
     {
       page: "testimonials",
-      fallbackTitle: "Testimonials Library",
-      fallbackDescription: "Browse testimonials from Cloud MLM Software clients across industries. Filter by focus area and learn how we accelerate growth.",
-      fallbackKeywords: "testimonials, client reviews, customer success stories, MLM software reviews, customer feedback"
+      fallbackTitle: "MLM Software Testimonials | Customer Success Stories | USA, India, Philippines, Australia, Germany",
+      fallbackDescription: "Read real MLM software testimonials and customer success stories from 500+ MLM companies worldwide. See how Cloud MLM Software helps network marketing businesses grow.",
+      fallbackKeywords: `${getPageKeywords("testimonials", resolvedParams.lang)}, MLM software testimonials, MLM software reviews, customer success stories, MLM platform reviews, network marketing software testimonials`
     }
   );
 }

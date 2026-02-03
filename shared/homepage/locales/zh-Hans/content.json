@@ -273,7 +273,12 @@
       "元像素",
       "购物",
       "扎皮尔"
-    ]
+    ],
+    "ecommerceHeading": "无缝电子商务集成，助力 MLM 成功",
+    "ecommerceDescription": "通过我们与 Shopify、WooCommerce 和 加密货币 的强大集成，增强您的 MLM 业务。我们的软件简化了在线商店的管理和发展，使您能够同步销售数据并优化用户体验——所有这些都来自单一平台。无论您是在构建大规模电子商务运营还是推出新业务，我们的无缝集成都能确保您的 MLM 网络高效运行，轻松支持销售增长和业务扩张。",
+    "noIntegrationsText": "暂无可用集成。",
+    "customIntegrationsText": "需要自定义集成？我们的团队可以为您的特定工具和工作流程构建连接器。",
+    "exploreButtonText": "探索所有集成"
   },
   "aiHighlights": {
     "heading": "每个部门都有人工智能副驾驶",

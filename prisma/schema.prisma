@@ -171,6 +171,18 @@ model contact_faqs {
   @@index([locale])
 }
 
+model features_faqs {
+  id        String
+  question  String
+  answer    String
+  locale    String   @default("en")
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@id([id, locale])
+  @@index([locale])
+}
+
 model demo_items {
   id          String   @id @default(cuid())
   title       String
@@ -193,9 +205,7 @@ model features {
   hasDetailPage  Boolean  @default(false)
   showOnHomePage Boolean  @default(false)
   locale         String   @default("en")
-  metaTitle      String?
-  metaDescription String?
-  metaKeywords   String?
+  features       Json?
   createdAt      DateTime @default(now())
   updatedAt      DateTime
 
@@ -320,6 +330,19 @@ model testimonials {
   @@index([locale])
 }
 
+model stories {
+  id         String   @id @default(cuid())
+  title      String
+  content    String
+  count      String?
+  screenshot String?
+  locale     String   @default("en")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+
+  @@index([locale])
+}
+
 model users {
   id          String   @id @default(cuid())
   email       String   @unique
@@ -342,6 +365,7 @@ model contact_addresses {
   phones    Json     // Array of phone numbers stored as JSON
   whatsapp  String?  // WhatsApp number (optional)
   email     String
+  flag      String?  // Flag code (e.g., "in", "ae", "na", "eu", "apac", "gb")
   locale    String   @default("en")
   createdAt DateTime @default(now())
   updatedAt DateTime
@@ -391,4 +415,43 @@ model pricing_otps {
   @@index([email])
   @@index([expiresAt])
   @@unique([email])
+}
+
+model integrations {
+  id          String
+  icon        String?
+  title       String
+  description String
+  connectors  Json?    // Array of connector strings stored as JSON
+  locale      String   @default("en")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  @@id([id, locale])
+  @@index([locale])
+}
+
+model connectors {
+  id          String
+  sliderTitle String   @default("Default Slider") // Title of the slider this connector belongs to
+  title       String   // Individual connector item title
+  locale      String   @default("en")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  @@id([id, locale])
+  @@index([locale])
+  @@index([sliderTitle, locale])
+}
+
+model ai_copilots {
+  id          String   @id @default(cuid())
+  icon        String?
+  title       String
+  content     String
+  locale      String   @default("en")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  @@index([locale])
 }

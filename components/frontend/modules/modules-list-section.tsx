@@ -53,7 +53,7 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
     }, [locale]);
 
     return (
-        <Section variant="default" padding="md" containerClassName="space-y-10">
+        <Section variant="gradient" padding="md" containerClassName="space-y-10">
 
             <SectionTitle
                 badge={listSection.badge}
@@ -66,13 +66,17 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
                 {isLoading ? (
                     <div className="grid gap-6 md:grid-cols-3">
                         {[1, 2, 3].map((i) => (
-                            <div key={i} className="animate-pulse">
-                                <div className="h-48 bg-muted rounded-lg" />
+                            <div key={i} className="animate-pulse rounded-2xl border border-border/50 bg-card p-6">
+                                <div className="h-12 w-12 bg-muted rounded-full mb-4" />
+                                <div className="h-5 bg-muted rounded w-3/4 mb-3" />
+                                <div className="h-4 bg-muted rounded w-full mb-2" />
+                                <div className="h-4 bg-muted rounded w-5/6 mb-4" />
+                                <div className="h-9 bg-muted rounded w-32" />
                             </div>
                         ))}
                     </div>
                 ) : modules.length > 0 ? (
-                    <div className="grid gap-6 md:grid-cols-3">
+                    <div className="grid md:grid-cols-3">
                         {modules.map((module) => {
                             const Icon = resolveIcon(module.image, Package);
                             return (

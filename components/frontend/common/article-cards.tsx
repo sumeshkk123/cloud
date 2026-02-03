@@ -24,6 +24,9 @@ export function FeatureArticleCard({ post }: { post: HomepageBlogPostItem }) {
           height={460}
           className="h-60 w-full object-cover transition group-hover:scale-[1.03]"
           unoptimized={imageUrl ? true : false}
+          loading="lazy"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 820px"
+          quality={75}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 transition group-hover:opacity-60" />
         <div className="absolute bottom-4 left-4 rounded-full bg-card/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
@@ -65,6 +68,9 @@ export function CompactArticleCard({ post }: { post: HomepageBlogPostItem }) {
         width={440}
         height={360}
         className="h-48 object-cover transition group-hover:scale-[1.03]"
+        loading="lazy"
+        sizes="(max-width: 768px) 100vw, 440px"
+        quality={75}
       />
       <div className="flex flex-1 flex-col gap-3 p-6">
         <Typography className="text-xs font-semibold uppercase  text-muted-foreground">{post.date}</Typography>

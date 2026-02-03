@@ -47,7 +47,8 @@ export function ModulesTable() {
     try {
       setIsLoading(true);
       const timestamp = Date.now();
-      const res = await fetch(`/api/admin/modules?locale=en&_t=${timestamp}`, {
+      // Use withTranslations=true to get all translation info in one request
+      const res = await fetch(`/api/admin/modules?locale=en&withTranslations=true&_t=${timestamp}`, {
         cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',

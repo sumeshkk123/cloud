@@ -166,8 +166,38 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
             description={sectionTitle.description}
             maxWidth="5xl"
           />
-          <div className="text-center py-12">
-            <Typography variant="p" textColor="muted">Loading services...</Typography>
+          <div className="flex flex-wrap items-center justify-center gap-2 border-b border-border/50 pb-4">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="h-10 w-24 bg-muted animate-pulse rounded-full" />
+            ))}
+          </div>
+          <div className="rounded-2xl border border-border/50 bg-card p-8 shadow-sm">
+            <div className="grid gap-8 lg:grid-cols-[1fr_1fr]">
+              <div className="space-y-6">
+                <div className="h-8 bg-muted animate-pulse rounded w-3/4" />
+                <div className="space-y-2">
+                  <div className="h-4 bg-muted animate-pulse rounded w-full" />
+                  <div className="h-4 bg-muted animate-pulse rounded w-5/6" />
+                  <div className="h-4 bg-muted animate-pulse rounded w-4/5" />
+                </div>
+                <div className="space-y-3">
+                  <div className="h-4 bg-muted animate-pulse rounded w-32" />
+                  <div className="space-y-2">
+                    <div className="h-4 bg-muted animate-pulse rounded w-full" />
+                    <div className="h-4 bg-muted animate-pulse rounded w-5/6" />
+                    <div className="h-4 bg-muted animate-pulse rounded w-4/5" />
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-48 bg-muted animate-pulse rounded-xl" />
+                <div className="space-y-2">
+                  <div className="h-4 bg-muted animate-pulse rounded w-32" />
+                  <div className="h-4 bg-muted animate-pulse rounded w-full" />
+                  <div className="h-4 bg-muted animate-pulse rounded w-5/6" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </Section>
@@ -231,6 +261,14 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
                   {common.labels.keyBenefits}
                 </Typography>
                 <BulletList items={activeCategory.benefits.slice(0, 3)} className="text-sm text-muted-foreground" />
+                <div className="flex pt-5">
+                  <ReadMoreButton
+                    href={activeCategory.href}
+                    variant="default"
+                  >
+                    {common.buttons.exploreMore}
+                  </ReadMoreButton>
+                </div>
               </div>
             </div>
 
@@ -241,7 +279,7 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
                   <SmartImage
                     key={`service-image-${activeCategory.id}-${activeTab}`}
                     src={activeCategory.image}
-                    alt={activeCategory.title}
+                    alt={`${activeCategory.title} - MLM Software Service for Network Marketing Business`}
                     width={800}
                     height={400}
                     className="h-full w-full object-cover"
@@ -256,14 +294,7 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
                   <BulletList items={activeCategory.serviceHighlights.slice(0, 3)} className="text-sm" />
                 </div>
               )}
-              <div className="flex pt-5">
-                <ReadMoreButton
-                  href={activeCategory.href}
-                  variant="default"
-                >
-                  {common.buttons.exploreMore}
-                </ReadMoreButton>
-              </div>
+
             </div>
           </div>
         </div>

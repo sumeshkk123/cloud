@@ -82,7 +82,7 @@ export function MomentumStatsSection({
                   <div className="relative h-12 w-auto">
                     <SmartImage
                       src={badge.logo}
-                      alt={badge.name}
+                      alt={`${badge.name} - Trusted MLM Software Partner for Network Marketing`}
                       width={160}
                       height={60}
                       className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 dark:brightness-0 dark:invert"

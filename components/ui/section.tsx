@@ -22,6 +22,7 @@ export interface SectionProps {
     padding?: SectionPadding;
     containerClassName?: string;
     as?: 'section' | 'div';
+    id?: string;
 }
 
 export const Section = forwardRef<HTMLElement, SectionProps>(
@@ -33,6 +34,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
             padding = 'md',
             containerClassName,
             as: Component = 'section',
+            id,
         },
         ref
     ) {
@@ -59,6 +61,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
         return (
             <Component
                 ref={ref}
+                id={id}
                 className={cn(
                     'relative overflow-hidden',
                     variantClasses[variant],

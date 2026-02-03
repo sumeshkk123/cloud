@@ -273,7 +273,12 @@
       "Meta Pixel",
       "Shopify",
       "Zapier"
-    ]
+    ],
+    "ecommerceHeading": "Integração perfeita de comércio eletrônico para o sucesso MLM",
+    "ecommerceDescription": "Melhore seu negócio MLM com nossas integrações robustas para Shopify, WooCommerce e Criptomoeda. Nosso software simplifica o gerenciamento e o crescimento da sua loja online, permitindo sincronizar dados de vendas e otimizar a experiência do usuário, tudo em uma única plataforma. Seja você construindo uma operação de comércio eletrônico em larga escala ou lançando um novo empreendimento, nossa integração perfeita garante que sua rede MLM funcione com eficiência, apoiando tanto o crescimento das vendas quanto a expansão dos negócios sem esforço.",
+    "noIntegrationsText": "Nenhuma integração disponível ainda.",
+    "customIntegrationsText": "Precisa de integrações personalizadas? Nossa equipe pode criar conectores para suas ferramentas e fluxos de trabalho específicos.",
+    "exploreButtonText": "Explorar todas as integrações"
   },
   "aiHighlights": {
     "heading": "Copilotos de IA em todos os departamentos",

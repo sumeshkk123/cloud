@@ -132,7 +132,20 @@ export function TestimonialsSection({ data, locale }: TestimonialsSectionProps) 
           <div className="relative px-12">
             <div className="flex gap-6 overflow-x-auto scrollbar-hide pb-4">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="h-64 w-[calc(100%-3rem)] md:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] shrink-0 animate-pulse rounded-[32px] border border-border/60 bg-background" />
+                <div key={i} className="w-[calc(100%-3rem)] md:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] shrink-0 animate-pulse rounded-3xl border border-border/60 bg-background p-6">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="h-12 w-12 bg-muted rounded-full shrink-0" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-5 bg-muted rounded w-2/3" />
+                      <div className="h-4 bg-muted rounded w-1/2" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-muted rounded w-full" />
+                    <div className="h-4 bg-muted rounded w-5/6" />
+                    <div className="h-4 bg-muted rounded w-4/5" />
+                  </div>
+                </div>
               ))}
             </div>
           </div>

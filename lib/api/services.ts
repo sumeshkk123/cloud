@@ -24,6 +24,7 @@ export async function listServices(locale?: string, showOnHomePage?: boolean): P
         ...(showOnHomePage !== undefined ? { showOnHomePage } : {}),
       },
       orderBy: { createdAt: 'desc' },
+      take: 1000, // Limit to prevent excessive data fetching
     });
 
     return services.map((service) => ({
@@ -31,6 +32,64 @@ export async function listServices(locale?: string, showOnHomePage?: boolean): P
       keyBenefits: service.keyBenefits ? (service.keyBenefits as any) : null,
       serviceHighlights: service.serviceHighlights ? (service.serviceHighlights as any) : null,
     }));
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function listServicesWithTranslations(locale?: string, showOnHomePage?: boolean): Promise<ServiceRecord[]> {
+  try {
+    // Fetch all services for the locale (or all if no locale specified)
+    const services = await prisma.services.findMany({
+      where: {
+        ...(locale ? { locale } : {}),
+        ...(showOnHomePage !== undefined ? { showOnHomePage } : {}),
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 1000,
+    });
+
+    // Group services by icon + showOnHomePage to find translation groups
+    const translationGroups = new Map<string, ServiceRecord[]>();
+    
+    for (const service of services) {
+      const groupKey = `${service.icon || 'no-icon'}_${service.showOnHomePage ? 'home' : 'no-home'}`;
+      if (!translationGroups.has(groupKey)) {
+        translationGroups.set(groupKey, []);
+      }
+      translationGroups.get(groupKey)!.push({
+        ...service,
+        keyBenefits: service.keyBenefits ? (service.keyBenefits as any) : null,
+        serviceHighlights: service.serviceHighlights ? (service.serviceHighlights as any) : null,
+      });
+    }
+
+    // Fetch all translations for each group in parallel
+    const allTranslations = await Promise.all(
+      Array.from(translationGroups.values()).map(async (group) => {
+        if (group.length === 0) return [];
+        const firstService = group[0];
+        return await prisma.services.findMany({
+          where: {
+            icon: firstService.icon,
+            showOnHomePage: firstService.showOnHomePage,
+          },
+          orderBy: { locale: 'asc' },
+        });
+      })
+    );
+
+    // Flatten and return unique services
+    const allServices = new Map<string, ServiceRecord>();
+    allTranslations.flat().forEach((service) => {
+      allServices.set(service.id, {
+        ...service,
+        keyBenefits: service.keyBenefits ? (service.keyBenefits as any) : null,
+        serviceHighlights: service.serviceHighlights ? (service.serviceHighlights as any) : null,
+      });
+    });
+
+    return Array.from(allServices.values());
   } catch (error) {
     throw error;
   }

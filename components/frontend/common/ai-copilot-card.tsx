@@ -36,34 +36,35 @@ const AiCopilotCard = React.forwardRef<HTMLDivElement, AiCopilotCardProps>(
                 )}
                 {...props}
             >
-                <div className="flex flex-col gap-4">
+                <div className="flex  gap-6 items-center">
                     <CardIcon
                         icon={Icon}
                         className={cn(
                             isHighlighted ? "text-primary-foreground" : "text-primary"
                         )}
                     />
+                    <div className="space-y-2">
+                        <Typography
+                            as="h3"
+                            variant="h5"
+                            className={cn(
+                                "font-semibold",
+                                isHighlighted ? "text-primary-foreground" : "text-foreground"
+                            )}
+                        >
+                            {title}
+                        </Typography>
 
-                    <Typography
-                        as="h3"
-                        variant="h5"
-                        className={cn(
-                            "font-semibold",
-                            isHighlighted ? "text-primary-foreground" : "text-foreground"
-                        )}
-                    >
-                        {title}
-                    </Typography>
-
-                    <Typography
-                        variant="p"
-                        className={cn(
-                            "leading-6 !text-sm",
-                            isHighlighted ? "text-primary-foreground/90" : "text-muted-foreground"
-                        )}
-                    >
-                        {description}
-                    </Typography>
+                        <Typography
+                            variant="p"
+                            className={cn(
+                                "leading-6 !text-sm",
+                                isHighlighted ? "text-primary-foreground/90" : "text-muted-foreground"
+                            )}
+                        >
+                            {description}
+                        </Typography>
+                    </div>
                 </div>
             </Card>
         );

@@ -6,13 +6,13 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/adminUi/button';
 import { Table } from '@/components/ui/adminUi/table';
 import { Pagination } from '@/components/ui/adminUi/pagination';
-import { PageTitle } from '@/components/ui/adminUi/page-title';
 import { useToast } from '@/components/ui/toast';
 import { Modal } from '@/components/ui/adminUi/modal';
 import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal';
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { TestimonialsForm } from './testimonials-form';
 import { localeNames } from '@/i18n-config';
+import { LanguageBadges } from '@/components/admin/common/language-badges';
 
 interface TestimonialRow {
   id: string;
@@ -122,8 +122,8 @@ export function TestimonialsTable() {
 
   return (
     <div className="space-y-4">
-      <PageTitle title="Testimonials" description="Manage testimonials displayed on the website.">
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-end w-full">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-end w-full md:-mt-16 md:mb-8 md:justify-end">
+        <div className="flex items-center gap-1">
           <Button
             type="button"
             variant="primary"
@@ -139,7 +139,7 @@ export function TestimonialsTable() {
             New Testimonial
           </Button>
         </div>
-      </PageTitle>
+      </div>
 
       <Table
         columns={columns}

@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "badgeText": "集成",
+    "description": "无缝连接您的MLM软件与支付网关、CRM、营销自动化等。通过我们广泛的集成库扩展您平台的功能。",
+    "primaryCta": "查看集成",
+    "secondaryCta": "开始使用",
+    "metrics": {
+      "integrationPartners": {
+        "label": "集成合作伙伴",
+        "detail": "连接支付网关、CRM和营销工具"
+      },
+      "connectorsAvailable": {
+        "label": "可用连接器",
+        "detail": "预构建的集成，实现无缝数据流"
+      },
+      "setupTime": {
+        "label": "设置时间",
+        "detail": "快速集成设置，提供专家支持"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "集成",
+      "afterText": "您的MLM软件与领先平台"
+    }
+  },
+  "primarySection": {
+    "heading": "连接领先平台",
+    "description": "通过支付处理、CRM、营销和电子商务平台的集成扩展您的MLM软件功能。"
+  },
+  "listSection": {
+    "badge": "集成",
+    "heading": "连接领先平台",
+    "description": "通过我们广泛的集成库扩展您的MLM软件功能。连接支付网关、CRM、营销工具等。",
+    "noIntegrationsText": "暂无可用集成。"
+  },
+  "ctaSection": {
+    "title": "准备好集成您的MLM软件了吗？",
+    "description": "将您的MLM平台与领先的支付网关、CRM、营销工具等连接。从专家设置和持续支持开始。",
+    "primaryButton": "联系我们",
+    "secondaryButton": "请求演示",
+    "trustIndicators": {
+      "quickImplementation": "24小时内快速设置",
+      "expertConsultation": "专家咨询",
+      "provenResults": "经过验证的集成"
+    }
+  }
+}

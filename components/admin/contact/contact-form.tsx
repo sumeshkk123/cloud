@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 
 const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
-// Helper function to get flag emoji from country name
+// Helper function to get flag emoji from country name (for display purposes)
 function getCountryFlag(countryName: string): string {
   if (!countryName) return '';
   // Try exact match first
@@ -38,6 +38,8 @@ function getCountryFlag(countryName: string): string {
   return '';
 }
 
+// Removed old getFlagCodeFromCountry - now using getFlagCodeFromCountryName which uses COUNTRY_CODES
+
 type FormState = {
   country: string;
   address: string;
@@ -54,6 +56,7 @@ interface ContactTranslation {
   phones: string[];
   whatsapp: string;
   email: string;
+  flag: string;
   exists: boolean;
 }
 
@@ -87,6 +90,7 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
         phones: [],
         whatsapp: '',
         email: '',
+        flag: '',
         exists: false,
       };
     });
@@ -155,21 +159,41 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
       const response = await fetch(`/api/admin/contact-addresses?id=${encodeURIComponent(currentContactId)}&all=true`);
 
       if (!response.ok) {
-        showToast('Failed to load contact address translations.', 'error');
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage = errorData?.error || 'Failed to load contact address translations.';
+        console.error('[ContactForm] Load error:', errorMessage, response.status);
+        showToast(errorMessage, 'error');
         return;
       }
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
       const existingTranslations = data?.translations || [];
+      
+      console.log('[ContactForm] Loaded data:', { data, translations: existingTranslations });
+      
+      if (!Array.isArray(existingTranslations)) {
+        console.error('[ContactForm] Invalid translations data:', data);
+        showToast('Invalid data format received.', 'error');
+        return;
+      }
+
+      if (existingTranslations.length === 0) {
+        console.warn('[ContactForm] No translations found for contact ID:', currentContactId);
+        showToast('No data found for this contact address.', 'error');
+        return;
+      }
 
       const loaded: Record<string, ContactTranslation> = {};
       const existingLocales: string[] = [];
 
-      const english = existingTranslations.find((t: any) => t.locale === 'en');
-      const sharedCountry = english ? String(english.country || '') : '';
-      const sharedPlace = english ? String(english.place || '') : '';
+      // Find English translation, or use the first available translation as fallback
+      const english = existingTranslations.find((t: any) => t.locale === 'en') || existingTranslations[0];
       const sharedEmail = english ? String(english.email || '') : '';
       const sharedWhatsapp = english ? String(english.whatsapp || '') : '';
+      const sharedCountry = english ? String(english.country || '') : ''; // English country name (for flag)
+      const sharedFlag = english ? (String(english.flag || '') || (sharedCountry ? getCountryFlag(sharedCountry) || '' : '')) : '';
+      
+      console.log('[ContactForm] Extracted shared values:', { sharedEmail, sharedWhatsapp, sharedCountry, sharedFlag });
       let sharedPhones: string[] = [];
       if (english && english.phones) {
         if (Array.isArray(english.phones)) {
@@ -186,39 +210,57 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
       locales.forEach((loc) => {
         const existing = existingTranslations.find((t: any) => t.locale === loc);
         if (existing) {
+          // For English, use the country as-is (it's the key from COUNTRY_CODES)
+          // For other locales, use the translated country name from database
+          const existingCountry = String(existing.country || '').trim();
+          let finalCountry = existingCountry;
+          
+          // For English locale, ensure it matches COUNTRY_CODES keys
+          if (loc === 'en' && existingCountry && !COUNTRY_CODES[existingCountry]) {
+            const match = Object.keys(COUNTRY_CODES).find(
+              key => key.toLowerCase() === existingCountry.toLowerCase() ||
+                     existingCountry.toLowerCase().includes(key.toLowerCase()) ||
+                     key.toLowerCase().includes(existingCountry.toLowerCase())
+            );
+            if (match) {
+              finalCountry = match;
+            }
+          }
+          
+          // Use flag from English country (shared flag)
+          const countryFlag = sharedFlag || String(existing.flag || '') || (loc === 'en' && finalCountry ? getCountryFlag(finalCountry) || '' : '');
+          
           loaded[loc] = {
             locale: loc,
-            country: sharedCountry || String(existing.country || ''),
-            place: sharedPlace || String(existing.place || ''),
-            address: String(existing.address || ''),
-            phones: sharedPhones.length > 0 ? sharedPhones : [],
-            whatsapp: sharedWhatsapp || String(existing.whatsapp || ''),
-            email: sharedEmail || String(existing.email || ''),
+            country: finalCountry,
+            place: String(existing.place || '').trim(),
+            address: String(existing.address || '').trim(),
+            phones: sharedPhones.length > 0 ? sharedPhones : (Array.isArray(existing.phones) ? existing.phones : []),
+            whatsapp: sharedWhatsapp || String(existing.whatsapp || '').trim(),
+            email: sharedEmail || String(existing.email || '').trim(),
+            flag: countryFlag,
             exists: true,
           };
           existingLocales.push(loc);
         } else {
+          // For new translations, use English country name initially (will be translated)
           loaded[loc] = {
             locale: loc,
-            country: sharedCountry,
-            place: sharedPlace,
+            country: loc === 'en' ? sharedCountry : '', // Only set for English, others will be translated
+            place: '',
             address: '',
             phones: sharedPhones,
             whatsapp: sharedWhatsapp,
             email: sharedEmail,
+            flag: sharedFlag, // Use flag from English country
             exists: false,
           };
         }
       });
 
-      if (sharedCountry || sharedPlace || sharedEmail || sharedPhones.length > 0 || sharedWhatsapp) {
+      // Only sync shared values (email, phones, whatsapp, flag) across all locales
+      if (sharedEmail || sharedPhones.length > 0 || sharedWhatsapp) {
         Object.keys(loaded).forEach((loc) => {
-          if (sharedCountry) {
-            loaded[loc].country = sharedCountry;
-          }
-          if (sharedPlace) {
-            loaded[loc].place = sharedPlace;
-          }
           if (sharedEmail) {
             loaded[loc].email = sharedEmail;
           }
@@ -231,20 +273,21 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
         });
       }
 
+      console.log('[ContactForm] Setting translations:', loaded);
       setTranslations(loaded);
       setSavedLocales(existingLocales);
 
-      if (preserveActiveTab && currentActiveTab) {
-        setActiveTab(currentActiveTab);
-      } else {
-        if (existingLocales.length > 0) {
-          setActiveTab(existingLocales[0]);
-        } else {
-          setActiveTab('en');
-        }
-      }
+      const tabToSet = preserveActiveTab && currentActiveTab 
+        ? currentActiveTab 
+        : (existingLocales.length > 0 ? existingLocales[0] : 'en');
+      
+      setActiveTab(tabToSet);
+      console.log('[ContactForm] Form loaded successfully. Active tab set to:', tabToSet);
+      console.log('[ContactForm] Current translation for active tab:', loaded[tabToSet]);
     } catch (error) {
-      showToast('Failed to load contact address translations.', 'error');
+      console.error('[ContactForm] Load error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to load contact address translations.';
+      showToast(errorMessage, 'error');
     } finally {
       setIsLoading(false);
     }
@@ -259,19 +302,30 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
           [field]: value,
         },
       };
-      // If updating country, place, email, phones, or whatsapp, sync it to all locales (they are shared)
-      if (field === 'country' || field === 'place' || field === 'email' || field === 'phones' || field === 'whatsapp') {
+      // If updating country in English, update flag emoji from COUNTRY_CODES and sync flag to all locales
+      if (field === 'country' && locale === 'en') {
+        const country = value as string;
+        const flagEmoji = country ? (getCountryFlag(country) || '') : '';
+        updated[locale].flag = flagEmoji;
+        // Sync flag to all locales (flag is based on English country selection)
         Object.keys(updated).forEach((loc) => {
-          if (field === 'country') {
-            updated[loc].country = value as string;
-          } else if (field === 'place') {
-            updated[loc].place = value as string;
-          } else if (field === 'email') {
+          updated[loc].flag = flagEmoji;
+        });
+      } else if (field === 'country' && locale !== 'en') {
+        // For non-English locales, country is just translated text, don't change flag
+        // Flag should remain from English country
+      }
+      // If updating email, phones, whatsapp, or flag, sync it to all locales (they are shared)
+      if (field === 'email' || field === 'phones' || field === 'whatsapp' || field === 'flag') {
+        Object.keys(updated).forEach((loc) => {
+          if (field === 'email') {
             updated[loc].email = value as string;
           } else if (field === 'phones') {
             updated[loc].phones = value as string[];
           } else if (field === 'whatsapp') {
             updated[loc].whatsapp = value as string;
+          } else if (field === 'flag') {
+            updated[loc].flag = value as string;
           }
         });
       }
@@ -357,22 +411,109 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
     try {
       setIsTranslating(true);
 
-      if (english.address.trim()) {
-        const addressRes = await fetch('/api/translate', {
+      // Translate address
+      if (english.address?.trim()) {
+        try {
+          const addressRes = await fetch('/api/translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              text: english.address,
+              sourceLocale: 'en',
+              targetLocale: activeTab,
+            }),
+          });
+          
+          if (!addressRes.ok) {
+            const errorData = await addressRes.json().catch(() => ({}));
+            throw new Error(errorData.error || `Failed to translate address (${addressRes.status})`);
+          }
+          
+          const addressData = await addressRes.json();
+          console.log('[AutoTranslate] Address translation response:', addressData);
+          
+          if (addressData.translatedText) {
+            updateTranslation(activeTab, 'address', addressData.translatedText);
+            console.log('[AutoTranslate] Address translated successfully:', {
+              from: english.address,
+              to: addressData.translatedText,
+              locale: activeTab,
+              service: addressData.service
+            });
+            
+            // Show quality warning for Chinese translations using MyMemory
+            if ((activeTab === 'zh' || activeTab === 'zh-CN') && addressData.service === 'mymemory' && addressData.qualityWarning) {
+              showToast(`Translation completed using ${addressData.service}. ${addressData.qualityWarning}`, 'warning');
+            }
+          } else {
+            console.error('[AutoTranslate] Translation API returned empty result:', addressData);
+            throw new Error('Translation API returned empty result. Response: ' + JSON.stringify(addressData));
+          }
+        } catch (addressError) {
+          console.error('[AutoTranslate] Address translation error:', addressError);
+          showToast(`Address translation failed: ${addressError instanceof Error ? addressError.message : 'Unknown error'}`, 'error');
+          // Continue with other translations even if address fails
+        }
+      } else {
+        console.warn('[AutoTranslate] No English address to translate');
+      }
+
+      // Auto-translate country name if it exists in English (keep flag from English country)
+      if (english.country?.trim()) {
+        const countryRes = await fetch('/api/translate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            text: english.address,
+            text: english.country,
             sourceLocale: 'en',
             targetLocale: activeTab,
           }),
         });
-        const addressData = await addressRes.json();
-        if (!addressRes.ok) throw new Error(addressData.error || 'Failed to translate address');
-        updateTranslation(activeTab, 'address', addressData.translatedText);
+        const countryData = await countryRes.json();
+        if (countryRes.ok && countryData.translatedText) {
+          const translatedCountry = countryData.translatedText;
+          updateTranslation(activeTab, 'country', translatedCountry);
+          // Keep the flag from English country (don't change it)
+          if (english.flag) {
+            updateTranslation(activeTab, 'flag', english.flag);
+          }
+        }
       }
 
-      showToast(`Auto-translated to ${localeNames[activeTab as keyof typeof localeNames]}.`, 'success');
+      // Translate place
+      if (english.place?.trim()) {
+        try {
+          const placeRes = await fetch('/api/translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              text: english.place,
+              sourceLocale: 'en',
+              targetLocale: activeTab,
+            }),
+          });
+          const placeData = await placeRes.json();
+          if (placeRes.ok && placeData.translatedText) {
+            updateTranslation(activeTab, 'place', placeData.translatedText);
+            console.log('[AutoTranslate] Place translated:', placeData.translatedText);
+          }
+        } catch (placeError) {
+          console.error('[AutoTranslate] Place translation error:', placeError);
+          // Continue even if place translation fails
+        }
+      }
+
+      // Show success message
+      const translatedFields = [];
+      if (english.address?.trim()) translatedFields.push('address');
+      if (english.country?.trim()) translatedFields.push('country');
+      if (english.place?.trim()) translatedFields.push('place');
+      
+      if (translatedFields.length > 0) {
+        showToast(`Auto-translated ${translatedFields.join(', ')} to ${localeNames[activeTab as keyof typeof localeNames]}.`, 'success');
+      } else {
+        showToast('No content to translate. Please fill in the English version first.', 'error');
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to auto-translate.';
       showToast(message, 'error');
@@ -382,13 +523,23 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
   };
 
   const handleSaveCurrentTab = async () => {
-    const current = translations[activeTab];
-    const trimmedCountry = (translations['en']?.country.trim() || current.country.trim());
-    const trimmedPlace = (translations['en']?.place.trim() || current.place.trim());
-    const trimmedAddress = current.address.trim();
-    const trimmedEmail = (translations['en']?.email.trim() || current.email.trim());
-    const trimmedWhatsapp = (translations['en']?.whatsapp.trim() || current.whatsapp.trim());
-    const englishPhones = translations['en']?.phones || current.phones || [];
+    const current = translations[activeTab] || { country: '', place: '', address: '', phones: [], whatsapp: '', email: '', flag: '', exists: false };
+    const english = translations['en'] || current;
+    
+    // Country and place are now translatable per locale
+    const trimmedCountry = (current.country || '').trim();
+    const trimmedPlace = (current.place || '').trim();
+    const trimmedAddress = (current.address || '').trim();
+    // Email, phones, and whatsapp are shared (use English as source)
+    const trimmedEmail = (english.email || '').trim() || (current.email || '').trim();
+    const trimmedWhatsapp = (english.whatsapp || '').trim() || (current.whatsapp || '').trim();
+    // Flag is based on English country selection, use current flag or get from English country
+    const formFlag = (current.flag || '').trim();
+    const englishCountry = (english.country || '').trim();
+    const trimmedFlag = formFlag || (englishCountry ? getCountryFlag(englishCountry) || '' : '');
+    
+    console.log('[ContactForm] Saving with flag:', { formFlag, trimmedFlag, trimmedCountry, currentFlag: current.flag });
+    const englishPhones = english.phones || current.phones || [];
 
     if (!trimmedCountry || !trimmedAddress || !trimmedEmail) {
       const missingFields = [];
@@ -457,6 +608,7 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
             address: trimmedAddress,
             email: trimmedEmail,
             whatsapp: trimmedWhatsapp || null,
+            flag: trimmedFlag,
             phones: allPhones.length > 0 ? allPhones : [],
             locale: 'en',
           }),
@@ -489,6 +641,7 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
           address: trimmedAddress,
           email: trimmedEmail,
           whatsapp: trimmedWhatsapp || null,
+          flag: trimmedFlag,
           phones: allPhones,
           locale: activeTab,
         }),
@@ -514,6 +667,7 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
       if (payload.id && payload.id !== idToUse) {
         setCurrentContactId(payload.id);
       } else {
+        // Reload all translations from database (now properly linked by flag)
         await loadAllTranslations(true, tabToKeep);
         preserveTabRef.current = null;
       }
@@ -528,7 +682,7 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
     }
   };
 
-  const current = translations[activeTab] || { country: '', place: '', address: '', phones: [], whatsapp: '', email: '', exists: false };
+  const current = translations[activeTab] || { country: '', place: '', address: '', phones: [], whatsapp: '', email: '', flag: '', exists: false };
 
   return (
     <div className="space-y-5">
@@ -599,51 +753,68 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
         className="space-y-5"
       >
         <div className="space-y-1.5">
-          <FieldLabel required>Country (Common for all languages)</FieldLabel>
-          <div className="relative">
-            <select
-              value={current.country}
-              onChange={(e) => {
-                if (activeTab === 'en') {
-                  updateTranslation('en', 'country', e.target.value);
-                }
-              }}
-              disabled={(isSaving || isLoading || isTranslating) || activeTab !== 'en'}
-              className={cn(
-                "w-full px-3 py-3 text-sm border border-gray-200 rounded-md bg-white text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none transition-colors",
-                activeTab !== 'en' && 'bg-gray-50 dark:bg-gray-800 cursor-not-allowed',
-                (isSaving || isLoading || isTranslating) && 'opacity-50 cursor-not-allowed',
-                "dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200 dark:placeholder-gray-500"
-              )}
-            >
-              <option value="">Select a country</option>
-              {Object.keys(COUNTRY_CODES).sort().map((country) => (
-                <option key={country} value={country}>
-                  {COUNTRY_CODES[country].flag} {country}
-                </option>
-              ))}
-            </select>
-            {current.country && getCountryFlag(current.country) && (
-              <div className="mt-2 text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-                Selected: <span className="text-lg">{getCountryFlag(current.country)}</span> <span className="font-medium">{current.country}</span>
+          <FieldLabel required>
+            Country {activeTab === 'en' ? '(Select from list)' : `(${localeNames[activeTab as keyof typeof localeNames]} - Auto-translatable)`}
+          </FieldLabel>
+          <div className="flex items-center gap-3">
+            {activeTab === 'en' ? (
+              <div className="relative flex-1">
+                <select
+                  value={current.country || ''}
+                  onChange={(e) => {
+                    const country = e.target.value;
+                    // updateTranslation will handle flag syncing automatically for English locale
+                    updateTranslation('en', 'country', country);
+                  }}
+                  disabled={(isSaving || isLoading || isTranslating)}
+                  className={cn(
+                    "w-full px-3 py-3 text-sm border border-gray-200 rounded-md bg-white text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none transition-colors",
+                    (isSaving || isLoading || isTranslating) && 'opacity-50 cursor-not-allowed',
+                    "dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200 dark:placeholder-gray-500"
+                  )}
+                >
+                  <option value="">Select a country</option>
+                  {Object.keys(COUNTRY_CODES).sort().map((country) => (
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+              <div className="relative flex-1">
+                <Input
+                  value={current.country || ''}
+                  readOnly
+                  placeholder="Country name will be auto-translated from English"
+                  disabled={(isSaving || isLoading || isTranslating)}
+                  className={cn(
+                    "bg-gray-50 dark:bg-gray-800 cursor-not-allowed",
+                    (isSaving || isLoading || isTranslating) && 'opacity-50'
+                  )}
+                />
               </div>
             )}
+            {/* Flag Display */}
+            <div className="flex items-center justify-center w-12 h-12 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+              {current.flag ? (
+                <span className="text-2xl">{current.flag}</span>
+              ) : (
+                <span className="text-gray-400 dark:text-gray-500 text-sm">—</span>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <FieldLabel>Place/City (Common for all languages)</FieldLabel>
+          <FieldLabel>
+            Place/City ({localeNames[activeTab as keyof typeof localeNames]})
+          </FieldLabel>
           <Input
             value={current.place}
-            onChange={(e) => {
-              if (activeTab === 'en') {
-                updateTranslation('en', 'place', e.target.value);
-              }
-            }}
+            onChange={(e) => updateTranslation(activeTab, 'place', e.target.value)}
             placeholder="e.g., Kochi, Dubai, Austin"
-            disabled={(isSaving || isLoading || isTranslating) || activeTab !== 'en'}
-            className={activeTab !== 'en' ? 'bg-gray-50 dark:bg-gray-800 cursor-not-allowed' : ''}
-            readOnly={activeTab !== 'en'}
+            disabled={(isSaving || isLoading || isTranslating)}
           />
         </div>
 

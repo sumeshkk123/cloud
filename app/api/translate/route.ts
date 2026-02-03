@@ -34,6 +34,7 @@ const DEEPL_LOCALE_MAP: Record<string, string> = {
 
 /**
  * Translate using MyMemory Translation API (free, no API key)
+ * Note: Quality is lower, especially for Chinese. For better results, use DeepL or Google Translate API.
  */
 async function translateWithMyMemory(text: string, targetLang: string, sourceLang: string = 'en'): Promise<string> {
   try {
@@ -42,6 +43,12 @@ async function translateWithMyMemory(text: string, targetLang: string, sourceLan
     // Also handle if zh-CN is already passed (defensive check)
     const myMemorySourceLang = (sourceLang === 'zh' || sourceLang === 'zh-CN') ? 'zh-CN' : sourceLang;
     const myMemoryTargetLang = (targetLang === 'zh' || targetLang === 'zh-CN') ? 'zh-CN' : targetLang;
+    
+    // For Chinese translations, MyMemory quality is often poor
+    // Consider splitting long texts or using a better service
+    if (targetLang === 'zh' || targetLang === 'zh-CN') {
+      console.warn('[MyMemory] Translating to Chinese - quality may be lower. Consider using DeepL or Google Translate API for better results.');
+    }
     
     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${myMemorySourceLang}|${myMemoryTargetLang}`;
     
@@ -255,50 +262,75 @@ export async function POST(request: NextRequest) {
     let serviceUsed = 'mymemory';
 
     // Try services in priority order: DeepL > Google > MyMemory
-    // DeepL API (best quality, 500K chars/month free)
+    // For Chinese, prioritize DeepL or Google for better quality
+    const isChinese = targetLang === 'zh' || targetLang === 'zh-CN';
+    
+    // DeepL API (best quality, 500K chars/month free) - especially good for Chinese
     if (process.env.DEEPL_API_KEY) {
       try {
         translatedText = await translateWithDeepL(text, targetLang, sourceLang);
         serviceUsed = 'deepl';
       } catch (deeplError) {
+        console.warn('[Translate] DeepL failed, trying Google Translate:', deeplError);
         // Fallback to Google Translate
         if (process.env.GOOGLE_TRANSLATE_API_KEY) {
           try {
             translatedText = await translateWithGoogle(text, targetLang, sourceLang);
             serviceUsed = 'google';
           } catch (googleError) {
+            console.warn('[Translate] Google Translate failed, falling back to MyMemory:', googleError);
+            if (isChinese) {
+              console.warn('[Translate] WARNING: Using MyMemory for Chinese translation - quality will be lower. Consider adding API keys for better results.');
+            }
             translatedText = await translateWithMyMemory(text, targetLang, sourceLang);
             serviceUsed = 'mymemory';
           }
         } else {
           // Fallback directly to MyMemory if no Google key
+          if (isChinese) {
+            console.warn('[Translate] WARNING: No Google Translate API key. Using MyMemory for Chinese translation - quality will be lower. Add GOOGLE_TRANSLATE_API_KEY or DEEPL_API_KEY for better results.');
+          }
           translatedText = await translateWithMyMemory(text, targetLang, sourceLang);
           serviceUsed = 'mymemory';
         }
       }
     }
-    // Google Translate API (500K chars/month free)
+    // Google Translate API (500K chars/month free) - good for Chinese
     else if (process.env.GOOGLE_TRANSLATE_API_KEY) {
       try {
         translatedText = await translateWithGoogle(text, targetLang, sourceLang);
         serviceUsed = 'google';
       } catch (googleError) {
+        console.warn('[Translate] Google Translate failed, falling back to MyMemory:', googleError);
+        if (isChinese) {
+          console.warn('[Translate] WARNING: Using MyMemory for Chinese translation - quality will be lower. Consider adding DEEPL_API_KEY for better results.');
+        }
         translatedText = await translateWithMyMemory(text, targetLang, sourceLang);
         serviceUsed = 'mymemory';
       }
     }
-    // MyMemory (free but limited - 10K chars/day)
+    // MyMemory (free but limited - 10K chars/day, lower quality especially for Chinese)
     else {
+      if (isChinese) {
+        console.warn('[Translate] WARNING: No translation API keys configured. Using MyMemory for Chinese translation - quality will be significantly lower. Add DEEPL_API_KEY or GOOGLE_TRANSLATE_API_KEY for better results.');
+      }
       translatedText = await translateWithMyMemory(text, targetLang, sourceLang);
       serviceUsed = 'mymemory';
     }
 
-    return NextResponse.json({
+    // For Chinese translations, add a quality warning if using MyMemory
+    const response: any = {
       translatedText,
       sourceLocale,
       targetLocale,
       service: serviceUsed,
-    });
+    };
+    
+    if ((targetLocale === 'zh' || targetLocale === 'zh-CN') && serviceUsed === 'mymemory') {
+      response.qualityWarning = 'Chinese translation quality may be lower with MyMemory. For better results, add DeepL API key (500K chars/month free) or Google Translate API key (500K chars/month free) to your .env file.';
+    }
+    
+    return NextResponse.json(response);
   } catch (error: any) {
     const errorMessage = error.message || 'Translation failed';
     

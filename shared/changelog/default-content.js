@@ -1,0 +1,41 @@
+export default {
+  hero: {
+    badgeText: "Release notes",
+    fallbackTitle: {
+      highlightText: "Changelog",
+      afterText: "Stay updated with our latest releases and improvements"
+    },
+    metrics: {
+      yearsOfIteration: {
+        label: "Years of iteration",
+        value: "2015–2025",
+        detail: "A decade of continuous delivery across global MLM programmes."
+      },
+      majorReleases: {
+        label: "Major releases",
+        value: "40+",
+        detail: "Feature and infrastructure launches shipped with zero-downtime rollouts."
+      },
+      automationCoverage: {
+        label: "Automation coverage",
+        value: "85%",
+        detail: "Finance, compliance, and CX workflows orchestrated end-to-end."
+      }
+    },
+    primaryCta: "Subscribe for release alerts",
+    secondaryCta: "Talk with a product specialist"
+  },
+  listSection: {
+    badge: "Release History",
+    heading: "Evolution timeline",
+    description: "Trace how Cloud MLM Software grew from foundational plan management to AI-native copilots. Each release highlights the focus areas and capabilities delivered to customers worldwide.",
+    keyFeatures: "Key Features:",
+    noEntries: "No changelog entries available yet."
+  },
+  ctaSection: {
+    title: "Need the finer details?",
+    description: "Our product team can walk you through the roadmap, deployment windows, and how we tailor each release to your governance needs.",
+    primaryCta: "Schedule a roadmap review",
+    secondaryCta: "Join the release digest"
+  }
+};

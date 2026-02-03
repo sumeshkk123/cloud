@@ -54,6 +54,7 @@ export default {
         detail: "95% of surveyed distributors rate the experience 4 stars or above post-launch."
       }
     ],
+    noHighlights: "No highlights available yet.",
     snapshotLabel: "Client review snapshot",
     averageRating: "4.8/5",
     averageRatingLabel: "Average satisfaction rating",

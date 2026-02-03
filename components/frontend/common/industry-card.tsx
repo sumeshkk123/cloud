@@ -37,29 +37,37 @@ const IndustryCard = React.forwardRef<HTMLElement, IndustryCardProps>(
       >
         {/* Icon and Title */}
         <div className="flex flex-col gap-4">
-          <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-            <Icon className="h-6 w-6 transition-transform duration-300 group-hover:scale-110 group-hover:[transform:rotateY(180deg)]" />
+          <div className="flex items-start gap-4 pb-3">
+            <div className="inline-flex  h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+              <Icon className="h-6 w-6 transition-transform duration-300 group-hover:scale-110 group-hover:[transform:rotateY(180deg)]" />
+            </div>
+            <Typography
+              as="h3"
+              variant="h5"
+              className="font-semibold flex-1"
+            >
+              {title}
+            </Typography>
           </div>
-          <Typography
-            as="h3"
-            variant="h5"
-            className="font-semibold"
-          >
-            {title}
-          </Typography>
+
+
+          <div className="space-y-4 flex-1">
+
+
+            {/* Description */}
+            <Typography variant="p" textColor="muted" className="flex-1  text-sm leading-6">
+              {description}
+            </Typography>
+
+            {/* Read More button */}
+            <div className="mt-auto">
+              <ReadMoreButton href={href} variant="default">
+                {buttonText}
+              </ReadMoreButton>
+            </div>
+          </div>
         </div>
 
-        {/* Description */}
-        <Typography variant="p" textColor="muted" className="flex-1  text-sm leading-6">
-          {description}
-        </Typography>
-
-        {/* Read More button */}
-        <div className="mt-auto">
-          <ReadMoreButton href={href} variant="default">
-            {buttonText}
-          </ReadMoreButton>
-        </div>
       </article>
     );
   }

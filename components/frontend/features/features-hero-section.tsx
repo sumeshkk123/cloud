@@ -9,7 +9,7 @@ interface FeaturesHeroSectionProps {
   pageTitleData?: PageTitleRecord | null;
 }
 
-export function FeaturesHeroSection({
+export async function FeaturesHeroSection({
   locale,
   pageTitleData
 }: FeaturesHeroSectionProps) {

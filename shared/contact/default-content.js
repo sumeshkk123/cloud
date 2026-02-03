@@ -47,6 +47,7 @@ export default {
     badge: "FAQ",
     heading: "Frequently asked questions",
     description: "Quick answers for teams preparing the next Cloud MLM Software conversation.",
+    noFaqsMessage: "No FAQs available yet.",
     faqs: [
       {
         question: "What information should I include when contacting sales?",
@@ -100,5 +101,44 @@ export default {
       value: "Business hours",
       detail: "+91 85901 37114"
     }
+  },
+  formSection: {
+    badge: "GET IN TOUCH",
+    heading: "Drop Us a Line.",
+    headingHighlight: "Line.",
+    fields: {
+      name: {
+        label: "Full Name",
+        placeholder: "Full Name *"
+      },
+      email: {
+        label: "Email Address",
+        placeholder: "Email Address *"
+      },
+      country: {
+        label: "Country",
+        placeholder: "Choose an option *"
+      },
+      phone: {
+        label: "Phone Number",
+        placeholder: "Phone number"
+      },
+      message: {
+        label: "Message",
+        placeholder: "Type message *"
+      }
+    },
+    submitButton: "Send Message",
+    errors: {
+      nameRequired: "Name is required",
+      emailRequired: "Email is required",
+      emailInvalid: "Please enter a valid email address",
+      countryRequired: "Please select a country",
+      phoneRequired: "Phone number is required",
+      phoneInvalid: "Please enter a valid phone number (6-15 digits)",
+      messageRequired: "Message is required",
+      selectCountryFirst: "Please select a country first"
+    },
+    successMessage: "Message sent successfully!"
   }
 };

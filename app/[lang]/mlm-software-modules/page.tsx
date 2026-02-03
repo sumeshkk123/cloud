@@ -24,14 +24,17 @@ function resolveLocale(lang: string): Locale {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } }): Promise<Metadata> {
+  const { getPageKeywords } = await import("@/lib/seo-keywords");
+  const resolvedParams = params instanceof Promise ? await params : params;
+  
   return getPageMetadata(
     params,
     "/mlm-software-modules",
     {
       page: "mlm-software-modules",
-      fallbackTitle: "MLM Software Modules | Cloud MLM Software",
-      fallbackDescription: "Explore 56+ configurable MLM software modules covering compensation, commerce, marketing, compliance, and analytics. Build a tailored platform for your network marketing brand.",
-      fallbackKeywords: "MLM software modules, MLM platform modules, compensation modules, commerce modules, marketing automation modules, MLM software features"
+      fallbackTitle: "MLM Software Modules | 56+ Configurable Network Marketing Modules | USA, India, Philippines, Australia, Germany",
+      fallbackDescription: "Explore 56+ configurable MLM software modules covering compensation plans, e-commerce, marketing automation, compliance, and analytics. Build a tailored MLM platform for your network marketing business. Trusted worldwide.",
+      fallbackKeywords: `${getPageKeywords("mlm-software-modules", resolvedParams.lang)}, MLM compensation plan modules, MLM e-commerce modules, MLM marketing automation, MLM reporting modules, MLM genealogy tree, MLM commission calculator`
     }
   );
 }

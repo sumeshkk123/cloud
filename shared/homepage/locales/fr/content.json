@@ -273,7 +273,12 @@
       "Méta-Pixel",
       "Shopify",
       "Zapier"
-    ]
+    ],
+    "ecommerceHeading": "Intégration e-commerce transparente pour le succès MLM",
+    "ecommerceDescription": "Améliorez votre entreprise MLM avec nos intégrations robustes pour Shopify, WooCommerce et Cryptomonnaie. Notre logiciel simplifie la gestion et la croissance de votre boutique en ligne, vous permettant de synchroniser les données de vente et d'optimiser l'expérience utilisateur, le tout depuis une seule plateforme. Que vous construisiez une opération e-commerce à grande échelle ou que vous lanciez une nouvelle entreprise, notre intégration transparente garantit que votre réseau MLM fonctionne efficacement, soutenant à la fois la croissance des ventes et l'expansion de l'entreprise sans effort.",
+    "noIntegrationsText": "Aucune intégration disponible pour le moment.",
+    "customIntegrationsText": "Besoin d'intégrations personnalisées ? Notre équipe peut créer des connecteurs pour vos outils et flux de travail spécifiques.",
+    "exploreButtonText": "Explorer toutes les intégrations"
   },
   "aiHighlights": {
     "heading": "Copilotes IA dans chaque département",

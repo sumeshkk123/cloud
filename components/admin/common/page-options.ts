@@ -14,9 +14,12 @@ export const pageOptions: PageOption[] = [
     { value: 'pricing', label: 'Pricing' },
     { value: 'testimonials', label: 'Testimonials' },
     { value: 'mlm-software-modules', label: 'Modules' },
+    { value: 'mlm-software-integration', label: 'Integration' },
     { value: 'mlm-plans', label: 'MLM Plans' },
     { value: 'services', label: 'Services' },
     { value: 'industries', label: 'Industries' },
+    { value: 'changelog', label: 'Changelog' },
+    { value: 'ai-copilot', label: 'AI Co-pilot' },
 ];
 
 // Page display names for tables
@@ -30,7 +33,10 @@ export const pageDisplayNames: Record<string, string> = {
     'pricing': 'Pricing',
     'testimonials': 'Testimonials',
     'mlm-software-modules': 'Modules',
+    'mlm-software-integration': 'Integration',
     'mlm-plans': 'MLM Plans',
     'services': 'Services',
     'industries': 'Industries',
+    'changelog': 'Changelog',
+    'ai-copilot': 'AI Co-pilot',
 };

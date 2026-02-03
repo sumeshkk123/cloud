@@ -199,6 +199,38 @@ export function FaqSection({ locale, data }: { locale: Locale; data: HomepageCon
     return null;
   }
 
+  if (isLoading) {
+    return (
+      <Section variant="gradient" padding="xl" containerClassName="space-y-12">
+        <SectionTitle
+          badge={data?.badgeLabel ?? "Frequently asked questions"}
+          heading={data?.heading ?? "Everything you need to evaluate Cloud MLM Software"}
+          description={data?.description ?? "Answers drawn from onboarding conversations, support tickets, and the live knowledge base so you can plan migrations and demos with confidence."}
+          maxWidth="3xl"
+        />
+        <div className="space-y-8">
+          <div className="flex flex-wrap items-center justify-center gap-2 border-b border-border/50 pb-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-10 w-32 bg-muted animate-pulse rounded-full" />
+            ))}
+          </div>
+          <div className="space-y-6 max-w-5xl mx-auto">
+            <div className="rounded-2xl border border-border/50 bg-card/60 p-8 shadow-sm">
+              <div className="space-y-3">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="animate-pulse rounded-xl border border-border/50 bg-background/60 p-5">
+                    <div className="h-6 bg-muted rounded w-3/4 mb-3" />
+                    <div className="h-4 bg-muted rounded w-full" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+    );
+  }
+
   return (
     <Section variant="gradient" padding="xl" containerClassName="space-y-12">
         <SectionTitle

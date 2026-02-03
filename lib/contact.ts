@@ -40,6 +40,7 @@ export interface ContactContent {
       question: string;
       answer: string;
     }>;
+    noFaqsMessage?: string;
   };
   businessInfoSection: {
     badge: string;
@@ -51,6 +52,30 @@ export interface ContactContent {
     supportTeam: { label: string; value: string; detail: string };
     emailSupport: { label: string; value: string; detail: string };
     phoneSupport: { label: string; value: string; detail: string };
+  };
+  formSection: {
+    badge: string;
+    heading: string;
+    headingHighlight: string;
+    fields: {
+      name: { label: string; placeholder: string };
+      email: { label: string; placeholder: string };
+      country: { label: string; placeholder: string };
+      phone: { label: string; placeholder: string };
+      message: { label: string; placeholder: string };
+    };
+    submitButton: string;
+    errors: {
+      nameRequired: string;
+      emailRequired: string;
+      emailInvalid: string;
+      countryRequired: string;
+      phoneRequired: string;
+      phoneInvalid: string;
+      messageRequired: string;
+      selectCountryFirst: string;
+    };
+    successMessage: string;
   };
 }
 
@@ -100,6 +125,18 @@ export function getContactContent(locale: Locale): ContactContent {
     businessInfoSection: {
       ...defaultContent.businessInfoSection,
       ...localizedContent.businessInfoSection,
+    },
+    formSection: {
+      ...defaultContent.formSection,
+      ...localizedContent.formSection,
+      fields: {
+        ...defaultContent.formSection?.fields,
+        ...localizedContent.formSection?.fields,
+      },
+      errors: {
+        ...defaultContent.formSection?.errors,
+        ...localizedContent.formSection?.errors,
+      },
     },
   };
 

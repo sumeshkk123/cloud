@@ -253,7 +253,12 @@ export default {
       "Meta Pixel",
       "Shopify",
       "Zapier"
-    ]
+    ],
+    ecommerceHeading: "Seamless E-Commerce Integration for MLM Success",
+    ecommerceDescription: "Enhance your MLM business with our robust integrations for Shopify, WooCommerce, and Cryptocurrency. Our software simplifies the management and growth of your online store, allowing you to sync sales data and optimize the user experience—all from a single platform. Whether you're building a large-scale e-commerce operation or launching a new venture, our seamless integration ensures your MLM network runs efficiently, supporting both sales growth and business expansion effortlessly.",
+    noIntegrationsText: "No integrations available yet.",
+    customIntegrationsText: "Need custom integrations? Our team can build connectors for your specific tools and workflows.",
+    exploreButtonText: "Explore all integrations"
   },
   aiHighlights: {
     heading: "AI copilots across every department",

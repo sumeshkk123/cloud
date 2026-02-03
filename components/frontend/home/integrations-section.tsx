@@ -1,114 +1,133 @@
 'use client';
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import type { HomepageContent } from "@/types/homepage";
-import type { ComponentType } from "react";
 import * as RemixIcon from "@remixicon/react";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Typography } from "@/components/ui/typography";
-import { ReadMoreButton } from "@/components/ui/read-more-button";
 import { InfoCtaBox } from "@/components/ui/info-cta-box";
-import { cn } from "@/lib/utils";
 import { Section } from "@/components/ui/section";
+import { IntegrationCard } from "@/components/frontend/common/integration-card";
+import { resolveIcon } from "@/components/frontend/home/utils";
+import { Plug } from "lucide-react";
+import type { Locale } from "@/i18n-config";
+import { buildLocalizedPath } from "@/lib/locale-links";
+import { ReadMoreButton } from "@/components/ui/read-more-button";
+import { cn } from "@/lib/utils";
 
-type RemixIconType = ComponentType<{ className?: string }>;
-
-const MODULE_CATEGORIES: Array<{
+interface Integration {
+  id: string;
   title: string;
-  summary: string;
-  headline: string;
   description: string;
-  icon: RemixIconType;
-  highlights: string[];
-  metricLabel: string;
-  metricValue: string;
-}> = [
-    {
-      title: "Finance & payouts",
-      summary: "Automate compensation from ledger to payout.",
-      headline: "Treasury automation built for global compensation",
-      description:
-        "Model comp plans, manage FX, and automate treasury approvals with audit-ready exports for finance, tax, and ERP teams.",
-      icon: RemixIcon.RiMoneyDollarCircleFill,
-      highlights: ["Multi currency", "E-wallet", "Commission intelligence", "Tax withholding"],
-      metricLabel: "Commission volume automated",
-      metricValue: "$1.4B+/mo"
-    },
-    {
-      title: "Distributor success",
-      summary: "Keep the field informed and inspired.",
-      headline: "Enterprise-grade journeys for every distributor rank",
-      description:
-        "Blend ticketing, AI nudges, and enablement content while leadership tracks adoption with granular analytics.",
-      icon: RemixIcon.RiTeamFill,
-      highlights: ["Ticket Desk", "Autoresponder", "Learning studio", "Recognition hub"],
-      metricLabel: "Engagement lift",
-      metricValue: "2.4x"
-    },
-    {
-      title: "Growth & commerce",
-      summary: "Launch promotions and storefronts fast.",
-      headline: "Campaigns, kits, and commerce orchestrated in days",
-      description:
-        "Roll out vouchers, bundles, and regional storefronts with inventory, taxation, and analytics aligned out of the box.",
-      icon: RemixIcon.RiStoreFill,
-      highlights: ["E-voucher", "Smart catalog", "Inventory orchestration", "Promo builder"],
-      metricLabel: "Time to launch",
-      metricValue: "48 hrs"
-    },
-    {
-      title: "Trust & compliance",
-      summary: "Governance your regulators will love.",
-      headline: "Compliance automation from policy to proof",
-      description:
-        "Automate policy enforcement, data retention, and regulator-friendly exports with immutable, recoverable records.",
-      icon: RemixIcon.RiShieldCheckFill,
-      highlights: ["Backup manager", "Audit console", "Policy engine", "PII redaction"],
-      metricLabel: "Policy violations prevented",
-      metricValue: "38%"
-    }
-  ];
+  icon?: string | null;
+  connectors?: string[] | null;
+}
 
-export function IntegrationsSection({ data }: { data: HomepageContent["integrations"] }) {
+interface Connector {
+  id: string;
+  title: string;
+  locale: string;
+}
+
+interface ConnectorSlider {
+  sliderTitle: string;
+  items: Connector[];
+}
+
+export function IntegrationsSection({
+  data,
+  locale
+}: {
+  data: HomepageContent["integrations"];
+  locale: Locale;
+}) {
   const partners = data?.partners ?? [];
+  const [integrations, setIntegrations] = useState<Integration[]>([]);
+  const [isLoadingIntegrations, setIsLoadingIntegrations] = useState(true);
+  const [connectorSliders, setConnectorSliders] = useState<ConnectorSlider[]>([]);
+  const [isLoadingConnectors, setIsLoadingConnectors] = useState(true);
 
-  // Add more dummy items to make scrolling more visible
-  const allPartners = [
-    ...partners,
-    "Mailchimp",
-    "SendGrid",
-    "Intercom",
-    "Slack",
-    "Microsoft Teams",
-    "Google Analytics",
-    "Mixpanel",
-    "Segment",
-    "Webhook.site",
-    "Plaid",
-    "Square",
-    "Authorize.net",
-    "WooCommerce",
-    "Magento",
-    "BigCommerce",
-    "Facebook Ads",
-    "Google Ads",
-    "LinkedIn Ads",
-    "TikTok Pixel",
-    "Amplitude",
-    "Hotjar",
-    "FullStory",
-    "Datadog",
-    "New Relic",
-    "Sentry",
-    "LogRocket",
-    "Postmark",
-    "Sendinblue",
-    "ConvertKit"
-  ];
+  // Each slider from backend appears in its own row, alternating direction
+  // Slider 1 (index 0) → left-to-right row
+  // Slider 2 (index 1) → right-to-left row
+  // Slider 3 (index 2) → left-to-right row
+  // Slider 4 (index 3) → right-to-left row
+  // etc.
+  const slidersWithDirection = connectorSliders.map((slider, index) => ({
+    ...slider,
+    direction: index % 2 === 0 ? 'left' : 'right' as 'left' | 'right',
+    originalIndex: index,
+  }));
 
-  // Duplicate items for seamless infinite scroll
-  const duplicatedPartners = [...allPartners, ...allPartners];
+  // Separate by direction
+  const leftToRightSliders = slidersWithDirection.filter(s => s.direction === 'left');
+  const rightToLeftSliders = slidersWithDirection.filter(s => s.direction === 'right');
+
+  // Duplicate each direction for seamless infinite scroll
+  const duplicatedLeftSliders = leftToRightSliders.length > 0 ? [...leftToRightSliders, ...leftToRightSliders] : [];
+  const duplicatedRightSliders = rightToLeftSliders.length > 0 ? [...rightToLeftSliders, ...rightToLeftSliders] : [];
+
+  // Fetch connectors from API (grouped by slider)
+  useEffect(() => {
+    const fetchConnectors = async () => {
+      try {
+        setIsLoadingConnectors(true);
+        const response = await fetch(`/api/connectors?locale=${locale}&bySlider=true`, {
+          cache: 'no-store',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log('[IntegrationsSection] Connectors API response:', data);
+          const sliders = Array.isArray(data) ? data : [];
+          // Log each slider's items to check for duplicates
+          sliders.forEach((slider: ConnectorSlider, idx: number) => {
+            console.log(`[IntegrationsSection] Slider ${idx} (${slider.sliderTitle}):`, {
+              itemCount: slider.items?.length || 0,
+              items: slider.items?.map((item: Connector) => ({ id: item.id, title: item.title, locale: item.locale })) || [],
+            });
+          });
+          setConnectorSliders(sliders);
+        } else {
+          console.error('[IntegrationsSection] Connectors API error:', response.status, response.statusText);
+          setConnectorSliders([]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch connectors:', error);
+        setConnectorSliders([]);
+      } finally {
+        setIsLoadingConnectors(false);
+      }
+    };
+
+    fetchConnectors();
+  }, [locale]);
+
+  // Fetch integrations from API
+  useEffect(() => {
+    const fetchIntegrations = async () => {
+      try {
+        setIsLoadingIntegrations(true);
+        const response = await fetch(`/api/integrations?locale=${locale}`, {
+          cache: 'no-store',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const integrationsData = Array.isArray(data) ? data : [];
+          // Limit to maximum 6 integrations
+          setIntegrations(integrationsData.slice(0, 6));
+        } else {
+          setIntegrations([]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch integrations:', error);
+        setIntegrations([]);
+      } finally {
+        setIsLoadingIntegrations(false);
+      }
+    };
+
+    fetchIntegrations();
+  }, [locale]);
 
   return (
     <Section variant="gradient" padding="xl" containerClassName="">
@@ -119,57 +138,141 @@ export function IntegrationsSection({ data }: { data: HomepageContent["integrati
         maxWidth="5xl"
       />
 
-      {/* First row: Left to Right */}
-      <div className="relative overflow-hidden mt-10">
-        <div className="flex animate-scroll-left gap-3">
-          {duplicatedPartners.map((partner, index) => (
-            <div
-              key={`${partner}-${index}`}
-              className="inline-flex  text-sm shrink-0 items-center gap-2 rounded-full border border-border/60 bg-primary/5 px-5 py-2 text-foreground shadow-sm"
-            >
-              <span className="h-2 w-2 rounded-full bg-primary/60" aria-hidden />
-              {partner}
+      {/* Render each slider in its own row, alternating direction */}
+      {isLoadingConnectors ? (
+        <>
+          <div className="relative overflow-hidden mt-10">
+            <div className="flex gap-3">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="animate-pulse shrink-0 w-[400px] h-16 bg-muted rounded-full border border-border/60 flex items-center gap-2 px-5">
+                  <div className="h-2 w-2 bg-muted-foreground/30 rounded-full" />
+                  <div className="h-4 bg-muted-foreground/30 rounded w-24" />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Second row: Right to Left */}
-      <div className="relative overflow-hidden mt-5">
-        <div className="flex animate-scroll-right gap-3">
-          {duplicatedPartners.map((partner, index) => (
-            <div
-              key={`${partner}-reverse-${index}`}
-              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-border/60 bg-primary/5 px-5 py-2 text-sm text-foreground shadow-sm"
-            >
-              <span className="h-2 w-2 rounded-full bg-primary/60" aria-hidden />
-              {partner}
+          </div>
+          <div className="relative overflow-hidden mt-5">
+            <div className="flex gap-3 justify-end">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="animate-pulse shrink-0 w-[400px] h-16 bg-muted rounded-full border border-border/60 flex items-center gap-2 px-5">
+                  <div className="h-2 w-2 bg-muted-foreground/30 rounded-full" />
+                  <div className="h-4 bg-muted-foreground/30 rounded w-24" />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </>
+      ) : connectorSliders.filter(slider => slider.items && slider.items.length > 0).length > 0 ? (
+        connectorSliders
+          .filter(slider => slider.items && slider.items.length > 0) // Only show sliders with data
+          .map((slider, index) => {
+            const isLeftToRight = index % 2 === 0;
 
-      {/* Module Categories Section - Elegant Tab Design */}
+            // Ensure items are unique by ID before duplicating for seamless scroll
+            const uniqueItems = Array.from(
+              new Map(slider.items.map(item => [item.id, item])).values()
+            );
+
+            // Log if duplicates were found
+            if (slider.items.length !== uniqueItems.length) {
+              console.warn(`[IntegrationsSection] Found ${slider.items.length - uniqueItems.length} duplicate(s) in slider "${slider.sliderTitle}". Original:`, slider.items.map(i => ({ id: i.id, title: i.title })), 'Unique:', uniqueItems.map(i => ({ id: i.id, title: i.title })));
+            }
+
+            // Duplicate items array for seamless infinite scroll (only if we have items)
+            const duplicatedItems = uniqueItems.length > 0
+              ? [...uniqueItems, ...uniqueItems]
+              : [];
+
+            return (
+              <div
+                key={`slider-row-${index}`}
+                className={`relative overflow-hidden ${index === 0 ? 'mt-10' : 'mt-5'}`}
+              >
+                <div className={`flex ${isLeftToRight ? 'animate-scroll-left' : 'animate-scroll-right'} gap-3 ${!isLeftToRight ? 'justify-end' : ''}`}>
+                  <div className="inline-flex shrink-0 items-center gap-3">
+                    {duplicatedItems.map((connector, connectorIndex) => (
+                      <div
+                        key={`${connector.id}-${connectorIndex}`}
+                        className="inline-flex items-center gap-2 text-sm text-foreground px-5 py-2 rounded-full border border-border/60 bg-primary/5 shadow-sm"
+                      >
+                        <span className="h-2 w-2 rounded-full bg-primary/60" aria-hidden />
+                        {connector.title}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })
+      ) : (
+        partners.map((partner, index) => {
+          const isLeftToRight = index % 2 === 0;
+          const duplicatedPartner = [partner, partner]; // Duplicate for seamless scroll
+
+          return (
+            <div
+              key={`partner-row-${index}`}
+              className={`relative overflow-hidden ${index === 0 ? 'mt-10' : 'mt-5'}`}
+            >
+              <div className={`flex ${isLeftToRight ? 'animate-scroll-left' : 'animate-scroll-right'} gap-3 ${!isLeftToRight ? 'justify-end' : ''}`}>
+                {duplicatedPartner.map((partnerItem, partnerIndex) => (
+                  <div
+                    key={`partner-${index}-${partnerIndex}`}
+                    className="inline-flex shrink-0 items-center gap-2 text-sm rounded-full border border-border/60 bg-primary/5 px-5 py-2 text-foreground shadow-sm"
+                  >
+                    <span className="h-2 w-2 rounded-full bg-primary/60" aria-hidden />
+                    {partnerItem}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })
+      )}
+
+      {/* E-Commerce Integration Section - Hover Box Design */}
       <div className="mt-20 space-y-8">
         <div className="space-y-4">
           <Typography as="h3" variant="h3" className="text-foreground">
-            Seamless E-Commerce Integration for MLM Success
+            {data?.ecommerceHeading ?? "Seamless E-Commerce Integration for MLM Success"}
           </Typography>
 
           <Typography variant="p" className="text-base leading-7 text-muted-foreground">
-            Enhance your MLM business with our robust integrations for <strong>Shopify</strong>, <strong>WooCommerce</strong>, and <strong>Cryptocurrency</strong>. Our software simplifies the management and growth of your online store, allowing you to sync sales data and optimize the user experience—all from a single platform. Whether you're building a large-scale e-commerce operation or launching a new venture, our seamless integration ensures your MLM network runs efficiently, supporting both sales growth and business expansion effortlessly.
+            {data?.ecommerceDescription ?? "Enhance your MLM business with our robust integrations for Shopify, WooCommerce, and Cryptocurrency. Our software simplifies the management and growth of your online store, allowing you to sync sales data and optimize the user experience—all from a single platform. Whether you're building a large-scale e-commerce operation or launching a new venture, our seamless integration ensures your MLM network runs efficiently, supporting both sales growth and business expansion effortlessly."}
           </Typography>
         </div>
 
-        <IntegrationTabs categories={MODULE_CATEGORIES} />
+        {/* Integration Hover Boxes */}
+        {isLoadingIntegrations ? (
+          <div className="hidden lg:flex flex-row bg-background h-[437px] rounded-xl overflow-hidden border border-border/50">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="animate-pulse flex-1 border-r border-border/50 bg-muted/50 p-6">
+                <div className="space-y-4">
+                  <div className="h-6 bg-muted/70 rounded w-3/4" />
+                  <div className="h-4 bg-muted/70 rounded w-full" />
+                  <div className="h-4 bg-muted/70 rounded w-5/6" />
+                  <div className="h-4 bg-muted/70 rounded w-4/5" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : integrations.length > 0 ? (
+          <IntegrationHoverBoxes integrations={integrations} locale={locale} />
+        ) : (
+          <div className="text-center py-12">
+            <Typography variant="p" textColor="muted">
+              {data?.noIntegrationsText ?? "No integrations available yet."}
+            </Typography>
+          </div>
+        )}
 
         {/* InfoCtaBox */}
         <div className="mt-8">
           <InfoCtaBox
             icon={RemixIcon.RiStoreFill}
-            text="Need custom integrations? Our team can build connectors for your specific tools and workflows."
-            buttonText="Explore all integrations"
-            buttonHref="/integrations"
+            text={data?.customIntegrationsText ?? "Need custom integrations? Our team can build connectors for your specific tools and workflows."}
+            buttonText={data?.exploreButtonText ?? "Explore all integrations"}
+            buttonHref={buildLocalizedPath("/mlm-software-integration", locale)}
           />
         </div>
       </div>
@@ -177,44 +280,30 @@ export function IntegrationsSection({ data }: { data: HomepageContent["integrati
   );
 }
 
-function IntegrationTabs({ categories }: { categories: typeof MODULE_CATEGORIES }) {
-  // Map categories to integration names
-  const integrationNames = ["Shopify", "WooCommerce", "Cryptocurrency", "Business process optimization", "Leadership executive coaching"];
+function IntegrationHoverBoxes({ integrations, locale }: { integrations: Integration[]; locale: Locale }) {
+  // Limit to 6 integrations for the hover boxes
+  const displayIntegrations = integrations.slice(0, 6);
 
-  // Use first category for main block, and create 5 columns
-  const mainCategory = categories[0];
-  const columnCategories = [
-    categories[0],
-    categories[1],
-    categories[0],
-    categories[1],
-    categories[0]
-  ];
+  // State to track which box is expanded (-1 means first box is expanded by default)
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
-  // State to track which column is expanded (-1 means first column is expanded by default)
-  // Once expanded, it stays expanded until user hovers another item
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(-1);
+  // Ensure we have at least 5 items by duplicating if needed
+  const columnIntegrations = displayIntegrations.length >= 5
+    ? displayIntegrations
+    : [...displayIntegrations, ...displayIntegrations.slice(0, 5 - displayIntegrations.length)];
 
   return (
     <>
       {/* Desktop Design - Vertical Expanding Columns */}
       <div className="hidden lg:flex flex-row bg-background">
-        {/* All Columns in same container - First column (starts expanded) */}
-        {[
-          { category: mainCategory, index: -1, title: integrationNames[0] || mainCategory.headline }, // First column
-          ...columnCategories.map((category, idx) => ({
-            category,
-            index: idx,
-            title: integrationNames[idx + 1] || category.title
-          }))
-        ].map(({ category, index: colIndex, title }) => {
-          const Icon = category.icon;
+        {columnIntegrations.slice(0, 6).map((integration, colIndex) => {
+          const Icon = resolveIcon(integration.icon, Plug);
           const isExpanded = expandedIndex === colIndex;
-          const isFirstColumn = colIndex === -1;
+          const integrationHref = buildLocalizedPath("/mlm-software-integration", locale);
 
           return (
             <div
-              key={colIndex}
+              key={integration.id || colIndex}
               onMouseEnter={() => setExpandedIndex(colIndex)}
               className={cn(
                 "group relative flex flex-col items-center justify-center overflow-hidden transition-all duration-500 ease-in-out border-r border-border/50 bg-background",
@@ -232,7 +321,7 @@ function IntegrationTabs({ categories }: { categories: typeof MODULE_CATEGORIES 
                 <div className={cn(
                   "flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300",
                   isExpanded
-                    ? "bg-primary text-primary-foreground  "
+                    ? "bg-primary text-primary-foreground"
                     : "bg-primary/10 text-primary group-hover:scale-115"
                 )}>
                   <Icon className="h-6 w-6" />
@@ -253,7 +342,7 @@ function IntegrationTabs({ categories }: { categories: typeof MODULE_CATEGORIES 
                       style={{ writingMode: 'sideways-lr' }}
                       className="font-semibold text-foreground transition-colors duration-300 group-hover:text-primary/80"
                     >
-                      {title}
+                      {integration.title}
                     </Typography>
                   </div>
                 </div>
@@ -271,21 +360,21 @@ function IntegrationTabs({ categories }: { categories: typeof MODULE_CATEGORIES 
                       variant="h5"
                       className="font-semibold text-foreground leading-tight break-words mb-4"
                     >
-                      {isFirstColumn ? category.headline : title}
+                      {integration.title}
                     </Typography>
                     <Typography
                       variant="small"
                       textColor="muted"
                       className="leading-6 break-words"
                     >
-                      {category.description}
+                      {integration.description}
                     </Typography>
                   </div>
 
                   {/* CTA Button - Inside expanded content, aligned at bottom */}
                   <div className="mt-4">
                     <ReadMoreButton
-                      href="/mlm-software-modules/"
+                      href={integrationHref}
                       variant="default"
                     >
                       Learn more
@@ -301,14 +390,15 @@ function IntegrationTabs({ categories }: { categories: typeof MODULE_CATEGORIES 
                   ? "opacity-0 invisible"
                   : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
               )}>
-                <button
+                <a
+                  href={integrationHref}
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                  aria-label={`Learn more about ${title}`}
+                  aria-label={`Learn more about ${integration.title}`}
                 >
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                </button>
+                </a>
               </div>
             </div>
           );
@@ -317,20 +407,13 @@ function IntegrationTabs({ categories }: { categories: typeof MODULE_CATEGORIES 
 
       {/* Mobile/Tablet - Show all items in expanded mode */}
       <div className="grid grid-cols-1 gap-4 lg:hidden">
-        {[
-          { category: mainCategory, index: -1, title: integrationNames[0] || mainCategory.headline },
-          ...columnCategories.map((category, idx) => ({
-            category,
-            index: idx,
-            title: integrationNames[idx + 1] || category.title
-          }))
-        ].map(({ category, index: colIndex, title }) => {
-          const Icon = category.icon;
-          const isFirstColumn = colIndex === -1;
+        {displayIntegrations.map((integration, index) => {
+          const Icon = resolveIcon(integration.icon, Plug);
+          const integrationHref = buildLocalizedPath("/mlm-software-integration", locale);
 
           return (
             <div
-              key={colIndex}
+              key={integration.id || index}
               className="rounded-2xl border border-border/50 bg-background p-6"
             >
               <div className="flex flex-col space-y-4">
@@ -346,21 +429,21 @@ function IntegrationTabs({ categories }: { categories: typeof MODULE_CATEGORIES 
                     variant="h5"
                     className="font-semibold text-foreground leading-tight break-words"
                   >
-                    {isFirstColumn ? category.headline : title}
+                    {integration.title}
                   </Typography>
                   <Typography
                     variant="small"
                     textColor="muted"
                     className="leading-6 break-words"
                   >
-                    {category.description}
+                    {integration.description}
                   </Typography>
                 </div>
 
                 {/* CTA Button */}
                 <div className="pt-2">
                   <ReadMoreButton
-                    href="/mlm-software-modules/"
+                    href={integrationHref}
                     variant="default"
                   >
                     Learn more

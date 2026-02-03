@@ -14,6 +14,27 @@ export interface ContactFormProps {
     headingHighlight?: string;
     onSubmit?: (data: ContactFormData) => void;
     className?: string;
+    translations?: {
+        fields: {
+            name: { label: string; placeholder: string };
+            email: { label: string; placeholder: string };
+            country: { label: string; placeholder: string };
+            phone: { label: string; placeholder: string };
+            message: { label: string; placeholder: string };
+        };
+        submitButton: string;
+        errors: {
+            nameRequired: string;
+            emailRequired: string;
+            emailInvalid: string;
+            countryRequired: string;
+            phoneRequired: string;
+            phoneInvalid: string;
+            messageRequired: string;
+            selectCountryFirst: string;
+        };
+        successMessage: string;
+    };
 }
 
 export interface ContactFormData {
@@ -26,7 +47,7 @@ export interface ContactFormData {
 
 
 const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
-    ({ badge = "GET IN TOUCH", heading = "Drop Us a Line.", headingHighlight = "Line.", onSubmit, className }, ref) => {
+    ({ badge = "GET IN TOUCH", heading = "Drop Us a Line.", headingHighlight = "Line.", onSubmit, className, translations }, ref) => {
         const { showToast, ToastComponent } = useToast();
         const [formData, setFormData] = React.useState<ContactFormData>({
             name: '',
@@ -37,6 +58,29 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
         });
         const [errors, setErrors] = React.useState<Partial<Record<keyof ContactFormData, string>>>({});
 
+        // Default translations fallback
+        const t = translations || {
+            fields: {
+                name: { label: "Full Name", placeholder: "Full Name *" },
+                email: { label: "Email Address", placeholder: "Email Address *" },
+                country: { label: "Country", placeholder: "Choose an option *" },
+                phone: { label: "Phone Number", placeholder: "Phone number" },
+                message: { label: "Message", placeholder: "Type message *" }
+            },
+            submitButton: "Send Message",
+            errors: {
+                nameRequired: "Name is required",
+                emailRequired: "Email is required",
+                emailInvalid: "Please enter a valid email address",
+                countryRequired: "Please select a country",
+                phoneRequired: "Phone number is required",
+                phoneInvalid: "Please enter a valid phone number (6-15 digits)",
+                messageRequired: "Message is required",
+                selectCountryFirst: "Please select a country first"
+            },
+            successMessage: "Message sent successfully!"
+        };
+
         const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
 
@@ -44,27 +88,27 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
             const newErrors: Partial<Record<keyof ContactFormData, string>> = {};
 
             if (!formData.name.trim()) {
-                newErrors.name = 'Name is required';
+                newErrors.name = t.errors.nameRequired;
             }
 
             if (!formData.email.trim()) {
-                newErrors.email = 'Email is required';
+                newErrors.email = t.errors.emailRequired;
             } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-                newErrors.email = 'Please enter a valid email address';
+                newErrors.email = t.errors.emailInvalid;
             }
 
             if (!formData.country) {
-                newErrors.country = 'Please select a country';
+                newErrors.country = t.errors.countryRequired;
             }
 
             if (!formData.phone.trim()) {
-                newErrors.phone = 'Phone number is required';
+                newErrors.phone = t.errors.phoneRequired;
             } else if (!/^\d{6,15}$/.test(formData.phone.replace(/\s/g, ''))) {
-                newErrors.phone = 'Please enter a valid phone number (6-15 digits)';
+                newErrors.phone = t.errors.phoneInvalid;
             }
 
             if (!formData.message.trim()) {
-                newErrors.message = 'Message is required';
+                newErrors.message = t.errors.messageRequired;
             }
 
             if (Object.keys(newErrors).length > 0) {
@@ -80,7 +124,7 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
             setErrors({});
 
             // Show success toast
-            showToast('Message sent successfully!', 'success');
+            showToast(t.successMessage, 'success');
 
             if (onSubmit) {
                 onSubmit(formData);
@@ -160,7 +204,7 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
                                     required
                                     value={formData.name}
                                     onChange={(e) => handleChange('name', e.target.value)}
-                                    placeholder="Full Name *"
+                                    placeholder={t.fields.name.placeholder}
                                     className={cn(
                                         "w-full border-0 border-b px-0 py-3 text-white placeholder:text-white placeholder:text-sm outline-none focus:outline-none focus:ring-0 focus:border-b transition-all",
                                         errors.name
@@ -183,7 +227,7 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
                                     required
                                     value={formData.email}
                                     onChange={(e) => handleChange('email', e.target.value)}
-                                    placeholder="Email Address *"
+                                    placeholder={t.fields.email.placeholder}
                                     className={cn(
                                         "w-full border-0 border-b px-0 py-3 text-white placeholder:text-white placeholder:text-sm outline-none focus:outline-none focus:ring-0 focus:border-b transition-all",
                                         errors.email
@@ -208,7 +252,7 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
                                 value={formData.country}
                                 onChange={handleCountryChange}
                                 error={!!errors.country}
-                                placeholder="Choose an option *"
+                                placeholder={t.fields.country.placeholder}
                             />
                             {errors.country && (
                                 <p className="text-xs text-destructive">{errors.country}</p>
@@ -232,20 +276,20 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
                                         value={formData.phone}
                                         onChange={(e) => {
                                             if (!formData.country) {
-                                                showToast('Please select a country first', 'error');
-                                                setErrors(prev => ({ ...prev, country: 'Please select a country first' }));
+                                                showToast(t.errors.selectCountryFirst, 'error');
+                                                setErrors(prev => ({ ...prev, country: t.errors.selectCountryFirst }));
                                                 return;
                                             }
                                             handlePhoneChange(e.target.value);
                                         }}
                                         onFocus={() => {
                                             if (!formData.country) {
-                                                showToast('Please select a country first', 'error');
-                                                setErrors(prev => ({ ...prev, country: 'Please select a country first' }));
+                                                showToast(t.errors.selectCountryFirst, 'error');
+                                                setErrors(prev => ({ ...prev, country: t.errors.selectCountryFirst }));
                                             }
                                         }}
                                         disabled={!formData.country}
-                                        placeholder="Phone number"
+                                        placeholder={t.fields.phone.placeholder}
                                         className={cn(
                                             "w-full border-0 border-b px-0 py-3 text-white placeholder:text-white placeholder:text-sm outline-none focus:outline-none focus:ring-0 focus:border-b transition-all",
                                             formData.country ? "pl-16" : "",
@@ -271,7 +315,7 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
                                 required
                                 value={formData.message}
                                 onChange={(e) => handleChange('message', e.target.value)}
-                                placeholder="Type message *"
+                                placeholder={t.fields.message.placeholder}
                                 rows={5}
                                 className={cn(
                                     "w-full border-0 border-b px-0 py-3 text-white placeholder:text-white placeholder:text-sm focus:outline-none focus:border-b-2 transition-all resize-none",
@@ -296,11 +340,11 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
                             <span className="relative inline-block h-[1.5em] overflow-hidden">
                                 {/* Current text - moves up on hover */}
                                 <span className="read-more-text-current inline-block transition-all duration-700 ease-in-out font-semibold group-hover:-translate-y-full group-hover:opacity-0">
-                                    Send Message
+                                    {t.submitButton}
                                 </span>
                                 {/* New text - appears from below on hover */}
                                 <span className="read-more-text-new absolute left-0 top-0 inline-block w-full translate-y-full opacity-0 transition-all duration-700 ease-in-out font-semibold group-hover:translate-y-0 group-hover:opacity-100">
-                                    Send Message
+                                    {t.submitButton}
                                 </span>
                             </span>
 

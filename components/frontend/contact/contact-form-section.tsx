@@ -4,12 +4,16 @@ import type { Locale } from "@/i18n-config";
 import { ContactForm } from "@/components/frontend/common/contact-form";
 import Image from "next/image";
 import { Section } from "@/components/ui/section";
+import { getContactContent } from "@/lib/contact";
 
 interface ContactFormSectionProps {
   locale: Locale;
 }
 
 export function ContactFormSection({ locale }: ContactFormSectionProps) {
+  const content = getContactContent(locale);
+  const formTranslations = content.formSection;
+
   const handleSubmit = (formData: { name: string; email: string; country: string; phone: string; message: string }) => {
     console.log('Contact form submitted:', formData);
     // TODO: Implement form submission logic
@@ -76,11 +80,17 @@ export function ContactFormSection({ locale }: ContactFormSectionProps) {
           <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-sm rounded-2xl"></div>
           <div className="relative w-full z-10 p-8">
             <ContactForm
-              badge="GET IN TOUCH"
-              heading="Drop Us a Line."
-              headingHighlight="Line."
+              badge={formTranslations.badge}
+              heading={formTranslations.heading}
+              headingHighlight={formTranslations.headingHighlight}
               onSubmit={handleSubmit}
               className="w-full"
+              translations={{
+                fields: formTranslations.fields,
+                submitButton: formTranslations.submitButton,
+                errors: formTranslations.errors,
+                successMessage: formTranslations.successMessage
+              }}
             />
           </div>
         </div>

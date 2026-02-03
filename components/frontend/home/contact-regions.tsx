@@ -4,13 +4,11 @@ import { useState, useEffect } from "react";
 import type { Locale } from "@/i18n-config";
 import { SectionTitle } from "@/components/ui/section-title";
 import { ReadMoreButton } from "@/components/ui/read-more-button";
-import { ContactRegionCard, type FlagCode } from "@/components/frontend/common/contact-region-card";
+import { ContactRegionCard } from "@/components/frontend/common/contact-region-card";
 import { Section } from "@/components/ui/section";
 import { Typography } from "@/components/ui/typography";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { SupportedLocale } from "@/config/site";
-
-export type { FlagCode };
 
 export type ContactRegion = {
   region: string;
@@ -20,7 +18,7 @@ export type ContactRegion = {
   phones: string[];
   email: string;
   whatsapp?: string;
-  flag: FlagCode;
+  flag?: string; // Flag emoji
   specialties: string[];
   accent: string;
 };
@@ -33,6 +31,7 @@ interface ContactAddress {
   phones: string[];
   email: string;
   whatsapp?: string | null;
+  flag?: string | null; // Flag emoji
   locale: string;
 }
 
@@ -48,16 +47,7 @@ type ContactRegionsSectionProps = {
   locale: Locale;
 };
 
-// Map country names to FlagCode
-function getFlagCodeFromCountry(country: string): FlagCode {
-  const normalized = country.toLowerCase();
-  if (normalized.includes('india') || normalized.includes('indian')) return 'in';
-  if (normalized.includes('uae') || normalized.includes('emirates') || normalized.includes('dubai')) return 'ae';
-  if (normalized.includes('usa') || normalized.includes('united states') || normalized.includes('america') || normalized.includes('canada')) return 'na';
-  if (normalized.includes('europe') || normalized.includes('eu') || normalized.includes('uk') || normalized.includes('germany') || normalized.includes('france') || normalized.includes('london') || normalized.includes('frankfurt')) return 'eu';
-  if (normalized.includes('asia') || normalized.includes('singapore') || normalized.includes('malaysia') || normalized.includes('thailand') || normalized.includes('sydney')) return 'apac';
-  return 'in'; // Default fallback
-}
+// Removed getFlagCodeFromCountry - flags should only come from database
 
 export function ContactRegionsSection({
   data,
@@ -117,7 +107,27 @@ export function ContactRegionsSection({
         {isLoading ? (
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-64 animate-pulse rounded-3xl border border-border/40 bg-card/95" />
+              <div key={i} className="animate-pulse rounded-3xl border border-border/40 bg-card p-8">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="h-14 w-14 bg-muted rounded-2xl" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-5 bg-muted rounded w-2/3" />
+                    <div className="h-4 bg-muted rounded w-1/2" />
+                  </div>
+                </div>
+                <div className="h-px bg-muted mb-6" />
+                <div className="flex gap-4 mb-4">
+                  <div className="h-10 w-10 bg-muted rounded-xl" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-muted rounded w-full" />
+                    <div className="h-4 bg-muted rounded w-5/6" />
+                  </div>
+                </div>
+                <div className="space-y-3 mt-auto pt-2">
+                  <div className="h-12 bg-muted rounded-xl" />
+                  <div className="h-12 bg-muted rounded-xl" />
+                </div>
+              </div>
             ))}
           </div>
         ) : addresses.length > 0 ? (
@@ -133,7 +143,7 @@ export function ContactRegionsSection({
                   phones={address.phones}
                   email={address.email}
                   whatsapp={address.whatsapp || undefined}
-                  flag={getFlagCodeFromCountry(address.country)}
+                  flag={address.flag || undefined}
                 />
               );
             })}

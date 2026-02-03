@@ -273,7 +273,12 @@
       "Metapíxel",
       "comprar",
       "Zapier"
-    ]
+    ],
+    "ecommerceHeading": "Integración perfecta de comercio electrónico para el éxito MLM",
+    "ecommerceDescription": "Mejore su negocio MLM con nuestras integraciones sólidas para Shopify, WooCommerce y Criptomoneda. Nuestro software simplifica la gestión y el crecimiento de su tienda en línea, permitiéndole sincronizar datos de ventas y optimizar la experiencia del usuario, todo desde una sola plataforma. Ya sea que esté construyendo una operación de comercio electrónico a gran escala o lanzando una nueva empresa, nuestra integración perfecta garantiza que su red MLM funcione de manera eficiente, apoyando tanto el crecimiento de las ventas como la expansión del negocio sin esfuerzo.",
+    "noIntegrationsText": "Aún no hay integraciones disponibles.",
+    "customIntegrationsText": "¿Necesita integraciones personalizadas? Nuestro equipo puede crear conectores para sus herramientas y flujos de trabajo específicos.",
+    "exploreButtonText": "Explorar todas las integraciones"
   },
   "aiHighlights": {
     "heading": "Copilotos de IA en todos los departamentos",

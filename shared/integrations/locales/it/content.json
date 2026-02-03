@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "badgeText": "INTEGRAZIONI",
+    "description": "Collega facilmente il tuo software MLM a gateway di pagamento, CRM, automazione del marketing e altro ancora. Espandi le capacità della tua piattaforma con la nostra vasta libreria di integrazioni.",
+    "primaryCta": "Visualizza integrazioni",
+    "secondaryCta": "Inizia",
+    "metrics": {
+      "integrationPartners": {
+        "label": "Partner di integrazione",
+        "detail": "Connettiti con gateway di pagamento, CRM e strumenti di marketing"
+      },
+      "connectorsAvailable": {
+        "label": "Connettori disponibili",
+        "detail": "Integrazioni predefinite per un flusso di dati senza interruzioni"
+      },
+      "setupTime": {
+        "label": "Tempo di configurazione",
+        "detail": "Configurazione rapida dell'integrazione con supporto esperto"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Integra",
+      "afterText": "il tuo software MLM con piattaforme leader"
+    }
+  },
+  "primarySection": {
+    "heading": "Connettiti con piattaforme leader",
+    "description": "Espandi le capacità del tuo software MLM con integrazioni in elaborazione dei pagamenti, CRM, marketing e piattaforme e-commerce."
+  },
+  "listSection": {
+    "badge": "Integrazioni",
+    "heading": "Connettiti con piattaforme leader",
+    "description": "Espandi le capacità del tuo software MLM con la nostra vasta libreria di integrazioni. Connetti gateway di pagamento, CRM, strumenti di marketing e altro ancora.",
+    "noIntegrationsText": "Nessuna integrazione disponibile al momento."
+  },
+  "ctaSection": {
+    "title": "Pronto a integrare il tuo software MLM?",
+    "description": "Collega la tua piattaforma MLM a gateway di pagamento, CRM, strumenti di marketing e altro ancora. Inizia con una configurazione esperta e supporto continuo.",
+    "primaryButton": "Contattaci",
+    "secondaryButton": "Richiedi demo",
+    "trustIndicators": {
+      "quickImplementation": "Configurazione rapida in 24 ore",
+      "expertConsultation": "Consulenza esperta",
+      "provenResults": "Integrazioni comprovate"
+    }
+  }
+}

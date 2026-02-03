@@ -63,7 +63,7 @@ export function HomePageHeroSection({
   const titleParts = displayTitle ? parseTitle(displayTitle) : { highlightText: displayTitle || 'MLM Software' };
 
   return (
-    <section className="relative isolate pb-20 pt-6 rounded-3xl m-2">
+    <section className="relative isolate pt-6 pb-0 rounded-3xl m-2 mb-0">
       {/* Background Image */}
       <div
         className="absolute inset-0 -z-20 opacity-100 dark:opacity-100 overflow-hidden rounded-3xl"
@@ -82,7 +82,7 @@ export function HomePageHeroSection({
       <div className="container relative">
         <div className="grid gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center px-4 pt-16">
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center lg:mx-0 lg:items-start lg:text-left">
-            <div className="space-y-6 w-full">
+            <div className="space-y-4 w-full">
               <PageTitle
                 badgeText={displayBadge || undefined}
                 beforeText={titleParts.beforeText}
@@ -168,7 +168,7 @@ export function HomePageHeroSection({
             )}
           </div>
           <div className="relative mx-auto w-full max-w-xl lg:ml-auto">
-            <div className="relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-border/30 bg-card text-foreground shadow-[0_40px_80px_-48px_rgba(15,23,42,0.45)]">
+            <div className="relative flex flex-col gap-4 overflow-hidden rounded-t-3xl border border-border/30 bg-card text-foreground pt-6">
               <div className="flex items-center justify-between gap-4 px-6 pt-8">
                 <Badge variant="default">
                   Platform snapshot
@@ -189,14 +189,16 @@ export function HomePageHeroSection({
                   <BulletList items={data.features} />
                 </div>
               )}
-              <div className="relative px-6 pb-8">
+              <div className="relative px-6 py-5">
                 <div className="relative overflow-hidden rounded-3xl border border-border/30 bg-muted/40 shadow-xl">
                   <SmartImage
                     src="/wp-content/uploads/2024/06/cloudDashboardDemo.webp"
-                    alt="Cloud MLM dashboard"
+                    alt="Cloud MLM Software Dashboard - Network Marketing Management Platform with Real-time Analytics"
                     width={600}
                     height={360}
                     className="w-full rounded-2xl border border-border/50 object-cover"
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                   />
                   <div className="absolute bottom-4 left-4 rounded-2xl border border-border/50 bg-card/90 px-4 py-3 text-left shadow-sm">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.4em] text-muted-foreground">AI signals</p>

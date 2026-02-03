@@ -47,6 +47,7 @@
     "badge": "FAQ",
     "heading": "Häufig gestellte Fragen",
     "description": "Schnelle Antworten für Teams, die sich auf das nächste Cloud MLM Software-Gespräch vorbereiten.",
+    "noFaqsMessage": "Noch keine FAQs verfügbar.",
     "faqs": [
       {
         "question": "Welche Informationen sollte ich beim Kontakt mit dem Vertrieb angeben?",
@@ -100,5 +101,44 @@
       "value": "Geschäftszeiten",
       "detail": "+91 85901 37114"
     }
+  },
+  "formSection": {
+    "badge": "KONTAKT AUFNEHMEN",
+    "heading": "Schreiben Sie uns.",
+    "headingHighlight": "Schreiben Sie uns.",
+    "fields": {
+      "name": {
+        "label": "Vollständiger Name",
+        "placeholder": "Vollständiger Name *"
+      },
+      "email": {
+        "label": "E-Mail-Adresse",
+        "placeholder": "E-Mail-Adresse *"
+      },
+      "country": {
+        "label": "Land",
+        "placeholder": "Option wählen *"
+      },
+      "phone": {
+        "label": "Telefonnummer",
+        "placeholder": "Telefonnummer"
+      },
+      "message": {
+        "label": "Nachricht",
+        "placeholder": "Nachricht eingeben *"
+      }
+    },
+    "submitButton": "Nachricht senden",
+    "errors": {
+      "nameRequired": "Name ist erforderlich",
+      "emailRequired": "E-Mail ist erforderlich",
+      "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "countryRequired": "Bitte wählen Sie ein Land aus",
+      "phoneRequired": "Telefonnummer ist erforderlich",
+      "phoneInvalid": "Bitte geben Sie eine gültige Telefonnummer ein (6-15 Ziffern)",
+      "messageRequired": "Nachricht ist erforderlich",
+      "selectCountryFirst": "Bitte wählen Sie zuerst ein Land aus"
+    },
+    "successMessage": "Nachricht erfolgreich gesendet!"
   }
 }

@@ -130,7 +130,13 @@ export function IndustriesListSection({
                 </div>
                 <div className="grid gap-6">
                     {[...Array(3)].map((_, i) => (
-                        <div key={i} className="h-48 bg-muted animate-pulse rounded-3xl" />
+                        <div key={i} className="animate-pulse rounded-3xl border border-border/40 bg-card/95 p-8">
+                            <div className="h-14 w-14 bg-muted rounded-full mb-4" />
+                            <div className="h-6 bg-muted rounded w-2/3 mb-4" />
+                            <div className="h-4 bg-muted rounded w-full mb-2" />
+                            <div className="h-4 bg-muted rounded w-5/6 mb-4" />
+                            <div className="h-10 bg-muted rounded w-32" />
+                        </div>
                     ))}
                 </div>
             </Section>

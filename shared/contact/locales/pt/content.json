@@ -47,6 +47,7 @@
     "badge": "FAQ",
     "heading": "Perguntas frequentes",
     "description": "Respostas rápidas para equipes que se preparam para a próxima conversa com Cloud MLM Software.",
+    "noFaqsMessage": "Ainda não há perguntas frequentes disponíveis.",
     "faqs": [
       {
         "question": "Quais informações devo incluir ao entrar em contato com vendas?",
@@ -100,5 +101,44 @@
       "value": "Horário comercial",
       "detail": "+91 85901 37114"
     }
+  },
+  "formSection": {
+    "badge": "ENTRE EM CONTATO",
+    "heading": "Envie-nos uma mensagem.",
+    "headingHighlight": "Envie-nos uma mensagem.",
+    "fields": {
+      "name": {
+        "label": "Nome completo",
+        "placeholder": "Nome completo *"
+      },
+      "email": {
+        "label": "Endereço de e-mail",
+        "placeholder": "Endereço de e-mail *"
+      },
+      "country": {
+        "label": "País",
+        "placeholder": "Escolher uma opção *"
+      },
+      "phone": {
+        "label": "Número de telefone",
+        "placeholder": "Número de telefone"
+      },
+      "message": {
+        "label": "Mensagem",
+        "placeholder": "Digite uma mensagem *"
+      }
+    },
+    "submitButton": "Enviar mensagem",
+    "errors": {
+      "nameRequired": "O nome é obrigatório",
+      "emailRequired": "O e-mail é obrigatório",
+      "emailInvalid": "Por favor, insira um endereço de e-mail válido",
+      "countryRequired": "Por favor, selecione um país",
+      "phoneRequired": "O número de telefone é obrigatório",
+      "phoneInvalid": "Por favor, insira um número de telefone válido (6-15 dígitos)",
+      "messageRequired": "A mensagem é obrigatória",
+      "selectCountryFirst": "Por favor, selecione um país primeiro"
+    },
+    "successMessage": "Mensagem enviada com sucesso!"
   }
 }

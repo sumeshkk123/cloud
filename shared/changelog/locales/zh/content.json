@@ -1,0 +1,41 @@
+{
+  "hero": {
+    "badgeText": "版本说明",
+    "fallbackTitle": {
+      "highlightText": "更新日志",
+      "afterText": "随时了解我们的最新版本和改进"
+    },
+    "metrics": {
+      "yearsOfIteration": {
+        "label": "迭代年数",
+        "value": "2015–2025",
+        "detail": "在全球MLM计划中持续交付的十年。"
+      },
+      "majorReleases": {
+        "label": "主要版本",
+        "value": "40+",
+        "detail": "功能和基础设施发布，实现零停机部署。"
+      },
+      "automationCoverage": {
+        "label": "自动化覆盖率",
+        "value": "85%",
+        "detail": "端到端编排的财务、合规和客户体验工作流程。"
+      }
+    },
+    "primaryCta": "订阅版本提醒",
+    "secondaryCta": "与产品专家交谈"
+  },
+  "listSection": {
+    "badge": "版本历史",
+    "heading": "演进时间线",
+    "description": "追溯Cloud MLM Software如何从基础计划管理发展到AI原生副驾驶。每个版本都突出了向全球客户提供的重点领域和能力。",
+    "keyFeatures": "主要功能：",
+    "noEntries": "暂无更新日志条目。"
+  },
+  "ctaSection": {
+    "title": "需要更多详细信息？",
+    "description": "我们的产品团队可以引导您了解路线图、部署窗口以及我们如何根据您的治理需求定制每个版本。",
+    "primaryCta": "安排路线图审查",
+    "secondaryCta": "加入版本摘要"
+  }
+}

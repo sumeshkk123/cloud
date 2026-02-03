@@ -8,6 +8,7 @@ interface SmartImageProps extends Omit<React.ComponentProps<typeof Image>, "src"
   src: string | null | undefined;
   fallback?: string;
   alt: string;
+  priority?: boolean; // For LCP images
 }
 
 /**
@@ -15,7 +16,7 @@ interface SmartImageProps extends Omit<React.ComponentProps<typeof Image>, "src"
  * - Local images (from public folder): Uses Next.js Image optimization
  * - External images: Uses unoptimized mode to avoid Next.js image optimization issues
  */
-export function SmartImage({ src, fallback, alt, ...props }: SmartImageProps) {
+export function SmartImage({ src, fallback, alt, priority = false, ...props }: SmartImageProps) {
   const [imgError, setImgError] = useState(false);
   const [fallbackError, setFallbackError] = useState(false);
   const [isValidSrc, setIsValidSrc] = useState(true);
@@ -75,6 +76,7 @@ export function SmartImage({ src, fallback, alt, ...props }: SmartImageProps) {
   
   // For external images, use unoptimized to avoid Next.js optimization issues
   // For local images, use optimized Next.js Image
+  // Default to lazy loading unless priority is explicitly set (for LCP images)
   try {
     return (
       <Image
@@ -83,6 +85,9 @@ export function SmartImage({ src, fallback, alt, ...props }: SmartImageProps) {
         alt={alt}
         unoptimized={isExternal}
         onError={handleError}
+        priority={priority}
+        loading={priority ? undefined : 'lazy'}
+        quality={props.quality || (isExternal ? undefined : 75)}
       />
     );
   } catch (error) {

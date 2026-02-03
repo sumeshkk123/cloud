@@ -9,6 +9,7 @@ import {
   deleteService,
   getAllServiceTranslations,
 } from '@/lib/api/services';
+import { prisma } from '@/lib/db/prisma';
 
 export async function GET(request: Request) {
   try {
@@ -21,6 +22,7 @@ export async function GET(request: Request) {
     const id = searchParams.get('id');
     const allTranslations = searchParams.get('all') === 'true';
     const locale = searchParams.get('locale') || 'en';
+    const withTranslations = searchParams.get('withTranslations') === 'true';
 
     if (id) {
       if (allTranslations) {
@@ -49,7 +51,71 @@ export async function GET(request: Request) {
       });
     }
 
+    // Fetch English services
     const services = await listServices('en');
+    
+    // If withTranslations is true, fetch all translations and group by icon+showOnHomePage
+    if (withTranslations) {
+      // Get all unique icon+showOnHomePage combinations
+      const serviceGroups = new Map<string, typeof services>();
+      services.forEach(service => {
+        const groupKey = `${service.icon || 'no-icon'}_${service.showOnHomePage ? 'home' : 'no-home'}`;
+        if (!serviceGroups.has(groupKey)) {
+          serviceGroups.set(groupKey, []);
+        }
+        serviceGroups.get(groupKey)!.push(service);
+      });
+
+      // Fetch all translations for all groups in parallel
+      const allTranslations = await Promise.all(
+        Array.from(serviceGroups.entries()).map(async ([groupKey, groupServices]) => {
+          if (groupServices.length === 0) return [];
+          const firstService = groupServices[0];
+          return await prisma.services.findMany({
+            where: {
+              icon: firstService.icon,
+              showOnHomePage: firstService.showOnHomePage,
+            },
+            orderBy: { locale: 'asc' },
+          });
+        })
+      );
+
+      // Create a map of service ID to available locales
+      const localeMap = new Map<string, string[]>();
+      allTranslations.flat().forEach(service => {
+        const groupKey = `${service.icon || 'no-icon'}_${service.showOnHomePage ? 'home' : 'no-home'}`;
+        if (!localeMap.has(groupKey)) {
+          localeMap.set(groupKey, []);
+        }
+        localeMap.get(groupKey)!.push(service.locale);
+      });
+
+      // Map services with their available locales
+      const safeServices = services.map((service) => {
+        const groupKey = `${service.icon || 'no-icon'}_${service.showOnHomePage ? 'home' : 'no-home'}`;
+        const availableLocales = localeMap.get(groupKey) || [service.locale];
+        
+        return {
+          id: String(service.id),
+          title: String(service.title || ''),
+          description: String(service.description || ''),
+          content: service.content ? String(service.content) : null,
+          image: service.image ? String(service.image) : null,
+          icon: service.icon ? String(service.icon) : null,
+          keyBenefits: service.keyBenefits || null,
+          serviceHighlights: service.serviceHighlights || null,
+          showOnHomePage: Boolean(service.showOnHomePage ?? false),
+          locale: String(service.locale || ''),
+          createdAt: service.createdAt,
+          updatedAt: service.updatedAt,
+          availableLocales, // Include translation info
+        };
+      });
+      
+      return NextResponse.json(safeServices);
+    }
+
     const safeServices = services.map((service) => ({
       id: String(service.id),
       title: String(service.title || ''),

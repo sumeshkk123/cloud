@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "badgeText": "INTÉGRATIONS",
+    "description": "Connectez facilement votre logiciel MLM aux passerelles de paiement, CRM, automatisation marketing et plus encore. Étendez les capacités de votre plateforme avec notre vaste bibliothèque d'intégrations.",
+    "primaryCta": "Voir les intégrations",
+    "secondaryCta": "Commencer",
+    "metrics": {
+      "integrationPartners": {
+        "label": "Partenaires d'intégration",
+        "detail": "Connectez-vous aux passerelles de paiement, CRM et outils marketing"
+      },
+      "connectorsAvailable": {
+        "label": "Connecteurs disponibles",
+        "detail": "Intégrations préconstruites pour un flux de données transparent"
+      },
+      "setupTime": {
+        "label": "Temps de configuration",
+        "detail": "Configuration rapide d'intégration avec support expert"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Intégrer",
+      "afterText": "votre logiciel MLM avec les plateformes leaders"
+    }
+  },
+  "primarySection": {
+    "heading": "Connectez-vous aux plateformes leaders",
+    "description": "Étendez les capacités de votre logiciel MLM avec des intégrations dans le traitement des paiements, CRM, marketing et plateformes e-commerce."
+  },
+  "listSection": {
+    "badge": "Intégrations",
+    "heading": "Connectez-vous aux plateformes leaders",
+    "description": "Étendez les capacités de votre logiciel MLM avec notre vaste bibliothèque d'intégrations. Connectez les passerelles de paiement, CRM, outils marketing et plus encore.",
+    "noIntegrationsText": "Aucune intégration disponible pour le moment."
+  },
+  "ctaSection": {
+    "title": "Prêt à intégrer votre logiciel MLM ?",
+    "description": "Connectez votre plateforme MLM aux passerelles de paiement, CRM, outils marketing et plus encore. Commencez avec une configuration experte et un support continu.",
+    "primaryButton": "Nous contacter",
+    "secondaryButton": "Demander une démo",
+    "trustIndicators": {
+      "quickImplementation": "Configuration rapide en 24 heures",
+      "expertConsultation": "Consultation experte",
+      "provenResults": "Intégrations éprouvées"
+    }
+  }
+}

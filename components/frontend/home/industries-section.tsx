@@ -110,8 +110,14 @@ export function IndustriesSection({ locale, data }: { locale: Locale; data: Home
           {[...Array(MAX_ITEMS_HOME_PAGE)].map((_, i) => (
             <div
               key={i}
-              className="h-64 animate-pulse rounded-3xl border border-border/40 bg-card/95"
-            />
+              className="animate-pulse rounded-3xl border border-border/40 bg-card/95 p-8"
+            >
+              <div className="h-14 w-14 bg-muted rounded-full mb-4" />
+              <div className="h-6 bg-muted rounded w-2/3 mb-4" />
+              <div className="h-4 bg-muted rounded w-full mb-2" />
+              <div className="h-4 bg-muted rounded w-5/6 mb-4" />
+              <div className="h-10 bg-muted rounded w-32" />
+            </div>
           ))}
         </div>
       ) : solutions.length > 0 ? (
@@ -161,7 +167,7 @@ export function IndustriesSection({ locale, data }: { locale: Locale; data: Home
             {data?.ctaText || "Tap into curated feature packs and regulatory presets built with leaders across direct selling, wellness, and finance."}
           </>
         }
-        buttonText={data?.ctaButtonText || "Explore all modules"}
+        buttonText={data?.ctaButtonText || "Explore all industries"}
         buttonHref={localizedHref(locale, "/industries")}
       />
     </Section>

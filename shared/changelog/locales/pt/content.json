@@ -1,0 +1,41 @@
+{
+  "hero": {
+    "badgeText": "Notas de versão",
+    "fallbackTitle": {
+      "highlightText": "Registro de alterações",
+      "afterText": "Mantenha-se atualizado com nossos últimos lançamentos e melhorias"
+    },
+    "metrics": {
+      "yearsOfIteration": {
+        "label": "Anos de iteração",
+        "value": "2015–2025",
+        "detail": "Uma década de entrega contínua em programas MLM globais."
+      },
+      "majorReleases": {
+        "label": "Lançamentos principais",
+        "value": "40+",
+        "detail": "Funcionalidades e lançamentos de infraestrutura entregues com rollouts sem tempo de inatividade."
+      },
+      "automationCoverage": {
+        "label": "Cobertura de automação",
+        "value": "85%",
+        "detail": "Fluxos de trabalho de finanças, conformidade e CX orquestrados de ponta a ponta."
+      }
+    },
+    "primaryCta": "Inscrever-se para alertas de lançamento",
+    "secondaryCta": "Falar com um especialista em produtos"
+  },
+  "listSection": {
+    "badge": "Histórico de versões",
+    "heading": "Linha do tempo da evolução",
+    "description": "Rastreie como o Cloud MLM Software cresceu desde o gerenciamento básico de planos até copilotos nativos de IA. Cada versão destaca as áreas de foco e capacidades entregues a clientes em todo o mundo.",
+    "keyFeatures": "Recursos principais:",
+    "noEntries": "Ainda não há entradas de registro de alterações disponíveis."
+  },
+  "ctaSection": {
+    "title": "Precisa de mais detalhes?",
+    "description": "Nossa equipe de produtos pode guiá-lo através do roadmap, janelas de implantação e como adaptamos cada versão às suas necessidades de governança.",
+    "primaryCta": "Agendar uma revisão do roadmap",
+    "secondaryCta": "Juntar-se ao resumo de versões"
+  }
+}

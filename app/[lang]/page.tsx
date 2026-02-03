@@ -11,10 +11,10 @@ import {
   MomentumStatsSection,
   WhyChooseSection,
   IndustriesSection,
+  FeaturesSection,
   IntegrationsSection,
   AiToolsSection,
   MlmSoftwarePlans,
-  VideoShowcaseSection,
   ClientsSection,
   TestimonialsSection,
   BlogSection,
@@ -36,14 +36,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Sup
 
   const { getPageMetadata } = await import("@/components/frontend/common/page-metadata");
 
+  const { getHomepageKeywords } = await import("@/lib/seo-keywords");
+
   return getPageMetadata(
     params,
     "/",
     {
       page: "home",
-      fallbackTitle: "MLM Software | Best Network Marketing Tools for Growth",
-      fallbackDescription: "Grow with Cloud MLM Software: AI-powered, scalable, secure MLM platform for network marketing business. Free demo & transparent pricing! Start today.",
-      fallbackKeywords: "MLM software, network marketing software, multi-level marketing, MLM platform, direct selling software, cloud MLM, MLM solutions"
+      fallbackTitle: "MLM Software | Best Network Marketing Tools for Growth | USA, India, Philippines, Australia, Germany",
+      fallbackDescription: "Grow with Cloud MLM Software: AI-powered, scalable, secure MLM platform for network marketing business. Trusted by 500+ MLM companies worldwide. Free demo & transparent pricing! Start today.",
+      fallbackKeywords: getHomepageKeywords()
     }
   );
 }
@@ -131,13 +133,13 @@ export default async function HomePage({ params }: HomePageProps) {
         <MomentumStatsSection data={content?.momentumStats || {}} trustBadges={content?.trustBadges || []} />
         <MlmSoftwareDemo locale={locale} data={{ ...content?.demoSection, ...content?.featureSection }} />
         <WhyChooseSection locale={locale} data={content?.whyChoose || {}} />
+        <AiToolsSection data={content?.aiHighlights || {}} />
         <MlmSoftwarePlans locale={locale} data={content?.planShowcase || {}} industryTags={content?.industrySection?.focusTags} />
-        <VideoShowcaseSection />
         <MlmSoftwareModules />
+        <FeaturesSection locale={locale} data={content?.featureSection} />
         <MlmSoftwareServices locale={locale} services={homeServices} />
         <IndustriesSection locale={locale} data={content?.industrySection || {}} />
-        <IntegrationsSection data={content?.integrations || {}} />
-        <AiToolsSection data={content?.aiHighlights || {}} />
+        <IntegrationsSection data={content?.integrations || {}} locale={locale} />
         <ClientsSection locale={locale} logos={content?.hero?.logos} data={content?.clients || {}} />
         <TestimonialsSection locale={locale} data={content?.testimonials || {}} />
         <BlogSection locale={locale} data={content?.blogPosts || {}} />

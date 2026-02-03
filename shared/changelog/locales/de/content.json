@@ -1,0 +1,41 @@
+{
+  "hero": {
+    "badgeText": "Versionshinweise",
+    "fallbackTitle": {
+      "highlightText": "Änderungsprotokoll",
+      "afterText": "Bleiben Sie auf dem Laufenden mit unseren neuesten Versionen und Verbesserungen"
+    },
+    "metrics": {
+      "yearsOfIteration": {
+        "label": "Jahre der Iteration",
+        "value": "2015–2025",
+        "detail": "Ein Jahrzehnt kontinuierlicher Lieferung über globale MLM-Programme."
+      },
+      "majorReleases": {
+        "label": "Hauptversionen",
+        "value": "40+",
+        "detail": "Feature- und Infrastruktur-Launches mit Zero-Downtime-Rollouts ausgeliefert."
+      },
+      "automationCoverage": {
+        "label": "Automatisierungsabdeckung",
+        "value": "85%",
+        "detail": "End-to-End orchestrierte Workflows für Finanzen, Compliance und CX."
+      }
+    },
+    "primaryCta": "Für Versionsbenachrichtigungen anmelden",
+    "secondaryCta": "Mit einem Produktspezialisten sprechen"
+  },
+  "listSection": {
+    "badge": "Versionshistorie",
+    "heading": "Evolutions-Zeitstrahl",
+    "description": "Verfolgen Sie, wie Cloud MLM Software von der grundlegenden Planverwaltung zu KI-nativen Copiloten gewachsen ist. Jede Version hebt die Schwerpunktbereiche und Fähigkeiten hervor, die Kunden weltweit geliefert werden.",
+    "keyFeatures": "Hauptfunktionen:",
+    "noEntries": "Noch keine Änderungsprotokoll-Einträge verfügbar."
+  },
+  "ctaSection": {
+    "title": "Brauchen Sie mehr Details?",
+    "description": "Unser Produktteam kann Sie durch die Roadmap, Bereitstellungsfenster und wie wir jede Version an Ihre Governance-Anforderungen anpassen, führen.",
+    "primaryCta": "Roadmap-Überprüfung planen",
+    "secondaryCta": "Dem Versions-Digest beitreten"
+  }
+}

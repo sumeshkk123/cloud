@@ -111,14 +111,17 @@ function resolveLocale(lang: string): Locale {
 export async function generateMetadata({ params }: { params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } }): Promise<Metadata> {
   const { getPageMetadata } = await import("@/components/frontend/common/page-metadata");
 
+  const { getPageKeywords } = await import("@/lib/seo-keywords");
+  const resolvedParams = params instanceof Promise ? await params : params;
+  
   return getPageMetadata(
     params,
     "/services",
     {
       page: "services",
-      fallbackTitle: "MLM Services | Cloud MLM Software",
-      fallbackDescription: "Partner with Cloud MLM Software for consulting, development, integrations, compliance, and managed services tailored to direct selling enterprises.",
-      fallbackKeywords: "MLM services, MLM consulting, MLM software development, MLM integration services, direct selling services, network marketing services"
+      fallbackTitle: "MLM Services | Consulting, Development & Integration Services | USA, India, Philippines, Australia, Germany",
+      fallbackDescription: "Partner with Cloud MLM Software for MLM consulting, custom software development, payment gateway integrations, compliance services, and managed hosting. Expert MLM services for network marketing businesses worldwide.",
+      fallbackKeywords: `${getPageKeywords("services", resolvedParams.lang)}, MLM consulting services, MLM software development, MLM integration services, MLM implementation services, MLM compliance services, MLM managed services`
     }
   );
 }

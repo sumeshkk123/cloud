@@ -1,0 +1,63 @@
+# Cursor Rules - Critical Deletion Protection
+
+## ⚠️ CRITICAL: DELETION RULES
+
+### NEVER DELETE WITHOUT EXPLICIT PERMISSION
+
+1. **DO NOT DELETE ANY FILES, CODE, OR DATA WITHOUT EXPLICIT USER PERMISSION**
+   - Always ask the user before deleting any file, code block, or data
+   - Never assume deletion is what the user wants
+   - If unsure, ask first
+
+2. **DO NOT DELETE DATABASE DATA WITHOUT EXPLICIT PERMISSION**
+   - Never delete database records, tables, or data without explicit user approval
+   - Always ask before executing any DELETE, DROP, or TRUNCATE operations
+   - Warn the user about potential data loss before any destructive database operations
+
+3. **DO NOT REMOVE CODE WITHOUT PERMISSION**
+   - Do not remove functions, components, or code blocks unless explicitly requested
+   - When refactoring, preserve existing functionality unless told otherwise
+   - Always ask before removing or commenting out code
+
+4. **ALWAYS ASK BEFORE DELETING**
+   - Before any deletion operation, clearly state:
+     - What will be deleted
+     - Why it needs to be deleted
+     - What the impact will be
+   - Wait for explicit confirmation before proceeding
+
+5. **PRESERVE EXISTING FUNCTIONALITY**
+   - When making changes, preserve existing features unless explicitly asked to remove them
+   - Do not remove or modify working code without permission
+   - Maintain backward compatibility when possible
+
+## General Guidelines
+
+- Always explain what you're doing before making changes
+- When in doubt, ask the user for clarification
+- Preserve user's work and preferences
+- Respect existing code structure and patterns
+
+## Database Operations
+
+- **NEVER** execute destructive SQL operations without explicit permission
+- Always show the SQL query before executing DELETE, DROP, or TRUNCATE
+- Warn about data loss potential
+- Suggest backups before destructive operations
+
+## File Operations
+
+- **NEVER** delete files without explicit user request
+- Always confirm file paths before deletion
+- Warn if deletion might affect other parts of the system
+
+## Code Modifications
+
+- **NEVER** remove code without explicit permission
+- When refactoring, preserve existing functionality
+- Ask before removing unused code, comments, or features
+- Always explain what will be removed and why
+
+---
+
+**REMEMBER: When in doubt, ASK FIRST. It's better to ask for permission than to delete something important.**

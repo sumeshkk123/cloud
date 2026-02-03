@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "badgeText": "INTEGRACIONES",
+    "description": "Conecte sin problemas su software MLM con pasarelas de pago, CRMs, automatización de marketing y más. Amplíe las capacidades de su plataforma con nuestra extensa biblioteca de integraciones.",
+    "primaryCta": "Ver integraciones",
+    "secondaryCta": "Comenzar",
+    "metrics": {
+      "integrationPartners": {
+        "label": "Socios de integración",
+        "detail": "Conecte con pasarelas de pago, CRMs y herramientas de marketing"
+      },
+      "connectorsAvailable": {
+        "label": "Conectores disponibles",
+        "detail": "Integraciones preconstruidas para un flujo de datos perfecto"
+      },
+      "setupTime": {
+        "label": "Tiempo de configuración",
+        "detail": "Configuración rápida de integración con soporte experto"
+      }
+    },
+    "fallbackTitle": {
+      "highlightText": "Integrar",
+      "afterText": "su software MLM con plataformas líderes"
+    }
+  },
+  "primarySection": {
+    "heading": "Conecte con plataformas líderes",
+    "description": "Amplíe las capacidades de su software MLM con integraciones en procesamiento de pagos, CRM, marketing y plataformas de comercio electrónico."
+  },
+  "listSection": {
+    "badge": "Integraciones",
+    "heading": "Conecte con plataformas líderes",
+    "description": "Amplíe las capacidades de su software MLM con nuestra extensa biblioteca de integraciones. Conecte pasarelas de pago, CRMs, herramientas de marketing y más.",
+    "noIntegrationsText": "Aún no hay integraciones disponibles."
+  },
+  "ctaSection": {
+    "title": "¿Listo para integrar su software MLM?",
+    "description": "Conecte su plataforma MLM con pasarelas de pago, CRMs, herramientas de marketing y más líderes. Comience con configuración experta y soporte continuo.",
+    "primaryButton": "Contáctenos",
+    "secondaryButton": "Solicitar demostración",
+    "trustIndicators": {
+      "quickImplementation": "Configuración rápida en 24 horas",
+      "expertConsultation": "Consulta experta",
+      "provenResults": "Integraciones probadas"
+    }
+  }
+}

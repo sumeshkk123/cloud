@@ -172,6 +172,11 @@ export type HomepageContent = {
     heading: string;
     description: string;
     partners: HomepageIntegration[];
+    ecommerceHeading?: string;
+    ecommerceDescription?: string;
+    noIntegrationsText?: string;
+    customIntegrationsText?: string;
+    exploreButtonText?: string;
   };
   aiHighlights: {
     heading: string;

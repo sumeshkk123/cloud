@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { ContactTable } from './contact-table';
-import { FaqTable } from '@/components/admin/faq/faq-table';
+import { ContactFaqTable } from './contact-faq-table';
 import { PageTitle } from '@/components/ui/adminUi/page-title';
 import { cn } from '@/lib/utils';
 
@@ -19,7 +19,8 @@ export function ContactAdminTabs() {
   return (
     <div className="space-y-4">
       <PageTitle 
-        title="Contact" 
+        title="Contact"
+        description="Manage contact addresses and FAQs displayed on the contact page."
       />
 
       {/* Tabs */}
@@ -57,7 +58,7 @@ export function ContactAdminTabs() {
         )}
         {activeTab === 'faq' && (
           <div id="tab-panel-faq" role="tabpanel" aria-labelledby="tab-faq">
-            <FaqTable />
+            <ContactFaqTable />
           </div>
         )}
       </div>

@@ -117,14 +117,17 @@ const IMPACT_STORIES: ImpactStory[] = [
 export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
   const { getPageMetadata } = await import("@/components/frontend/common/page-metadata");
 
+  const { getPageKeywords } = await import("@/lib/seo-keywords");
+  const resolvedParams = params instanceof Promise ? await params : params;
+  
   return getPageMetadata(
     params,
     "/industries",
     {
       page: "industries",
-      fallbackTitle: "Industries | Cloud MLM Software",
-      fallbackDescription: "See how Cloud MLM Software powers direct selling, affiliate, and investment brands across every industry with AI-led operations.",
-      fallbackKeywords: "MLM industries, direct selling industries, network marketing industries, MLM software for industries, industry solutions"
+      fallbackTitle: "MLM Software for Industries | Health, Beauty, Finance & More | USA, India, Philippines, Australia, Germany",
+      fallbackDescription: "Discover how Cloud MLM Software powers direct selling businesses across health & wellness, beauty & cosmetics, financial services, and more. Industry-specific MLM solutions with AI automation.",
+      fallbackKeywords: `${getPageKeywords("industries", resolvedParams.lang)}, MLM software for health and wellness, beauty MLM software, nutrition MLM platform, financial services MLM, MLM industry solutions`
     }
   );
 }

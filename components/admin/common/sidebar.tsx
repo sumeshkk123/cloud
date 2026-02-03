@@ -22,6 +22,9 @@ import {
   PenLine,
   LucideIcon,
   Layers,
+  Plug,
+  GitBranch,
+  Bot,
 } from 'lucide-react';
 import { usePermissions } from '@/lib/hooks/use-permissions';
 import { Permission, UserRole } from '@/lib/permissions';
@@ -46,6 +49,11 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
   const { can, isAdmin } = usePermissions();
   const { data: session } = useSession();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isFeaturesOpen, setIsFeaturesOpen] = useState(false);
+  const [isModulesOpen, setIsModulesOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isIndustrySolutionsOpen, setIsIndustrySolutionsOpen] = useState(false);
+  const [isIntegrationOpen, setIsIntegrationOpen] = useState(false);
 
   const userRole = (session?.user as any)?.role || 'user';
   const isBusinessDeveloper = userRole === UserRole.BUSINESS_DEVELOPER;
@@ -59,22 +67,33 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
 
   useEffect(() => {
     if (pathname?.startsWith('/admin/settings')) setIsSettingsOpen(true);
+    if (pathname?.startsWith('/admin/features')) setIsFeaturesOpen(true);
+    if (pathname?.startsWith('/admin/modules')) setIsModulesOpen(true);
+    if (pathname?.startsWith('/admin/services')) setIsServicesOpen(true);
+    if (pathname?.startsWith('/admin/industry-solutions')) setIsIndustrySolutionsOpen(true);
+    if (pathname?.startsWith('/admin/integration')) setIsIntegrationOpen(true);
   }, [pathname]);
 
   useEffect(() => {
-    if (!isSidebarOpen) setIsSettingsOpen(false);
+    if (!isSidebarOpen) {
+      setIsSettingsOpen(false);
+      setIsFeaturesOpen(false);
+      setIsModulesOpen(false);
+      setIsServicesOpen(false);
+      setIsIndustrySolutionsOpen(false);
+      setIsIntegrationOpen(false);
+    }
   }, [isSidebarOpen]);
 
   const menuItems: MenuItem[] = [
     { href: '/admin', icon: Home, label: 'Dashboard', permission: Permission.DASHBOARD_VIEW },
     { href: '/admin/meta-details', icon: Tag, label: 'Meta Details', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
     { href: '/admin/page-titles', icon: PenLine, label: 'Page Titles', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
-    { href: '/admin/modules', icon: Layers, label: 'Modules', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
-    { href: '/admin/services', icon: Wrench, label: 'Services', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
-    { href: '/admin/industry-solutions', icon: Building2, label: 'Industry Solutions', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
     { href: '/admin/contact', icon: Mail, label: 'Contact', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
     { href: '/admin/faq', icon: HelpCircle, label: 'FAQ', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
     { href: '/admin/testimonials', icon: MessageSquare, label: 'Testimonials', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
+    { href: '/admin/changelog', icon: GitBranch, label: 'Changelog', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
+    { href: '/admin/ai-copilot', icon: Bot, label: 'AI Co-pilot', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
   ];
 
   const shouldShowMenuItem = (item: MenuItem) => {
@@ -127,6 +146,8 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
               height={50}
               className="h-auto w-full max-w-[160px] object-contain"
               priority
+              quality={90}
+              sizes="(max-width: 768px) 150px, 180px"
             />
           </Link>
         ) : (
@@ -150,6 +171,266 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
           <nav className="space-y-1">
             {menuItems.map((item) =>
               shouldShowMenuItem(item) && <MenuLink key={item.href} item={item} />
+            )}
+            
+            {/* Features Dropdown */}
+            {shouldShowMenuItem({ href: '/admin/features', icon: Sparkles, label: 'Features', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }) && (
+              <div className="relative">
+                <button
+                  onClick={() => setIsFeaturesOpen(!isFeaturesOpen)}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
+                    isActive('/admin/features')
+                      ? 'bg-primary-600 text-white shadow-sm'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  title={!isSidebarOpen ? 'Features' : undefined}
+                >
+                  <Sparkles className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/features') ? 'text-white' : ''}`} />
+                  {isSidebarOpen && (
+                    <>
+                      <span>Features</span>
+                      <ChevronDown className={`h-4 w-4 ml-auto transition-transform ${isFeaturesOpen ? 'rotate-180' : ''} ${isActive('/admin/features') ? 'text-white' : ''}`} />
+                    </>
+                  )}
+                  {!isSidebarOpen && (
+                    <span className="fixed left-20 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-[100] transition-opacity">
+                      Features
+                    </span>
+                  )}
+                </button>
+                {isSidebarOpen && isFeaturesOpen && (
+                  <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+                    <Link
+                      href="/admin/features"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/features' || (pathname.startsWith('/admin/features') && !pathname.includes('/meta-page-title'))
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Feature List</span>
+                    </Link>
+                    <Link
+                      href="/admin/features/meta-page-title"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/features/meta-page-title' || pathname.startsWith('/admin/features/meta-page-title')
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Feature Meta and Page Title</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Modules Dropdown */}
+            {shouldShowMenuItem({ href: '/admin/modules', icon: Layers, label: 'Modules', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }) && (
+              <div className="relative">
+                <button
+                  onClick={() => setIsModulesOpen(!isModulesOpen)}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
+                    isActive('/admin/modules')
+                      ? 'bg-primary-600 text-white shadow-sm'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  title={!isSidebarOpen ? 'Modules' : undefined}
+                >
+                  <Layers className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/modules') ? 'text-white' : ''}`} />
+                  {isSidebarOpen && (
+                    <>
+                      <span>Modules</span>
+                      <ChevronDown className={`h-4 w-4 ml-auto transition-transform ${isModulesOpen ? 'rotate-180' : ''} ${isActive('/admin/modules') ? 'text-white' : ''}`} />
+                    </>
+                  )}
+                  {!isSidebarOpen && (
+                    <span className="fixed left-20 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-[100] transition-opacity">
+                      Modules
+                    </span>
+                  )}
+                </button>
+                {isSidebarOpen && isModulesOpen && (
+                  <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+                    <Link
+                      href="/admin/modules"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/modules' || (pathname.startsWith('/admin/modules') && !pathname.includes('/meta-page-title'))
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Module List</span>
+                    </Link>
+                    <Link
+                      href="/admin/modules/meta-page-title"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/modules/meta-page-title' || pathname.startsWith('/admin/modules/meta-page-title')
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Module Meta and Page Title</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Services Dropdown */}
+            {shouldShowMenuItem({ href: '/admin/services', icon: Wrench, label: 'Services', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }) && (
+              <div className="relative">
+                <button
+                  onClick={() => setIsServicesOpen(!isServicesOpen)}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
+                    isActive('/admin/services')
+                      ? 'bg-primary-600 text-white shadow-sm'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  title={!isSidebarOpen ? 'Services' : undefined}
+                >
+                  <Wrench className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/services') ? 'text-white' : ''}`} />
+                  {isSidebarOpen && (
+                    <>
+                      <span>Services</span>
+                      <ChevronDown className={`h-4 w-4 ml-auto transition-transform ${isServicesOpen ? 'rotate-180' : ''} ${isActive('/admin/services') ? 'text-white' : ''}`} />
+                    </>
+                  )}
+                  {!isSidebarOpen && (
+                    <span className="fixed left-20 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-[100] transition-opacity">
+                      Services
+                    </span>
+                  )}
+                </button>
+                {isSidebarOpen && isServicesOpen && (
+                  <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+                    <Link
+                      href="/admin/services"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/services' || (pathname.startsWith('/admin/services') && !pathname.includes('/meta-page-title'))
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Service List</span>
+                    </Link>
+                    <Link
+                      href="/admin/services/meta-page-title"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/services/meta-page-title' || pathname.startsWith('/admin/services/meta-page-title')
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Service Meta and Page Title</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Industry Solutions Dropdown */}
+            {shouldShowMenuItem({ href: '/admin/industry-solutions', icon: Building2, label: 'Industry Solutions', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }) && (
+              <div className="relative">
+                <button
+                  onClick={() => setIsIndustrySolutionsOpen(!isIndustrySolutionsOpen)}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
+                    isActive('/admin/industry-solutions')
+                      ? 'bg-primary-600 text-white shadow-sm'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  title={!isSidebarOpen ? 'Industry Solutions' : undefined}
+                >
+                  <Building2 className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/industry-solutions') ? 'text-white' : ''}`} />
+                  {isSidebarOpen && (
+                    <>
+                      <span>Industry Solutions</span>
+                      <ChevronDown className={`h-4 w-4 ml-auto transition-transform ${isIndustrySolutionsOpen ? 'rotate-180' : ''} ${isActive('/admin/industry-solutions') ? 'text-white' : ''}`} />
+                    </>
+                  )}
+                  {!isSidebarOpen && (
+                    <span className="fixed left-20 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-[100] transition-opacity">
+                      Industry Solutions
+                    </span>
+                  )}
+                </button>
+                {isSidebarOpen && isIndustrySolutionsOpen && (
+                  <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+                    <Link
+                      href="/admin/industry-solutions"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/industry-solutions' || (pathname.startsWith('/admin/industry-solutions') && !pathname.includes('/meta-page-title'))
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Industry Solution List</span>
+                    </Link>
+                    <Link
+                      href="/admin/industry-solutions/meta-page-title"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/industry-solutions/meta-page-title' || pathname.startsWith('/admin/industry-solutions/meta-page-title')
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Industry Solution Meta and Page Title</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Integration Dropdown */}
+            {shouldShowMenuItem({ href: '/admin/integration', icon: Plug, label: 'Integration', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }) && (
+              <div className="relative">
+                <button
+                  onClick={() => setIsIntegrationOpen(!isIntegrationOpen)}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
+                    isActive('/admin/integration')
+                      ? 'bg-primary-600 text-white shadow-sm'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  title={!isSidebarOpen ? 'Integration' : undefined}
+                >
+                  <Plug className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/integration') ? 'text-white' : ''}`} />
+                  {isSidebarOpen && (
+                    <>
+                      <span>Integration</span>
+                      <ChevronDown className={`h-4 w-4 ml-auto transition-transform ${isIntegrationOpen ? 'rotate-180' : ''} ${isActive('/admin/integration') ? 'text-white' : ''}`} />
+                    </>
+                  )}
+                  {!isSidebarOpen && (
+                    <span className="fixed left-20 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-[100] transition-opacity">
+                      Integration
+                    </span>
+                  )}
+                </button>
+                {isSidebarOpen && isIntegrationOpen && (
+                  <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+                    <Link
+                      href="/admin/integration"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/integration' || (pathname.startsWith('/admin/integration') && !pathname.includes('/meta-page-title'))
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Integration List</span>
+                    </Link>
+                    <Link
+                      href="/admin/integration/meta-page-title"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === '/admin/integration/meta-page-title' || pathname.startsWith('/admin/integration/meta-page-title')
+                          ? 'bg-primary-50 text-primary-600 font-medium'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span>Integration Meta and Page Title</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
             )}
           </nav>
         </div>
