@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
+  transpilePackages: ['sanitize-html'],
   // Enable Turbo mode for faster development
   experimental: {
     turbo: {
