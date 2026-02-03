@@ -15,7 +15,7 @@ import {
   Flag,
   Flame,
   Layers3,
-  MapPinned,
+  MapPin,
   ShieldCheck,
   Sparkles
 } from "lucide-react";
@@ -238,7 +238,7 @@ const ROADMAP: RoadmapMilestone[] = [
       "Ticket backlog triage and SLA scorecards for leadership.",
       "Backup and incident rehearsal playbooks to maintain resilience."
     ],
-    icon: MapPinned
+    icon: MapPin
   }
 ];
 

@@ -10,7 +10,7 @@ export default function AdminTestimonialsPage() {
       requiredPermission={Permission.CONTENT_EDIT}
       fallback={
         <div className="p-8 text-center">
-          <p className="text-gray-500">You don't have permission to access this page.</p>
+          <p className="text-gray-500">You don&apos;t have permission to access this page.</p>
         </div>
       }
     >

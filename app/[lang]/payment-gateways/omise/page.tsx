@@ -12,7 +12,7 @@ import {
   ArrowSquareOut,
   ChartLineUp,
   DeviceMobile,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   Lightning,
   MapPin,
   Notebook,
@@ -391,7 +391,7 @@ export default function OmisePage({ params }: OmisePageProps) {
               {
                 phase: "Weeks 5-6",
                 detail: "Operational playbooks, AI prompt deployment, and executive storytelling across Southeast Asia.",
-                icon: GlobeHemisphereSouth
+                icon: GlobeHemisphereEast
               }
             ].map((item) => {
               const Icon = item.icon;

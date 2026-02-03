@@ -1,0 +1,62 @@
+{
+  "sourceLocale": "en",
+  "createdAt": "2026-01-28T10:40:46.749Z",
+  "map": {
+    "12dd4c12-7fb4-4688-b267-a1a2011adb24": {
+      "es": "5ce13408-4600-4f7b-969d-3cfe8a361e11",
+      "it": "0bb306d2-8874-4185-9ce2-b584ba69872d",
+      "de": "ad46d94d-7616-4341-bd18-784d3f8a51ac",
+      "pt": "c65ac48b-503c-471c-8615-f97538a8d039",
+      "zh": "2793a8e6-5711-4848-847a-98a847cfb2b8"
+    },
+    "9a0b633e-97be-4baf-8a3b-11f6fc9ca2dc": {
+      "es": "c0526337-68ea-4eea-9be0-0acec39ac48a",
+      "it": "c575e57d-7c7d-4a43-81b6-f0882ca2a468",
+      "de": "c6cc9b78-7f9b-446a-a6f0-8362dee0cd80",
+      "pt": "44522dac-6a5d-4bbb-b814-1a301eeaf7d5",
+      "zh": "90df5c65-84fe-4d51-ada5-97e1e0bb811d"
+    },
+    "59a8c187-6447-4400-94c0-2ba369049963": {
+      "es": "59127eb6-cfa4-4316-bc50-18807bc7d251",
+      "it": "dd89233a-597f-4ade-ac70-d77f80a35c64",
+      "de": "8eed83ba-cdac-4aae-a692-668329f84d00",
+      "pt": "3bbc0feb-fbaf-4ac9-b3a0-4f57bfca559f",
+      "zh": "a3fb6e43-25e1-4f70-bf96-9bb69e9ee199"
+    },
+    "60aee819-d18c-4aa5-afee-0a97c6331a1b": {
+      "es": "88c1ebdd-1034-4b81-aa7a-17cedf5b95d0",
+      "it": "c103b117-5f1e-47d4-a8c0-9424c03d77b7",
+      "de": "b4224f93-a57e-4ff0-80ee-e34493777900",
+      "pt": "370b47ec-723f-4b6d-84ef-33f423847a13",
+      "zh": "6fff09c4-0a56-4a50-b3c8-82647120e082"
+    },
+    "adc1ca26-2979-4362-8df7-26489823f296": {
+      "es": "9074656c-8a0a-4085-9c32-610f7cee22e9",
+      "it": "5f116744-2625-43cc-a57b-49080b79ea4e",
+      "de": "39ff43db-c2aa-4412-b484-7928e717f234",
+      "pt": "454422ec-c718-4db4-874a-de5c4a4c36e0",
+      "zh": "df7d6e08-af3b-4068-a480-82a8ad087026"
+    },
+    "62cbc1d1-7d6b-4639-a0e4-bb7a727dbce8": {
+      "es": "dfeff3a6-9ecf-4680-876f-f12d3989b4cc",
+      "it": "1d55e4b8-3284-469e-9b38-29c2417f208d",
+      "de": "66d7ecfa-c450-4b83-9fd8-ead003a39aae",
+      "pt": "330cdae3-dfc3-4719-941f-c06b7c3cb611",
+      "zh": "1e0ca803-563e-4db7-a2b7-33516a9f4a1c"
+    },
+    "edeac654-e702-403c-a1b4-03630c801389": {
+      "es": "6e33d466-3183-4f05-813e-17696c529606",
+      "it": "1d083a79-da0d-4251-84ca-2a304c8efccc",
+      "de": "ae3c5c4b-70d0-42b4-b74a-5670eef156fb",
+      "pt": "f14b214c-8d9f-4e42-99dd-32ceb08e93c9",
+      "zh": "dcbb6ec3-4df9-4892-bc80-c40a6c108d27"
+    },
+    "12328b73-1e9d-400c-b982-02a7d1f91d05": {
+      "es": "f83699b1-e845-43d2-9471-870aae4e3a92",
+      "it": "e11b8f97-d6f1-42fb-a53c-2bbb09e3c71c",
+      "de": "e614792a-68e9-4457-8d55-eaaa3685a119",
+      "pt": "00ea2595-1619-47fa-abfe-4ea551add89a",
+      "zh": "0d8737fd-61d2-482b-bd48-6e7452a1d7ae"
+    }
+  }
+}

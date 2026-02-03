@@ -25,7 +25,7 @@ import {
   TrendingUp,
   Users
 } from "lucide-react";
-import InvestmentPlanSimulator from "@/components/frontend/plan/investment-plan-simulator";
+import InvestmentPlanSimulator from "@/components/frontend/plans/all-plans/investment-plan-simulator";
 
 export const dynamic = "force-static";
 

@@ -111,6 +111,7 @@ export function ConnectorsTable() {
 
   useEffect(() => {
     loadSliders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
   }, []);
 
   const filtered = useMemo(() => sliders, [sliders]);
@@ -280,7 +281,7 @@ export function ConnectorsTable() {
           setDeleteSliderTitle(null);
         }}
         onConfirm={handleDelete}
-        isDeleting={isDeleting}
+        isLoading={isDeleting}
         title="Delete Slider"
         message="Are you sure you want to delete this slider and all its connector items? This action cannot be undone."
       />

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { Plus, Package } from 'lucide-react';
 import { resolveIcon } from '@/components/frontend/home/utils';
 import { Button } from '@/components/ui/adminUi/button';
@@ -42,14 +42,15 @@ export function ModulesTable() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const hasLoadedRef = useRef(false);
 
   const loadItems = async () => {
     try {
-      setIsLoading(true);
+      if (!hasLoadedRef.current) setIsLoading(true);
       const timestamp = Date.now();
-      // Use withTranslations=true to get all translation info in one request
       const res = await fetch(`/api/admin/modules?locale=en&withTranslations=true&_t=${timestamp}`, {
         cache: 'no-store',
+        credentials: 'include',
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
           'Pragma': 'no-cache',
@@ -64,55 +65,32 @@ export function ModulesTable() {
         setCurrentPage(1);
         return;
       }
-      
-      console.log('Modules API response:', data); // Debug log
-      
+
+      // withTranslations=true returns each module with availableLocales - no extra requests
       const mapped: ModuleRow[] = Array.isArray(data)
         ? data.map((item: any) => {
-            const mappedItem = {
-              id: String(item.id),
-              slug: item.slug ? String(item.slug) : null,
-              title: String(item.title || ''),
-              description: String(item.description || ''),
-              image: item.image ? String(item.image) : undefined,
-              hasDetailPage: Boolean(item.hasDetailPage ?? false),
-              showOnHomePage: Boolean(item.showOnHomePage ?? false),
-              locale: String(item.locale || 'en'),
-              updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
-            };
-            console.log(`Module ${mappedItem.id} (${mappedItem.title}): icon = ${mappedItem.image}`); // Debug log
-            return mappedItem;
-          })
+          // Normalize icon format: if it doesn't have a prefix, assume it's lucide
+          const iconValue = item.image ? String(item.image).trim() : '';
+          const normalizedIcon = iconValue && !iconValue.includes(':') ? `lucide:${iconValue}` : iconValue;
+
+          return {
+            id: String(item.id),
+            slug: item.slug ? String(item.slug) : null,
+            title: String(item.title || ''),
+            description: String(item.description || ''),
+            image: normalizedIcon || undefined,
+            hasDetailPage: Boolean(item.hasDetailPage ?? false),
+            showOnHomePage: Boolean(item.showOnHomePage ?? false),
+            locale: String(item.locale || 'en'),
+            updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
+            availableLocales: Array.isArray(item.availableLocales) ? item.availableLocales : [item.locale || 'en'],
+          };
+        })
         : [];
 
-      // Fetch available locales for each module (only to get locale list, not to modify image)
-      const itemsWithLocales = await Promise.all(
-        mapped.map(async (item) => {
-          try {
-            const translationsRes = await fetch(
-              `/api/admin/modules?id=${encodeURIComponent(item.id)}&all=true&_t=${timestamp}`,
-              { 
-                cache: 'no-store',
-                headers: {
-                  'Cache-Control': 'no-cache, no-store, must-revalidate',
-                },
-              }
-            );
-            if (translationsRes.ok) {
-              const translationsData = await translationsRes.json();
-              const locales = translationsData?.translations?.map((t: any) => t.locale) || [item.locale];
-              // IMPORTANT: Don't overwrite item.image - keep the original from the main API call
-              return { ...item, availableLocales: locales };
-            }
-          } catch (error) {
-            console.error('Error fetching translations for module:', item.id, error);
-          }
-          return { ...item, availableLocales: [item.locale] };
-        })
-      );
-
-      setItems(itemsWithLocales);
+      setItems(mapped);
       setCurrentPage(1);
+      hasLoadedRef.current = true;
     } catch (error) {
       setItems([]);
       setCurrentPage(1);
@@ -145,18 +123,18 @@ export function ModulesTable() {
       { key: 'icon', label: 'Icon', className: 'w-24' },
       { key: 'title', label: 'Title', className: 'w-1/4' },
     ];
-    
+
     if (hasAnyDetailPage) {
       baseColumns.push({ key: 'slug', label: 'Slug', className: 'w-1/6' });
     }
-    
+
     baseColumns.push(
       { key: 'description', label: 'Description', className: 'w-2/4' },
       { key: 'languages', label: 'Languages', className: 'w-48' },
       { key: 'showOnHomePage', label: 'Status', className: 'w-24' },
       { key: 'actions', label: 'Actions', className: 'w-20 text-right' }
     );
-    
+
     return baseColumns;
   }, [hasAnyDetailPage]);
 
@@ -187,7 +165,9 @@ export function ModulesTable() {
   };
 
   const handleFormSave = async () => {
+    hasLoadedRef.current = false; // Reset loaded flag to force reload
     await loadItems();
+    setCurrentPage(1); // Reset to first page
   };
 
   return (
@@ -251,11 +231,10 @@ export function ModulesTable() {
           if (column.key === 'showOnHomePage') {
             return (
               <span
-                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                  row.showOnHomePage
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-gray-100 text-gray-800'
-                }`}
+                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${row.showOnHomePage
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-gray-100 text-gray-800'
+                  }`}
               >
                 {row.showOnHomePage ? 'On Home' : 'Hidden'}
               </span>
@@ -320,7 +299,7 @@ export function ModulesTable() {
           setDeleteId(null);
         }}
         onConfirm={handleDelete}
-        isDeleting={isDeleting}
+        isLoading={isDeleting}
         title="Delete Module"
         message="Are you sure you want to delete this module? This action cannot be undone."
       />

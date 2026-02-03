@@ -12,7 +12,7 @@ import {
   ArrowSquareOut,
   ChartLineUp,
   DeviceMobile,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   Notebook,
   ShieldCheck,
@@ -392,7 +392,7 @@ export default function NaverPayPage({ params }: NaverPayPageProps) {
               {
                 phase: "Weeks 5-6",
                 detail: "Operational playbooks, AI prompt roll-out, and executive media activations across APAC.",
-                icon: GlobeHemisphereNorth
+                icon: GlobeHemisphereEast
               }
             ].map((item) => {
               const Icon = item.icon;

@@ -12,10 +12,10 @@ import {
   ArrowRight,
   ArrowUpRight,
   BarChart3,
-  Broadcast,
+  Radio,
   Building2,
   CalendarClock,
-  ChartSpline,
+  LineChart,
   CircuitBoard,
   Goal,
   ShieldCheck,
@@ -145,7 +145,7 @@ const INSIGHTS: Insight[] = [
     title: "National financial inclusion drive",
     detail:
       "Cloud MLM Software feeds data into AI copilots that monitor regulator initiatives and help you respond with compliant promotions.",
-    icon: Broadcast
+    icon: Radio
   },
   {
     title: "Cross-border remittance optimisation",

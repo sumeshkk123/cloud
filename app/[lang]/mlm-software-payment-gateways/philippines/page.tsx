@@ -14,7 +14,7 @@ import {
   BarChart3,
   Building2,
   Cpu,
-  GlobeAsiaAustralia,
+  Globe2,
   LayoutDashboard,
   LifeBuoy,
   ShieldCheck,
@@ -275,7 +275,7 @@ export default function PhilippinesPaymentGatewaysPage({
         <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.8fr)] lg:items-start">
           <div className="space-y-8 text-slate-900 dark:text-slate-100">
             <span className="inline-flex items-center gap-2 rounded-full border border-sky-200/70 bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-sky-700 dark:border-sky-500/40 dark:bg-slate-900/60 dark:text-sky-200">
-              <GlobeAsiaAustralia className="h-4 w-4" aria-hidden />
+              <Globe2 className="h-4 w-4" aria-hidden />
               Philippines payment gateways
             </span>
             <div className="space-y-6">

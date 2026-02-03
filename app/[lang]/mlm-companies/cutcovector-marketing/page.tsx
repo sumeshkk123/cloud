@@ -274,18 +274,18 @@ export async function generateMetadata({
     "Explore Cutco/Vector Marketing’s premium kitchenware opportunity, sales model, and enablement strategies backed by Cloud MLM Software.";
 
   const alternates = i18n.locales.reduce<Record<string, string>>((acc, currentLocale) => {
-    acc[currentLocale] = buildLocalizedPath(currentLocale, "/mlm-companies/cutcovector-marketing");
+    acc[currentLocale] = buildLocalizedPath("/mlm-companies/cutcovector-marketing", currentLocale as SupportedLocale);
     return acc;
   }, {});
 
   return {
     title,
     description,
-    alternates: { canonical: buildLocalizedPath(locale, "/mlm-companies/cutcovector-marketing"), languages: alternates },
+    alternates: { canonical: buildLocalizedPath("/mlm-companies/cutcovector-marketing", locale as SupportedLocale), languages: alternates },
     openGraph: {
       title,
       description,
-      url: buildLocalizedPath(locale, "/mlm-companies/cutcovector-marketing"),
+      url: buildLocalizedPath("/mlm-companies/cutcovector-marketing", locale as SupportedLocale),
       type: "article"
     }
   };
@@ -294,9 +294,9 @@ export async function generateMetadata({
 export default function CutcoVectorMarketingPage({ params }: { params: { lang: Locale } }) {
   const locale = isSupportedLocale(params.lang) ? params.lang : i18n.defaultLocale;
 
-  const demoHref = buildLocalizedPath(locale, "/free-mlm-software-demo");
-  const contactHref = buildLocalizedPath(locale, "/contact");
-  const indexHref = buildLocalizedPath(locale, "/mlm-companies");
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
+  const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
+  const indexHref = buildLocalizedPath("/mlm-companies", locale as SupportedLocale);
 
   const gaugeAngle = PRIMARY_TRUST_SCORE.score * 3.6;
   const gaugeStyle: CSSProperties = {

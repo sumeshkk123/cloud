@@ -8,9 +8,8 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import { isSupportedLocale } from "@/lib/i18n-utils";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
-import { ArrowUpRight, CircuitBoard, ShieldCheck, Workflow } from "lucide-react";
+import { ArrowUpRight, CircuitBoard, Code, ShieldCheck, Workflow } from "lucide-react";
 import {
-  Api,
   CirclesThreePlus,
   Cloud,
   Database,
@@ -63,7 +62,7 @@ const HERO_METRICS: HeroMetric[] = [
     label: "Purpose-built APIs",
     value: "Custom",
     detail: "Endpoints tailored to sync catalogues, enrolments, and customer journeys.",
-    icon: Api
+    icon: Code
   },
   {
     label: "Enterprise uptime",

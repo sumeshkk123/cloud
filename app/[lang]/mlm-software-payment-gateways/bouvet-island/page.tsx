@@ -21,7 +21,7 @@ import {
 import {
   Bank,
   ChartLineUp,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   HandHeart,
   MapTrifold,
   SealCheck,
@@ -110,7 +110,7 @@ const MARKET_SIGNALS: Signal[] = [
     title: "Nordic banking oversight",
     copy:
       "Norwegian compliance requires precise sanction screening, ESG reporting, and auditable payout chains. Our controls satisfy head office and regulator expectations.",
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   },
   {
     title: "High-value inventory",

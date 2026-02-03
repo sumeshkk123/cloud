@@ -207,18 +207,18 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     "Explore Faberlic’s multi-vertical direct selling engine: revenue signals, product pillars, growth initiatives, and Cloud MLM Software enablement for modern omnichannel leaders.";
 
   const alternates = i18n.locales.reduce<Record<string, string>>((acc, currentLocale) => {
-    acc[currentLocale] = buildLocalizedPath(currentLocale, "/mlm-companies/faberlic");
+    acc[currentLocale] = buildLocalizedPath("/mlm-companies/faberlic", currentLocale as SupportedLocale);
     return acc;
   }, {});
 
   return {
     title,
     description,
-    alternates: { canonical: buildLocalizedPath(locale, "/mlm-companies/faberlic"), languages: alternates },
+    alternates: { canonical: buildLocalizedPath("/mlm-companies/faberlic", locale as SupportedLocale), languages: alternates },
     openGraph: {
       title,
       description,
-      url: buildLocalizedPath(locale, "/mlm-companies/faberlic"),
+      url: buildLocalizedPath("/mlm-companies/faberlic", locale as SupportedLocale),
       type: "article"
     }
   };
@@ -227,9 +227,9 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 export default function FaberlicPage({ params }: { params: { lang: Locale } }) {
   const locale = isSupportedLocale(params.lang) ? params.lang : i18n.defaultLocale;
 
-  const demoHref = buildLocalizedPath(locale, "/free-mlm-software-demo");
-  const contactHref = buildLocalizedPath(locale, "/contact");
-  const companiesHref = buildLocalizedPath(locale, "/mlm-companies");
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
+  const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
+  const companiesHref = buildLocalizedPath("/mlm-companies", locale as SupportedLocale);
 
   return (
     <div className="space-y-24 pb-20 pt-16">

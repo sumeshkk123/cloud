@@ -1,15 +1,14 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Typography } from "@/components/ui/typography";
-import { ReadMoreButton } from "@/components/ui/read-more-button";
 import { Card, CardIcon } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 
 export interface DemoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
+  description?: string;
   points?: string[];
-  readMoreHref?: string;
   variant?: "default" | "highlighted";
 }
 
@@ -19,8 +18,8 @@ const DemoCard = React.forwardRef<HTMLDivElement, DemoCardProps>(
       className,
       icon: Icon,
       title,
+      description,
       points,
-      readMoreHref = "#",
       variant = "default",
       ...props
     },
@@ -59,6 +58,17 @@ const DemoCard = React.forwardRef<HTMLDivElement, DemoCardProps>(
             {title}
           </Typography>
 
+          {description && (
+            <Typography
+              as="p"
+              variant="small"
+              textColor="muted"
+              className="leading-relaxed"
+            >
+              {description}
+            </Typography>
+          )}
+
           {points && points.length > 0 && (
             <ul className="mt-2 space-y-2">
               {points.map((point, index) => (
@@ -80,15 +90,6 @@ const DemoCard = React.forwardRef<HTMLDivElement, DemoCardProps>(
               ))}
             </ul>
           )}
-
-          <div className="mt-auto">
-            <ReadMoreButton
-              href={readMoreHref}
-              variant={isHighlighted ? "highlighted" : "default"}
-            >
-              Explore more
-            </ReadMoreButton>
-          </div>
         </div>
       </Card>
     );

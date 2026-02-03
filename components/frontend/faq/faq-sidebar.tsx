@@ -40,12 +40,6 @@ const sidebarTranslations: Record<Locale, {
     needSomethingDescription: "Comparte tus requisitos y crearemos un resumen personalizado o una agenda de taller para tu equipo.",
     startCustomQa: "Iniciar una Q&A personalizada"
   },
-  fr: {
-    browseTopics: "Parcourir les sujets",
-    needSomethingSpecific: "Besoin de quelque chose de spécifique ?",
-    needSomethingDescription: "Partagez vos exigences et nous créerons un résumé personnalisé ou un ordre du jour d'atelier pour votre équipe.",
-    startCustomQa: "Démarrer une Q&A personnalisée"
-  },
   de: {
     browseTopics: "Themen durchsuchen",
     needSomethingSpecific: "Brauchen Sie etwas Spezifisches?",

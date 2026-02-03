@@ -8,6 +8,8 @@ import { Users, Compass, Play, CircleDollarSign, Rocket, CheckCircle, Sparkles, 
 import { InfoCtaBox } from "@/components/ui/info-cta-box";
 import { Play as PlayIcon } from "lucide-react";
 import { SectionTitle } from "@/components/ui/section-title";
+import { Typography } from "@/components/ui/typography";
+import { BulletList } from "@/components/ui/bullet-list";
 
 // Extract YouTube video ID and start time from URL
 function getYouTubeEmbedUrl(url: string): string {
@@ -74,21 +76,23 @@ export function MlmSoftwareDemoList({ locale, data, youtubeUrl = "https://youtu.
 
                     />
                     <div className="rounded-2xl border border-border/40 bg-primary px-6 py-5 dark:bg-primary/15">
-                        <h3 className="text-sm font-semibold uppercase  text-white">Why teams book</h3>
-                        <ul className="mt-3 space-y-2 text-sm text-white">
-                            <li className="flex gap-2">
-                                <CheckCircle className="mt-1 h-4 w-4 flex-none" />
-                                Side-by-side comparison of your current stack versus Cloud MLM Software.
-                            </li>
-                            <li className="flex gap-2">
-                                <CheckCircle className="mt-1 h-4 w-4 flex-none" />
-                                Distributor personas preloaded for collaborative testing and feedback.
-                            </li>
-                            <li className="flex gap-2">
-                                <CheckCircle className="mt-1 h-4 w-4 flex-none" />
-                                Playbook with migration, automation, and content recommendations delivered fast.
-                            </li>
-                        </ul>
+                        <Typography
+                            as="h3"
+                            variant="small"
+                            textColor="white"
+                            className="font-semibold uppercase mb-3"
+                        >
+                            Why teams book
+                        </Typography>
+                        <BulletList
+                            items={[
+                                "Side-by-side comparison of your current stack versus Cloud MLM Software.",
+                                "Distributor personas preloaded for collaborative testing and feedback.",
+                                "Playbook with migration, automation, and content recommendations delivered fast."
+                            ]}
+                            variant="compact"
+                            className="text-white [&>li>span:first-child]:bg-white/20 [&>li>span:first-child]:text-white [&>li>span:last-child]:text-white"
+                        />
                     </div>
 
 

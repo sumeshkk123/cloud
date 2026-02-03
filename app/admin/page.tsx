@@ -1,18 +1,21 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { BlogPosts } from '@/components/admin/dashboard/blog-posts';
 import { StatsCards } from '@/components/admin/dashboard/stats-cards';
 import { BlogStats } from '@/components/admin/dashboard/blog-stats';
+import { DashboardContactSubmissions } from '@/components/admin/dashboard/contact-submissions';
 import { PermissionGuard } from '@/components/admin/permissions/permission-guard';
 import { PageTitle } from '@/components/ui/adminUi/page-title';
 import { Permission, UserRole } from '@/lib/permissions';
 import { useSession } from 'next-auth/react';
+import type { ContactSubmission } from '@/components/admin/dashboard/contact-submissions';
 
 export default function AdminPage() {
   const { data: session } = useSession();
   const [contentStats, setContentStats] = useState({ totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0 });
   const [blogStats, setBlogStats] = useState({ totalPosts: 0, publishedPosts: 0, draftPosts: 0, last30DaysPosts: 0 });
+  const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
   const [loading, setLoading] = useState(true);
 
   const userRole = (session?.user as any)?.role || 'user';
@@ -20,15 +23,28 @@ export default function AdminPage() {
   const isBusinessDeveloper = userRole === UserRole.BUSINESS_DEVELOPER;
   const isUser = userRole === UserRole.USER;
 
-  const stats = useMemo(() => {
-    // Return empty stats since we're not showing contact submissions
-    return {
-      totalEnquiries: 0,
-      contactCount: 0,
-      pricingCount: 0,
-      demoCount: 0,
-    };
+  const fetchSubmissions = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/contact', { credentials: 'include' });
+      const data = res.ok ? await res.json() : [];
+      setSubmissions(Array.isArray(data) ? data : []);
+    } catch {
+      setSubmissions([]);
+    }
   }, []);
+
+  const stats = useMemo(() => {
+    const contactCount = submissions.filter(s => s.source === 'contact').length;
+    const pricingCount = submissions.filter(s => s.source === 'pricing').length;
+    const demoCount = submissions.filter(s => s.source?.startsWith('demo-') || s.source === 'demo').length;
+    
+    return {
+      totalEnquiries: submissions.length,
+      contactCount,
+      pricingCount,
+      demoCount,
+    };
+  }, [submissions]);
 
   useEffect(() => {
     Promise.all([
@@ -58,6 +74,7 @@ export default function AdminPage() {
       }).catch(() => {
         return [];
       }),
+      fetchSubmissions(),
     ])
       .then(([statsData, blogPostsData]) => {
         setContentStats(statsData || { totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0 });
@@ -90,7 +107,7 @@ export default function AdminPage() {
         setBlogStats({ totalPosts: 0, publishedPosts: 0, draftPosts: 0, last30DaysPosts: 0 });
         setLoading(false);
       });
-  }, []);
+  }, [fetchSubmissions]);
 
   if (loading) {
     return (
@@ -120,6 +137,11 @@ export default function AdminPage() {
         {/* Stats Cards - Only for Admin and Business Developers */}
         {(isAdmin || isBusinessDeveloper) && (
           <StatsCards stats={stats} />
+        )}
+
+        {/* Contact Submissions Table - Only for Admin and Business Developers */}
+        {(isAdmin || isBusinessDeveloper) && (
+          <DashboardContactSubmissions submissions={submissions} onUpdate={fetchSubmissions} />
         )}
 
         {/* Content sections - Only for Admin and Users (not Business Developers) */}

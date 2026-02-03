@@ -1,15 +1,38 @@
-import Link from "next/link";
+"use client";
+
+import { useState, useEffect } from "react";
 import type { Locale } from "@/i18n-config";
-import type { HomepageContent } from "@/types/homepage";
+import type { HomepageContent, HomepageBlogPost } from "@/types/homepage";
 import { localizedHref } from "./utils";
-import { FeatureArticleCard, CompactArticleCard } from "@/components/frontend/common/article-cards";
+import { CompactArticleCard } from "@/components/frontend/common/article-cards";
 import { SectionTitle } from "@/components/ui/section-title";
 import { InfoCtaBox } from "@/components/ui/info-cta-box";
 import { BookOpen } from "lucide-react";
 import { Section } from "@/components/ui/section";
+import { getBlogSectionContent } from "@/lib/blog-section";
 
 export function BlogSection({ locale, data }: { locale: Locale; data: HomepageContent["blogPosts"] }) {
-  const posts = data?.posts ?? [];
+  const initialPosts = data?.posts ?? [];
+  const [fetchedPosts, setFetchedPosts] = useState<HomepageBlogPost[]>([]);
+
+  useEffect(() => {
+    if (initialPosts.length > 0) return;
+    let cancelled = false;
+    fetch(`/api/blog?locale=${encodeURIComponent(locale)}&limit=3`)
+      .then((res) => res.json())
+      .then((fetched: HomepageBlogPost[]) => {
+        if (!cancelled && Array.isArray(fetched) && fetched.length > 0) {
+          setFetchedPosts(fetched);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [locale, initialPosts.length]);
+
+  const posts = initialPosts.length > 0 ? initialPosts : fetchedPosts;
+  const t = getBlogSectionContent(locale);
   if (posts.length === 0) {
     return null;
   }
@@ -19,14 +42,14 @@ export function BlogSection({ locale, data }: { locale: Locale; data: HomepageCo
     href: localizedHref(locale, post.href)
   }));
 
-  const displayPosts = normalizedPosts.slice(0, 6); // Show up to 6 posts in 3x2 grid
+  const displayPosts = normalizedPosts.slice(0, 3); // Show up to 3 posts on home page
 
   return (
     <Section variant="gradient" padding="md" className="relative overflow-hidden" containerClassName="space-y-12">
       <SectionTitle
-        badge={data?.badgeLabel ?? "Knowledge vault"}
-        heading={data?.heading ?? "Resources to move faster"}
-        description={data?.description ?? "Practical guides on compensation design, distributor enablement, and AI-powered growth curated by Cloud MLM Software strategists."}
+        badge={data?.badgeLabel ?? t.badgeLabel}
+        heading={data?.heading ?? t.heading}
+        description={data?.description ?? t.description}
         maxWidth="3xl"
       />
 
@@ -46,13 +69,9 @@ export function BlogSection({ locale, data }: { locale: Locale; data: HomepageCo
       </div>
       <InfoCtaBox
         icon={BookOpen}
-        text={
-          <>
-            Need a curated reading list? Tell us your growth goals and we&apos;ll send a tailored set of guides within 24 hours.
-          </>
-        }
-        buttonText="Explore All Article"
-        buttonHref="/blog/"
+        text={<>{t.ctaText}</>}
+        buttonText={t.ctaButtonText}
+        buttonHref={localizedHref(locale, "/blog/")}
       />
     </Section>
   );

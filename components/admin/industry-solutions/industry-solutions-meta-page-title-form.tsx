@@ -44,7 +44,7 @@ export function IndustrySolutionsMetaPageTitleForm({
     onToastChange,
     onLoadingChange,
     onSavingChange,
-}: ModulesMetaPageTitleFormProps) {
+}: IndustrySolutionsMetaPageTitleFormProps) {
     const { showToast, ToastComponent } = useToast();
     const [formPage, setFormPage] = useState<string>(initialPage || '');
     const [activeLocale, setActiveLocale] = useState<string>(initialLocale);

@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "badgeText": "Cloud MLM Software 编辑部",
+    "beforeText": "洞察驱动的 ",
+    "highlightText": "MLM 博客",
+    "afterText": "，面向打造可信、可扩展网络的领导者。",
+    "description": "我们的编辑团队将产品创新、合规研究与增长手册提炼为您的组织今日即可采纳的指导。通过我们的联系页面提出您的想法。",
+    "primaryCtaLabel": "浏览资源",
+    "secondaryCtaLabel": "订阅更新",
+    "metrics": [
+      {
+        "label": "季度读者",
+        "value": "65K+",
+        "detail": "42 个市场的产品负责人、合规官与一线策略师。"
+      },
+      {
+        "label": "深度编辑内容",
+        "value": "120+",
+        "detail": "涵盖薪酬科学、平台设计与数字生态系统的长篇分析。"
+      },
+      {
+        "label": "专家撰稿人",
+        "value": "18",
+        "detail": "Cloud MLM 架构师、合规顾问与增长分析师参与每篇文章。"
+      },
+      {
+        "label": "AI 就绪简报",
+        "value": "40+",
+        "detail": "结构化摘要，供您的副驾引用且无幻觉风险。"
+      }
+    ]
+  },
+  "cta": {
+    "title": "将编辑部带入您的下一项计划",
+    "description": "无论您是在更新薪酬模式、开拓新市场还是升级技术栈，我们的分析师都能与您合作，将洞察转化为落地执行。",
+    "primaryButtonText": "与专家沟通",
+    "secondaryButtonText": "查看我们的服务",
+    "trustIndicators": ["专业编辑团队", "可执行的洞察", "获全球领导者信赖"]
+  },
+  "faq": {
+    "badge": "常见问题",
+    "heading": "常见问题",
+    "description": "我们最常从读者、客户和行业合作伙伴那里收到的问题解答。",
+    "items": [
+      {
+        "question": "Cloud MLM Software 博客多久更新一次？",
+        "answer": "我们每月发布新的洞察，当法规、产品发布或市场信号需要即时指导时，还会进行额外的快速更新。"
+      },
+      {
+        "question": "我可以在内部手册中重复使用博客洞察吗？",
+        "answer": "可以。您可以在注明出处的情况下引用或改编摘录，或向我们的团队索取针对您的治理与赋能需求定制的可编辑模板。"
+      },
+      {
+        "question": "在哪里可以申请报道特定主题？",
+        "answer": "请通过联系表单提交编辑请求，或与您的客户成功经理分享。我们优先处理有助于 MLM 社区负责任运营的主题。"
+      }
+    ]
+  },
+  "articleList": {
+    "titleLabel": "博客",
+    "postFound": "篇博文",
+    "postsFound": "篇博文",
+    "searchPlaceholder": "搜索博文...",
+    "clearSearchLabel": "清除搜索",
+    "noResultsMessage": "未找到博文。请尝试其他搜索。",
+    "pageOf": "第 {current} 页，共 {total} 页",
+    "previousPageLabel": "上一页",
+    "nextPageLabel": "下一页",
+    "paginationAriaLabel": "博客分页"
+  },
+  "authorBio": {
+    "heading": "关于作者",
+    "name": "Reja Rapheekh",
+    "role": "技术撰稿人 / 文案撰写",
+    "biography": "一位热衷于将故事叙述与技术专长相结合的技术撰稿人，致力于创作引人入胜且富有信息量的内容。专注于文案撰写、创意写作以及媒体与营销行业的内容开发。致力于提供能够教育、启发并吸引多元受众的内容。",
+    "linkedInUrl": null,
+    "imageAlt": "Reja Rapheekh"
+  }
+}

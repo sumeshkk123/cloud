@@ -10,8 +10,8 @@ import { i18n } from "@/i18n-config";
 import { Button } from "@/components/ui/button";
 import {
   ArrowUpRight,
-  Binoculars,
   Compass,
+  Eye,
   Globe,
   Layers,
   ShieldCheck,
@@ -200,7 +200,7 @@ const DELIVERY_PHASES: Phase[] = [
       "Feedback loops for logistics, HR, and finance teams to resolve bottlenecks fast.",
       "Continuous improvement backlog prioritised by risk mitigation and experience gains."
     ],
-    icon: Binoculars
+    icon: Eye
   }
 ];
 

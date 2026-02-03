@@ -13,12 +13,12 @@ import {
   Banknote,
   BarChart3,
   Building2,
-  ChartNetwork,
   Compass,
   Gauge,
   Globe,
   Layers3,
   Medal,
+  Network,
   ShieldCheck,
   Sparkles,
   TimerReset
@@ -296,7 +296,7 @@ export default function AustriaPaymentGatewaysPage({
         <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,0.4fr)] lg:items-start">
           <div className="space-y-10">
             <span className="inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-white/70 px-5 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-rose-700 dark:border-rose-500/40 dark:bg-slate-900/70 dark:text-rose-200">
-              <ChartNetwork className="h-4 w-4" />
+              <Network className="h-4 w-4" />
               Austria payment transformation
             </span>
             <div className="space-y-6">

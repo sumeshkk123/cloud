@@ -1,0 +1,16 @@
+{
+  "section": {
+    "badge": "MLM 软件功能",
+    "heading": "探索 Cloud MLM Software 的增长型功能",
+    "description": "Cloud MLM Software 是一款由 AI 驱动的解决方案，专为优化 MLM 网络而设计。凭借智能自动化、数据洞察与无缝扩展能力，帮助企业高效且战略性地增长。"
+  },
+  "trustCard": {
+    "text": "全球已有 500+ 家 MLM 企业与 120K+ 名经销商信赖使用。",
+    "buttonText": "查看全部功能"
+  },
+  "common": {
+    "exploreMore": "了解更多",
+    "emptyState": "暂无可用功能。"
+  }
+}
+

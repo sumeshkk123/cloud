@@ -20,7 +20,7 @@ import {
 import {
   BriefcaseMetal,
   CurrencyCircleDollar,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   MapTrifold,
   PlugsConnected,
   ShieldCheck,
@@ -178,7 +178,7 @@ const PROGRAMME: Programme[] = [
       "Unified dispute centre across card networks, wallets, and bank transfers.",
       "Performance tests for seasonal tourism, retail launches, and marketing pushes."
     ],
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   },
   {
     phase: "Phase 03",

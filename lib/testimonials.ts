@@ -100,7 +100,7 @@ export function getTestimonialsContent(locale: Locale): TestimonialsContent {
     highlightsSection: {
       ...defaultContent.highlightsSection,
       ...localizedContent.highlightsSection,
-      highlights: defaultContent.highlightsSection.highlights.map((defaultHighlight, index) => ({
+      highlights: defaultContent.highlightsSection.highlights.map((defaultHighlight: Record<string, unknown>, index: number) => ({
         ...defaultHighlight,
         ...localizedContent.highlightsSection?.highlights?.[index],
       })),

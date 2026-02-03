@@ -19,7 +19,7 @@ import {
   Server,
   ShieldCheck,
   Siren,
-  Wireless
+  Wifi
 } from "lucide-react";
 
 export const dynamic = "force-static";
@@ -85,7 +85,7 @@ const RESPONSE_PLAYBOOK: ResponsePlay[] = [
     stage: "Continuous assurance",
     focus: "Quarterly chaos drills and AI-assisted compliance reviews to maintain readiness.",
     description: "Keeps teams fluent in the controls so innovation and governance stay synchronized.",
-    icon: Wireless
+    icon: Wifi
   }
 ];
 

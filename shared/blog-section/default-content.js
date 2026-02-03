@@ -1,0 +1,11 @@
+export default {
+  badgeLabel: "Knowledge vault",
+  heading: "Resources to move faster",
+  description:
+    "Practical guides on compensation design, distributor enablement, and AI-powered growth curated by Cloud MLM Software strategists.",
+  ctaText:
+    "Need a curated reading list? Tell us your growth goals and we'll send a tailored set of guides within 24 hours.",
+  ctaButtonText: "Explore All Articles",
+  exploreMore: "Explore more",
+  spotlight: "Spotlight",
+};

@@ -104,6 +104,7 @@ export function ServicesForm({
     if (newId !== currentServiceId) {
       setCurrentServiceId(newId);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- sync serviceId to currentServiceId
   }, [serviceId]);
 
   useEffect(() => {
@@ -136,6 +137,7 @@ export function ServicesForm({
       setNewKeyBenefit({});
       setNewServiceHighlight({});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllTranslations loads when currentServiceId changes
   }, [currentServiceId]);
 
   const loadAllTranslations = async (preserveActiveTab: boolean = false, tabToPreserve: string | null = null) => {
@@ -495,9 +497,9 @@ export function ServicesForm({
       serviceHighlights: finalServiceHighlights,
     };
 
-    if (!trimmedTitle || !trimmedDescription || !trimmedIcon || 
-        !updatedCurrent.keyBenefits || updatedCurrent.keyBenefits.length === 0 ||
-        !updatedCurrent.serviceHighlights || updatedCurrent.serviceHighlights.length === 0) {
+    if (!trimmedTitle || !trimmedDescription || !trimmedIcon ||
+      !updatedCurrent.keyBenefits || updatedCurrent.keyBenefits.length === 0 ||
+      !updatedCurrent.serviceHighlights || updatedCurrent.serviceHighlights.length === 0) {
       const missingFields = [];
       if (!trimmedTitle) missingFields.push('Title');
       if (!trimmedDescription) missingFields.push('Description');
@@ -621,11 +623,10 @@ export function ServicesForm({
                 key={locale}
                 type="button"
                 onClick={() => setActiveTab(locale)}
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${
-                  isActive
+                className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${isActive
                     ? 'border-primary-500 text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
-                } ${hasContent && !isActive ? 'bg-green-50 dark:bg-green-900/10' : ''}`}
+                  } ${hasContent && !isActive ? 'bg-green-50 dark:bg-green-900/10' : ''}`}
               >
                 <div className="flex items-center gap-2">
                   <span>{localeNames[locale]}</span>
@@ -692,17 +693,34 @@ export function ServicesForm({
         {/* Image Upload - Common for all languages */}
         <div className="space-y-1.5">
           <FieldLabel>Image (Common for all languages)</FieldLabel>
-          <ImageUpload
-            value={current.image}
-            onChange={(url) => {
-              Object.keys(translations).forEach((loc) => {
-                updateTranslation(loc, 'image', url);
-              });
-            }}
-            disabled={(isSaving || isLoading || isTranslating) || activeTab !== 'en'}
-            folder="services"
-            label=""
-          />
+          {activeTab !== 'en' ? (
+            <div className="relative">
+              <ImageUpload
+                value={current.image}
+                onChange={() => { }} // Prevent changes when not on English tab
+                disabled={true}
+                folder="services"
+                label=""
+              />
+              <div className="absolute inset-0 bg-gray-50/80 dark:bg-gray-900/80 rounded-md flex items-center justify-center pointer-events-none">
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                  Image can only be edited in English tab
+                </span>
+              </div>
+            </div>
+          ) : (
+            <ImageUpload
+              value={current.image}
+              onChange={(url) => {
+                Object.keys(translations).forEach((loc) => {
+                  updateTranslation(loc, 'image', url);
+                });
+              }}
+              disabled={isSaving || isLoading || isTranslating}
+              folder="services"
+              label=""
+            />
+          )}
         </div>
 
         <div className="space-y-1.5">
@@ -856,7 +874,7 @@ export function ServicesForm({
               });
             }}
             label="Show on Home Page (Common for all languages)"
-            description={activeTab === 'en' 
+            description={activeTab === 'en'
               ? "Enable this to display this service on the home page services section."
               : ""}
             disabled={(isSaving || isLoading || isTranslating) || activeTab !== 'en'}

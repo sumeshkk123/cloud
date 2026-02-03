@@ -10,10 +10,10 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import {
   ArrowUpRight,
-  ChartSpline,
+  LineChart,
   Globe2,
   Layers3,
-  MapPinned,
+  MapPin,
   ShieldCheck,
   SquareStack,
   Target
@@ -169,7 +169,7 @@ const PHASES: Phase[] = [
       "Inventory of current gateways, tickets, and multilingual content.",
       "Risk and regulatory mapping spanning AML, tax, and data residency."
     ],
-    icon: MapPinned
+    icon: MapPin
   },
   {
     step: "02",
@@ -191,7 +191,7 @@ const PHASES: Phase[] = [
       "Localise experiences for Spanish, English, and Haitian Creole audiences.",
       "Link payment telemetry to nurture journeys and retention programmes."
     ],
-    icon: ChartSpline
+    icon: LineChart
   },
   {
     step: "04",

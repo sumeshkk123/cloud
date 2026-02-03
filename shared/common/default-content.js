@@ -1,6 +1,7 @@
 export default {
   buttons: {
     exploreMore: "Explore more",
+    exploreDetails: "Explore details",
     readMore: "Read more",
     learnMore: "Learn more",
   },

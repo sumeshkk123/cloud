@@ -13,7 +13,7 @@ import {
   Rocket,
   Scroll,
   SealCheck,
-  Telescope
+  Binoculars
 } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
@@ -196,7 +196,7 @@ export default function StripePage13({ params }: StripePage13Props) {
                     </p>
                   </div>
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-700 dark:bg-white/10 dark:text-white">
-                    <Telescope className="h-5 w-5" aria-hidden />
+                    <Binoculars className="h-5 w-5" aria-hidden />
                   </span>
                 </div>
                 <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">{log.narrative}</p>

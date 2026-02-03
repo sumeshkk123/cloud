@@ -44,7 +44,7 @@ export function IntegrationsMetaPageTitleForm({
     onToastChange,
     onLoadingChange,
     onSavingChange,
-}: ModulesMetaPageTitleFormProps) {
+}: IntegrationsMetaPageTitleFormProps) {
     const { showToast, ToastComponent } = useToast();
     const [formPage, setFormPage] = useState<string>(initialPage || '');
     const [activeLocale, setActiveLocale] = useState<string>(initialLocale);
@@ -95,6 +95,7 @@ export function IntegrationsMetaPageTitleForm({
         if (formPage) {
             loadAllData();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllData runs when formPage changes
     }, [formPage]);
 
     const loadAllData = async () => {

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import {
   Home,
@@ -25,6 +25,11 @@ import {
   Plug,
   GitBranch,
   Bot,
+  ImageIcon,
+  Inbox,
+  PlayCircle,
+  LayoutList,
+  Newspaper,
 } from 'lucide-react';
 import { usePermissions } from '@/lib/hooks/use-permissions';
 import { Permission, UserRole } from '@/lib/permissions';
@@ -46,11 +51,13 @@ interface MenuItem {
 
 export function Sidebar({ isSidebarOpen }: SidebarProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { can, isAdmin } = usePermissions();
   const { data: session } = useSession();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isFeaturesOpen, setIsFeaturesOpen] = useState(false);
   const [isModulesOpen, setIsModulesOpen] = useState(false);
+  const [isPlansOpen, setIsPlansOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isIndustrySolutionsOpen, setIsIndustrySolutionsOpen] = useState(false);
   const [isIntegrationOpen, setIsIntegrationOpen] = useState(false);
@@ -69,6 +76,7 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
     if (pathname?.startsWith('/admin/settings')) setIsSettingsOpen(true);
     if (pathname?.startsWith('/admin/features')) setIsFeaturesOpen(true);
     if (pathname?.startsWith('/admin/modules')) setIsModulesOpen(true);
+    if (pathname?.startsWith('/admin/plans')) setIsPlansOpen(true);
     if (pathname?.startsWith('/admin/services')) setIsServicesOpen(true);
     if (pathname?.startsWith('/admin/industry-solutions')) setIsIndustrySolutionsOpen(true);
     if (pathname?.startsWith('/admin/integration')) setIsIntegrationOpen(true);
@@ -79,6 +87,7 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
       setIsSettingsOpen(false);
       setIsFeaturesOpen(false);
       setIsModulesOpen(false);
+      setIsPlansOpen(false);
       setIsServicesOpen(false);
       setIsIndustrySolutionsOpen(false);
       setIsIntegrationOpen(false);
@@ -90,9 +99,12 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
     { href: '/admin/meta-details', icon: Tag, label: 'Meta Details', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
     { href: '/admin/page-titles', icon: PenLine, label: 'Page Titles', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
     { href: '/admin/contact', icon: Mail, label: 'Contact', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
+    { href: '/admin/contact-submissions', icon: Inbox, label: 'Enquiries', permission: Permission.CONTACT_VIEW, hideForBusinessDeveloper: true },
     { href: '/admin/faq', icon: HelpCircle, label: 'FAQ', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
     { href: '/admin/testimonials', icon: MessageSquare, label: 'Testimonials', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
+    { href: '/admin/media', icon: ImageIcon, label: 'Media', permission: Permission.CONTENT_EDIT, hideForBusinessDeveloper: true },
     { href: '/admin/changelog', icon: GitBranch, label: 'Changelog', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
+    { href: '/admin/blog', icon: Newspaper, label: 'Blog', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
     { href: '/admin/ai-copilot', icon: Bot, label: 'AI Co-pilot', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true },
   ];
 
@@ -172,17 +184,21 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
             {menuItems.map((item) =>
               shouldShowMenuItem(item) && <MenuLink key={item.href} item={item} />
             )}
-            
+
+            {/* Demos */}
+            {shouldShowMenuItem({ href: '/admin/demos', icon: PlayCircle, label: 'Demos', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }) && (
+              <MenuLink item={{ href: '/admin/demos', icon: PlayCircle, label: 'Demos', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }} />
+            )}
+
             {/* Features Dropdown */}
             {shouldShowMenuItem({ href: '/admin/features', icon: Sparkles, label: 'Features', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }) && (
               <div className="relative">
                 <button
                   onClick={() => setIsFeaturesOpen(!isFeaturesOpen)}
-                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
-                    isActive('/admin/features')
-                      ? 'bg-primary-600 text-white shadow-sm'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${isActive('/admin/features')
+                    ? 'bg-primary-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-100'
+                    }`}
                   title={!isSidebarOpen ? 'Features' : undefined}
                 >
                   <Sparkles className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/features') ? 'text-white' : ''}`} />
@@ -202,21 +218,19 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
                   <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
                     <Link
                       href="/admin/features"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/features' || (pathname.startsWith('/admin/features') && !pathname.includes('/meta-page-title'))
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/features' || (pathname.startsWith('/admin/features') && !pathname.includes('/meta-page-title'))
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Feature List</span>
                     </Link>
                     <Link
                       href="/admin/features/meta-page-title"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/features/meta-page-title' || pathname.startsWith('/admin/features/meta-page-title')
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/features/meta-page-title' || pathname.startsWith('/admin/features/meta-page-title')
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Feature Meta and Page Title</span>
                     </Link>
@@ -230,11 +244,10 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
               <div className="relative">
                 <button
                   onClick={() => setIsModulesOpen(!isModulesOpen)}
-                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
-                    isActive('/admin/modules')
-                      ? 'bg-primary-600 text-white shadow-sm'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${isActive('/admin/modules')
+                    ? 'bg-primary-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-100'
+                    }`}
                   title={!isSidebarOpen ? 'Modules' : undefined}
                 >
                   <Layers className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/modules') ? 'text-white' : ''}`} />
@@ -254,23 +267,70 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
                   <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
                     <Link
                       href="/admin/modules"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/modules' || (pathname.startsWith('/admin/modules') && !pathname.includes('/meta-page-title'))
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/modules' || (pathname.startsWith('/admin/modules') && !pathname.includes('/meta-page-title'))
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Module List</span>
                     </Link>
                     <Link
                       href="/admin/modules/meta-page-title"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/modules/meta-page-title' || pathname.startsWith('/admin/modules/meta-page-title')
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/modules/meta-page-title' || pathname.startsWith('/admin/modules/meta-page-title')
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Module Meta and Page Title</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Plans Dropdown */}
+            {shouldShowMenuItem({ href: '/admin/plans', icon: LayoutList, label: 'MLM Plans', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }) && (
+              <div className="relative">
+                <button
+                  onClick={() => setIsPlansOpen(!isPlansOpen)}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${isActive('/admin/plans')
+                    ? 'bg-primary-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                  title={!isSidebarOpen ? 'MLM Plans' : undefined}
+                >
+                  <LayoutList className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/plans') ? 'text-white' : ''}`} />
+                  {isSidebarOpen && (
+                    <>
+                      <span>MLM Plans</span>
+                      <ChevronDown className={`h-4 w-4 ml-auto transition-transform ${isPlansOpen ? 'rotate-180' : ''} ${isActive('/admin/plans') ? 'text-white' : ''}`} />
+                    </>
+                  )}
+                  {!isSidebarOpen && (
+                    <span className="fixed left-20 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-[100] transition-opacity">
+                      MLM Plans
+                    </span>
+                  )}
+                </button>
+                {isSidebarOpen && isPlansOpen && (
+                  <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+                    <Link
+                      href="/admin/plans"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/plans' && searchParams?.get('tab') !== 'faq' && !pathname.includes('/meta-page-title')
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
+                    >
+                      <span>MLM Plans</span>
+                    </Link>
+                    <Link
+                      href="/admin/plans/meta-page-title"
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/plans/meta-page-title' || pathname.startsWith('/admin/plans/meta-page-title')
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
+                    >
+                      <span>Plans Meta and Page Title</span>
                     </Link>
                   </div>
                 )}
@@ -282,11 +342,10 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
               <div className="relative">
                 <button
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
-                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
-                    isActive('/admin/services')
-                      ? 'bg-primary-600 text-white shadow-sm'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${isActive('/admin/services')
+                    ? 'bg-primary-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-100'
+                    }`}
                   title={!isSidebarOpen ? 'Services' : undefined}
                 >
                   <Wrench className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/services') ? 'text-white' : ''}`} />
@@ -306,21 +365,19 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
                   <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
                     <Link
                       href="/admin/services"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/services' || (pathname.startsWith('/admin/services') && !pathname.includes('/meta-page-title'))
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/services' || (pathname.startsWith('/admin/services') && !pathname.includes('/meta-page-title'))
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Service List</span>
                     </Link>
                     <Link
                       href="/admin/services/meta-page-title"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/services/meta-page-title' || pathname.startsWith('/admin/services/meta-page-title')
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/services/meta-page-title' || pathname.startsWith('/admin/services/meta-page-title')
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Service Meta and Page Title</span>
                     </Link>
@@ -334,11 +391,10 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
               <div className="relative">
                 <button
                   onClick={() => setIsIndustrySolutionsOpen(!isIndustrySolutionsOpen)}
-                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
-                    isActive('/admin/industry-solutions')
-                      ? 'bg-primary-600 text-white shadow-sm'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${isActive('/admin/industry-solutions')
+                    ? 'bg-primary-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-100'
+                    }`}
                   title={!isSidebarOpen ? 'Industry Solutions' : undefined}
                 >
                   <Building2 className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/industry-solutions') ? 'text-white' : ''}`} />
@@ -358,21 +414,19 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
                   <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
                     <Link
                       href="/admin/industry-solutions"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/industry-solutions' || (pathname.startsWith('/admin/industry-solutions') && !pathname.includes('/meta-page-title'))
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/industry-solutions' || (pathname.startsWith('/admin/industry-solutions') && !pathname.includes('/meta-page-title'))
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Industry Solution List</span>
                     </Link>
                     <Link
                       href="/admin/industry-solutions/meta-page-title"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/industry-solutions/meta-page-title' || pathname.startsWith('/admin/industry-solutions/meta-page-title')
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/industry-solutions/meta-page-title' || pathname.startsWith('/admin/industry-solutions/meta-page-title')
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Industry Solution Meta and Page Title</span>
                     </Link>
@@ -386,11 +440,10 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
               <div className="relative">
                 <button
                   onClick={() => setIsIntegrationOpen(!isIntegrationOpen)}
-                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${
-                    isActive('/admin/integration')
-                      ? 'bg-primary-600 text-white shadow-sm'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${isActive('/admin/integration')
+                    ? 'bg-primary-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-100'
+                    }`}
                   title={!isSidebarOpen ? 'Integration' : undefined}
                 >
                   <Plug className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/integration') ? 'text-white' : ''}`} />
@@ -410,21 +463,19 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
                   <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
                     <Link
                       href="/admin/integration"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/integration' || (pathname.startsWith('/admin/integration') && !pathname.includes('/meta-page-title'))
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/integration' || (pathname.startsWith('/admin/integration') && !pathname.includes('/meta-page-title'))
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Integration List</span>
                     </Link>
                     <Link
                       href="/admin/integration/meta-page-title"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${
-                        pathname === '/admin/integration/meta-page-title' || pathname.startsWith('/admin/integration/meta-page-title')
-                          ? 'bg-primary-50 text-primary-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/integration/meta-page-title' || pathname.startsWith('/admin/integration/meta-page-title')
+                        ? 'bg-primary-50 text-primary-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       <span>Integration Meta and Page Title</span>
                     </Link>

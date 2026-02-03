@@ -22,7 +22,7 @@ import {
 import {
   ChatCenteredDots,
   CurrencyCircleDollar,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   LockKey,
   MapTrifold,
@@ -97,7 +97,7 @@ const MODULES: Module[] = [
     title: "Multilingual enablement",
     detail:
       "Deliver Danish, English, and German experiences across portals, knowledge bases, and auto responder journeys.",
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   },
   {
     title: "Ticket system transparency",

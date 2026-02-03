@@ -188,6 +188,7 @@ export function FaqSection({ locale, data }: { locale: Locale; data: HomepageCon
     };
 
     fetchFaqs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fetchFaqs runs when locale/data change; getFallbackCategories is stable
   }, [locale, data]);
 
   const handleFaqToggle = (index: number) => {

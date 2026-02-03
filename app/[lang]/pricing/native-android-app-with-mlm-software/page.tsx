@@ -9,7 +9,7 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { Button } from "@/components/ui/button";
 import {
-  Android,
+  Smartphone,
   ArrowRight,
   ArrowUpRight,
   BadgeCheck,
@@ -24,7 +24,7 @@ import {
   ChatCenteredDots,
   DeviceMobile,
   Lightning,
-  QRCode,
+  QrCode,
   RocketLaunch,
   ShieldCheckered
 } from "@phosphor-icons/react/dist/ssr";
@@ -122,7 +122,7 @@ const FEATURES: Feature[] = [
       "Cart, checkout, and wallet top-ups with tokenised payments",
       "QR and social share kits for promotions and sampling"
     ],
-    icon: QRCode
+    icon: QrCode
   },
   {
     title: "Operations and support",
@@ -148,7 +148,7 @@ const PACKAGES: Package[] = [
       "Offline-ready enrolment, ordering, and dashboards",
       "Analytics instrumentation and Firebase distribution setup"
     ],
-    icon: Android
+    icon: Smartphone
   },
   {
     name: "Growth edition",

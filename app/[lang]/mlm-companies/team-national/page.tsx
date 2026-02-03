@@ -15,6 +15,7 @@ import {
   Building,
   Coins,
   Handshake,
+  Layers3,
   LineChart,
   MapPin,
   Medal,

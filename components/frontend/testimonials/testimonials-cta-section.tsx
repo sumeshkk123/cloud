@@ -39,7 +39,7 @@ export function TestimonialsCtaSection({ contactHref, pricingHref }: Testimonial
               Want your success story featured here?
             </h2>
             <p className="text-base leading-relaxed text-white/95 sm:text-lg">
-              Share your project vision, audience, and desired outcomes. We'll pair you with a dedicated strategist and outline pilot milestones.
+              Share your project vision, audience, and desired outcomes. We&apos;ll pair you with a dedicated strategist and outline pilot milestones.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button

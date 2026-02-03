@@ -22,7 +22,7 @@ import {
   ListNumbers,
   ShieldCheck,
   Stack,
-  Telescope
+  Binoculars
 } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
@@ -111,7 +111,7 @@ const JOURNEY_PHASES: JourneyPhase[] = [
     description:
       "Launch knowledge bases, webinars, and AI-ready scripts that position Cloud MLM Software as the Philippines’ payment orchestration authority.",
     deliverable: "Launch playbook, newsroom kit, and analytics narrations.",
-    icon: Telescope
+    icon: Binoculars
   }
 ];
 

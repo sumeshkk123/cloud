@@ -21,7 +21,7 @@ import {
   ShieldCheck,
   Sparkles,
   Stethoscope,
-  TestTubeDiagonal
+  TestTube
 } from "lucide-react";
 import { ChartLineUp, Handshake, Lightning, UsersFour, UsersThree } from "@phosphor-icons/react/dist/ssr";
 
@@ -164,7 +164,7 @@ const CLOUD_PRO_PARTNER_CAPABILITIES: PlatformCapability[] = [
     description:
       "Centralise R&D feedback loops, clinical trial data, and product education updates for corporate and field teams.",
     payoff: "Keep distributors synced with the latest breakthroughs and keep innovation stories consistent.",
-    icon: TestTubeDiagonal
+    icon: TestTube
   },
   {
     title: "Always-on community support",

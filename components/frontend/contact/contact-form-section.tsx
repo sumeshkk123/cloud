@@ -14,10 +14,29 @@ export function ContactFormSection({ locale }: ContactFormSectionProps) {
   const content = getContactContent(locale);
   const formTranslations = content.formSection;
 
-  const handleSubmit = (formData: { name: string; email: string; country: string; phone: string; message: string }) => {
-    console.log('Contact form submitted:', formData);
-    // TODO: Implement form submission logic
-    // You can add API call here to submit the form data
+  const handleSubmit = async (formData: { name: string; email: string; country: string; phone: string; message: string }) => {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          source: 'contact',
+          sourceSite: process.env.NEXT_PUBLIC_CONTACT_WEBSITE || 'Cloud MLM',
+          locale,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      throw error; // Re-throw so the form can handle it
+    }
   };
 
   return (

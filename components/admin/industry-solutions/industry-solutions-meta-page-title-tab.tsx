@@ -386,7 +386,7 @@ export function IndustrySolutionsMetaPageTitleTab() {
           setLocaleToDelete('en');
         }}
         onConfirm={handleDelete}
-        isDeleting={isDeleting}
+        isLoading={isDeleting}
         title="Delete Meta Details & Page Title"
         message={`Are you sure you want to delete meta details and page title for page "${pageToDelete}" (${localeToDelete})?`}
       />

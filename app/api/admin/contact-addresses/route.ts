@@ -102,7 +102,7 @@ export async function GET(request: NextRequest) {
       let phonesArray: string[] = [];
       if (address.phones) {
         if (Array.isArray(address.phones)) {
-          phonesArray = address.phones;
+          phonesArray = (address.phones as unknown[]).filter((p): p is string => typeof p === 'string');
         } else if (typeof address.phones === 'string') {
           try {
             phonesArray = JSON.parse(address.phones);
@@ -526,7 +526,7 @@ export async function PUT(request: NextRequest) {
     let phonesFromDb: string[] = [];
     if (updatedRecord.phones) {
       if (Array.isArray(updatedRecord.phones)) {
-        phonesFromDb = updatedRecord.phones;
+        phonesFromDb = (updatedRecord.phones as unknown[]).filter((p): p is string => typeof p === 'string');
       } else if (typeof updatedRecord.phones === 'string') {
         try {
           phonesFromDb = JSON.parse(updatedRecord.phones);

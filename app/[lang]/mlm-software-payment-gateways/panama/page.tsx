@@ -14,7 +14,7 @@ import {
   BarChart4,
   Building,
   CalendarCheck2,
-  ChartNoAxesCombined,
+  BarChart3,
   Layers,
   LineChart,
   ShieldEllipsis,
@@ -190,7 +190,7 @@ const TIMELINE: TimelineStage[] = [
       "Alerting for authorisation dips, settlement delays, and AML exceptions",
       "Daily executive briefings highlighting performance, risks, and opportunities"
     ],
-    icon: ChartNoAxesCombined
+    icon: BarChart3
   },
   {
     step: "04",

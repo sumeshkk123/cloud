@@ -177,18 +177,18 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     "Understand Family Heritage Life’s insurance-driven opportunity: revenue signals, coverage pillars, claims journey, and Cloud MLM Software enablement for agent-centric organisations.";
 
   const alternates = i18n.locales.reduce<Record<string, string>>((acc, currentLocale) => {
-    acc[currentLocale] = buildLocalizedPath(currentLocale, "/mlm-companies/family-heritage-life");
+    acc[currentLocale] = buildLocalizedPath("/mlm-companies/family-heritage-life", currentLocale as SupportedLocale);
     return acc;
   }, {});
 
   return {
     title,
     description,
-    alternates: { canonical: buildLocalizedPath(locale, "/mlm-companies/family-heritage-life"), languages: alternates },
+    alternates: { canonical: buildLocalizedPath("/mlm-companies/family-heritage-life", locale as SupportedLocale), languages: alternates },
     openGraph: {
       title,
       description,
-      url: buildLocalizedPath(locale, "/mlm-companies/family-heritage-life"),
+      url: buildLocalizedPath("/mlm-companies/family-heritage-life", locale as SupportedLocale),
       type: "article"
     }
   };
@@ -197,9 +197,9 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 export default function FamilyHeritageLifePage({ params }: { params: { lang: Locale } }) {
   const locale = isSupportedLocale(params.lang) ? params.lang : i18n.defaultLocale;
 
-  const demoHref = buildLocalizedPath(locale, "/free-mlm-software-demo");
-  const contactHref = buildLocalizedPath(locale, "/contact");
-  const companiesHref = buildLocalizedPath(locale, "/mlm-companies");
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
+  const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
+  const companiesHref = buildLocalizedPath("/mlm-companies", locale as SupportedLocale);
 
   return (
     <div className="space-y-24 pb-20 pt-16">

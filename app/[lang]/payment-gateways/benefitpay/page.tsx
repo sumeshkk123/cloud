@@ -10,7 +10,7 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import {
   ArrowSquareOut,
-  ChartsLine,
+  ChartLine,
   CloudArrowUp,
   CurrencyCircleDollar,
   DeviceMobile,
@@ -121,7 +121,7 @@ const PROCESS_TRACKS: ProcessTrack[] = [
     focus: "Diagnostic immersion",
     narrative:
       "Audit legacy documentation, BenefitPay integration touchpoints, and Bahrain regulations to set the groundwork for migration.",
-    icon: ChartsLine
+    icon: ChartLine
   },
   {
     phase: "Stage 02",
@@ -542,7 +542,7 @@ export default function BenefitPayPage({ params }: BenefitPayPageProps) {
             </article>
             <article className="flex flex-col gap-3 rounded-2xl border border-primary/40 bg-white/80 p-6 text-primary-foreground shadow-sm backdrop-blur dark:border-white/30 dark:bg-white/10 dark:text-white">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary dark:bg-white/10 dark:text-white">
-                <ChartsLine className="h-5 w-5" aria-hidden />
+                <ChartLine className="h-5 w-5" aria-hidden />
               </span>
               <h3 className="text-base font-semibold">Executive scorecards</h3>
               <p className="text-sm text-primary-foreground/80 dark:text-white/80">

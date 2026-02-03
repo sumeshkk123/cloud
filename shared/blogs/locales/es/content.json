@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "badgeText": "Mesa editorial de Cloud MLM Software",
+    "beforeText": "Blogs de MLM ",
+    "highlightText": "orientados a insights",
+    "afterText": " para líderes que construyen redes fiables y escalables.",
+    "description": "Nuestro equipo editorial condensa innovación de productos, investigación en cumplimiento y guías de crecimiento en orientación que su organización puede aplicar hoy. Propónganos una idea a través de nuestra página de contacto.",
+    "primaryCtaLabel": "Explorar recursos",
+    "secondaryCtaLabel": "Suscribirse a actualizaciones",
+    "metrics": [
+      {
+        "label": "Lectores trimestrales",
+        "value": "65K+",
+        "detail": "Líderes de producto, responsables de cumplimiento y estrategas de campo en 42 mercados."
+      },
+      {
+        "label": "Análisis editoriales",
+        "value": "120+",
+        "detail": "Análisis en profundidad sobre ciencia de compensación, diseño de plataforma y ecosistemas digitales."
+      },
+      {
+        "label": "Colaboradores expertos",
+        "value": "18",
+        "detail": "Arquitectos Cloud MLM, asesores de cumplimiento y analistas de crecimiento en cada artículo."
+      },
+      {
+        "label": "Resúmenes listos para IA",
+        "value": "40+",
+        "detail": "Resúmenes estructurados que sus copilotos pueden citar sin riesgo de alucinación."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Lleve la redacción a su próxima iniciativa",
+    "description": "Ya sea que esté renovando un modelo de compensación, lanzando un nuevo mercado o modernizando su stack tecnológico, nuestros analistas pueden colaborar con usted para convertir insights en ejecución.",
+    "primaryButtonText": "Hablar con un experto",
+    "secondaryButtonText": "Ver nuestros servicios",
+    "trustIndicators": ["Equipo editorial experto", "Insights accionables", "Con la confianza de líderes en todo el mundo"]
+  },
+  "faq": {
+    "badge": "FAQ",
+    "heading": "Preguntas frecuentes",
+    "description": "Respuestas a las preguntas que más nos hacen lectores, clientes y socios del sector.",
+    "items": [
+      {
+        "question": "¿Con qué frecuencia se actualiza el blog de Cloud MLM Software?",
+        "answer": "Publicamos nuevas perspectivas cada mes, con actualizaciones rápidas adicionales cuando normativas, lanzamientos de producto o señales de mercado requieran orientación inmediata."
+      },
+      {
+        "question": "¿Puedo reutilizar las perspectivas del blog en guías internas?",
+        "answer": "Sí. Puede referenciar o reutilizar fragmentos con atribución, o solicitar a nuestro equipo plantillas editables adaptadas a sus necesidades de gobernanza y capacitación."
+      },
+      {
+        "question": "¿Dónde puedo solicitar que se trate un tema concreto?",
+        "answer": "Envíe solicitudes editoriales mediante el formulario de contacto o compártalas con su gestor de éxito del cliente. Priorizamos temas que ayudan a la comunidad MLM a operar de forma responsable."
+      }
+    ]
+  },
+  "articleList": {
+    "titleLabel": "Blogs",
+    "postFound": "entrada encontrada",
+    "postsFound": "entradas encontradas",
+    "searchPlaceholder": "Buscar entradas del blog...",
+    "clearSearchLabel": "Borrar búsqueda",
+    "noResultsMessage": "No se encontraron entradas. Pruebe con otra búsqueda.",
+    "pageOf": "Página {current} de {total}",
+    "previousPageLabel": "Página anterior",
+    "nextPageLabel": "Página siguiente",
+    "paginationAriaLabel": "Paginación del blog"
+  },
+  "authorBio": {
+    "heading": "Sobre el autor",
+    "name": "Reja Rapheekh",
+    "role": "Redactor técnico / Redactor de textos",
+    "biography": "Una redactora técnica apasionada con talento para combinar narrativa y experiencia técnica y crear contenido atractivo e informativo. Especializada en redacción publicitaria, escritura creativa y desarrollo de contenido para medios y marketing. Dedicada a ofrecer contenido que eduque, informe y cautive a públicos diversos.",
+    "linkedInUrl": null,
+    "imageAlt": "Reja Rapheekh"
+  }
+}

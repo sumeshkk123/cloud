@@ -199,7 +199,7 @@ const INSIGHTS: Insight[] = [
 ];
 
 function resolveLocale(lang: SupportedLocale): Locale {
-  return isSupportedLocale(lang) ? lang : i18n.defaultLocale;
+  return isSupportedLocale(lang) ? lang : (i18n.defaultLocale as Locale);
 }
 
 export async function generateMetadata({

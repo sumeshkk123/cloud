@@ -1,20 +1,14 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Home, RefreshCw } from 'lucide-react';
-import { buildLocalizedPath } from '@/lib/locale-links';
-import { isSupportedLocale } from '@/lib/i18n-utils';
-import type { Locale } from '@/i18n-config';
-import { i18n } from '@/i18n-config';
 
-interface ErrorProps {
-  error: Error & { digest?: string };
-  reset: () => void;
-}
+const SUPPORTED_LOCALES = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
+type LocaleKey = (typeof SUPPORTED_LOCALES)[number];
 
-// Translation strings
-const translations: Record<Locale, {
+const translations: Record<LocaleKey, {
   title: string;
   description: string;
   tryAgain: string;
@@ -65,67 +59,67 @@ const translations: Record<Locale, {
   }
 };
 
+function getLocaleFromPathname(pathname: string | null): LocaleKey {
+  if (!pathname) return 'en';
+  const segment = pathname.split('/').filter(Boolean)[0];
+  return SUPPORTED_LOCALES.includes(segment as LocaleKey) ? (segment as LocaleKey) : 'en';
+}
+
+function getHomeHref(locale: LocaleKey): string {
+  return locale === 'en' ? '/' : `/${locale}`;
+}
+
+interface ErrorProps {
+  error: Error & { digest?: string };
+  reset: () => void;
+}
+
 export default function Error({ error, reset }: ErrorProps) {
   const pathname = usePathname();
-  const router = useRouter();
-  
-  // Extract locale from pathname (e.g., /en/page or /es/page)
-  const pathSegments = pathname?.split('/').filter(Boolean) || [];
-  const locale = (pathSegments[0] && isSupportedLocale(pathSegments[0])
-    ? pathSegments[0]
-    : i18n.defaultLocale) as Locale;
-  
+  const locale = getLocaleFromPathname(pathname);
   const t = translations[locale];
-  const homePath = buildLocalizedPath('/', locale);
+  const homeHref = getHomeHref(locale);
 
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error('Application error:', error);
   }, [error]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-black dark:to-gray-950 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
       <div className="relative z-10 text-center max-w-4xl mx-auto">
-        {/* Error Code */}
-        <h1 className="text-8xl md:text-9xl font-bold bg-gradient-to-r from-primary-600 via-blue-600 to-primary-600 bg-clip-text text-transparent mb-4 tracking-tight">
+        <h1 className="text-8xl md:text-9xl font-bold bg-gradient-to-r from-primary via-blue-600 to-primary bg-clip-text text-transparent mb-4 tracking-tight">
           500
         </h1>
-
-        {/* Error Title */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
           {t.title}
         </h2>
-
-        {/* Error Message */}
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-10 max-w-md mx-auto">
-          {error.message || t.description}
+          {error?.message || t.description}
         </p>
 
-        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <button
+            type="button"
             onClick={reset}
-            className="inline-flex items-center gap-2 px-10 py-4 text-lg font-semibold rounded-lg border-2 border-primary-600 dark:border-primary-500 bg-transparent text-primary-600 dark:text-primary-400 hover:bg-primary-700 dark:hover:bg-primary-700 hover:text-white dark:hover:text-white hover:border-primary-700 dark:hover:border-primary-700 hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-10 py-4 text-lg font-semibold rounded-lg border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-white transition-colors"
           >
-            <RefreshCw className="w-5 h-5" />
+            <RefreshCw className="w-5 h-5" aria-hidden />
             {t.tryAgain}
           </button>
-          <button
-            onClick={() => router.push(homePath)}
-            className="inline-flex items-center gap-2 px-10 py-4 text-lg font-semibold rounded-lg border-2 border-primary-600 dark:border-primary-500 bg-transparent text-primary-600 dark:text-primary-400 hover:bg-primary-700 dark:hover:bg-primary-700 hover:text-white dark:hover:text-white hover:border-primary-700 dark:hover:border-primary-700 hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-300"
+          <Link
+            href={homeHref}
+            className="inline-flex items-center gap-2 px-10 py-4 text-lg font-semibold rounded-lg border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-white transition-colors"
           >
-            <Home className="w-5 h-5" />
+            <Home className="w-5 h-5" aria-hidden />
             {t.goHome}
-          </button>
+          </Link>
         </div>
 
-        {/* Additional Help Text */}
         <p className="mt-10 text-sm text-gray-500 dark:text-gray-500">
           {t.helpText}
         </p>

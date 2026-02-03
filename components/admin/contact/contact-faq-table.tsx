@@ -245,7 +245,7 @@ export function ContactFaqTable() {
                     setFaqToDelete(null);
                 }}
                 onConfirm={handleDelete}
-                isDeleting={isDeleting}
+                isLoading={isDeleting}
                 title="Delete Contact FAQ"
                 message="Are you sure you want to delete this contact FAQ? This action cannot be undone."
             />

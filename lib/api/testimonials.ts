@@ -15,8 +15,33 @@ export interface TestimonialRecord {
 export async function listTestimonials(locale?: string): Promise<TestimonialRecord[]> {
   return prisma.testimonials.findMany({
     where: locale ? { locale } : undefined,
-    orderBy: { updatedAt: 'desc' },
+    orderBy: { createdAt: 'desc' },
   });
+}
+
+/** List testimonials for a locale with availableLocales for each (by name). Two queries total. */
+export async function listTestimonialsWithLocales(locale = 'en'): Promise<(TestimonialRecord & { availableLocales: string[] })[]> {
+  const list = await prisma.testimonials.findMany({
+    where: { locale },
+    orderBy: { createdAt: 'desc' },
+  });
+  if (list.length === 0) return [];
+  const names = [...new Set(list.map((t) => t.name))];
+  const nameLocaleRows = await prisma.testimonials.findMany({
+    where: { name: { in: names } },
+    select: { name: true, locale: true },
+    orderBy: { locale: 'asc' },
+  });
+  const nameToLocales = new Map<string, string[]>();
+  for (const row of nameLocaleRows) {
+    const arr = nameToLocales.get(row.name) || [];
+    if (!arr.includes(row.locale)) arr.push(row.locale);
+    nameToLocales.set(row.name, arr);
+  }
+  return list.map((t) => ({
+    ...t,
+    availableLocales: nameToLocales.get(t.name) || [t.locale],
+  }));
 }
 
 export async function getTestimonialById(id: string, locale?: string): Promise<TestimonialRecord | null> {

@@ -21,7 +21,7 @@ import {
   Workflow
 } from "lucide-react";
 import {
-  BalanceScale,
+  Scales,
   ChartBar,
   Chats,
   Handshake,
@@ -210,7 +210,7 @@ const CONSIDERATIONS: Consideration[] = [
       "Confirm product-market fit and brand differentiation.",
       "Assess training, coaching, and technology support."
     ],
-    icon: BalanceScale
+    icon: Scales
   },
   {
     title: "Platform due diligence",

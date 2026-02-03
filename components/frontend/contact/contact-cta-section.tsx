@@ -11,7 +11,7 @@ export function ContactCtaSection({ contactHref, resourcesHref }: ContactCtaSect
   return (
     <section className="container">
       <div className="rounded-3xl border border-border/60 bg-gradient-to-r from-primary/10 via-background to-primary/10 p-10 text-center shadow-sm">
-        <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Let's build the roadmap together</h2>
+        <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Let&apos;s build the roadmap together</h2>
         <p className="mt-4 text-sm text-muted-foreground">
           Share your objectives and we will align Cloud MLM Software sales, success, and innovation specialists to respond with clarity and speed.
         </p>

@@ -6,6 +6,7 @@ import type { Locale } from "@/i18n-config";
 export interface CommonContent {
   buttons: {
     exploreMore: string;
+    exploreDetails: string;
     readMore: string;
     learnMore: string;
   };

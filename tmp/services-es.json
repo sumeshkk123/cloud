@@ -1,0 +1,174 @@
+{
+  "exportedAt": "2026-01-28T10:40:51.182Z",
+  "locale": "es",
+  "count": 9,
+  "items": [
+    {
+      "id": "f83699b1-e845-43d2-9471-870aae4e3a92",
+      "locale": "es",
+      "title": "Bitcoin Cryptocurrency MLM Software",
+      "description": "Our Bitcoin Cryptocurrency MLM Software service at Cloud MLM Software is designed to leverage the power of Bitcoin and blockchain technology for your multi-level marketing needs. This advanced software ensures secure, transparent, and efficient transactions, providing a seamless experience for both administrators and users. With robust features tailored to the unique requirements of cryptocurrency-based MLM businesses, our software helps you stay ahead in the rapidly evolving digital landscape.",
+      "content": null,
+      "image": "/uploads/upload-1769252468193-zfc9x85ge9.webp",
+      "icon": "fontawesome:faBitcoinSign",
+      "keyBenefits": [
+        "Utilizes blockchain technology to ensure secure and transparent transactions.",
+        "Provides real-time tracking and reporting for enhanced decision-making and business insights.",
+        "Easily adaptable to accommodate the growth and expansion of your MLM business."
+      ],
+      "serviceHighlights": [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"
+      ],
+      "showOnHomePage": true
+    },
+    {
+      "id": "5ce13408-4600-4f7b-969d-3cfe8a361e11",
+      "locale": "es",
+      "title": "Opencart Development",
+      "description": "Our Opencart development service is designed to provide a powerful and adaptable e-commerce platform for MLM businesses. By utilizing the capabilities of Opencart, we deliver an efficient and user-friendly online shopping experience. Whether you need bespoke features, seamless integrations, or a fully developed e-commerce site, our skilled team ensures your online store is both scalable and secure.",
+      "content": null,
+      "image": "/uploads/upload-1769083873845-vwdip5cji5c.jpeg",
+      "icon": "remix:RiShoppingCart2Line",
+      "keyBenefits": [
+        "Develop tailored features that cater to your unique business needs and improve user engagement.",
+        "Effortlessly connect with payment gateways, shipping options, and various third-party services.",
+        "Receive continuous support and maintenance to ensure your e-commerce site operates smoothly."
+      ],
+      "serviceHighlights": [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting"
+      ],
+      "showOnHomePage": true
+    },
+    {
+      "id": "c0526337-68ea-4eea-9be0-0acec39ac48a",
+      "locale": "es",
+      "title": "E-commerce Integration",
+      "description": "Having trouble with Cloud MLM Software offers robust e-commerce integration services designed to enhance the functionality and reach of MLM businesses. Our integration solutions seamlessly connect your MLM platform with leading e-commerce systems, enabling smooth product listing, inventory management, and transaction processing. This integration allows for a unified experience where members can easily purchase products, track orders, and manage their accounts within the same platform. Our service ensures that your MLM business can leverage the power of e-commerce to drive sales and improve member satisfaction.",
+      "content": null,
+      "image": "/uploads/upload-1769075707676-977bfycwoji.jpeg",
+      "icon": "remix:RiShoppingCartFill",
+      "keyBenefits": [
+        "Efficiently manage products, orders, and inventory through seamless ecommerce integration.",
+        "Provide a unified platform for members to purchase products and manage their accounts.",
+        "Boost revenue by integrating with popular e-commerce platforms and reaching a broader audience."
+      ],
+      "serviceHighlights": [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"
+      ],
+      "showOnHomePage": true
+    },
+    {
+      "id": "59127eb6-cfa4-4316-bc50-18807bc7d251",
+      "locale": "es",
+      "title": "WooCommerce Integration",
+      "description": "WooCommerce is a popular open-source plugin designed for WordPress, transforming a regular WordPress website into a fully functional e-commerce store. It allows users to sell products and services online, manage inventory, process payments, handle shipping, and more",
+      "content": null,
+      "image": "/uploads/upload-1769079904374-o94ecdx18j.webp",
+      "icon": "remix:RiStore2Fill",
+      "keyBenefits": [
+        "Seamless Data Synchronization",
+        "Custom Automation",
+        "Custom eCommerce Store Development"
+      ],
+      "serviceHighlights": [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting i"
+      ],
+      "showOnHomePage": true
+    },
+    {
+      "id": "88c1ebdd-1034-4b81-aa7a-17cedf5b95d0",
+      "locale": "es",
+      "title": "MLM Software Development",
+      "description": "At Cloud MLM Software, we specialize in mobile software development tailored for the MLM industry. Our expert team designs and develops high-performance mobile applications that cater to the unique needs of MLM businesses. By leveraging the latest technologies, we create user-friendly, secure, and efficient mobile apps that enhance user engagement and streamline business operations. Our solutions ensure that your MLM business remains accessible and operational from anywhere, providing a seamless experience for your members and leaders.",
+      "content": null,
+      "image": "/uploads/upload-1769070744918-ujutsjzp58.jpeg",
+      "icon": "remix:RiBook2Line",
+      "keyBenefits": [
+        "Custom Solutions : Tailored mobile apps designed specifically for MLM business requirements.",
+        "Cross-Platform Compatibility : Apps developed for both iOS and Android platforms.",
+        "Real-Time Updates : Instant access to business metrics, downline performance, and commission tracking."
+      ],
+      "serviceHighlights": [
+        "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum ha",
+        "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ha"
+      ],
+      "showOnHomePage": true
+    },
+    {
+      "id": "9074656c-8a0a-4085-9c32-610f7cee22e9",
+      "locale": "es",
+      "title": "Website Designing",
+      "description": "Our website designing service at Cloud MLM Software focuses on creating visually appealing and highly functional websites that cater to your business needs. With a user-centric approach, we design websites that are not only aesthetically pleasing but also intuitive and easy to navigate. Our team of skilled designers ensures that your website stands out, offering a seamless experience for your visitors and driving engagement.",
+      "content": null,
+      "image": "/uploads/upload-1769252269647-wfrpoxl138a.webp",
+      "icon": "fontawesome:faDesktop",
+      "keyBenefits": [
+        "Unique and tailored designs that reflect your brand identity.",
+        "Intuitive navigation and layout for an excellent user experience.",
+        "Optimized for all devices, ensuring your site looks great on any screen."
+      ],
+      "serviceHighlights": [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"
+      ],
+      "showOnHomePage": false
+    },
+    {
+      "id": "dfeff3a6-9ecf-4680-876f-f12d3989b4cc",
+      "locale": "es",
+      "title": "Web Development",
+      "description": "Our website designing service at Cloud MLM Software focuses on creating visually appealing and highly functional websites that cater to your business needs. With a user-centric approach, we design websites that are not only aesthetically pleasing but also intuitive and easy to navigate. Our team of skilled designers ensures that your website stands out, offering a seamless experience for your visitors and driving engagement.",
+      "content": null,
+      "image": "/uploads/upload-1769252347478-e9hvzh11d9j.webp",
+      "icon": "remix:RiSlideshowView",
+      "keyBenefits": [
+        "Unique and tailored designs that reflect your brand identity.",
+        "Intuitive navigation and layout for an excellent user experience.",
+        "Optimized for all devices, ensuring your site looks great on any screen."
+      ],
+      "serviceHighlights": [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"
+      ],
+      "showOnHomePage": false
+    },
+    {
+      "id": "6e33d466-3183-4f05-813e-17696c529606",
+      "locale": "es",
+      "title": "Magento Development",
+      "description": "Our Magento development service at Cloud MLM Software offers powerful and flexible solutions tailored to your business needs. By harnessing the capabilities of Magento, we ensure a seamless and efficient e-commerce experience with custom features and robust integration. Whether you’re launching a new online store or enhancing an existing one, our expert team is dedicated to delivering top-notch results that drive growth and satisfaction.",
+      "content": null,
+      "image": "/uploads/upload-1769252126145-d0basbqj72c.webp",
+      "icon": "fontawesome:faCartPlus",
+      "keyBenefits": [
+        "Custom features designed to fit your unique business requirements",
+        "Effective integration with current systems and third-party tools.",
+        "Enhanced speed and reliability for an excellent user experience."
+      ],
+      "serviceHighlights": [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"
+      ],
+      "showOnHomePage": false
+    },
+    {
+      "id": "cdf99802-a955-4b84-9483-83f386bdad51",
+      "locale": "es",
+      "title": "Desarrollo de software",
+      "description": "En Cloud MLM Software, nos especializamos en el desarrollo de software móvil adaptado a la industria del MLM. Nuestro equipo de expertos diseña y desarrolla aplicaciones móviles de alto rendimiento que satisfacen las necesidades únicas de los negocios MLM. Al aprovechar las tecnologías más avanzadas, creamos aplicaciones móviles fáciles de usar, seguras y eficientes que mejoran la participación de los usuarios y optimizan las operaciones empresariales. Nuestras soluciones garantizan que su negocio MLM permanezca accesible y operativo desde cualquier lugar, proporcionando una experiencia fluida para sus miembros y líderes.",
+      "content": null,
+      "image": "/uploads/upload-1769070744918-ujutsjzp58.jpeg",
+      "icon": "remix:RiBook2Line",
+      "keyBenefits": [
+        "Soluciones personalizadas: aplicaciones móviles personalizadas diseñadas específicamente para los requisitos comerciales de MLM.",
+        "Compatibilidad entre plataformas: aplicaciones desarrolladas para plataformas iOS y Android.",
+        "Actualizaciones en tiempo real: acceso instantáneo a las métricas comerciales, el rendimiento de la línea descendente y el seguimiento de las comisiones."
+      ],
+      "serviceHighlights": [
+        "orem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto."
+      ],
+      "showOnHomePage": true
+    }
+  ]
+}

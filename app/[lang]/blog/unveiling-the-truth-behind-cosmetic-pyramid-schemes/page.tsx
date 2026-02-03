@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import {
-  CircleWavyWarning,
+  Warning,
   Eye,
   Flag,
   HandHeart,
@@ -331,7 +331,7 @@ export default function UnveilingTheTruthBehindCosmeticPyramidSchemesPage({ para
 
       <section className="container space-y-6">
         <div className="flex items-center gap-3">
-          <CircleWavyWarning className="h-6 w-6 text-amber-600 dark:text-amber-300" weight="fill" aria-hidden />
+          <Warning className="h-6 w-6 text-amber-600 dark:text-amber-300" weight="fill" aria-hidden />
           <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">How can we spot the red flags?</h2>
         </div>
         <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">

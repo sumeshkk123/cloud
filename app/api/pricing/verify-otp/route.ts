@@ -19,8 +19,8 @@ export async function POST(request: Request) {
     }
 
     // Normalize email and OTP
-    const normalizedEmail = email.trim().toLowerCase();
-    const normalizedOtp = otp.replace(/\D/g, "").trim();
+    const normalizedEmail = String(email).trim().toLowerCase();
+    const normalizedOtp = String(otp).replace(/\D/g, "").trim();
     
     if (!normalizedOtp || normalizedOtp.length !== 6) {
       return NextResponse.json({ error: "Invalid OTP format. Please enter a 6-digit code." }, { status: 400 });

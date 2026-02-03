@@ -11,7 +11,7 @@ import { i18n } from "@/i18n-config";
 import {
   ArrowUpRight,
   ChartLine,
-  CircleWavyCheck,
+  CheckCircle,
   DeviceMobile,
   GlobeSimple,
   Handshake,
@@ -88,7 +88,7 @@ const ENABLEMENT_PILLARS: EnablementPillar[] = [
       "Audit dashboards surface completion rates, owners, and AI summaries.",
       "Incident playbooks ensure recovery teams rehearse the same scripts."
     ],
-    icon: CircleWavyCheck
+    icon: CheckCircle
   },
   {
     heading: "Growth amplification",

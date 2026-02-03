@@ -16,7 +16,7 @@ import {
   ChatsCircle,
   Compass,
   CurrencyCircleDollar,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   Lightning,
   MapTrifold,
   Megaphone,
@@ -204,7 +204,7 @@ const MODULES: Module[] = [
   {
     title: "Multi-lingual system",
     detail: "Keeps English and Spanish experiences synchronised across portals, bots, and AI assistants.",
-    icon: GlobeHemisphereSouth
+    icon: GlobeHemisphereEast
   }
 ];
 

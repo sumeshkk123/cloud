@@ -155,31 +155,43 @@
     "items": [
       {
         "name": "Capterra",
-        "logo": "/wp-content/uploads/2024/06/capture-img.webp",
-        "rating": 4.9,
+        "logo": "/images/capture-img.webp",
+        "logoDark": "/images/capture-white-img.webp",
+        "rating": 5.0,
         "quote": "Experiência em implementação e suporte responsivo",
         "href": "https://www.capterra.com/p/220236/Cloud-MLM-Software/#reviews"
       },
       {
         "name": "Boas Empresas",
-        "logo": "/wp-content/uploads/2024/06/goodfirm-img.webp",
-        "rating": 4.8,
+        "logo": "/images/goodfirm-img.webp",
+        "logoDark": "/images/goodfirm-white-img.webp",
+        "rating": 5.0,
         "quote": "Profundidade de recursos com configuração intuitiva",
         "href": "https://www.goodfirms.co/software/cloud-mlm-software"
       },
       {
         "name": "Conselhos sobre software",
-        "logo": "/wp-content/uploads/2024/06/sofware-advice-img.webp",
-        "rating": 4.9,
+        "logo": "/images/sofware-advice-img.webp",
+        "logoDark": "/images/sofware-advice-white-img.webp",
+        "rating": 5.0,
         "quote": "Líder da categoria de integração e automação",
         "href": "https://www.softwareadvice.com/mlm/cloud-mlm-software-profile/"
       },
       {
         "name": "Sugestão de Software",
-        "logo": "/wp-content/uploads/2024/06/software-suggest-img.webp",
-        "rating": 4.8,
+        "logo": "/images/software-suggest-img.webp",
+        "logoDark": "/images/software-suggest-white-img.webp",
+        "rating": 5.0,
         "quote": "Elogiado pela escalabilidade e implementações multilíngues",
         "href": "https://www.softwaresuggest.com/cloud-mlm-software/reviews"
+      },
+      {
+        "name": "Google Review",
+        "logo": "/images/google-review-img.webp",
+        "logoDark": "/images/google-review-white-img.webp",
+        "rating": 5.0,
+        "quote": "Confiado por empresas MLM em todo o mundo",
+        "href": "https://g.page/r/cloud-mlm-software/review"
       }
     ]
   },
@@ -726,8 +738,14 @@
     "badgeLabel": "Escritórios de campo globais",
     "heading": "Onde quer que você opere, nossas equipes regionais estão próximas",
     "description": "O Cloud MLM Software oferece suporte a clientes em mais de 45 países. Escolha a região mais próxima de você e conectaremos você com um parceiro de implementação ou especialista interno.",
-    "primaryCta": { "label": "Entre em contato com nossa equipe", "href": "/contact" },
-    "secondaryCta": { "label": "Reservar uma demonstração do software MLM", "href": "/free-mlm-software-demo" },
+    "primaryCta": {
+      "label": "Entre em contato com nossa equipe",
+      "href": "/contact"
+    },
+    "secondaryCta": {
+      "label": "Reservar uma demonstração do software MLM",
+      "href": "/free-mlm-software-demo"
+    },
     "noAddressesMessage": "Nenhum endereço de contato disponível.",
     "regions": [
       {

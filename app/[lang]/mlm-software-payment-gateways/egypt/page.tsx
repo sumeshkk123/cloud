@@ -11,7 +11,7 @@ import { i18n } from "@/i18n-config";
 import {
   ArrowUpRight,
   Building,
-  ChartBar,
+  BarChart,
   Compass,
   Globe2,
   Layers3,
@@ -194,7 +194,7 @@ const STAGES: Stage[] = [
       "Ticket audits to ensure SLA and compliance targets are met.",
       "Backup rehearsals safeguarding commission continuity."
     ],
-    icon: ChartBar
+    icon: BarChart
   }
 ];
 

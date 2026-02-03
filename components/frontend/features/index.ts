@@ -1,5 +1,4 @@
 export { FeaturesHeroSection } from "./features-hero-section";
-export { FeatureCardGrid, type FeatureHighlight } from "./feature-card-grid";
 export { FeaturesSectionNav } from "./features-section-nav";
 export { FeaturesListSection } from "./features-list-section";
 export { FeaturesFaqSection } from "./features-faq-section";

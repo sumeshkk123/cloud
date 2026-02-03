@@ -12,7 +12,7 @@ import {
   ArrowRight,
   BluetoothSearching,
   CalendarDays,
-  ChartPie,
+  PieChart,
   Laptop,
   Layers,
   Mail,
@@ -228,7 +228,7 @@ export default function LeadStrategiesPage({ params }: LeadStrategiesPageProps) 
           <aside className="space-y-6 rounded-3xl border border-sky-200/70 bg-white/80 p-8 shadow-xl shadow-sky-100 backdrop-blur dark:border-sky-500/40 dark:bg-slate-900/70 dark:shadow-none">
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold uppercase tracking-wide text-sky-700 dark:text-sky-200">Foundational insights</span>
-              <ChartPie className="h-5 w-5 text-sky-500 dark:text-sky-300" aria-hidden />
+              <PieChart className="h-5 w-5 text-sky-500 dark:text-sky-300" aria-hidden />
             </div>
             <div className="space-y-5 text-sm leading-6 text-slate-600 dark:text-slate-300">
               {HERO_INSIGHTS.map((item) => (

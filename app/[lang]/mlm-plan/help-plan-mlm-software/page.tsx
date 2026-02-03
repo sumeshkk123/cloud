@@ -28,7 +28,7 @@ import {
   Target,
   Users
 } from "lucide-react";
-import PassUpFlowSimulator from "@/components/frontend/plan/pass-up-flow-simulator";
+import PassUpFlowSimulator from "@/components/frontend/plans/all-plans/pass-up-flow-simulator";
 
 export const dynamic = "force-static";
 

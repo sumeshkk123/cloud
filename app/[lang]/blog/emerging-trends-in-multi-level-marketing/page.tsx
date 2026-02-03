@@ -17,12 +17,13 @@ import {
   LineChart,
   Megaphone,
   Network,
+  MousePointerClick,
+  Shield,
   Sparkles,
   Users
 } from "lucide-react";
 import {
   ChatsCircle,
-  CursorClick,
   Faders,
   Fire,
   Funnel,
@@ -114,7 +115,7 @@ const CUSTOMER_PILLARS: Pillar[] = [
     title: "Personalisation",
     description:
       "Design journeys that adapt to every customer’s preferences, ensuring each interaction feels relevant and timely.",
-    icon: CursorClick,
+    icon: MousePointerClick,
     bullets: [
       "Segment audiences based on behaviour and lifecycle stage.",
       "Deliver tailored product recommendations and bundles.",

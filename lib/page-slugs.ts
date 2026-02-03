@@ -9,11 +9,18 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'testimonials': 'testimonials',
     'mlm-software-modules': 'mlm-software-modules',
     'mlm-software-integration': 'mlm-software-integration',
+    'mlm-plans': 'mlm-plans',
     'services': 'services',
     'industries': 'industries',
     'contact': 'contact',
     'changelog': 'changelog',
     'ai-copilot': 'ai-copilot',
+    'features': 'features',
+    'free-mlm-software-demo': 'free-mlm-software-demo',
+    'pricing': 'pricing',
+    'blog': 'blog',
+    'resources': 'resources',
+    'support': 'support',
   },
   es: {
     'preguntas-frecuentes': 'faqs',
@@ -24,6 +31,8 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'mlm-software-modules': 'mlm-software-modules', // Fallback to English slug
     'integracion-de-software-mlm': 'mlm-software-integration',
     'mlm-software-integration': 'mlm-software-integration', // Fallback to English slug
+    'planes-mlm': 'mlm-plans',
+    'mlm-plans': 'mlm-plans', // Fallback to English slug
     'servicios': 'services',
     'services': 'services', // Fallback to English slug
     'industrias': 'industries',
@@ -34,6 +43,17 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'changelog': 'changelog', // Fallback to English slug
     'copiloto-ia': 'ai-copilot',
     'ai-copilot': 'ai-copilot', // Fallback to English slug
+    'caracteristicas': 'features',
+    'features': 'features', // Fallback to English slug
+    'demo-gratis-de-software-mlm': 'free-mlm-software-demo',
+    'free-mlm-software-demo': 'free-mlm-software-demo', // Fallback to English slug
+    'precios': 'pricing',
+    'pricing': 'pricing',
+    'blog': 'blog',
+    'recursos': 'resources',
+    'resources': 'resources',
+    'soporte': 'support',
+    'support': 'support',
   },
   fr: {
     'foire-aux-questions': 'faqs',
@@ -44,6 +64,8 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'mlm-software-modules': 'mlm-software-modules', // Fallback to English slug
     'integration-logiciel-mlm': 'mlm-software-integration',
     'mlm-software-integration': 'mlm-software-integration', // Fallback to English slug
+    'plans-mlm': 'mlm-plans',
+    'mlm-plans': 'mlm-plans', // Fallback to English slug
     'services': 'services', // French uses same slug as English
     'industries': 'industries', // French uses same slug as English
     'contact': 'contact', // French uses same slug as English
@@ -51,6 +73,16 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'changelog': 'changelog', // Fallback to English slug
     'copilote-ia': 'ai-copilot',
     'ai-copilot': 'ai-copilot', // Fallback to English slug
+    'fonctionnalites': 'features',
+    'features': 'features', // Fallback to English slug
+    'demo-gratuite-logiciel-mlm': 'free-mlm-software-demo',
+    'free-mlm-software-demo': 'free-mlm-software-demo', // Fallback to English slug
+    'tarifs': 'pricing',
+    'pricing': 'pricing',
+    'blog': 'blog',
+    'ressources': 'resources',
+    'resources': 'resources',
+    'support': 'support',
   },
   it: {
     'domande-frequenti': 'faqs',
@@ -61,6 +93,8 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'mlm-software-modules': 'mlm-software-modules', // Fallback to English slug
     'integrazione-software-mlm': 'mlm-software-integration',
     'mlm-software-integration': 'mlm-software-integration', // Fallback to English slug
+    'piani-mlm': 'mlm-plans',
+    'mlm-plans': 'mlm-plans', // Fallback to English slug
     'servizi': 'services',
     'services': 'services', // Fallback to English slug
     'settori': 'industries',
@@ -71,6 +105,17 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'changelog': 'changelog', // Fallback to English slug
     'co-pilota-ia': 'ai-copilot',
     'ai-copilot': 'ai-copilot', // Fallback to English slug
+    'funzionalita': 'features',
+    'features': 'features', // Fallback to English slug
+    'demo-gratuita-software-mlm': 'free-mlm-software-demo',
+    'free-mlm-software-demo': 'free-mlm-software-demo', // Fallback to English slug
+    'prezzi': 'pricing',
+    'pricing': 'pricing',
+    'blog': 'blog',
+    'risorse': 'resources',
+    'resources': 'resources',
+    'supporto': 'support',
+    'support': 'support',
   },
   de: {
     'haeufig-gestellte-fragen': 'faqs',
@@ -80,6 +125,8 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'mlm-software-module': 'mlm-software-modules',
     'mlm-software-modules': 'mlm-software-modules', // Fallback to English slug
     'mlm-software-integration': 'mlm-software-integration',
+    'mlm-plaene': 'mlm-plans',
+    'mlm-plans': 'mlm-plans', // Fallback to English slug
     'dienstleistungen': 'services',
     'services': 'services', // Fallback to English slug
     'branchen': 'industries',
@@ -90,6 +137,16 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'changelog': 'changelog', // Fallback to English slug
     'ki-co-pilot': 'ai-copilot',
     'ai-copilot': 'ai-copilot', // Fallback to English slug
+    'funktionen': 'features',
+    'features': 'features', // Fallback to English slug
+    'kostenlose-mlm-software-demo': 'free-mlm-software-demo',
+    'free-mlm-software-demo': 'free-mlm-software-demo', // Fallback to English slug
+    'preise': 'pricing',
+    'pricing': 'pricing',
+    'blog': 'blog',
+    'ressourcen': 'resources',
+    'resources': 'resources',
+    'support': 'support',
   },
   pt: {
     'perguntas-frequentes': 'faqs',
@@ -100,6 +157,8 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'mlm-software-modules': 'mlm-software-modules', // Fallback to English slug
     'integracao-de-software-mlm': 'mlm-software-integration',
     'mlm-software-integration': 'mlm-software-integration', // Fallback to English slug
+    'planos-mlm': 'mlm-plans',
+    'mlm-plans': 'mlm-plans', // Fallback to English slug
     'servicos': 'services',
     'services': 'services', // Fallback to English slug
     'industrias': 'industries',
@@ -110,6 +169,17 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'changelog': 'changelog', // Fallback to English slug
     'co-piloto-ia': 'ai-copilot',
     'ai-copilot': 'ai-copilot', // Fallback to English slug
+    'recursos': 'features',
+    'features': 'features', // Fallback to English slug
+    'demo-gratis-software-mlm': 'free-mlm-software-demo',
+    'free-mlm-software-demo': 'free-mlm-software-demo', // Fallback to English slug
+    'precos': 'pricing',
+    'pricing': 'pricing',
+    'blog': 'blog',
+    'materiais': 'resources',
+    'resources': 'resources',
+    'suporte': 'support',
+    'support': 'support',
   },
   zh: {
     'chang-jian-wen-ti': 'faqs',
@@ -120,6 +190,8 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'mlm-software-modules': 'mlm-software-modules', // Fallback to English slug
     'ruan-jian-ji-cheng': 'mlm-software-integration',
     'mlm-software-integration': 'mlm-software-integration', // Fallback to English slug
+    'mlm-ji-hua': 'mlm-plans',
+    'mlm-plans': 'mlm-plans', // Fallback to English slug
     'fu-wu': 'services',
     'services': 'services', // Fallback to English slug
     'hang-ye': 'industries',
@@ -130,6 +202,18 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'changelog': 'changelog', // Fallback to English slug
     'ai-fu-jia-shi': 'ai-copilot',
     'ai-copilot': 'ai-copilot', // Fallback to English slug
+    'gong-neng': 'features',
+    'features': 'features', // Fallback to English slug
+    'mian-fei-mlm-ruan-jian-yan-shi': 'free-mlm-software-demo',
+    'free-mlm-software-demo': 'free-mlm-software-demo', // Fallback to English slug
+    'ding-jia': 'pricing',
+    'pricing': 'pricing',
+    'bo-ke': 'blog',
+    'blog': 'blog',
+    'zi-yuan': 'resources',
+    'resources': 'resources',
+    'zhi-chi': 'support',
+    'support': 'support',
   },
 };
 
@@ -173,6 +257,15 @@ export const pageToSlugMap: Record<string, Record<string, string>> = {
     pt: 'integracao-de-software-mlm',
     zh: 'ruan-jian-ji-cheng',
   },
+  'mlm-plans': {
+    en: 'mlm-plans',
+    es: 'planes-mlm',
+    fr: 'plans-mlm',
+    it: 'piani-mlm',
+    de: 'mlm-plaene',
+    pt: 'planos-mlm',
+    zh: 'mlm-ji-hua',
+  },
   'services': {
     en: 'services',
     es: 'servicios',
@@ -200,6 +293,15 @@ export const pageToSlugMap: Record<string, Record<string, string>> = {
     pt: 'contato',
     zh: 'lian-xi',
   },
+  'free-mlm-software-demo': {
+    en: 'free-mlm-software-demo',
+    es: 'demo-gratis-de-software-mlm',
+    fr: 'demo-gratuite-logiciel-mlm',
+    it: 'demo-gratuita-software-mlm',
+    de: 'kostenlose-mlm-software-demo',
+    pt: 'demo-gratis-software-mlm',
+    zh: 'mian-fei-mlm-ruan-jian-yan-shi',
+  },
   'changelog': {
     en: 'changelog',
     es: 'registro-de-cambios',
@@ -217,6 +319,51 @@ export const pageToSlugMap: Record<string, Record<string, string>> = {
     de: 'ki-co-pilot',
     pt: 'co-piloto-ia',
     zh: 'ai-fu-jia-shi',
+  },
+  'features': {
+    en: 'features',
+    es: 'caracteristicas',
+    fr: 'fonctionnalites',
+    it: 'funzionalita',
+    de: 'funktionen',
+    pt: 'recursos',
+    zh: 'gong-neng',
+  },
+  'pricing': {
+    en: 'pricing',
+    es: 'precios',
+    fr: 'tarifs',
+    it: 'prezzi',
+    de: 'preise',
+    pt: 'precos',
+    zh: 'ding-jia',
+  },
+  'blog': {
+    en: 'blog',
+    es: 'blog',
+    fr: 'blog',
+    it: 'blog',
+    de: 'blog',
+    pt: 'blog',
+    zh: 'bo-ke',
+  },
+  'resources': {
+    en: 'resources',
+    es: 'recursos',
+    fr: 'ressources',
+    it: 'risorse',
+    de: 'ressourcen',
+    pt: 'materiais',
+    zh: 'zi-yuan',
+  },
+  'support': {
+    en: 'support',
+    es: 'soporte',
+    fr: 'support',
+    it: 'supporto',
+    de: 'support',
+    pt: 'suporte',
+    zh: 'zhi-chi',
   },
 };
 

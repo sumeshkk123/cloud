@@ -505,5 +505,5 @@ function resolveLocale(lang: SupportedLocale): Locale {
     return lang;
   }
 
-  return i18n.defaultLocale;
+  return i18n.defaultLocale as Locale;
 }

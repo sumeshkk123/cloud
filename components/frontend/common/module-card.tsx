@@ -31,7 +31,7 @@ const ModuleCard = React.forwardRef<HTMLDivElement, ModuleCardProps>(
       <Card
         ref={ref}
         className={cn(
-          "group flex flex-col p-6 border-r border-b border-border/50 bg-card !rounded-none backdrop-blur dark:bg-card/60",
+          "group flex flex-col p-6 border-r border-b border-border/50 bg-card  backdrop-blur dark:bg-card/60",
           isHighlighted
             ? "border-primary/30 bg-primary/10"
             : "",

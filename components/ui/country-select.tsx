@@ -116,7 +116,6 @@ export const COUNTRY_CODES: Record<string, Country> = {
   "Namibia": { name: "Namibia", code: "+264", flag: "🇳🇦" },
   "Mauritius": { name: "Mauritius", code: "+230", flag: "🇲🇺" },
   "Seychelles": { name: "Seychelles", code: "+248", flag: "🇸🇨" },
-  "Chile": { name: "Chile", code: "+56", flag: "🇨🇱" },
   "Ecuador": { name: "Ecuador", code: "+593", flag: "🇪🇨" },
   "Uruguay": { name: "Uruguay", code: "+598", flag: "🇺🇾" },
   "Paraguay": { name: "Paraguay", code: "+595", flag: "🇵🇾" },

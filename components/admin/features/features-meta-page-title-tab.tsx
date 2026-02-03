@@ -445,7 +445,7 @@ export function FeaturesMetaPageTitleTab() {
           setLocaleToDelete('en');
         }}
         onConfirm={handleDelete}
-        isDeleting={isDeleting}
+        isLoading={isDeleting}
         title="Delete Meta Details & Page Title"
         message={`Are you sure you want to delete the meta details and page title for ${pageToDelete} (${localeToDelete.toUpperCase()})? This action cannot be undone.`}
       />

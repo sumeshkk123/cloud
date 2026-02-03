@@ -103,7 +103,7 @@ export function MlmSoftwareModules() {
                             </div>
                         </div>
                         {isLoading ? (
-                            <div className="mt-6 grid sm:grid-cols-3">
+                            <div className="mt-6 grid gap-3 sm:grid-cols-3">
                                 {[1, 2, 3, 4, 5, 6].map((i) => (
                                     <div key={i} className="animate-pulse !rounded-none border border-border/50 bg-card p-6">
                                         <div className="h-12 w-12 bg-muted rounded-full mb-4" />
@@ -115,7 +115,7 @@ export function MlmSoftwareModules() {
                                 ))}
                             </div>
                         ) : modules.length > 0 ? (
-                            <div className="mt-6 grid sm:grid-cols-3">
+                            <div className="mt-6 grid gap-3 sm:grid-cols-3">
                                 {modules.map((module) => {
                                     const Icon = resolveIcon(module.image, Package);
                                     return (

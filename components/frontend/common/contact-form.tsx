@@ -12,7 +12,7 @@ export interface ContactFormProps {
     badge?: string;
     heading?: string;
     headingHighlight?: string;
-    onSubmit?: (data: ContactFormData) => void;
+    onSubmit?: (data: ContactFormData) => Promise<void> | void;
     className?: string;
     translations?: {
         fields: {
@@ -81,7 +81,7 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
             successMessage: "Message sent successfully!"
         };
 
-        const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
 
             // Validate form
@@ -123,21 +123,37 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
 
             setErrors({});
 
-            // Show success toast
-            showToast(t.successMessage, 'success');
-
+            // Submit form
             if (onSubmit) {
-                onSubmit(formData);
+                try {
+                    await onSubmit(formData);
+                    // Show success toast
+                    showToast(t.successMessage, 'success');
+                    // Reset form
+                    setFormData({
+                        name: '',
+                        email: '',
+                        country: '',
+                        phone: '',
+                        message: ''
+                    });
+                } catch (error) {
+                    // Show error toast
+                    const errorMessage = error instanceof Error ? error.message : 'Failed to submit form. Please try again.';
+                    showToast(errorMessage, 'error');
+                }
+            } else {
+                // Fallback: just show success if no onSubmit handler
+                showToast(t.successMessage, 'success');
+                // Reset form
+                setFormData({
+                    name: '',
+                    email: '',
+                    country: '',
+                    phone: '',
+                    message: ''
+                });
             }
-
-            // Reset form
-            setFormData({
-                name: '',
-                email: '',
-                country: '',
-                phone: '',
-                message: ''
-            });
         };
 
         const handleChange = (field: keyof ContactFormData, value: string) => {

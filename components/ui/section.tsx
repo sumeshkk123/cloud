@@ -50,7 +50,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
         const variantClasses: Record<SectionVariant, string> = {
             default: 'bg-background',
             primary: 'bg-primary/5 dark:bg-primary/10',
-            secondary: 'bg-muted/30 dark:bg-muted/20',
+            secondary: 'bg-secondary/30 dark:bg-secondary/20',
             accent: 'bg-primary/10 dark:bg-primary/20',
             muted: 'bg-muted/20 dark:bg-muted/10',
             gradient: 'bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-900',
@@ -60,7 +60,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
 
         return (
             <Component
-                ref={ref}
+                ref={ref as React.Ref<HTMLDivElement>}
                 id={id}
                 className={cn(
                     'relative overflow-hidden',

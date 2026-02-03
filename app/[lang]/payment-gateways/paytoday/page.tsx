@@ -13,7 +13,7 @@ import {
   CalendarCheck,
   ChartLineUp,
   Compass,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   Handshake,
   Lightning,
   ListChecks,
@@ -59,7 +59,7 @@ const HERO_SIGNALS: Signal[] = [
     label: "Primary theatre",
     value: "Namibia",
     detail: "Agency banking, card acquiring, and mobile payments set the pace in Windhoek and beyond.",
-    icon: GlobeHemisphereSouth
+    icon: GlobeHemisphereEast
   },
   {
     label: "Promise evolved",

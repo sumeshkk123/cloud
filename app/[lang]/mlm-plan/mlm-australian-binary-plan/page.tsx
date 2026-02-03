@@ -26,7 +26,7 @@ import {
   TrendingUp,
   Users
 } from "lucide-react";
-import AustralianBinarySimulator from "@/components/frontend/plan/australian-binary-simulator";
+import AustralianBinarySimulator from "@/components/frontend/plans/all-plans/australian-binary-simulator";
 
 export const dynamic = "force-static";
 

@@ -96,6 +96,7 @@ export function ServicesFaqTable() {
 
     useEffect(() => {
         loadFaqs();
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
     }, []);
 
     const filtered = useMemo(() => faqs, [faqs]);
@@ -185,7 +186,7 @@ export function ServicesFaqTable() {
                                 }
                                 if (column.key === 'languages') {
                                     const availableLocales = row.availableLocales || ['en'];
-                                    const allLocales = ['en', 'es', 'it', 'de', 'pt', 'zh'];
+                                    const allLocales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
                                     return (
                                         <div className="grid grid-cols-3 gap-1 w-48">
                                             {allLocales.map((loc) => {
@@ -268,7 +269,7 @@ export function ServicesFaqTable() {
                     setFaqToDelete(null);
                 }}
                 onConfirm={handleDelete}
-                isDeleting={isDeleting}
+                isLoading={isDeleting}
                 title="Delete Service FAQ"
                 message="Are you sure you want to delete this service FAQ? This action cannot be undone."
             />

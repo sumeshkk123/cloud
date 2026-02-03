@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ComponentType } from "react";
 
-import RepurchaseCycleSimulator from "@/components/frontend/plan/repurchase-cycle-simulator";
+import RepurchaseCycleSimulator from "@/components/frontend/plans/all-plans/repurchase-cycle-simulator";
 import { Button } from "@/components/ui/button";
 import type { SupportedLocale } from "@/config/site";
 import { isSupportedLocale } from "@/lib/i18n-utils";

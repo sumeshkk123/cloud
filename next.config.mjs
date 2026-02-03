@@ -39,6 +39,24 @@ const nextConfig = {
     ]
   },
   webpack: (config, { isServer, dev }) => {
+    // Make cloudinary optional - don't bundle it, allow runtime require
+    if (isServer) {
+      config.externals = config.externals || [];
+      if (typeof config.externals === 'function') {
+        const originalExternals = config.externals;
+        config.externals = [
+          originalExternals,
+          ({ request }, callback) => {
+            if (request === 'cloudinary') {
+              return callback(null, 'commonjs ' + request);
+            }
+            callback();
+          },
+        ];
+      } else if (Array.isArray(config.externals)) {
+        config.externals.push('cloudinary');
+      }
+    }
     // Fix for missing vendor chunks in development
     if (dev && isServer) {
       config.optimization = {
@@ -56,6 +74,29 @@ const nextConfig = {
         poll: 1000, // Check for changes every second
         aggregateTimeout: 300, // Delay before rebuilding
         ignored: ['**/node_modules', '**/.git', '**/.next'],
+      };
+    }
+    // Memory optimizations for production builds
+    if (!dev) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          ...config.optimization.splitChunks,
+          cacheGroups: {
+            ...config.optimization.splitChunks?.cacheGroups,
+            default: {
+              minChunks: 2,
+              priority: -20,
+              reuseExistingChunk: true,
+            },
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              priority: -10,
+              reuseExistingChunk: true,
+            },
+          },
+        },
       };
     }
     return config;

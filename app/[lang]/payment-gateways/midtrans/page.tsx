@@ -13,7 +13,7 @@ import {
   ChartPolar,
   CompassTool,
   DeviceMobileCamera,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   MapPinLine,
   Megaphone,
@@ -98,7 +98,7 @@ const MOMENTUM_CARDS: MomentumCard[] = [
     title: "SEA expansion playbook",
     description:
       "Midtrans learnings extend to Singapore, Malaysia, and the wider ASEAN network with localisation matrices and support scripts.",
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   }
 ];
 

@@ -25,6 +25,7 @@ export function SiteLogo({ locale, siteName, className }: SiteLogoProps) {
       className={`flex items-center gap-2 ${className || ""}`}
       aria-label={siteName}
     >
+      {/* eslint-disable-next-line @next/next/no-img-element -- logo uses img for theme switching without revalidation */}
       <img
         src={logoSrc}
         alt={siteName}

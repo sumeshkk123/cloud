@@ -12,7 +12,7 @@ import {
   ArrowSquareOut,
   ChartLineUp,
   DeviceMobile,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   MapPin,
   Notebook,

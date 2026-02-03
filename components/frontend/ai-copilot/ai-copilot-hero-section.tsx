@@ -62,10 +62,12 @@ export async function AICopilotHeroSection({
     },
     {
       label: t.metrics.implementationSpeed.label,
+      value: "Fast",
       detail: t.metrics.implementationSpeed.detail
     },
     {
       label: t.metrics.globalSupport.label,
+      value: "24/7",
       detail: t.metrics.globalSupport.detail
     }
   ];

@@ -46,6 +46,7 @@ export function UserActivitiesSection() {
   useEffect(() => {
     fetchActivities();
     setCurrentPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fetchActivities loads when filterUserId changes
   }, [filterUserId]);
 
   const fetchActivities = async () => {

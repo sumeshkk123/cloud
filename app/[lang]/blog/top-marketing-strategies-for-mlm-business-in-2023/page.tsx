@@ -274,7 +274,7 @@ export default function TopMarketingStrategiesForMlmBusinessIn2023Page({ params 
               className="rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900/70"
             >
               <div className="flex items-center gap-3">
-                <pillar.icon className="h-6 w-6 text-emerald-600 dark:text-emerald-300" weight="fill" aria-hidden />
+                <pillar.icon className="h-6 w-6 text-emerald-600 dark:text-emerald-300" aria-hidden />
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{pillar.title}</h3>
               </div>
               <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{pillar.description}</p>

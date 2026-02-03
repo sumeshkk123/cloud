@@ -16,7 +16,7 @@ export function AdminProviders({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+    <ThemeProvider>
       <SessionProvider>{children}</SessionProvider>
     </ThemeProvider>
   );

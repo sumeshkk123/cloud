@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
   Award,
-  ChartLine,
+  LineChart,
   Flame,
   Globe2,
   Handshake,
@@ -217,7 +217,7 @@ const CHALLENGES: Challenge[] = [
     title: "Time & responsibility juggle",
     description:
       "Systematised calendars, task delegation, and automation keep leaders focused on high-impact work.",
-    icon: ChartLine
+    icon: LineChart
   },
   {
     title: "Building resilient teams",

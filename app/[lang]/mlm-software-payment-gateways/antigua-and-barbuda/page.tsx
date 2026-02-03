@@ -15,7 +15,7 @@ import {
   Building,
   Compass,
   Flame,
-  Lighthouse,
+  Lightbulb,
   Route,
   Sparkles,
   Waves
@@ -84,7 +84,7 @@ const HIGHLIGHTS: Highlight[] = [
     metric: "48 hrs",
     label: "Policy refresh",
     description: "Average turnaround for ECCB compliance updates once artefacts are submitted.",
-    icon: Lighthouse
+    icon: Lightbulb
   },
   {
     metric: "9",
@@ -291,7 +291,7 @@ export default function AntiguaAndBarbudaPaymentGatewaysPage({
         <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[minmax(0,0.58fr)_minmax(0,0.42fr)] lg:items-start">
           <div className="space-y-10">
             <span className="inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-white/70 px-5 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-rose-700 dark:border-rose-500/40 dark:bg-slate-900/70 dark:text-rose-200">
-              <Lighthouse className="h-4 w-4" />
+              <Lightbulb className="h-4 w-4" />
               Antigua & Barbuda payments vision
             </span>
             <div className="space-y-6">

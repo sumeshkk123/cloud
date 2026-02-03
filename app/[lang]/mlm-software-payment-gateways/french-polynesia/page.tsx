@@ -8,7 +8,7 @@ import { isSupportedLocale } from "@/lib/i18n-utils";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Lightbulb } from "lucide-react";
 import {
   Anchor,
   ArrowClockwise,
@@ -16,13 +16,12 @@ import {
   Compass,
   Cpu,
   GlobeHemisphereEast,
-  Lighthouse,
   ListChecks,
   MapTrifold,
   Megaphone,
   Sailboat,
   ShieldCheck,
-  Shore,
+  Island,
   Stack,
   StarFour,
   TreePalm,
@@ -79,7 +78,7 @@ const HERO_CARDS: HeroCard[] = [
     title: "Legacy assurance",
     description:
       "“Ways to accept payments from MLM Software in People’s Democratic Republic of French Polynesia – PF” remains word-perfect in the hero statement.",
-    icon: Shore
+    icon: Island
   },
   {
     title: "Eight-gateway orchestration",
@@ -174,7 +173,7 @@ const GATEWAY_WAVES: GatewayWave[] = [
       "Dashboards surface interchange variance, chargeback ratios, and approval rates for CFO briefings.",
       "Ticket system attaches Adyen risk alerts to compliance cases with ownership clarity."
     ],
-    icon: Lighthouse
+    icon: Lightbulb
   },
   {
     name: "2Checkout — digital export runway",

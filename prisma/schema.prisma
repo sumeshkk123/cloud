@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
@@ -9,13 +9,13 @@ datasource db {
 }
 
 model faqs {
-  id        String
-  question  String
-  answer    String
-  locale    String   @default("en")
+  id         String
+  question   String
+  answer     String
+  locale     String   @default("en")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
   categoryId String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime
 
   @@id([id, locale])
   @@index([locale])
@@ -23,13 +23,13 @@ model faqs {
 }
 
 model faq_categories {
-  id          String
-  name        String
-  slug        String
-  icon        String?
-  locale      String   @default("en")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String
+  name      String
+  slug      String
+  locale    String   @default("en")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  icon      String?
 
   @@id([id, locale])
   @@unique([slug, locale])
@@ -38,59 +38,57 @@ model faq_categories {
 }
 
 model global_settings {
-  id              String   @id @default(cuid())
-  locale          String   @default("en")
-  siteName        String
-  siteTagline     String?
-  metadataTitle   String?
+  id                  String   @id @default(cuid())
+  locale              String   @unique @default("en")
+  siteName            String
+  siteTagline         String?
+  metadataTitle       String?
   metadataDescription String?
-  metadataKeywords String?
-  languageLabel   String?
-  languageAriaLabel String?
-  primaryNav      Json?
-  headerCta       Json?
-  languageLinks   Json?
-  footerColumns   Json?
-  footerCta       Json?
-  footerContacts  Json?
-  footerBottomLinks Json?
-  contactEmail    String?
-  contactPhone    String?
-  socialLinks     Json?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  metadataKeywords    String?
+  languageLabel       String?
+  languageAriaLabel   String?
+  primaryNav          Json?
+  headerCta           Json?
+  languageLinks       Json?
+  footerColumns       Json?
+  footerCta           Json?
+  footerContacts      Json?
+  footerBottomLinks   Json?
+  contactEmail        String?
+  contactPhone        String?
+  socialLinks         Json?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  @@unique([locale])
   @@index([locale])
 }
 
 model homepage_content {
   id        String   @id @default(cuid())
-  locale    String   @default("en")
+  locale    String   @unique @default("en")
   content   Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([locale])
   @@index([locale])
 }
 
 model blog_posts {
-  id             String
-  slug           String
-  title          String
-  description    String
-  content        String
-  date           DateTime @default(now())
-  image          String?
-  author         String?
-  locale         String   @default("en")
-  published      Boolean  @default(false)
-  metaTitle      String?
+  id              String
+  slug            String
+  title           String
+  description     String
+  content         String
+  date            DateTime @default(now())
+  image           String?
+  author          String?
+  locale          String   @default("en")
+  published       Boolean  @default(false)
+  metaTitle       String?
   metaDescription String?
-  metaKeywords   String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  metaKeywords    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   @@id([id, locale])
   @@index([locale])
@@ -107,6 +105,7 @@ model contact_submissions {
   country   String?
   message   String
   source    String   @default("contact")
+  sourceSite String?  @map("source_site") // Cloud MLM or Business MLM (website/source of enquiry)
   notes     String?
   locale    String   @default("en")
   createdAt DateTime @default(now())
@@ -114,24 +113,26 @@ model contact_submissions {
 }
 
 model demo_faqs {
-  id        String   @id @default(cuid())
+  id        String
   question  String
   answer    String
   locale    String   @default("en")
   createdAt DateTime @default(now())
   updatedAt DateTime
 
+  @@id([id, locale])
   @@index([locale])
 }
 
 model mlm_plan_faqs {
-  id        String   @id @default(cuid())
+  id        String
   question  String
   answer    String
   locale    String   @default("en")
   createdAt DateTime @default(now())
   updatedAt DateTime
 
+  @@id([id, locale])
   @@index([locale])
 }
 
@@ -184,15 +185,21 @@ model features_faqs {
 }
 
 model demo_items {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  image       String?
-  locale      String   @default("en")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime
+  id                       String   @id @default(cuid())
+  image                    String?
+  locale                   String   @default("en")
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime
+  adminDemoFeatures        Json?
+  adminDemoTitle           String?
+  distributorsDemoFeatures Json?
+  distributorsDemoTitle    String?
+  icon                     String?
+  title                    String?
+  showOnHomePage           Boolean  @default(false)
 
   @@index([locale])
+  @@index([showOnHomePage])
 }
 
 model features {
@@ -205,9 +212,9 @@ model features {
   hasDetailPage  Boolean  @default(false)
   showOnHomePage Boolean  @default(false)
   locale         String   @default("en")
-  features       Json?
   createdAt      DateTime @default(now())
   updatedAt      DateTime
+  features       Json?
 
   @@id([id, locale])
   @@unique([slug, locale])
@@ -230,25 +237,20 @@ model meta_details {
 }
 
 model mlm_plans {
-  id             String   @id @default(cuid())
-  slug           String
-  title          String
-  description    String
-  content        String?
-  image          String?
-  locale         String   @default("en")
-  published      Boolean  @default(false)
-  showOnHomePage Boolean  @default(false)
-  metaTitle      String?
-  metaDescription String?
-  metaKeywords   String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime
+  id              String   @id @default(cuid())
+  groupId         String?  // groups translation rows (same plan, different locales)
+  title           String
+  subtitle        String?
+  description     String
+  icon            String?
+  locale          String   @default("en")
+  showOnHomePage  Boolean  @default(false)
+  features        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
 
-  @@unique([slug, locale])
-  @@index([slug])
+  @@index([groupId])
   @@index([locale])
-  @@index([published])
   @@index([showOnHomePage])
 }
 
@@ -271,14 +273,14 @@ model modules {
 }
 
 model industry_solutions {
-  id              String   @id @default(cuid())
-  title           String
-  description     String
-  icon            String
-  showOnHomePage  Boolean  @default(false)
-  locale          String   @default("en")
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime
+  id             String   @id @default(cuid())
+  title          String
+  description    String
+  icon           String
+  showOnHomePage Boolean  @default(false)
+  locale         String   @default("en")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime
 
   @@unique([title, locale])
   @@index([locale])
@@ -306,12 +308,12 @@ model services {
   content           String?
   image             String?
   icon              String?
-  keyBenefits       Json?
-  serviceHighlights Json?
   showOnHomePage    Boolean  @default(false)
   locale            String   @default("en")
   createdAt         DateTime @default(now())
   updatedAt         DateTime
+  keyBenefits       Json?
+  serviceHighlights Json?
 
   @@index([locale])
   @@index([showOnHomePage])
@@ -344,57 +346,57 @@ model stories {
 }
 
 model users {
-  id          String   @id @default(cuid())
-  email       String   @unique
+  id          String            @id @default(cuid())
+  email       String            @unique
   name        String
   password    String
   image       String?
-  role        String   @default("admin")
+  role        String            @default("admin")
   permissions Json?
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  activities user_activities[]
+  isActive    Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  activities  user_activities[]
 }
 
 model contact_addresses {
   id        String   @id @default(cuid())
   country   String
-  place     String?  // Place/City name (optional)
   address   String
-  phones    Json     // Array of phone numbers stored as JSON
-  whatsapp  String?  // WhatsApp number (optional)
+  phones    Json
   email     String
-  flag      String?  // Flag code (e.g., "in", "ae", "na", "eu", "apac", "gb")
   locale    String   @default("en")
   createdAt DateTime @default(now())
   updatedAt DateTime
+  place     String?
+  whatsapp  String?
+  flag      String?
 
   @@index([locale])
 }
 
 model changelog_entries {
   id          String   @id @default(cuid())
-  version     String   // e.g., "3.0", "2.0", "1.0"
-  title       String?  // Optional title for the version
-  description String   // Main description text
-  features    Json     // Array of feature strings stored as JSON
+  version     String
+  title       String?
+  description String
+  features    Json
   locale      String   @default("en")
-  order       Int      @default(0) // For ordering versions (higher = newer)
+  order       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime
 
+  @@unique([version, locale])
   @@index([locale])
   @@index([order])
-  @@unique([version, locale])
 }
 
 model user_activities {
   id          String   @id @default(cuid())
   userId      String
-  action      String   // e.g., "login", "create_blog", "update_user", etc.
-  description String   // Human-readable description
-  metadata    Json?    // Additional data (JSON)
+  action      String
+  description String
+  metadata    Json?
   ipAddress   String?
   userAgent   String?
   createdAt   DateTime @default(now())
@@ -407,14 +409,13 @@ model user_activities {
 
 model pricing_otps {
   id        String   @id @default(cuid())
-  email     String
+  email     String   @unique
   otp       String
   expiresAt DateTime
   createdAt DateTime @default(now())
 
   @@index([email])
   @@index([expiresAt])
-  @@unique([email])
 }
 
 model integrations {
@@ -422,7 +423,7 @@ model integrations {
   icon        String?
   title       String
   description String
-  connectors  Json?    // Array of connector strings stored as JSON
+  connectors  Json?
   locale      String   @default("en")
   createdAt   DateTime @default(now())
   updatedAt   DateTime
@@ -433,8 +434,8 @@ model integrations {
 
 model connectors {
   id          String
-  sliderTitle String   @default("Default Slider") // Title of the slider this connector belongs to
-  title       String   // Individual connector item title
+  sliderTitle String   @default("Default Slider")
+  title       String
   locale      String   @default("en")
   createdAt   DateTime @default(now())
   updatedAt   DateTime
@@ -445,13 +446,13 @@ model connectors {
 }
 
 model ai_copilots {
-  id          String   @id @default(cuid())
-  icon        String?
-  title       String
-  content     String
-  locale      String   @default("en")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime
+  id        String   @id @default(cuid())
+  icon      String?
+  title     String
+  content   String
+  locale    String   @default("en")
+  createdAt DateTime @default(now())
+  updatedAt DateTime
 
   @@index([locale])
 }

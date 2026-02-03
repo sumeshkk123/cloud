@@ -1,0 +1,44 @@
+{
+  "heroSection": {
+    "badgeText": "免费引导式演示",
+    "fallbackTitle": "使用您的数据、方案和团队体验 Cloud MLM 软件。",
+    "fallbackDescription": "在专为您的直销品牌配置的安全沙盒中，探索佣金结算、自动化、分析与 AI 助手。",
+    "primaryCta": "预约演示",
+    "secondaryCta": "查看平台功能",
+    "includedValue": "已包含",
+    "metrics": {
+      "tailoredSandbox": {
+        "label": "定制沙盒",
+        "value": "已包含",
+        "detail": "包含您的方案模板与数据样例"
+      },
+      "guidedWalkthroughs": {
+        "label": "引导式讲解",
+        "value": "已包含",
+        "detail": "佣金、移动端与分析模块"
+      },
+      "accessWindow": {
+        "label": "30 天访问",
+        "value": "30 天",
+        "detail": "规划期间可选延长"
+      },
+      "securityBriefing": {
+        "label": "安全说明",
+        "value": "已包含",
+        "detail": "面向法务与 IT 的合规审查"
+      }
+    }
+  },
+  "planDemosSection": {
+    "adminViewpoint": "管理员视角",
+    "distributorViewpoint": "经销商视角",
+    "exploreDemo": "探索演示",
+    "bookYourDemo": "预约演示"
+  },
+  "faqSection": {
+    "badge": "演示常见问题",
+    "heading": "常见问题",
+    "description": "团队在启用免费演示体验之前经常会询问的实用细节。",
+    "noFaqsText": "暂无常见问题。"
+  }
+}

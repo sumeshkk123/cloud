@@ -676,7 +676,7 @@ function InsightCard({
       )}
     >
       <div className="flex items-center gap-3">
-        <Icon className={cn("h-5 w-5", toneStyles.icon)} weight="fill" aria-hidden />
+        <Icon className={cn("h-5 w-5", toneStyles.icon)} aria-hidden />
         <h3 className={cn("text-lg font-semibold", toneStyles.header)}>{title}</h3>
       </div>
       <div className="mt-4 space-y-3">

@@ -14,7 +14,7 @@ import {
   CirclesThreePlus,
   Compass,
   Cube,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   Handshake,
   Lightning,
   ShieldCheck
@@ -61,7 +61,7 @@ const HERO_METRICS: Metric[] = [
     label: "Regional heartbeat",
     value: "Southern Africa",
     detail: "South Africa and Namibia lead the adoption footprint for PayGate merchants.",
-    icon: GlobeHemisphereSouth
+    icon: GlobeHemisphereEast
   },
   {
     label: "Experience promise",
@@ -347,7 +347,7 @@ export default function PayGatePage({ params }: PayGatePageProps) {
             >
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{country.name}</h3>
-                <GlobeHemisphereSouth className="h-6 w-6 text-emerald-600 dark:text-emerald-200" aria-hidden />
+                <GlobeHemisphereEast className="h-6 w-6 text-emerald-600 dark:text-emerald-200" aria-hidden />
               </div>
               <p className="text-sm text-slate-600 dark:text-white/70">{country.focus}</p>
             </article>

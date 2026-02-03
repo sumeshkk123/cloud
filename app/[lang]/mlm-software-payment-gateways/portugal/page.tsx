@@ -11,7 +11,6 @@ import { i18n } from "@/i18n-config";
 import { ArrowUpRight } from "lucide-react";
 import {
   Buildings,
-  ChartBar,
   ChartLineUp,
   ChatsCircle,
   ClipboardText,
@@ -121,7 +120,7 @@ const MODULE_STREAMS: ModuleStream[] = [
   {
     name: "Multi currency module",
     description: "Balance EUR, USD, GBP, and CHF without manual spreadsheets or reconciliation delays.",
-    icon: ChartBar,
+    icon: ChartLineUp,
     accent: "bg-emerald-500/15 text-emerald-900 dark:bg-emerald-500/20 dark:text-emerald-100"
   },
   {

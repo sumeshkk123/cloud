@@ -225,7 +225,7 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     "Analyse DXN’s one-dragon wellness model—revenue signals, product pillars, field rituals, and Cloud MLM Software enablement for compliant global growth.";
 
   const alternates = i18n.locales.reduce<Record<string, string>>((acc, currentLocale) => {
-    acc[currentLocale] = buildLocalizedPath(currentLocale, "/mlm-companies/dxn-marketing-sdn-bhd");
+    acc[currentLocale] = buildLocalizedPath("/mlm-companies/dxn-marketing-sdn-bhd", currentLocale as SupportedLocale);
     return acc;
   }, {});
 
@@ -233,13 +233,13 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     title,
     description,
     alternates: {
-      canonical: buildLocalizedPath(locale, "/mlm-companies/dxn-marketing-sdn-bhd"),
+      canonical: buildLocalizedPath("/mlm-companies/dxn-marketing-sdn-bhd", locale as SupportedLocale),
       languages: alternates
     },
     openGraph: {
       title,
       description,
-      url: buildLocalizedPath(locale, "/mlm-companies/dxn-marketing-sdn-bhd"),
+      url: buildLocalizedPath("/mlm-companies/dxn-marketing-sdn-bhd", locale as SupportedLocale),
       type: "article"
     }
   };
@@ -248,9 +248,9 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 export default function DxnMarketingPage({ params }: { params: { lang: Locale } }) {
   const locale = isSupportedLocale(params.lang) ? params.lang : i18n.defaultLocale;
 
-  const demoHref = buildLocalizedPath(locale, "/free-mlm-software-demo");
-  const contactHref = buildLocalizedPath(locale, "/contact");
-  const companiesHref = buildLocalizedPath(locale, "/mlm-companies");
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
+  const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
+  const companiesHref = buildLocalizedPath("/mlm-companies", locale as SupportedLocale);
 
   return (
     <div className="space-y-24 pb-20 pt-16">

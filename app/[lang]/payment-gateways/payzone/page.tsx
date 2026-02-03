@@ -13,7 +13,7 @@ import {
   BriefcaseMetal,
   ChartLineUp,
   Compass,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   MapPin,
   Note,
@@ -325,7 +325,7 @@ export default function PayzonePage({ params }: PayzonePageProps) {
           <article className="flex flex-col gap-4 rounded-3xl border border-border/60 bg-background p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md dark:border-white/15 dark:bg-white/5">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Morocco</h3>
-              <GlobeHemisphereNorth className="h-6 w-6 text-teal-600 dark:text-teal-200" aria-hidden />
+              <GlobeHemisphereEast className="h-6 w-6 text-teal-600 dark:text-teal-200" aria-hidden />
             </div>
             <p className="text-sm text-slate-600 dark:text-white/70">
               Emphasise tourism commerce, marketplace payouts, and bilingual (Arabic/French) enablement that Payzone supports across Moroccan cities.

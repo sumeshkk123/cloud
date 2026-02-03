@@ -17,6 +17,7 @@ import {
   FlaskConical,
   Gavel,
   Globe2,
+  Lightbulb,
   ShieldCheck,
   Sparkles
 } from "lucide-react";
@@ -25,7 +26,6 @@ import {
   ChartLineUp,
   GlobeHemisphereWest,
   Handshake,
-  Lighthouse,
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -405,7 +405,7 @@ const CLOUD_ROADMAP: CloudPlay[] = [
     title: "Regulatory scenario labs",
     description:
       "Prototype licence transition, counterparty audits, and communications playbooks before regulators force your hand.",
-    icon: Lighthouse
+    icon: Lightbulb
   }
 ];
 

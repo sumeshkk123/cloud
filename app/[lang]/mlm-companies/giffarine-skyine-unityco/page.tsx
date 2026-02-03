@@ -182,7 +182,7 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     "Analyse Giffarine Skyline Unityco’s revenue signals, product pillars, field programmes, and Cloud MLM Software enablement designed for Thai wellness leaders.";
 
   const alternates = i18n.locales.reduce<Record<string, string>>((acc, currentLocale) => {
-    acc[currentLocale] = buildLocalizedPath(currentLocale, "/mlm-companies/giffarine-skyine-unityco");
+    acc[currentLocale] = buildLocalizedPath("/mlm-companies/giffarine-skyine-unityco", currentLocale as SupportedLocale);
     return acc;
   }, {});
 
@@ -190,13 +190,13 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     title,
     description,
     alternates: {
-      canonical: buildLocalizedPath(locale, "/mlm-companies/giffarine-skyine-unityco"),
+      canonical: buildLocalizedPath("/mlm-companies/giffarine-skyine-unityco", locale as SupportedLocale),
       languages: alternates
     },
     openGraph: {
       title,
       description,
-      url: buildLocalizedPath(locale, "/mlm-companies/giffarine-skyine-unityco"),
+      url: buildLocalizedPath("/mlm-companies/giffarine-skyine-unityco", locale as SupportedLocale),
       type: "article"
     }
   };
@@ -205,9 +205,9 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 export default function GiffarineSkylineUnitycoPage({ params }: { params: { lang: Locale } }) {
   const locale = isSupportedLocale(params.lang) ? params.lang : i18n.defaultLocale;
 
-  const demoHref = buildLocalizedPath(locale, "/free-mlm-software-demo");
-  const contactHref = buildLocalizedPath(locale, "/contact");
-  const companiesHref = buildLocalizedPath(locale, "/mlm-companies");
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
+  const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
+  const companiesHref = buildLocalizedPath("/mlm-companies", locale as SupportedLocale);
 
   return (
     <div className="space-y-24 pb-20 pt-16">

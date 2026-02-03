@@ -22,7 +22,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import {
   ArrowUpRight,
-  ChartBar,
+  BarChart3,
   Globe2,
   Infinity,
   Map,
@@ -141,7 +141,7 @@ const MODULE_DETAILS: ModuleDetail[] = [
     title: "E-voucher engine",
     subtitle: "Exclusive incentives",
     description: "Manages curated experiences, gifting programmes, and membership privileges with redemption telemetry.",
-    icon: ChartBar
+    icon: BarChart3
   },
   {
     title: "E-wallet manager",

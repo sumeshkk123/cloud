@@ -44,10 +44,14 @@ export default function AdminFaqPage() {
         </nav>
       </div>
 
-      {/* Tab Content */}
+      {/* Tab Content - Keep both components mounted but hidden */}
       <div className="mt-6">
-        {activeTab === 'faqs' && <FaqTable />}
-        {activeTab === 'categories' && <FaqCategoriesTab />}
+        <div className={activeTab === 'faqs' ? 'block' : 'hidden'}>
+          <FaqTable />
+        </div>
+        <div className={activeTab === 'categories' ? 'block' : 'hidden'}>
+          <FaqCategoriesTab />
+        </div>
       </div>
     </div>
   );

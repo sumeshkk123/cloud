@@ -8,7 +8,6 @@ export { ContactFaqSection } from "./contact-faq-section";
 export { ContactTabsSection } from "./contact-tabs-section";
 export { ContactCtaSection } from "./contact-cta-section";
 
-export type { Stat } from "./contact-hero-section";
 export type { Expertise } from "./contact-expertise-section";
 export type { Region } from "./contact-regions-section";
 export type { Faq } from "./contact-faq-section";

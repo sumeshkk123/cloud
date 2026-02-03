@@ -1,4 +1,3 @@
-import type { ComponentType } from "react";
 import {
   Rocket,
   Globe2,
@@ -36,7 +35,7 @@ const DEFAULT_ICON = Rocket;
 export function getStatIcon(
   iconName?: string,
   label?: string
-): ComponentType<{ className?: string; strokeWidth?: number }> {
+): LucideIcon {
   if (iconName) {
     const normalizedName = iconName.toLowerCase().trim();
     return iconMap[normalizedName] || DEFAULT_ICON;

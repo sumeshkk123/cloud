@@ -102,12 +102,12 @@ const StatCard = React.forwardRef<HTMLElement, StatCardProps>(
                 )}
 
                 {/* Read More button */}
-                <div className="mt-auto">
+                {/* <div className="mt-auto">
                     <ReadMoreButton
                         href={readMoreHref}
                         variant={isHighlighted ? "highlighted" : "default"}
                     />
-                </div>
+                </div> */}
             </article>
         );
     }

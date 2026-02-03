@@ -21,6 +21,7 @@ import {
   Cube,
   CurrencyCircleDollar,
   GlobeHemisphereEast,
+  Handshake,
   Lightning,
   MapTrifold,
   Plugs,

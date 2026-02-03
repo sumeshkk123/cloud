@@ -182,18 +182,18 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     "Explore Grant E One’s revenue mix, empowerment pillars, community programmes, and Cloud MLM Software enablement for Japanese lifestyle entrepreneurs.";
 
   const alternates = i18n.locales.reduce<Record<string, string>>((acc, currentLocale) => {
-    acc[currentLocale] = buildLocalizedPath(currentLocale, "/mlm-companies/grant-e-ones");
+    acc[currentLocale] = buildLocalizedPath("/mlm-companies/grant-e-ones", currentLocale as SupportedLocale);
     return acc;
   }, {});
 
   return {
     title,
     description,
-    alternates: { canonical: buildLocalizedPath(locale, "/mlm-companies/grant-e-ones"), languages: alternates },
+    alternates: { canonical: buildLocalizedPath("/mlm-companies/grant-e-ones", locale as SupportedLocale), languages: alternates },
     openGraph: {
       title,
       description,
-      url: buildLocalizedPath(locale, "/mlm-companies/grant-e-ones"),
+      url: buildLocalizedPath("/mlm-companies/grant-e-ones", locale as SupportedLocale),
       type: "article"
     }
   };
@@ -202,9 +202,9 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 export default function GrantEOnesPage({ params }: { params: { lang: Locale } }) {
   const locale = isSupportedLocale(params.lang) ? params.lang : i18n.defaultLocale;
 
-  const demoHref = buildLocalizedPath(locale, "/free-mlm-software-demo");
-  const contactHref = buildLocalizedPath(locale, "/contact");
-  const companiesHref = buildLocalizedPath(locale, "/mlm-companies");
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
+  const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
+  const companiesHref = buildLocalizedPath("/mlm-companies", locale as SupportedLocale);
 
   return (
     <div className="space-y-24 pb-20 pt-16">

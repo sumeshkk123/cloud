@@ -150,14 +150,18 @@ export function FeaturesForm({
             let sharedIcon = '';
             let sharedCategory = '';
             let sharedShowOnHomePage = false;
-            
+
             const englishVersion = existingTranslations.find((t: any) => t.locale === 'en');
             if (englishVersion) {
-                sharedIcon = String(englishVersion.icon || '');
+                const iconValue = String(englishVersion.icon || '').trim();
+                // Use icon as-is (should already have prefix: remix:, fontawesome:, or lucide:)
+                sharedIcon = iconValue;
                 sharedCategory = String(englishVersion.category || '');
                 sharedShowOnHomePage = Boolean(englishVersion.showOnHomePage || false);
             } else if (existingTranslations.length > 0) {
-                sharedIcon = String(existingTranslations[0].icon || '');
+                const iconValue = String(existingTranslations[0].icon || '').trim();
+                // Use icon as-is (should already have prefix: remix:, fontawesome:, or lucide:)
+                sharedIcon = iconValue;
                 sharedCategory = String(existingTranslations[0].category || '');
                 sharedShowOnHomePage = Boolean(existingTranslations[0].showOnHomePage || false);
             }
@@ -198,6 +202,18 @@ export function FeaturesForm({
                     loaded[loc].showOnHomePage = sharedShowOnHomePage;
                 });
             }
+
+            // Sync icon across all locales (icon is shared)
+            // Always sync icon if sharedIcon is available, even if empty string
+            Object.keys(loaded).forEach((loc) => {
+                if (sharedIcon !== undefined && sharedIcon !== null) {
+                    loaded[loc].icon = sharedIcon;
+                } else {
+                    // Use existing icon as-is (should already have proper prefix)
+                    const currentIcon = String(loaded[loc].icon || '').trim();
+                    loaded[loc].icon = currentIcon;
+                }
+            });
 
             // Sync category across all locales (category is shared)
             if (sharedCategory) {
@@ -381,6 +397,8 @@ export function FeaturesForm({
         // Always use English category (category is shared across all locales)
         const englishCategory = translations['en']?.category || current.category;
         const trimmedCategory = englishCategory.trim();
+        // Always use English showOnHomePage (showOnHomePage is shared across all locales)
+        const englishShowOnHomePage = translations['en']?.showOnHomePage ?? current.showOnHomePage;
 
         if (!trimmedTitle || !trimmedDescription || !trimmedIcon || !trimmedCategory) {
             const missingFields = [];
@@ -397,7 +415,7 @@ export function FeaturesForm({
             onSavingChange?.(true);
 
             const idToUse = currentFeatureId || 'new';
-            const url = idToUse === 'new' 
+            const url = idToUse === 'new'
                 ? '/api/admin/features'
                 : `/api/admin/features?id=${encodeURIComponent(idToUse)}`;
 
@@ -416,7 +434,7 @@ export function FeaturesForm({
                     description: trimmedDescription,
                     icon: trimmedIcon,
                     category: trimmedCategory, // Always use English category
-                    showOnHomePage: current.showOnHomePage,
+                    showOnHomePage: englishShowOnHomePage, // Always use English showOnHomePage
                     locale: activeTab,
                     features: allFeatures.length > 0 ? allFeatures : null,
                 }),
@@ -479,7 +497,7 @@ export function FeaturesForm({
     }
 
     return (
-        <form 
+        <form
             id="features-form"
             onSubmit={(e) => {
                 e.preventDefault();
@@ -502,13 +520,12 @@ export function FeaturesForm({
                                 key={locale}
                                 type="button"
                                 onClick={() => setActiveTab(locale)}
-                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${
-                                    isActive
+                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${isActive
                                         ? 'border-blue-500 text-blue-600 bg-blue-50'
                                         : hasContent
                                             ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50'
                                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                                }`}
+                                    }`}
                             >
                                 <div className="flex items-center gap-2">
                                     <span>{localeNames[locale]}</span>
@@ -551,10 +568,22 @@ export function FeaturesForm({
                         Icon
                     </FieldLabel>
                     <IconPicker
-                        value={current.icon}
-                        onChange={(iconName) => updateTranslation(activeTab, 'icon', iconName)}
+                        value={current.icon || ''}
+                        onChange={(icon) => {
+                            // Update icon for all locales (shared field)
+                            locales.forEach((loc) => {
+                                updateTranslation(loc, 'icon', icon);
+                            });
+                        }}
+                        disabled={isSaving || isLoading || isTranslating || activeTab !== 'en'}
                         placeholder="Select an icon..."
+                        className={activeTab !== 'en' ? 'bg-gray-50 dark:bg-gray-800 cursor-not-allowed' : ''}
                     />
+                    {activeTab !== 'en' && (
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            Icon is shared across all languages. Edit in English to change.
+                        </p>
+                    )}
                 </div>
 
                 <div>

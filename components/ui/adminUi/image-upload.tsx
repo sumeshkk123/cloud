@@ -93,14 +93,15 @@ export function ImageUpload({
         <div className="relative inline-block">
           <div className="relative w-48 h-48 rounded-md overflow-hidden border border-gray-300 bg-gray-50" style={{ minHeight: '192px' }}>
             {value.startsWith('/uploads/') || value.startsWith('/images/') ? (
+              /* eslint-disable-next-line @next/next/no-img-element -- dynamic upload preview URLs */
               <img
                 key={value}
                 src={value}
                 alt="Uploaded"
                 className="w-full h-full object-cover"
-                style={{ 
-                  display: 'block', 
-                  width: '100%', 
+                style={{
+                  display: 'block',
+                  width: '100%',
                   height: '100%',
                   minWidth: '192px',
                   minHeight: '192px',
@@ -146,14 +147,16 @@ export function ImageUpload({
               </div>
             )}
           </div>
-          <button
-            type="button"
-            onClick={() => onChange('')}
-            className="absolute -top-2 -right-2 w-8 h-8 rounded-md bg-red-500 hover:bg-red-600 text-white border-0 flex items-center justify-center shadow-lg transition-colors"
-            aria-label="Remove image"
-          >
-            <X className="h-4 w-4" />
-          </button>
+          {!disabled && (
+            <button
+              type="button"
+              onClick={() => onChange('')}
+              className="absolute -top-2 -right-2 w-8 h-8 rounded-md bg-red-500 hover:bg-red-600 text-white border-0 flex items-center justify-center shadow-lg transition-colors"
+              aria-label="Remove image"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
       ) : (
         <div

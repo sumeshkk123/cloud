@@ -27,7 +27,7 @@ import {
   TrendingUp,
   Users
 } from "lucide-react";
-import HybridPlanSimulator from "@/components/frontend/plan/hybrid-plan-simulator";
+import HybridPlanSimulator from "@/components/frontend/plans/all-plans/hybrid-plan-simulator";
 
 export const dynamic = "force-static";
 

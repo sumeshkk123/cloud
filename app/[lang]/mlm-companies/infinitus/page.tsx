@@ -8,7 +8,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowUpRight, CalendarClock, Factory, Globe2, Leaf, Lightbulb, ShieldCheck, Sparkles, TestTubeDiagonal, Users } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CalendarClock, Factory, Globe2, Leaf, Lightbulb, ShieldCheck, Sparkles, TestTube, Users } from "lucide-react";
 import { ChartLineUp, GlobeHemisphereEast, UsersThree } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
@@ -67,7 +67,7 @@ const HERITAGE_PILLARS: Heritage[] = [
     title: "Heritage meets biotechnology",
     description: "Infinitus fuses 5,000 years of Chinese herbology with modern extraction techniques for precision wellness.",
     evidence: "Proprietary polysaccharide and flavonoid complexes demonstrate quantifiable immunity benefits.",
-    icon: TestTubeDiagonal
+    icon: TestTube
   },
   {
     title: "Whole-life wellness",

@@ -1,0 +1,114 @@
+{
+  "hero": {
+    "badgeText": "Visão geral da plataforma",
+    "primaryCta": "Solicitar uma demonstração guiada da plataforma",
+    "secondaryCta": "Explorar a demonstração ao vivo",
+    "description": "O Cloud MLM Software unifica compensação, comércio, enablement, conformidade e copilotos de IA para que todas as equipes—de executivos a distribuidores—trabalhem com a mesma fonte de verdade.",
+    "beforeText": "Construa, automatize e escale",
+    "highlightText": "vendas diretas modernas",
+    "afterText": "em uma única plataforma.",
+    "metrics": {
+      "modulesShipped": {
+        "label": "Módulos entregues",
+        "detail": "Compensação, comércio, analytics e enablement prontos para uso."
+      },
+      "launchVelocity": {
+        "label": "Velocidade de lançamento",
+        "detail": "Tempo médio do blueprint ao go-live em produção."
+      },
+      "aiCopilots": {
+        "label": "Copilotos de IA em produção",
+        "detail": "Os copilotos agora informam liderança, campo e equipes de sucesso."
+      }
+    }
+  },
+  "categories": {
+    "AI": {
+      "badge": "Capacidades de IA",
+      "heading": "Recursos de IA que aceleram o ritmo do campo",
+      "description": "Machine learning impulsiona recomendações de produtos, previsões de comissão e coaching de vendas para que líderes ajam com insights, não com planilhas.",
+      "columns": "md:grid-cols-3"
+    },
+    "Core": {
+      "badge": "Recursos essenciais da plataforma",
+      "heading": "Tudo o que você espera de um software MLM empresarial",
+      "description": "O Cloud MLM Software reúne extensibilidade, operação multi-região e comunicação omnicanal para que suas equipes conduzam o dia a dia com confiança.",
+      "columns": "md:grid-cols-2 xl:grid-cols-3"
+    },
+    "Performance": {
+      "badge": "Desempenho",
+      "heading": "Feito para velocidade, escala e confiabilidade",
+      "description": "De interfaces responsivas a cache e otimização, a plataforma se mantém rápida tanto no lançamento de promoções quanto no fechamento de períodos.",
+      "columns": "md:grid-cols-2 xl:grid-cols-3"
+    },
+    "Security": {
+      "badge": "Segurança e conformidade",
+      "heading": "Arquitetura security-first para expansão global",
+      "description": "Proteção em múltiplas camadas, frameworks verificados e operações resilientes ajudam a atender exigências regulatórias enquanto você escala para novas regiões.",
+      "columns": "md:grid-cols-2 xl:grid-cols-3"
+    },
+    "Unique": {
+      "badge": "Capacidades únicas",
+      "heading": "Extras que diferenciam o Cloud MLM Software",
+      "description": "Lide com integrações complexas, programas de marketing e experiências de campo com serviços e módulos feitos especialmente para vendas diretas.",
+      "columns": "md:grid-cols-2 xl:grid-cols-3"
+    },
+    "Compensation": {
+      "badge": "Compensação e pagamentos",
+      "heading": "Configure planos atrativos e automatize pagamentos em conformidade",
+      "description": "Alinhe financeiro, jurídico e líderes de campo com um stack de compensação que cuida de modelagem, testes, folha de pagamento e conformidade em um só lugar.",
+      "columns": "md:grid-cols-2 xl:grid-cols-4"
+    },
+    "Commerce": {
+      "badge": "Comércio e experiência do cliente",
+      "heading": "Encante clientes e distribuidores em todos os canais",
+      "description": "Combine lojas B2C, sites replicados e ferramentas de venda mobile com automação de jornada que retém clientes e aumenta o valor ao longo do tempo.",
+      "columns": "md:grid-cols-2 xl:grid-cols-4"
+    },
+    "Integrations": {
+      "badge": "Integrações e APIs",
+      "heading": "Conecte seu ecossistema sem código personalizado frágil",
+      "description": "Use conectores certificados, webhooks e APIs para integrar comércio, CRM, suporte e analytics mantendo a fidelidade dos dados.",
+      "columns": "md:grid-cols-2 xl:grid-cols-4"
+    },
+    "Enablement": {
+      "badge": "Enablement e sucesso",
+      "heading": "Equipe todas as equipes com conhecimento, coaching e suporte especializado",
+      "description": "Do onboarding à otimização contínua, o Cloud MLM Software inclui playbooks, analytics e especialistas para garantir adoção sustentável.",
+      "columns": "md:grid-cols-2 xl:grid-cols-4"
+    }
+  },
+  "navigation": [
+    { "label": "Compensação", "href": "#compensation-features" },
+    { "label": "AI", "href": "#ai-features" },
+    { "label": "Core", "href": "#core-features" },
+    { "label": "Desempenho", "href": "#performance-features" },
+    { "label": "Segurança", "href": "#security-features" },
+    { "label": "Comércio", "href": "#commerce-features" },
+    { "label": "Integrações", "href": "#integration-features" },
+    { "label": "Enablement", "href": "#enablement-features" },
+    { "label": "Únicas", "href": "#unique-features" }
+  ],
+  "common": {
+    "loadingText": "Carregando recursos...",
+    "learnMore": "Saiba mais"
+  },
+  "faq": {
+    "badge": "FAQs",
+    "heading": "Perguntas frequentes",
+    "description": "Respostas às dúvidas mais comuns de equipes em avaliação, líderes de finanças e organizações de campo que consideram o Cloud MLM Software.",
+    "loadingText": "Carregando FAQs...",
+    "emptyText": "Não há FAQs disponíveis no momento."
+  },
+  "cta": {
+    "title": "Veja o Cloud MLM Software em ação",
+    "description": "Compartilhe seus objetivos e vamos criar uma demonstração sob medida — com módulos, integrações, automações e copilotos prontos para sua marca.",
+    "primaryButtonText": "Agendar uma sessão estratégica",
+    "secondaryButtonText": "Explorar a plataforma ao vivo",
+    "trust": {
+      "quickImplementation": "Implementação rápida",
+      "expertConsultation": "Consultoria especializada",
+      "provenResults": "Resultados comprovados"
+    }
+  }
+}

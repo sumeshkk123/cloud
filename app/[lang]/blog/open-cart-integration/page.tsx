@@ -7,7 +7,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Cart, Layers, Puzzle, Settings, Sparkles } from "lucide-react";
+import { ArrowRight, ShoppingCart, Layers, Puzzle, Settings, Sparkles } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -163,7 +163,7 @@ export default function OpenCartIntegrationPage({ params }: OpenCartIntegrationP
         <div className="container relative grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)]">
           <div className="space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:border-indigo-500/40 dark:bg-slate-900/70 dark:text-indigo-200">
-              <Cart className="h-4 w-4" aria-hidden />
+              <ShoppingCart className="h-4 w-4" aria-hidden />
               Integration spotlight
             </span>
             <h1 className="text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl dark:text-white">Open Cart integration</h1>

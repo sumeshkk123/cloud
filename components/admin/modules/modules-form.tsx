@@ -149,23 +149,25 @@ export function ModulesForm({
 
             const data = await response.json();
             console.log('Raw API data:', data);
-            
+
             const existingTranslations = data?.translations || [];
             console.log('Existing translations from API:', existingTranslations);
 
             // Get shared icon from English version if available
             let sharedImage = '';
             let sharedShowOnHomePage = false;
-            
+
             const englishVersion = existingTranslations.find((t: any) => t.locale === 'en');
             if (englishVersion) {
-                sharedImage = String(englishVersion.image || '');
+                const imageValue = String(englishVersion.image || '').trim();
+                sharedImage = imageValue;
                 sharedShowOnHomePage = Boolean(englishVersion.showOnHomePage || false);
-                console.log('English version found:', englishVersion);
+                console.log('English version found:', { ...englishVersion, imageValue });
             } else if (existingTranslations.length > 0) {
-                sharedImage = String(existingTranslations[0].image || '');
+                const imageValue = String(existingTranslations[0].image || '').trim();
+                sharedImage = imageValue;
                 sharedShowOnHomePage = Boolean(existingTranslations[0].showOnHomePage || false);
-                console.log('Using first translation as fallback:', existingTranslations[0]);
+                console.log('Using first translation as fallback:', { ...existingTranslations[0], imageValue });
             }
 
             const loaded: Record<string, ModuleTranslation> = {};
@@ -195,13 +197,20 @@ export function ModulesForm({
                     };
                 }
             });
-            
+
             console.log('All loaded translations:', loaded);
 
-            // Ensure all translations have the same showOnHomePage (from English)
+            // Ensure all translations have the same showOnHomePage and image/icon (from English)
             if (sharedShowOnHomePage !== undefined) {
                 Object.keys(loaded).forEach((loc) => {
                     loaded[loc].showOnHomePage = sharedShowOnHomePage;
+                });
+            }
+
+            // Sync image/icon across all locales (icon is shared)
+            if (sharedImage) {
+                Object.keys(loaded).forEach((loc) => {
+                    loaded[loc].image = sharedImage;
                 });
             }
 
@@ -217,7 +226,7 @@ export function ModulesForm({
                     setActiveTab('en');
                 }
             }
-            
+
             console.log('Form data loaded successfully:', {
                 loaded,
                 activeTab: preserveActiveTab && currentActiveTab ? currentActiveTab : (existingLocales.length > 0 ? existingLocales[0] : 'en'),
@@ -454,7 +463,7 @@ export function ModulesForm({
         showOnHomePage: false,
         exists: false,
     };
-    
+
     // Debug: Log current translation being displayed
     React.useEffect(() => {
         console.log('Current translation for active tab:', {
@@ -484,13 +493,12 @@ export function ModulesForm({
                                 key={locale}
                                 type="button"
                                 onClick={() => setActiveTab(locale)}
-                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${
-                                    isActive
+                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${isActive
                                         ? 'border-blue-500 text-blue-600 bg-blue-50'
                                         : hasContent
                                             ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50'
                                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                                }`}
+                                    }`}
                             >
                                 <div className="flex items-center gap-2">
                                     <span>{localeNames[locale]}</span>

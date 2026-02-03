@@ -49,7 +49,7 @@ const TestimonialCard = ({
 
   // Check if this is in a carousel (has scrollSnapAlign) or grid layout
   const isCarousel = props.style?.scrollSnapAlign !== undefined;
-  
+
   return (
     <article
       className={cn(
@@ -58,8 +58,8 @@ const TestimonialCard = ({
         // Mobile: 1 card (full width minus padding and gaps)
         // Tablet: 2 cards (half width minus padding and gaps)
         // Desktop: 3 cards (third width minus padding and gaps)
-        isCarousel 
-          ? "shrink-0 w-[calc(100%-2rem)] sm:w-[calc((100%-2rem-1.5rem)/2)] lg:w-[calc((100%-2rem-3rem)/3)] min-w-[280px] sm:min-w-[300px] md:min-w-[320px]" 
+        isCarousel
+          ? "shrink-0 w-[calc(100%-2rem)] sm:w-[calc((100%-2rem-1.5rem)/2)] lg:w-[calc((100%-2rem-3rem)/3)] min-w-[280px] sm:min-w-[300px] md:min-w-[320px]"
           : "w-full",
         isHighlighted && "border-primary/60 bg-primary/5"
       )}
@@ -69,8 +69,8 @@ const TestimonialCard = ({
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <SmartImage
-            src={avatar}
-            fallback="https://businessmlmsoftware.com/uploads/testimonial-1768210302477-jlxmvd1qle.webp"
+            src={avatar && avatar.trim() ? avatar : undefined}
+            fallback="/images/default.webp"
             alt={name || "Testimonial"}
             width={56}
             height={56}

@@ -10,7 +10,7 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import {
   Compass,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   MapPin,
   Mountains,
@@ -95,7 +95,7 @@ const ICELAND_SIGNALS: IcelandSignal[] = [
     title: "Sustainable commerce lens",
     detail:
       "We pair Valitor messaging with Iceland’s sustainability commitments, equipping executives with narratives that resonate across public and private sectors.",
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   },
   {
     title: "Peak-season readiness",

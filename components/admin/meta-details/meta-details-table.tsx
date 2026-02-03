@@ -43,7 +43,8 @@ export function MetaDetailsTable() {
         try {
             setIsLoading(true);
             const res = await fetch('/api/admin/meta-details', {
-                next: { revalidate: 0 },
+                cache: 'no-store',
+                credentials: 'include',
             });
             const data = await res.json();
 
@@ -67,7 +68,7 @@ export function MetaDetailsTable() {
             // Optimized: Process data more efficiently
             const pageMap = new Map<string, MetaDetailsRow>();
             const pageUpdatedAtMap = new Map<string, number>();
-            
+
             // Single pass through data
             for (const item of data) {
                 const pageKey = String(item.page || '');
@@ -95,12 +96,16 @@ export function MetaDetailsTable() {
                     };
                     pageMap.set(pageKey, metaDetail);
                 }
-                
+
                 // Add locale to available locales
-                if (item.locale && !metaDetail.availableLocales.includes(item.locale)) {
-                    metaDetail.availableLocales.push(item.locale);
+                if (item.locale) {
+                    const locales = metaDetail.availableLocales ?? [];
+                    if (!locales.includes(item.locale)) {
+                        locales.push(item.locale);
+                        metaDetail.availableLocales = locales;
+                    }
                 }
-                
+
                 // Use English version for display if available
                 if (item.locale === 'en') {
                     metaDetail.title = item.title || '';
@@ -117,11 +122,11 @@ export function MetaDetailsTable() {
                     item.updatedAt = new Date(timestamp);
                 }
             }
-            
+
             // Sort by updatedAt (descending - most recent first)
             items.sort((a, b) => {
-                const aTime = a.updatedAt?.getTime() || 0;
-                const bTime = b.updatedAt?.getTime() || 0;
+                const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+                const bTime = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
                 return bTime - aTime;
             });
 
@@ -232,7 +237,6 @@ export function MetaDetailsTable() {
                                     setMetaToDelete({ page: row.page });
                                     setDeleteConfirmOpen(true);
                                 }}
-                                showDelete={true}
                             />
                         );
                     }
@@ -312,7 +316,7 @@ export function MetaDetailsTable() {
                     if (!metaToDelete) return;
                     try {
                         setIsDeleting(true);
-                        const query = metaToDelete.locale 
+                        const query = metaToDelete.locale
                             ? `page=${encodeURIComponent(metaToDelete.page)}&locale=${encodeURIComponent(metaToDelete.locale)}`
                             : `page=${encodeURIComponent(metaToDelete.page)}`;
                         const res = await fetch(`/api/admin/meta-details?${query}`, {

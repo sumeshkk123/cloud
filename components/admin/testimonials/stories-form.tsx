@@ -105,6 +105,7 @@ export function StoriesForm({
             setSavedLocales([]);
             setActiveTab('en');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllTranslations loads when currentStoryId changes
     }, [currentStoryId, storyId]);
 
     const loadAllTranslations = async (preserveActiveTab: boolean = false, tabToPreserve: string | null = null) => {

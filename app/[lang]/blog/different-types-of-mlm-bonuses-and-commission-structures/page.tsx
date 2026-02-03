@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { ComponentType } from "react";
 
 import type { SupportedLocale } from "@/config/site";
 import { isSupportedLocale } from "@/lib/i18n-utils";
@@ -12,11 +13,13 @@ import { ChartLineUp } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
 
+type IconType = ComponentType<{ className?: string }>;
+
 type Metric = {
   label: string;
   value: string;
   description: string;
-  icon: (props: { className?: string }) => JSX.Element;
+  icon: IconType;
 };
 
 const METRICS: Metric[] = [

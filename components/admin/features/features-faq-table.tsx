@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/adminUi/button';
 import { Table } from '@/components/ui/adminUi/table';
@@ -36,10 +36,14 @@ export function FeaturesFaqTable() {
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
     const [faqToDelete, setFaqToDelete] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
+    const hasLoadedRef = useRef(false);
 
-    const loadFaqs = async () => {
+    const loadFaqs = async (showLoading = true) => {
         try {
+            // Only show loading skeleton on initial load
+            if (showLoading && !hasLoadedRef.current) {
             setIsLoading(true);
+            }
             const res = await fetch('/api/admin/features-faq?locale=en', {
                 cache: 'no-store',
             });
@@ -86,6 +90,7 @@ export function FeaturesFaqTable() {
 
             setFaqs(itemsWithLocales);
             setCurrentPage(1);
+            hasLoadedRef.current = true;
         } catch (error) {
             showToast('Failed to load feature FAQs. Please try again.', 'error');
             setFaqs([]);
@@ -96,7 +101,10 @@ export function FeaturesFaqTable() {
     };
 
     useEffect(() => {
-        loadFaqs();
+        // Only load on initial mount
+        if (!hasLoadedRef.current) {
+            loadFaqs(true);
+        }
     }, []);
 
     const totalItems = faqs.length;

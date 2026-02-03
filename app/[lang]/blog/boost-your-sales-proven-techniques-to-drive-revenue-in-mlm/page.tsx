@@ -8,7 +8,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, CalendarDays, ChartSpline, Handshake, MessagesSquare, Sparkles, Target, Trophy } from "lucide-react";
+import { ArrowRight, BookOpen, CalendarDays, LineChart, Handshake, MessagesSquare, Sparkles, Target, Trophy } from "lucide-react";
 import { ArrowLineUp, ChatsCircle, CirclesThree, DeviceMobile, Graph, IdentificationBadge, Smiley } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
@@ -54,7 +54,7 @@ const METRICS: Metric[] = [
     label: "Revenue uplift recorded",
     value: "42%",
     description: "Average top-line increase for teams applying structured coaching and data-driven selling.",
-    icon: ChartSpline
+    icon: LineChart
   },
   {
     label: "Active field engagement",

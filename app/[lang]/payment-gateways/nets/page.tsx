@@ -12,7 +12,7 @@ import {
   ArrowSquareOut,
   ChartLineUp,
   DeviceTabletCamera,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   Notebook,
   ShieldCheck,
@@ -391,7 +391,7 @@ export default function NetsPage({ params }: NetsPageProps) {
               {
                 phase: "Weeks 5-6",
                 detail: "Operational playbooks, AI prompt roll-out, and executive media activations across the region.",
-                icon: GlobeHemisphereNorth
+                icon: GlobeHemisphereEast
               }
             ].map((item) => {
               const Icon = item.icon;

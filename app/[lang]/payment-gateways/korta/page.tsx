@@ -14,7 +14,7 @@ import {
   DeviceMobile,
   GlobeHemisphereWest,
   Lightning,
-  Mountain,
+  Mountains,
   ShieldCheck,
   SquaresFour,
   WaveTriangle,
@@ -123,7 +123,7 @@ const EXECUTION_STAGES: ExecutionStage[] = [
     description:
       "Automate dashboards, ticket routing, and compliance artefacts so leadership knows the secure, fast, seamless promise is real.",
     outcome: "Executives see proof in minutes instead of waiting for reports.",
-    icon: Mountain
+    icon: Mountains
   }
 ];
 

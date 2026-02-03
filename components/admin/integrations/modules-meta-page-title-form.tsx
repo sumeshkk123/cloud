@@ -95,6 +95,7 @@ export function ModulesMetaPageTitleForm({
         if (formPage) {
             loadAllData();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllData runs when formPage changes
     }, [formPage]);
 
     const loadAllData = async () => {

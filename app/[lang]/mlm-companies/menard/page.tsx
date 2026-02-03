@@ -12,7 +12,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Beaker,
-  Candle,
+  Flame,
   Droplets,
   Gem,
   Globe2,
@@ -128,7 +128,7 @@ const RITUALS: Ritual[] = [
       "Create lounge-like venues with fragrance zoning, textured lighting, and tactile displays to set an elegant tone before consultations begin.",
     insight:
       "Cloud MLM Software models scent combinations, lighting cues, and guest arrival sequencing to keep experiences cinematic yet repeatable.",
-    icon: Candle
+    icon: Flame
   },
   {
     step: "Precision skin readings",
@@ -168,7 +168,7 @@ const CLOUD_MOVES: CloudMove[] = [
     description:
       "Watches post-event feedback, reorder cadence, and referral momentum to unlock timely coaching interventions.",
     payoff: "Signals when to double down on service moments so every relationship continues to glow.",
-    icon: Candle
+    icon: Flame
   }
 ];
 

@@ -92,6 +92,7 @@ export function ServicesFaqForm({
             setSavedLocales([]);
             setActiveTab('en');
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllTranslations loads when currentFaqId changes
     }, [currentFaqId]);
 
     const loadAllTranslations = async (preserveActiveTab: boolean = false) => {

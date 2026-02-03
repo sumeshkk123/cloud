@@ -98,6 +98,7 @@ export function StoriesTable() {
 
   useEffect(() => {
     loadItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadItems runs when refreshKey changes
   }, [refreshKey]);
 
   // Optimized: Direct use of items, no unnecessary filtering

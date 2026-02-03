@@ -13,7 +13,7 @@ import {
   Drop,
   FlowerLotus,
   HandCoins,
-  ListCheck,
+  ListChecks,
   Sparkle,
   StarFour,
   TrendUp,
@@ -406,7 +406,7 @@ export default function TopEssentialOilsMlmCompaniesPage({ params }: PageProps) 
           <div className="space-y-5">
             <div className="rounded-3xl border border-slate-200 bg-white/90 p-8 shadow-xl dark:border-slate-800 dark:bg-slate-900/70">
               <div className="flex items-center gap-3">
-                <ListCheck className="h-6 w-6 text-purple-600 dark:text-purple-300" weight="fill" aria-hidden />
+                <ListChecks className="h-6 w-6 text-purple-600 dark:text-purple-300" weight="fill" aria-hidden />
                 <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Criteria for evaluating essential oil MLM brands</h2>
               </div>
               <div className="mt-6 space-y-4">

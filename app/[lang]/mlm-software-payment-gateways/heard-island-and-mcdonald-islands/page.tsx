@@ -21,7 +21,7 @@ import {
 import {
   Bank,
   CurrencyCircleDollar,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   Handshake,
   MapTrifold,
   PlugsConnected,
@@ -116,7 +116,7 @@ const OPPORTUNITIES: Opportunity[] = [
     name: "Scientific programmes",
     copy:
       "Research expeditions, environmental monitoring, and logistics partners rely on transparent funding, milestone-based payouts, and wellbeing analytics.",
-    icon: GlobeHemisphereSouth
+    icon: GlobeHemisphereEast
   },
   {
     name: "Supply chain & logistics",

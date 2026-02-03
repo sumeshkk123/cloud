@@ -107,7 +107,7 @@ export function getModulesContent(locale: Locale): ModulesContent {
     primarySection: {
       ...defaultContent.primarySection,
       ...localizedContent.primarySection,
-      modules: defaultContent.primarySection.modules.map((defaultModule, index) => ({
+      modules: defaultContent.primarySection.modules.map((defaultModule: { bullets?: string[] }, index: number) => ({
         ...defaultModule,
         ...localizedContent.primarySection?.modules?.[index],
         bullets: localizedContent.primarySection?.modules?.[index]?.bullets || defaultModule.bullets,

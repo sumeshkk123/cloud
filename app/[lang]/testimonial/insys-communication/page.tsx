@@ -15,7 +15,7 @@ import {
   Ear,
   FileCheck2,
   Handshake,
-  MapPinned,
+  MapPin,
   MessagesSquare,
   NotebookPen,
   PhoneCall,
@@ -95,7 +95,7 @@ const RESULT_CARDS: ResultCard[] = [
     label: "Time to clarity",
     value: "2 weeks",
     explanation: "From discovery kickoff to approved roadmap with sign-off from finance and legal.",
-    icon: MapPinned
+    icon: MapPin
   },
   {
     label: "Confidence score",

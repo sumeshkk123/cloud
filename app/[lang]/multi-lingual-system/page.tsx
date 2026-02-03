@@ -14,7 +14,7 @@ import {
   CreditCard,
   Globe,
   Languages,
-  MapPinned,
+  MapPin,
   Radar,
   ShieldCheck,
   Workflow
@@ -330,7 +330,7 @@ export default function MultiLingualPage({ params }: MultiLingualPageProps) {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <MapPinned className="h-3.5 w-3.5" aria-hidden />
+                    <MapPin className="h-3.5 w-3.5" aria-hidden />
                   </span>
                   Expansion roadmaps aligned to product launches and regulatory needs.
                 </li>

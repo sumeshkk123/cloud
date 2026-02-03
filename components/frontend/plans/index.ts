@@ -1,0 +1,10 @@
+export { PlansHeroSection } from "./plans-hero-section";
+export { PlansNavigationSection } from "./plans-navigation-section";
+export { PlansFamiliesSection } from "./plans-families-section";
+export { PlansEvaluationSection } from "./plans-evaluation-section";
+export { PlansSimulationsSection } from "./plans-simulations-section";
+export { PlansDeliverablesSection } from "./plans-deliverables-section";
+export { PlansImplementationSection } from "./plans-implementation-section";
+export { PlansUseCasesSection } from "./plans-use-cases-section";
+export { PlansFaqSection } from "./plans-faq-section";
+export { PlansCtaSection } from "./plans-cta-section";

@@ -13,7 +13,7 @@ import {
   Broadcast,
   ChartLineUp,
   DeviceMobile,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   Lightning,
   MapPin,
   Notebook,
@@ -96,7 +96,7 @@ const PILLARS: Pillar[] = [
     title: "Regional expansion runway",
     description:
       "Prepared localisation matrices, tax logic, and telemetry dashboards enable expansion into the Indian Ocean corridor.",
-    icon: GlobeHemisphereSouth
+    icon: GlobeHemisphereEast
   }
 ];
 

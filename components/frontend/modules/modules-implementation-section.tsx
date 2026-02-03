@@ -3,6 +3,7 @@ import { BadgeCheck, Building2, ClipboardCheck, Puzzle } from "lucide-react";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Section } from "@/components/ui/section";
 import { Typography } from "@/components/ui/typography";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 type IconType = ComponentType<{ className?: string }>;
 
@@ -37,31 +38,48 @@ const IMPLEMENTATION_STEPS: ImplementationStep[] = [
 
 export function ModulesImplementationSection() {
   return (
-    <Section variant="muted" padding="md" containerClassName="space-y-10">
+    <Section variant="primary" padding="xl" className="relative isolate !overflow-visible">
+      {/* Floating orbs */}
+      <div className="absolute left-1/4 top-1/4 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-pulse -z-10" />
+      <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl animate-pulse -z-10" style={{ animationDelay: '1s' }} />
+
+      <div className="relative container z-10 space-y-16">
+        {/* Header */}
         <SectionTitle
           badge="Implementation"
           heading="How we roll out your module stack"
           description="Our specialists pair proven implementation playbooks with AI-powered tooling to configure, launch, and optimize your module mix."
+          centered={true}
           maxWidth="3xl"
         />
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+
+        {/* Implementation Steps */}
+        <div className="grid gap-6 lg:gap-10 lg:grid-cols-2">
           {IMPLEMENTATION_STEPS.map((step) => (
-            <article
-              key={step.title}
-              className="flex h-full flex-col gap-3 rounded-3xl border border-border/60 bg-background p-6 text-left shadow-sm"
-            >
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <step.icon className="h-6 w-6" aria-hidden />
-              </span>
-              <Typography as="h3" variant="h5" className="font-semibold">
-                {step.title}
-              </Typography>
-              <Typography variant="p" textColor="muted" className="text-sm">
-                {step.description}
-              </Typography>
-            </article>
+            <Card key={step.title} className="p-4">
+              <CardHeader>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <span className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <step.icon className="h-7 w-7" aria-hidden />
+                    </span>
+                    <div className="flex-1">
+                      <Typography as="h4" variant="h4">
+                        {step.title}
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Typography as="p" variant="p" textColor="muted">
+                  {step.description}
+                </Typography>
+              </CardContent>
+            </Card>
           ))}
         </div>
+      </div>
     </Section>
   );
 }

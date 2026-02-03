@@ -96,6 +96,7 @@ export function IntegrationForm({
       setSavedLocales([]);
       setActiveTab('en');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllTranslations depends on currentIntegrationId; run when it changes
   }, [currentIntegrationId]);
 
   const loadAllTranslations = async (preserveActiveTab: boolean = false) => {
@@ -120,13 +121,19 @@ export function IntegrationForm({
 
       const loaded: Record<string, IntegrationTranslation> = {};
       const existingLocales: string[] = [];
+      let sharedIcon = '';
+
+      const englishVersion = existingTranslations.find((t: any) => t.locale === 'en');
+      if (englishVersion) {
+        sharedIcon = englishVersion.icon || '';
+      }
 
       locales.forEach((loc) => {
         const existing = existingTranslations.find((t: any) => t.locale === loc);
         if (existing) {
           loaded[loc] = {
             locale: loc,
-            icon: String(existing.icon || ''),
+            icon: sharedIcon || String(existing.icon || ''),
             title: String(existing.title || ''),
             description: String(existing.description || ''),
             exists: true,
@@ -135,13 +142,20 @@ export function IntegrationForm({
         } else {
           loaded[loc] = {
             locale: loc,
-            icon: '',
+            icon: sharedIcon || '',
             title: '',
             description: '',
             exists: false,
           };
         }
       });
+
+      // Ensure all locales use the shared icon
+      if (sharedIcon) {
+        Object.keys(loaded).forEach((loc) => {
+          loaded[loc].icon = sharedIcon;
+        });
+      }
 
       setTranslations(loaded);
       setSavedLocales(existingLocales);
@@ -372,13 +386,12 @@ export function IntegrationForm({
                 key={locale}
                 type="button"
                 onClick={() => setActiveTab(locale)}
-                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${
-                  isActive
+                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${isActive
                     ? 'border-blue-500 text-blue-600 bg-blue-50'
                     : hasContent
                       ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   <span>{localeNames[locale]}</span>
@@ -418,13 +431,24 @@ export function IntegrationForm({
       <div className="space-y-4">
         <div>
           <FieldLabel htmlFor="icon">
-            Icon
+            Icon (Common for all languages)
           </FieldLabel>
           <IconPicker
             value={current.icon}
-            onChange={(iconName) => updateTranslation(activeTab, 'icon', iconName)}
+            onChange={(iconName) => {
+              Object.keys(translations).forEach((loc) => {
+                updateTranslation(loc, 'icon', iconName);
+              });
+            }}
             placeholder="Select an icon..."
+            disabled={(isSaving || isLoading || isTranslating) || activeTab !== 'en'}
+            className={activeTab !== 'en' ? 'bg-gray-50 dark:bg-gray-800 cursor-not-allowed' : ''}
           />
+          {activeTab !== 'en' && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              Icon can only be edited in English tab
+            </p>
+          )}
         </div>
 
         <div>

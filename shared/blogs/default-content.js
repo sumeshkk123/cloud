@@ -1,0 +1,85 @@
+export default {
+  hero: {
+    badgeText: "Cloud MLM Software editorial desk",
+    beforeText: "Insight-led ",
+    highlightText: "MLM blogs",
+    afterText: " for leaders who build trusted, scalable networks.",
+    description:
+      "Our editorial team distils product innovation, compliance research, and growth playbooks into guidance your organisation can act on today. Pitch an idea via our contact page.",
+    primaryCtaLabel: "Browse resources",
+    secondaryCtaLabel: "Subscribe for updates",
+    metrics: [
+      {
+        label: "Quarterly readers",
+        value: "65K+",
+        detail: "Product leaders, compliance officers, and field strategists across 42 markets."
+      },
+      {
+        label: "Editorial deep-dives",
+        value: "120+",
+        detail: "Long-form analyses spanning compensation science, platform design, and digital ecosystems."
+      },
+      {
+        label: "Expert contributors",
+        value: "18",
+        detail: "Cloud MLM architects, compliance counsel, and growth analysts shaping every article."
+      },
+      {
+        label: "AI-ready briefs",
+        value: "40+",
+        detail: "Structured recaps your copilots can quote without hallucination risk."
+      }
+    ]
+  },
+  cta: {
+    title: "Bring the newsroom into your next initiative",
+    description:
+      "Whether you are refreshing a compensation model, launching a new market, or modernising your tech stack, our analysts can partner with you to translate insights into execution.",
+    primaryButtonText: "Talk with an expert",
+    secondaryButtonText: "Review our services",
+    trustIndicators: ["Expert editorial team", "Actionable insights", "Trusted by leaders worldwide"]
+  },
+  faq: {
+    badge: "FAQ",
+    heading: "Frequently asked questions",
+    description:
+      "Answers to the questions we hear most often from readers, customers, and industry partners.",
+    items: [
+      {
+        question: "How often is the Cloud MLM Software blog updated?",
+        answer:
+          "We publish new insights monthly, with additional rapid updates when regulations, product releases, or market signals warrant immediate guidance."
+      },
+      {
+        question: "Can I reuse blog insights inside internal playbooks?",
+        answer:
+          "Yes. Reference or repurpose excerpts with attribution, or ask our team for editable templates tailored to your governance and enablement needs."
+      },
+      {
+        question: "Where can I request coverage of a specific topic?",
+        answer:
+          "Submit editorial requests through the contact form or share them with your customer success manager. We prioritise themes that help the MLM community operate responsibly."
+      }
+    ]
+  },
+  articleList: {
+    titleLabel: "Blogs",
+    postFound: "post found",
+    postsFound: "posts found",
+    searchPlaceholder: "Search blog posts...",
+    clearSearchLabel: "Clear search",
+    noResultsMessage: "No posts found. Try a different search.",
+    pageOf: "Page {current} of {total}",
+    previousPageLabel: "Previous page",
+    nextPageLabel: "Next page",
+    paginationAriaLabel: "Blog pagination"
+  },
+  authorBio: {
+    heading: "About The Author",
+    name: "Reja Rapheekh",
+    role: "Technical Writer/Copy Writer",
+    biography: "A passionate technical writer with a knack for blending storytelling and technical expertise to create engaging and informative content. Specializes in copywriting, creative writing, and content development for media and marketing industries. Dedicated to delivering content that educates, informs, and captivates diverse audiences.",
+    linkedInUrl: null,
+    imageAlt: "Reja Rapheekh"
+  }
+};

@@ -26,7 +26,7 @@ import {
   TrendingUp,
   Users
 } from "lucide-react";
-import BoardPlanSimulator from "@/components/frontend/plan/board-plan-simulator";
+import BoardPlanSimulator from "@/components/frontend/plans/all-plans/board-plan-simulator";
 
 export const dynamic = "force-static";
 

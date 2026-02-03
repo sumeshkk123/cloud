@@ -19,7 +19,7 @@ import {
   GlobeHemisphereEast,
   GlobeSimple,
   Lightning,
-  MapPinned,
+  MapPin,
   Megaphone,
   Planet,
   ShieldCheck,
@@ -172,7 +172,7 @@ const GATEWAY_MISSIONS: GatewayMission[] = [
       "Analytics surface interchange variance, dispute ratios, and approval rates for CFO briefings.",
       "Ticket system attaches Adyen risk alerts to compliance cases with ownership clarity."
     ],
-    icon: MapPinned
+    icon: MapPin
   },
   {
     title: "2Checkout — digital knowledge outreach",
@@ -195,7 +195,7 @@ const MODULE_BEACONS: ModuleBeacon[] = [
   {
     name: "Ticket system",
     description: "Routes compliance, logistics, and expedition cases with SLA monitors and AI summaries.",
-    icon: MapPinned,
+    icon: MapPin,
     accent: "bg-cyan-500/10 text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-100"
   },
   {
@@ -246,7 +246,7 @@ const EXPEDITION_STAGES: ExpeditionStage[] = [
   {
     title: "Legacy mapping",
     detail: "WordPress copy, demo prompts, and module listings are transposed into polar stakeholder journeys.",
-    icon: MapPinned
+    icon: MapPin
   },
   {
     title: "Gateway instrumentation",

@@ -13,7 +13,7 @@ import {
   ArrowUpRight,
   Building2,
   Compass,
-  MapPinned,
+  MapPin,
   Network,
   ShieldCheck,
   Sparkles
@@ -92,7 +92,7 @@ const SEGMENTS: Segment[] = [
   {
     title: "Global trailblazers",
     description: "Iconic enterprises like Amway, Avon, and Tupperware that continue to evolve compensation responsibly.",
-    icon: MapPinned,
+    icon: MapPin,
     link: "/mlm-plans"
   }
 ];

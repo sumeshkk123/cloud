@@ -9,6 +9,7 @@ const FALLBACK_UTILITY_LINKS: TopUtilityLink[] = [
   { label: "Strategy Blog", href: "/blog" },
   { label: "Comp Plan Playbooks", href: "/resources/compensation/toolkit" },
   { label: "Customer Stories", href: "/resources/customers" },
+  { label: "Resources", href: "/resources" },
   { label: "Partner Portal", href: "/partners" }
 ];
 

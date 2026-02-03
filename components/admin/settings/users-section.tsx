@@ -61,6 +61,7 @@ export function UsersSection() {
 
   useEffect(() => {
     fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
   }, []);
 
   const fetchUsers = async () => {

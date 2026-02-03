@@ -18,9 +18,10 @@ import {
   MapPin,
   ShieldCheck,
   Sparkles,
-  Users
+  Users,
+  GraduationCap
 } from "lucide-react";
-import { ChartLineUp, ClipboardText, Heartbeat, UsersThree, Whistle } from "@phosphor-icons/react/dist/ssr";
+import { ChartLineUp, ClipboardText, Heartbeat, UsersThree } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
 
@@ -114,7 +115,7 @@ const WELLNESS_STACK: WellnessStack[] = [
     description:
       "Training, certifications, and recognition programs elevate leaders into trusted wellness mentors.",
     proof: "Data-backed journeys highlight top performers and close skill gaps quickly.",
-    icon: Whistle
+    icon: GraduationCap
   }
 ];
 
@@ -155,7 +156,7 @@ const CLOUD_PLAYS: CloudPlay[] = [
     description:
       "Gives mentors AI summaries, compliance guidance, and follow-up cadences based on real-time results.",
     impact: "Keeps support proactive and protects the Xyngular brand voice across teams.",
-    icon: Whistle
+    icon: GraduationCap
   },
   {
     title: "Community vitality radar",
@@ -335,12 +336,12 @@ export default function XyngularPage({ params }: XyngularPageProps) {
           <span className="inline-flex items-center justify-center rounded-full border border-border/60 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">
             Wellness stack
           </span>
-        <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Programs engineered for sustainable, community-powered results
-        </h2>
-        <p className="mx-auto max-w-3xl text-sm text-muted-foreground">
-          Connect metabolic kits, lifestyle boosters, and mentoring frameworks with the data layer that keeps everyone accountable.
-        </p>
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            Programs engineered for sustainable, community-powered results
+          </h2>
+          <p className="mx-auto max-w-3xl text-sm text-muted-foreground">
+            Connect metabolic kits, lifestyle boosters, and mentoring frameworks with the data layer that keeps everyone accountable.
+          </p>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {WELLNESS_STACK.map((item) => {

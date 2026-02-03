@@ -4,7 +4,7 @@ import { AICopilotTable } from '@/components/admin/ai-copilot/ai-copilot-table';
 
 export default function AdminAICopilotPage() {
   return (
-    <PermissionGuard permission={Permission.CONTENT_EDIT}>
+    <PermissionGuard requiredPermission={Permission.CONTENT_EDIT}>
       <div>
         <AICopilotTable />
       </div>

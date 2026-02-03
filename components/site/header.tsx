@@ -75,6 +75,7 @@ const FALLBACK_UTILITY_LINKS: TopUtilityLink[] = [
   { label: "Strategy Blog", href: "/blog" },
   { label: "Comp Plan Playbooks", href: "/resources/compensation/toolkit" },
   { label: "Customer Stories", href: "/resources/customers" },
+  { label: "Resources", href: "/resources" },
   { label: "Partner Portal", href: "/partners" }
 ];
 
@@ -465,106 +466,10 @@ const FALLBACK_NAV_ITEMS: NavItem[] = [
     }
   },
   {
-    label: "Resources",
-    href: "/resources",
-    kind: "mega",
-    order: 6,
-    mega: {
-      variant: "resources",
-      highlights: [
-        {
-          title: "MLM resource desk",
-          description: "Grab guides and checklists that help you plan, launch, and grow.",
-          ctaLabel: "Browse hub",
-          href: "/resources"
-        },
-        {
-          title: "Weekly growth update",
-          description: "Plain email with tips, alerts, and new product notes.",
-          ctaLabel: "Get the update",
-          href: "/resources/newsletter"
-        }
-      ],
-      cards: [
-        {
-          title: "Launch starter kit",
-          description: "Follow a clear plan to prep data, payouts, and field tools.",
-          href: "/resources/launch-starter-kit"
-        },
-        {
-          title: "Launch operations checklist",
-          description: "Use one checklist for marketing, payouts, and support during go-live.",
-          href: "/resources/implementation"
-        },
-        {
-          title: "Comp plan template vault",
-          description: "Download ready-to-edit binary, unilevel, matrix, and hybrid plan templates.",
-          href: "/resources/compensation/toolkit"
-        },
-        {
-          title: "Field campaign swipe file",
-          description: "Grab proven messages, journeys, and promos your field teams can use right away.",
-          href: "/resources/field-campaigns"
-        }
-      ],
-      serviceDetails: [
-        {
-          title: "Launch readiness guide",
-          description: "Quick health check before you go live.",
-          href: "/resources/launch-readiness",
-          ctaLabel: "Download"
-        },
-        {
-          title: "Mobile app screen tour",
-          description: "See real journeys from top MLM apps.",
-          href: "/resources/mobile-showcase",
-          ctaLabel: "View"
-        }
-      ],
-      serviceList: [
-        { label: "Automation recipe book", href: "/resources/automation-playbook" },
-        { label: "Tech stack map", href: "/resources/integration-map" },
-        { label: "Budget planner", href: "/resources/budget-planner" },
-        { label: "Field onboarding guide", href: "/resources/onboarding-guide" }
-      ],
-      categories: [
-        {
-          title: "Enterprise marketing teams",
-          description: "Keep global campaigns, reports, and rules steady.",
-          badge: "ENTERPRISE",
-          layout: "list",
-          links: [
-            { title: "Executive KPI dashboards", href: "/resources/executive-scorecard" },
-            { title: "Global compliance checklist", href: "/resources/compliance-checklist" },
-            { title: "Scaling services guide", href: "/resources/enterprise-services" }
-          ]
-        },
-        {
-          title: "Startup builders",
-          description: "Launch fast with lean budgets, templates, and scripts.",
-          badge: "STARTUP",
-          layout: "pill",
-          links: [
-            { title: "Launch budget planner", href: "/resources/startup-budget" },
-            { title: "Pitch-ready metrics kit", href: "/resources/pitch-metrics" },
-            { title: "Starter automation pack", href: "/resources/starter-automations" }
-          ]
-        }
-      ],
-      callouts: [
-        {
-          title: "MLM growth newsletter",
-          description: "Weekly tips, alerts, and campaign ideas in plain words.",
-          ctaLabel: "Subscribe",
-          href: "/resources/newsletter",
-          tone: "primary"
-        }
-      ],
-      seeAll: {
-        title: "Explore all resources",
-        href: "/resources"
-      }
-    }
+    label: "AI Copilot",
+    href: "/ai-copilot",
+    kind: "link",
+    order: 6
   },
   {
     label: "Company",
@@ -792,7 +697,7 @@ export function SiteHeader({
       {announcement ? (
         <div className="flex items-center justify-center bg-gradient-to-r from-primary via-primary/90 to-primary/70 px-3 py-2 text-xs font-medium text-primary-foreground sm:px-4 sm:text-sm">
           <a
-            href={announcement.href ?? "#"}
+            href={announcement.href ? resolveHref(announcement.href, locale).href : "#"}
             className="inline-flex items-center gap-2 whitespace-nowrap transition hover:opacity-90"
           >
             <span>{announcement.message}</span>
@@ -814,7 +719,7 @@ export function SiteHeader({
                 {utilityLinks.map((link) => (
                   <li key={link.label}>
                     <a
-                      href={link.href}
+                      href={resolveHref(link.href, locale).href}
                       className="transition hover:text-primary/60"
                     >
                       {link.label}
@@ -3963,7 +3868,7 @@ function MobileMenu({
       <div className="mt-6 space-y-5 overflow-y-auto pb-10">
         {announcement ? (
           <div className="rounded-2xl bg-primary/10 px-4 py-3 text-xs text-primary">
-            <a href={announcement.href ?? "#"} className="inline-flex items-center gap-2">
+            <a href={announcement.href ? resolveHref(announcement.href, locale).href : "#"} className="inline-flex items-center gap-2">
               <span>{announcement.message}</span>
               {announcement.label ? (
                 <span className="inline-flex items-center gap-1 text-primary/80">
@@ -3993,7 +3898,7 @@ function MobileMenu({
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               {utilityLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="inline-flex items-center gap-2 transition hover:text-primary">
+                  <a href={resolveHref(link.href, locale).href} className="inline-flex items-center gap-2 transition hover:text-primary">
                     <ArrowRight className="h-3.5 w-3.5" />
                     <span>{link.label}</span>
                   </a>

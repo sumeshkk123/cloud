@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "badgeText": "Redazione Cloud MLM Software",
+    "beforeText": "Blog MLM ",
+    "highlightText": "basati su insight",
+    "afterText": " per i leader che costruiscono reti affidabili e scalabili.",
+    "description": "Il nostro team editoriale condensa innovazione di prodotto, ricerca sulla conformità e playbook di crescita in indicazioni che la vostra organizzazione può applicare oggi. Proponete un'idea tramite la nostra pagina contatti.",
+    "primaryCtaLabel": "Sfoglia le risorse",
+    "secondaryCtaLabel": "Iscriviti agli aggiornamenti",
+    "metrics": [
+      {
+        "label": "Lettori trimestrali",
+        "value": "65K+",
+        "detail": "Product leader, responsabili conformità e strategisti di campo in 42 mercati."
+      },
+      {
+        "label": "Approfondimenti editoriali",
+        "value": "120+",
+        "detail": "Analisi di lungo respiro su scienza della compensazione, design di piattaforma ed ecosistemi digitali."
+      },
+      {
+        "label": "Collaboratori esperti",
+        "value": "18",
+        "detail": "Architetti Cloud MLM, consulenti conformità e analisti di crescita in ogni articolo."
+      },
+      {
+        "label": "Sintesi pronte per l'IA",
+        "value": "40+",
+        "detail": "Sintesi strutturate che i vostri copilot possono citare senza rischio di allucinazione."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Portate la redazione nella tua prossima iniziativa",
+    "description": "Che stiate rinnovando un modello di compensazione, lanciando un nuovo mercato o modernizzando il vostro stack tecnologico, i nostri analisti possono affiancarvi per trasformare gli insight in esecuzione.",
+    "primaryButtonText": "Parla con un esperto",
+    "secondaryButtonText": "Consulta i nostri servizi",
+    "trustIndicators": ["Team editoriale di esperti", "Insight concreti", "Fiducia dei leader in tutto il mondo"]
+  },
+  "faq": {
+    "badge": "FAQ",
+    "heading": "Domande frequenti",
+    "description": "Risposte alle domande che ci pongono più spesso lettori, clienti e partner del settore.",
+    "items": [
+      {
+        "question": "Con quale frequenza viene aggiornato il blog di Cloud MLM Software?",
+        "answer": "Pubbliciamo nuovi insight ogni mese, con aggiornamenti rapidi aggiuntivi quando normative, rilasci di prodotti o segnali di mercato richiedono orientamenti immediati."
+      },
+      {
+        "question": "Posso riutilizzare gli insight del blog nei playbook interni?",
+        "answer": "Sì. Potete riferire o riutilizzare estratti con attribuzione, oppure chiedere al nostro team modelli modificabili su misura per le vostre esigenze di governance e di enablement."
+      },
+      {
+        "question": "Dove posso richiedere la copertura di un argomento specifico?",
+        "answer": "Inviate richieste editoriali tramite il modulo di contatto o condividetele con il vostro customer success manager. Diamo priorità ai temi che aiutano la community MLM a operare in modo responsabile."
+      }
+    ]
+  },
+  "articleList": {
+    "titleLabel": "Blog",
+    "postFound": "articolo trovato",
+    "postsFound": "articoli trovati",
+    "searchPlaceholder": "Cerca articoli del blog...",
+    "clearSearchLabel": "Cancella ricerca",
+    "noResultsMessage": "Nessun articolo trovato. Provate un'altra ricerca.",
+    "pageOf": "Pagina {current} di {total}",
+    "previousPageLabel": "Pagina precedente",
+    "nextPageLabel": "Pagina successiva",
+    "paginationAriaLabel": "Impaginazione blog"
+  },
+  "authorBio": {
+    "heading": "L'autore",
+    "name": "Reja Rapheekh",
+    "role": "Redattrice tecnica / Copywriter",
+    "biography": "Una redattrice tecnica appassionata, con il dono di unire storytelling e competenza tecnica per creare contenuti coinvolgenti e informativi. Specializzata in copywriting, scrittura creativa e sviluppo di contenuti per media e marketing. Dedicata a offrire contenuti che educano, informano e catturano pubblici diversi.",
+    "linkedInUrl": null,
+    "imageAlt": "Reja Rapheekh"
+  }
+}

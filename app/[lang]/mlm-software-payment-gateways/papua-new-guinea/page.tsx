@@ -12,7 +12,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   BadgeCheck,
-  ChartColumn,
+  BarChart2,
   Compass,
   Layers3,
   Map,
@@ -178,7 +178,7 @@ const TIMELINE: TimelineStage[] = [
       "Data contracts, sandbox credentials, and automated tests for each gateway",
       "Support playbooks with AI copilots generating case summaries and translations"
     ],
-    icon: ChartColumn
+    icon: BarChart2
   },
   {
     phase: "03",
@@ -371,7 +371,7 @@ export default function PapuaNewGuineaPaymentGatewaysPage({
       <section className="container grid gap-10 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,0.45fr)] lg:items-center">
         <div className="space-y-6">
           <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700 dark:border-emerald-500/40 dark:text-emerald-200">
-            <ChartColumn className="h-4 w-4" aria-hidden />
+            <BarChart2 className="h-4 w-4" aria-hidden />
             Operational insights
           </span>
           <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">

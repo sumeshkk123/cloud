@@ -23,8 +23,9 @@ import {
   SealQuestion,
   ShieldCheck,
   Snowflake,
+  Sparkle,
   StackSimple,
-  TidalWave,
+  Waves,
   Ticket,
   UsersThree,
   Warehouse
@@ -136,7 +137,7 @@ const GATEWAY_DRIFTS: GatewayDrift[] = [
       "Emails module circulates PSD2, Danish FSA, and Arctic policy updates with executive commentary.",
       "KYC documentation vault manages distributor renewals, sanction checks, and legal approvals."
     ],
-    icon: TidalWave
+    icon: Waves
   },
   {
     name: "Stripe — digital innovation",

@@ -11,7 +11,6 @@ import { i18n } from "@/i18n-config";
 import { ArrowUpRight } from "lucide-react";
 import {
   Buildings,
-  ChartBar,
   ChartLineUp,
   ChatsCircle,
   Compass,
@@ -228,7 +227,7 @@ const INTEGRATION_INTERVALS: IntegrationInterval[] = [
     phase: "Operational runbooks",
     explanation:
       "Modules, documentation, and ticket workflows keep finance, compliance, and distributor success teams aligned.",
-    icon: ChartBar
+    icon: ChartLineUp
   }
 ];
 

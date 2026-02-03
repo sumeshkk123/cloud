@@ -8,7 +8,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, CircleCheck, Shield, Sparkles, Workflow } from "lucide-react";
+import { ArrowUpRight, CheckCircle, Shield, Sparkles, Workflow } from "lucide-react";
 import {
   ChatsCircle,
   Lightning,
@@ -329,7 +329,7 @@ export default function AutoResponderPricingPage({ params }: AutoResponderPricin
           <div className="rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/5 via-background to-emerald-50 p-6 shadow-sm dark:border-primary/40 dark:from-primary/10 dark:via-slate-950 dark:to-emerald-950/40">
             <div className="flex items-start gap-4">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/15 text-primary">
-                <CircleCheck className="h-6 w-6" aria-hidden />
+                <CheckCircle className="h-6 w-6" aria-hidden />
               </div>
               <div className="space-y-2">
                 <h3 className="text-lg font-semibold text-foreground">Thought-leadership baked into every module</h3>
@@ -384,15 +384,15 @@ export default function AutoResponderPricingPage({ params }: AutoResponderPricin
               <h3 className="text-lg font-semibold text-foreground">Outcomes you can expect</h3>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
-                  <CircleCheck className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
+                  <CheckCircle className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
                   <span>Automation aligned to growth strategies, retention goals, and compliance mandates.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CircleCheck className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
+                  <CheckCircle className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
                   <span>Executive-ready instrumentation that proves the value of each sequence.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CircleCheck className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
+                  <CheckCircle className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
                   <span>Continuous optimisation cycles supported by Cloud MLM Software specialists.</span>
                 </li>
               </ul>
@@ -457,7 +457,7 @@ export default function AutoResponderPricingPage({ params }: AutoResponderPricin
                 <ul className="space-y-3 text-sm text-muted-foreground">
                   {pkg.outcomes.map((outcome) => (
                     <li key={outcome} className="flex items-start gap-2">
-                      <CircleCheck className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
+                      <CheckCircle className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
                       <span>{outcome}</span>
                     </li>
                   ))}

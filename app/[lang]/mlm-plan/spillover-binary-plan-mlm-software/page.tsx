@@ -4,10 +4,10 @@ import type { ComponentType } from "react";
 
 import Script from "next/script";
 
-import SpilloverBinarySimulator from "@/components/frontend/plan/spillover-binary-simulator";
+import SpilloverBinarySimulator from "@/components/frontend/plans/all-plans/spillover-binary-simulator";
 import CompetitorComparisonTable, {
   type CompetitorComparisonRow
-} from "@/components/frontend/plan/competitor-comparison-table";
+} from "@/components/frontend/plans/all-plans/competitor-comparison-table";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,

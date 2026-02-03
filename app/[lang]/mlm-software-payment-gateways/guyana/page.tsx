@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowUpRight,
   BarChart3,
+  Compass,
   Globe2,
   LayoutGrid,
   Map,

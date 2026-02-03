@@ -4,6 +4,8 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Typography } from "@/components/ui/typography";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { BulletList } from "@/components/ui/bullet-list";
 
 type ServiceCategory = {
   title: string;
@@ -19,39 +21,50 @@ interface ServicesCategoriesSectionProps {
 
 export function ServicesCategoriesSection({ categories }: ServicesCategoriesSectionProps) {
   return (
-    <Section padding="lg" variant="primary" containerClassName="space-y-10">
-      <SectionTitle
-        badge="Practices"
-        heading="Service practices that meet every stage of growth"
-        description="Mix and match consulting, engineering, and managed support to deliver programs that fit your compensation plan, regions, and customer experience goals."
-        maxWidth="3xl"
-      />
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {categories.map((service) => (
-          <article
-            key={service.title}
-            className="flex h-full flex-col gap-4 rounded-3xl border border-border/60 bg-background p-6 text-left shadow-sm"
-          >
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-              <service.icon className="h-6 w-6" aria-hidden />
-            </span>
-            <Typography as="h3" variant="h4" className="font-semibold">
-              {service.title}
-            </Typography>
-            <Typography variant="p" textColor="muted" className="text-sm">
-              {service.description}
-            </Typography>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              {service.bullets.map((bullet) => (
-                <li key={bullet} className="flex items-start gap-2">
-                  <ArrowRight className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
-                  <span>{bullet}</span>
-                </li>
-              ))}
-            </ul>
+    <Section variant="primary" padding="xl" className="relative isolate !overflow-visible">
+      {/* Floating orbs */}
+      <div className="absolute left-1/4 top-1/4 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-pulse -z-10" />
+      <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl animate-pulse -z-10" style={{ animationDelay: '1s' }} />
 
-          </article>
-        ))}
+      <div className="relative container z-10 space-y-16">
+        {/* Header */}
+        <SectionTitle
+          badge="Practices"
+          heading="Service practices that meet every stage of growth"
+          description="Mix and match consulting, engineering, and managed support to deliver programs that fit your compensation plan, regions, and customer experience goals."
+          centered={true}
+          maxWidth="3xl"
+        />
+
+        {/* Service Categories */}
+        <div className="grid gap-6 lg:gap-10 lg:grid-cols-3">
+          {categories.map((service) => (
+            <Card key={service.title} className="p-4">
+              <CardHeader>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <span className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <service.icon className="h-7 w-7" aria-hidden />
+                    </span>
+                    <div className="flex-1">
+                      <Typography as="h5" variant="h5">
+                        {service.title}
+                      </Typography>
+                      <Typography as="p" variant="p" textColor="muted" className="mt-2">
+                        {service.description}
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <BulletList items={service.bullets} />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </Section>
   );

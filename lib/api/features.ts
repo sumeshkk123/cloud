@@ -24,11 +24,11 @@ export async function listFeatures(locale?: string, showOnHomePage?: boolean): P
   if (showOnHomePage !== undefined) {
     whereClause.showOnHomePage = showOnHomePage;
   }
-  
+
   try {
     const features = await prisma.features.findMany({
       where: whereClause,
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { createdAt: 'desc' }, // Sort by creation date, not update date
       select: {
         id: true,
         slug: true,
@@ -44,7 +44,7 @@ export async function listFeatures(locale?: string, showOnHomePage?: boolean): P
         updatedAt: true,
       },
     });
-    
+
     return features.map((feature) => ({
       ...feature,
       features: feature.features ?? null,
@@ -53,7 +53,7 @@ export async function listFeatures(locale?: string, showOnHomePage?: boolean): P
     if (error instanceof Error && error.message.includes('showOnHomePage')) {
       return prisma.features.findMany({
         where: locale ? { locale } : {},
-        orderBy: { updatedAt: 'desc' },
+        orderBy: { createdAt: 'desc' }, // Sort by creation date, not update date
         select: {
           id: true,
           slug: true,
@@ -64,9 +64,9 @@ export async function listFeatures(locale?: string, showOnHomePage?: boolean): P
           hasDetailPage: true,
           showOnHomePage: true,
           locale: true,
-        features: true,
-        createdAt: true,
-        updatedAt: true,
+          features: true,
+          createdAt: true,
+          updatedAt: true,
         },
       }).then(features => features.map((feature) => ({
         ...feature,
@@ -93,9 +93,9 @@ export async function getFeatureById(id: string, locale?: string): Promise<Featu
       hasDetailPage: true,
       showOnHomePage: true,
       locale: true,
-        features: true,
-        createdAt: true,
-        updatedAt: true,
+      features: true,
+      createdAt: true,
+      updatedAt: true,
     },
   });
 
@@ -105,6 +105,46 @@ export async function getFeatureById(id: string, locale?: string): Promise<Featu
     ...featureRecord,
     features: featureRecord.features ?? null,
   };
+}
+
+/** Single-query list: all features (en as primary) with availableLocales. Use for admin list to avoid N+1. */
+export async function listFeaturesWithLocales(
+  primaryLocale: string = 'en'
+): Promise<(FeatureRecord & { availableLocales: string[] })[]> {
+  const rows = await prisma.features.findMany({
+    orderBy: { createdAt: 'desc' },
+    select: {
+      id: true,
+      slug: true,
+      title: true,
+      description: true,
+      icon: true,
+      category: true,
+      hasDetailPage: true,
+      showOnHomePage: true,
+      locale: true,
+      features: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+  const byId = new Map<string, typeof rows>();
+  for (const row of rows) {
+    if (!byId.has(row.id)) byId.set(row.id, []);
+    byId.get(row.id)!.push(row);
+  }
+  const result: (FeatureRecord & { availableLocales: string[] })[] = [];
+  for (const [, group] of byId) {
+    const locales = [...new Set(group.map((r) => r.locale))].sort();
+    const primary = group.find((r) => r.locale === primaryLocale) ?? group[0];
+    result.push({
+      ...primary,
+      features: primary.features ?? null,
+      availableLocales: locales,
+    });
+  }
+  result.sort((a, b) => (b.createdAt.getTime?.() ?? 0) - (a.createdAt.getTime?.() ?? 0));
+  return result;
 }
 
 export async function getAllFeatureTranslations(id: string): Promise<FeatureRecord[]> {
@@ -169,7 +209,7 @@ export async function createFeature(data: {
   id?: string; // Optional ID - if provided, use it (for translations with same ID)
 }): Promise<FeatureRecord> {
   const featureId = data.id || randomUUID();
-  
+
   const createdFeature = await prisma.features.create({
     data: {
       id: featureId,
@@ -219,7 +259,7 @@ export async function updateFeature(
   if (data.slug !== undefined) {
     updateData.slug = data.slug || null;
   }
-  
+
   // Use updateMany for compound key
   await prisma.features.updateMany({
     where: {
@@ -228,7 +268,7 @@ export async function updateFeature(
     },
     data: updateData,
   });
-  
+
   // Fetch the updated feature
   const updatedFeature = await prisma.features.findFirst({
     where: {
@@ -245,12 +285,12 @@ export async function updateFeature(
       hasDetailPage: true,
       showOnHomePage: true,
       locale: true,
-        features: true,
-        createdAt: true,
-        updatedAt: true,
+      features: true,
+      createdAt: true,
+      updatedAt: true,
     },
   });
-  
+
   if (!updatedFeature) {
     throw new Error('Feature not found after update');
   }

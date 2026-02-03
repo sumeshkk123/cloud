@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
   ArrowUpRight,
-  Balance,
+  Scale,
   Diamond,
   Flame,
   Heart,
@@ -21,7 +21,7 @@ import {
   Sparkles,
   Users
 } from "lucide-react";
-import { Factory, FlowArrow, Leaf, SewingPin, UsersThree } from "@phosphor-icons/react/dist/ssr";
+import { Factory, FlowArrow, Leaf, UsersThree } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
 
@@ -66,7 +66,7 @@ const SIGNALS: Signal[] = [
     label: "Established",
     value: "1978",
     detail: "Built on Japanese craftsmanship married with ongoing textile innovation.",
-    icon: SewingPin
+    icon: MapPin
   },
   {
     label: "Corporate team",
@@ -154,7 +154,7 @@ const CLOUD_PLAYS: CloudPlay[] = [
     description:
       "Combines purchase history, fit feedback, and textile preferences to recommend the next perfect garment lineup.",
     payoff: "Delivers couture-level experiences at scale while protecting inventory velocity and margin.",
-    icon: Balance
+    icon: Scale
   },
   {
     title: "Wellness story studio",

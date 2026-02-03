@@ -12,7 +12,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   BarChart3,
-  ChartNoAxesColumn,
   Globe2,
   LayoutPanelLeft,
   Map,
@@ -80,7 +79,7 @@ const HERO_HIGHLIGHTS: HeroHighlight[] = [
     value: "Realtime",
     detail:
       "Copilots surface conversion trends, tax exposure, and distributor sentiment for Asunción, Ciudad del Este, and regional hubs.",
-    icon: ChartNoAxesColumn
+    icon: BarChart3
   },
   {
     label: "Compliance",

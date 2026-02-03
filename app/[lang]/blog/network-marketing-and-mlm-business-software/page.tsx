@@ -7,7 +7,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Flowchart, GitBranch, Layers3, Network, Sparkles } from "lucide-react";
+import { ArrowRight, Workflow, GitBranch, Layers3, Network, Sparkles } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -133,7 +133,7 @@ export default function NetworkMarketingSoftwarePage({ params }: NetworkMarketin
       <section className="container space-y-12">
         <div className="rounded-3xl border border-slate-100 bg-white/80 p-8 shadow-lg dark:border-slate-800 dark:bg-slate-900/60">
           <div className="inline-flex items-center gap-3">
-            <Flowchart className="h-6 w-6 text-blue-600 dark:text-blue-300" aria-hidden />
+            <Workflow className="h-6 w-6 text-blue-600 dark:text-blue-300" aria-hidden />
             <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Core principles of network marketing</h2>
           </div>
           <ul className="mt-6 grid gap-3 text-sm leading-6 text-slate-700 dark:text-slate-200 sm:grid-cols-2">

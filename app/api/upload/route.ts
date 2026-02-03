@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import sharp from 'sharp';
 
 // Try to use cloudinary if available
 async function tryCloudinaryUpload(file: File): Promise<string | null> {
@@ -14,8 +15,11 @@ async function tryCloudinaryUpload(file: File): Promise<string | null> {
       process.env.CLOUDINARY_API_KEY &&
       process.env.CLOUDINARY_API_SECRET;
 
-    if (isCloudinaryConfigured && cloudinaryModule.cloudinary) {
-      return await cloudinaryModule.uploadImage(file);
+    if (isCloudinaryConfigured) {
+      const cloudinaryInstance = cloudinaryModule.getCloudinary();
+      if (cloudinaryInstance) {
+        return await cloudinaryModule.uploadImage(file);
+      }
     }
   } catch (error) {
     // Cloudinary not available or not configured - fall through to local storage
@@ -64,15 +68,35 @@ export async function POST(request: NextRequest) {
     // Generate unique filename
     const timestamp = Date.now();
     const randomStr = Math.random().toString(36).substring(2, 15);
-    
-    // Use original file extension
-    const originalExtension = file.name.split('.').pop() || 'jpg';
-    const filename = `upload-${timestamp}-${randomStr}.${originalExtension}`;
-    
-    // Note: Image optimization with Sharp can be added later if needed
-    // For now, we'll save the original image
-    const optimizedBuffer = buffer;
 
+    // Check if file is SVG - keep SVG as-is since it's vector graphics
+    const isSvg = file.type === 'image/svg+xml' || file.name.toLowerCase().endsWith('.svg');
+
+    let optimizedBuffer: Buffer;
+    let fileExtension: string;
+
+    if (isSvg) {
+      // Keep SVG files as-is
+      optimizedBuffer = buffer;
+      fileExtension = 'svg';
+    } else {
+      // Convert all other images to WebP
+      try {
+        optimizedBuffer = await sharp(buffer)
+          .webp({ quality: 85, effort: 4 })
+          .toBuffer();
+        fileExtension = 'webp';
+      } catch (sharpError) {
+        // If Sharp fails (e.g., corrupted image), fall back to original
+        console.warn(`[Upload API] Sharp conversion failed, using original image: ${sharpError}`);
+        optimizedBuffer = buffer;
+        // Try to preserve original extension, but default to webp
+        const originalExtension = file.name.split('.').pop() || 'webp';
+        fileExtension = originalExtension === 'svg' ? 'webp' : originalExtension;
+      }
+    }
+
+    const filename = `upload-${timestamp}-${randomStr}.${fileExtension}`;
     const filepath = join(uploadsDir, filename);
     await writeFile(filepath, optimizedBuffer);
 

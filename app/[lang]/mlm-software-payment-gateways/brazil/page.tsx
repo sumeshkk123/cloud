@@ -12,8 +12,8 @@ import {
   ArrowUpRight,
   BarChart3,
   Building,
-  ChartLine,
   CreditCard,
+  LineChart,
   Landmark,
   ShieldAlert,
   Sparkles,
@@ -176,7 +176,7 @@ const DELIVERY_STAGES: Stage[] = [
       "Current state vs. future state architecture diagrams with approved data flows.",
       "Stakeholder RACI for approvals, escalations, and communication cadences."
     ],
-    icon: ChartLine
+    icon: LineChart
   },
   {
     phase: "Sprint 2",
@@ -215,7 +215,7 @@ const ASSURANCE_PILLARS: Assurance[] = [
     title: "Treasury foresight",
     copy:
       "FX exposure, liquidity, and receivables forecasting tools keep CFOs ahead of rapid market shifts across Brazil’s regions.",
-    icon: ChartLine
+    icon: LineChart
   },
   {
     title: "Distributor trust",

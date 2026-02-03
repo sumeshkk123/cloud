@@ -9,7 +9,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import {
-  Beacon,
+  Lighthouse,
   ChartLineUp,
   CurrencyCircleDollar,
   Leaf,
@@ -105,7 +105,7 @@ const GATEWAY_TRACKS: GatewayTrack[] = [
       "E-wallet manager streams commissions with maker-checker controls and audit trails.",
       "E-voucher engine powers loyalty experiences, events, and incentive journeys."
     ],
-    icon: Beacon
+    icon: Lighthouse
   }
 ];
 
@@ -155,7 +155,7 @@ const MODULE_NODES: ModuleNode[] = [
   {
     title: "E-voucher",
     description: "Issues digital incentives, travel passes, and loyalty boosters with redemption insights.",
-    icon: Beacon
+    icon: Lighthouse
   },
   {
     title: "E-wallet",

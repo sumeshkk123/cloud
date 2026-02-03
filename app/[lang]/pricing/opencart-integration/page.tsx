@@ -13,9 +13,9 @@ import {
   ArrowUpRight,
   BadgeCheck,
   Boxes,
-  ChartLine,
+  LineChart,
   LayoutGrid,
-  MonitorCog,
+  Monitor,
   Scale,
   ShieldCheck
 } from "lucide-react";
@@ -97,7 +97,7 @@ const HERO_METRICS: Metric[] = [
     title: "Operational escalations",
     value: "-63%",
     detail: "Reduction in finance and support tickets tied to commerce sync.",
-    icon: ChartLine
+    icon: LineChart
   }
 ];
 
@@ -133,7 +133,7 @@ const PILLARS: Pillar[] = [
       "Automation triggers for abandoned carts, restocks, and loyalty",
       "Executive scorecards tying commerce signals to compensation KPIs"
     ],
-    icon: MonitorCog
+    icon: Monitor
   }
 ];
 

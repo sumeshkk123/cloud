@@ -293,19 +293,19 @@ export default async function FeaturesPage({ params }: FeaturesPageProps) {
     <div>
       <FeaturesHeroSection locale={locale} pageTitleData={pageTitleData} />
 
-      <FeaturesListSection locale={locale} />
 
       <FeaturesBundleSection bundles={FEATURE_BUNDLES} />
 
+      <FeaturesListSection locale={locale} />
+
       <FeaturesPersonaSection personas={PERSONA_FEATURES} />
 
-      <FeaturesSuccessProgramsSection programs={SUCCESS_PROGRAMS} />
-
-      <FeaturesFaqSection locale={locale} />
 
       <FeaturesTracksSection tracks={FEATURE_TRACKS} />
 
       <FeaturesMilestonesSection milestones={DELIVERY_MILESTONES} />
+
+      <FeaturesFaqSection locale={locale} />
 
       <FeaturesCtaSection contactHref={contactHref} demoHref={demoHref} locale={locale} />
     </div>

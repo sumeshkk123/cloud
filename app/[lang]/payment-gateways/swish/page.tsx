@@ -16,7 +16,7 @@ import {
   ClipboardText,
   Compass,
   DeviceMobileCamera,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   SealPercent,
   TrendUp

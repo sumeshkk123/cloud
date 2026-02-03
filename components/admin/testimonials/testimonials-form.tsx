@@ -105,6 +105,7 @@ export function TestimonialsForm({
             setSavedLocales([]);
             setActiveTab('en');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllTranslations loads when currentTestimonialId changes
     }, [currentTestimonialId, testimonialId]);
 
     const loadAllTranslations = async (preserveActiveTab: boolean = false, tabToPreserve: string | null = null) => {
@@ -166,7 +167,7 @@ export function TestimonialsForm({
                     loaded[loc].image = sharedImage;
                 });
             }
-            
+
             const englishName = loaded['en']?.name || '';
             if (englishName) {
                 Object.keys(loaded).forEach((loc) => {
@@ -420,13 +421,12 @@ export function TestimonialsForm({
                                 key={locale}
                                 type="button"
                                 onClick={() => setActiveTab(locale)}
-                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${
-                                    isActive
+                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${isActive
                                         ? 'border-blue-500 text-blue-600 bg-blue-50'
                                         : hasContent
-                                        ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50'
-                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                                }`}
+                                            ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50'
+                                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                    }`}
                             >
                                 <div className="flex items-center gap-2">
                                     <span>{localeNames[locale]}</span>
@@ -518,18 +518,35 @@ export function TestimonialsForm({
 
                 <div className="space-y-1.5">
                     <FieldLabel required>Profile Image (Common for all languages)</FieldLabel>
-                    <div className="max-w-[340px]">
-                        <ImageUpload
-                            key={`image-${current.image || 'empty'}`}
-                            value={current.image}
-                            onChange={(url) => {
-                                Object.keys(translations).forEach((loc) => {
-                                    updateTranslation(loc, 'image', url);
-                                });
-                            }}
-                            label=""
-                            disabled={isSaving || isLoading || isTranslating}
-                        />
+                    <div className="max-w-[340px] relative">
+                        {activeTab !== 'en' ? (
+                            <>
+                                <ImageUpload
+                                    key={`image-${current.image || 'empty'}`}
+                                    value={current.image}
+                                    onChange={() => { }} // Prevent changes when not on English tab
+                                    label=""
+                                    disabled={true}
+                                />
+                                <div className="absolute inset-0 bg-gray-50/80 dark:bg-gray-900/80 rounded-md flex items-center justify-center pointer-events-none">
+                                    <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                                        Image can only be edited in English tab
+                                    </span>
+                                </div>
+                            </>
+                        ) : (
+                            <ImageUpload
+                                key={`image-${current.image || 'empty'}`}
+                                value={current.image}
+                                onChange={(url) => {
+                                    Object.keys(translations).forEach((loc) => {
+                                        updateTranslation(loc, 'image', url);
+                                    });
+                                }}
+                                label=""
+                                disabled={isSaving || isLoading || isTranslating}
+                            />
+                        )}
                     </div>
                     {current.image && (
                         <div className="text-xs text-gray-500 mt-1">

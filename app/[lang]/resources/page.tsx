@@ -345,7 +345,7 @@ export default function ResourcesPage({ params }: ResourcesPageProps) {
               </div>
             </div>
             <div className="relative hidden overflow-hidden rounded-3xl border border-border/60 bg-background/40 shadow-sm md:block">
-              <Image
+              <SmartImage
                 src="/wp-content/uploads/2024/08/cloudDashboardDemo.webp"
                 alt="Resource library preview"
                 width={900}

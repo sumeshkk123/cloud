@@ -1,5 +1,5 @@
 export { AnnouncementBar } from "./announcement-bar";
-export { HeroSection } from "./hero-section";
+export { HomePageHeroSection } from "./homepage-hero-section";
 export { MomentumStatsSection } from "./momentum-stats-section";
 export { TrustBadgesSection } from "./trust-badges-section";
 export { WhyChooseSection } from "./why-choose-section";
@@ -16,5 +16,4 @@ export { BlogSection } from "./blog-section";
 export { FaqSection } from "./faq-section";
 export { ContactFormSection } from "./contact-form-section";
 export { ContactRegionsSection as ContactSection } from "./contact-regions";
-export { Bullet } from "./bullet";
 export { FeatureArticleCard, CompactArticleCard } from "@/components/frontend/common/article-cards";
