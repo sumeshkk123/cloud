@@ -12,7 +12,6 @@ import {
   ArrowUpRight,
   BarChart3,
   Building2,
-  ChartNoAxesCombined,
   Globe2,
   LineChart,
   ShieldCheck,
@@ -22,7 +21,7 @@ import {
   Bank,
   Circuitry,
   CurrencyCircleDollar,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   HandCoins,
   Handshake,
   Lightning,
@@ -117,7 +116,7 @@ const MARKET_INSIGHTS: MarketInsight[] = [
     title: "Regional trade corridors",
     description:
       "MLM leaders sell into South Africa, Namibia, and Zambia. FX governance protects pula margins while enabling cross-border growth.",
-    icon: GlobeHemisphereSouth
+    icon: GlobeHemisphereEast
   },
   {
     title: "Mobile-first distributors",
@@ -201,7 +200,7 @@ const DELIVERY_SPRINTS: Sprint[] = [
       "Feedback loops for field leaders, customer care, and finance controllers.",
       "Actionable backlog prioritised by risk reduction and growth impact."
     ],
-    icon: ChartNoAxesCombined
+    icon: LineChart
   }
 ];
 

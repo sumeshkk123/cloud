@@ -44,10 +44,14 @@ export default function AdminFeaturesPage() {
         </nav>
       </div>
 
-      {/* Tab Content */}
+      {/* Tab Content - Keep both components mounted but hidden */}
       <div className="mt-6">
-        {activeTab === 'features' && <FeaturesTable />}
-        {activeTab === 'faq' && <FeaturesFaqTable />}
+        <div className={activeTab === 'features' ? 'block' : 'hidden'}>
+          <FeaturesTable />
+        </div>
+        <div className={activeTab === 'faq' ? 'block' : 'hidden'}>
+          <FeaturesFaqTable />
+        </div>
       </div>
     </div>
   );

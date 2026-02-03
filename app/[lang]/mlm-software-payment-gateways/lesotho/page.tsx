@@ -21,7 +21,7 @@ import {
   Lightning,
   MapTrifold,
   Megaphone,
-  Mountain,
+  Mountains,
   Plugs,
   ShieldCheck,
   Sparkle,
@@ -214,7 +214,7 @@ const STAGES: Stage[] = [
     title: "Wire the highlands platform",
     copy:
       "Multi currency, ticketing, automation, vouchers, wallet, backup, emails, KYC, and multi-lingual experiences align with telemetry and compliance guardrails.",
-    icon: Mountain
+    icon: Mountains
   },
   {
     title: "Activate the gateway suite",

@@ -8,12 +8,12 @@ import { isSupportedLocale } from "@/lib/i18n-utils";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
+import { MousePointerClick } from "lucide-react";
 import {
   ArrowSquareOut,
   ChartLineUp,
   ChatsCircle,
   CreditCard,
-  CursorClick,
   DeviceMobile,
   Fingerprint,
   Handshake,
@@ -90,7 +90,7 @@ const STRATEGIC_PILLARS: Pillar[] = [
       "Smart retries, account updater, and digital wallet fallback preserve momentum.",
       "AI copy variants speak to each persona—distributor, customer, finance leader—across channels."
     ],
-    icon: CursorClick
+    icon: MousePointerClick
   },
   {
     title: "Operational governance",
@@ -122,7 +122,7 @@ const TIMELINE_PHASES: TimelinePhase[] = [
     focus: "Narrative refresh",
     detail:
       "Audit the archived copy and rebuild it into an Authorize.Net story centred on trust, speed, and growth.",
-    icon: CursorClick
+    icon: MousePointerClick
   },
   {
     phase: "Phase Two",

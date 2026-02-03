@@ -35,6 +35,7 @@ export type HomepageMomentumStat = {
 export type HomepageTrustBadge = {
   name: string;
   logo: string;
+  logoDark?: string;
   rating: number;
   quote: string;
   href: string;

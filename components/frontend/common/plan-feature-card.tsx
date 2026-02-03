@@ -12,6 +12,7 @@ export interface PlanFeatureCardProps extends React.HTMLAttributes<HTMLDivElemen
     highlights?: string[];
     planType?: string;
     readMoreHref?: string;
+    buttonText?: string;
     variant?: "default" | "highlighted";
 }
 
@@ -26,6 +27,7 @@ const PlanFeatureCard = React.forwardRef<HTMLDivElement, PlanFeatureCardProps>(
             highlights,
             planType,
             readMoreHref = "#",
+            buttonText = "Explore details",
             variant = "default",
             ...props
         },
@@ -87,7 +89,7 @@ const PlanFeatureCard = React.forwardRef<HTMLDivElement, PlanFeatureCardProps>(
                             <Typography
                                 variant="p"
                                 className={cn(
-                                    "!leading-7 tracking-tight !text-sm",
+                                    "!leading-7 tracking-tight !text-sm line-clamp-3",
                                     isHighlighted ? "text-primary-foreground/90" : "text-muted-foreground"
                                 )}
                             >
@@ -99,7 +101,7 @@ const PlanFeatureCard = React.forwardRef<HTMLDivElement, PlanFeatureCardProps>(
                     {/* Highlights/Badges */}
                     {highlights && highlights.length > 0 && (
                         <div className="flex flex-wrap gap-2 my-2">
-                            {highlights.map((highlight, index) => {
+                            {highlights.slice(0, 4).map((highlight, index) => {
                                 // Truncate long highlights to keep them short
                                 const shortHighlight = highlight.length > 25 ? highlight.substring(0, 22) + '...' : highlight;
                                 return (
@@ -120,25 +122,12 @@ const PlanFeatureCard = React.forwardRef<HTMLDivElement, PlanFeatureCardProps>(
                     )}
 
                     {/* Footer */}
-                    <div className="mt-auto flex items-center justify-between gap-4 border-t border-border/50 pt-4">
-                        {planType && (
-                            <Typography
-                                variant="small"
-                                className={cn(
-                                    isHighlighted ? "text-primary-foreground/80" : "text-muted-foreground"
-                                )}
-                            >
-                                Plan type: <span className={cn(
-                                    "font-semibold",
-                                    isHighlighted ? "text-primary-foreground" : "text-foreground"
-                                )}>{planType}</span>
-                            </Typography>
-                        )}
+                    <div className="mt-auto flex items-center justify-end gap-4 border-t border-border/50 pt-4">
                         <ReadMoreButton
                             href={readMoreHref}
                             variant={isHighlighted ? "highlighted" : "default"}
                         >
-                            Explore details
+                            {buttonText}
                         </ReadMoreButton>
                     </div>
                 </div>

@@ -103,6 +103,7 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
 
   useEffect(() => {
     loadItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
   }, []);
 
   const filtered = useMemo(() => {
@@ -118,23 +119,23 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
 
   const parseIconValue = (value?: string): { type: 'lucide' | 'remix' | 'fontawesome' | null; name: string } => {
     if (!value) return { type: null, name: '' };
-    
+
     if (value.includes(':')) {
       const [type, name] = value.split(':');
       if (type === 'lucide' || type === 'remix' || type === 'fontawesome') {
         return { type, name };
       }
     }
-    
+
     // Default to lucide if no prefix
     return { type: 'lucide', name: value };
   };
 
   const getIconComponent = (iconName?: string) => {
     if (!iconName) return null;
-    
+
     const { type, name } = parseIconValue(iconName);
-    
+
     if (type === 'lucide') {
       const IconComponent = (LucideIcons as any)[name] as React.ComponentType<{ className?: string }> | undefined;
       return IconComponent;
@@ -151,14 +152,14 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
         name, // Original name as-is
         `fa${name}`, // Original name with fa prefix
       ];
-      
+
       for (const key of variations) {
         if (fas[key as keyof typeof fas]) {
           return { type: 'fontawesome', icon: fas[key as keyof typeof fas] };
         }
       }
     }
-    
+
     return null;
   };
 
@@ -182,7 +183,7 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
           if (column.key === 'icon') {
             const iconComponent = getIconComponent(row.icon);
             const { type } = parseIconValue(row.icon);
-            
+
             return (
               <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 flex-shrink-0 flex items-center justify-center">
                 {iconComponent ? (
@@ -203,9 +204,10 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
             return (
               <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 flex-shrink-0">
                 {row.image ? (
+                  /* eslint-disable-next-line @next/next/no-img-element -- dynamic admin image URLs */
                   <img
                     src={row.image}
-                    alt={row.title}
+                    alt={row.title ?? ''}
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
@@ -243,8 +245,8 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
             return (
               <span
                 className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${row.showOnHomePage
-                    ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300'
+                  ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300'
                   }`}
               >
                 {row.showOnHomePage ? 'On Home' : 'Hidden'}

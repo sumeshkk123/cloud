@@ -12,7 +12,7 @@ import {
   Headset,
   LifeBuoy,
   ShieldCheck,
-  Speedometer,
+  Gauge,
   Workflow
 } from "lucide-react";
 
@@ -35,7 +35,7 @@ const PILLARS = [
     title: "Speed",
     description:
       "Speed matters! Think you are a visitor/user of your MLM Software, and it takes much time to load. You will be extremely dissatisfied right? So Speed is an essential thing that should be included in the making of MLM Software. There might be a large number of scripts and files to be received by a web browser, and MLM Software should be processing it away it gets compressed, minified, and gzipped before it sends to the browser. Cloud MLM Software makes it the fastest loading time for your software. We have gathered the best techniques and ideas to bring up a much faster MLM software than the traditional ones.",
-    icon: Speedometer
+    icon: Gauge
   },
   {
     title: "Support",

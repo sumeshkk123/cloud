@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { Plus, Sparkles } from 'lucide-react';
 import { resolveIcon } from '@/components/frontend/home/utils';
 import { Button } from '@/components/ui/adminUi/button';
@@ -45,13 +45,18 @@ export function FeaturesTable() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const hasLoadedRef = useRef(false);
 
-  const loadItems = async () => {
+  const loadItems = async (showLoading = true) => {
     try {
-      setIsLoading(true);
+      // Only show loading skeleton on initial load
+      if (showLoading && !hasLoadedRef.current) {
+        setIsLoading(true);
+      }
       const timestamp = Date.now();
       const res = await fetch(`/api/admin/features?locale=en&withTranslations=true&_t=${timestamp}`, {
         cache: 'no-store',
+        credentials: 'include',
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
           'Pragma': 'no-cache',
@@ -66,25 +71,26 @@ export function FeaturesTable() {
         setCurrentPage(1);
         return;
       }
-      
+
       const mapped: FeatureRow[] = Array.isArray(data)
         ? data.map((item: any) => ({
-            id: String(item.id),
-            slug: item.slug ? String(item.slug) : null,
-            title: String(item.title || ''),
-            description: String(item.description || ''),
-            icon: item.icon ? String(item.icon) : undefined,
-            category: String(item.category || ''),
-            hasDetailPage: Boolean(item.hasDetailPage ?? false),
-            showOnHomePage: Boolean(item.showOnHomePage ?? false),
-            locale: String(item.locale || 'en'),
-            updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
-            availableLocales: item.availableLocales || [item.locale],
-          }))
+          id: String(item.id),
+          slug: item.slug ? String(item.slug) : null,
+          title: String(item.title || ''),
+          description: String(item.description || ''),
+          icon: item.icon ? String(item.icon) : undefined,
+          category: String(item.category || ''),
+          hasDetailPage: Boolean(item.hasDetailPage ?? false),
+          showOnHomePage: Boolean(item.showOnHomePage ?? false),
+          locale: String(item.locale || 'en'),
+          updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
+          availableLocales: item.availableLocales || [item.locale],
+        }))
         : [];
 
       setItems(mapped);
       setCurrentPage(1);
+      hasLoadedRef.current = true;
     } catch (error) {
       setItems([]);
       setCurrentPage(1);
@@ -94,7 +100,10 @@ export function FeaturesTable() {
   };
 
   useEffect(() => {
-    loadItems();
+    // Only load on initial mount or when refreshKey changes
+    if (!hasLoadedRef.current || refreshKey > 0) {
+      loadItems(true);
+    }
   }, [refreshKey]);
 
   const totalItems = items.length;
@@ -118,18 +127,18 @@ export function FeaturesTable() {
       { key: 'title', label: 'Title', className: 'w-1/4' },
       { key: 'category', label: 'Category', className: 'w-32' },
     ];
-    
+
     if (hasAnyDetailPage) {
       baseColumns.push({ key: 'slug', label: 'Slug', className: 'w-1/6' });
     }
-    
+
     baseColumns.push(
       { key: 'description', label: 'Description', className: 'w-2/4' },
       { key: 'languages', label: 'Languages', className: 'w-48' },
       { key: 'showOnHomePage', label: 'Status', className: 'w-24' },
       { key: 'actions', label: 'Actions', className: 'w-20 text-right' }
     );
-    
+
     return baseColumns;
   }, [hasAnyDetailPage]);
 
@@ -160,7 +169,9 @@ export function FeaturesTable() {
   };
 
   const handleFormSave = async () => {
-    await loadItems();
+    hasLoadedRef.current = false; // Reset loaded flag to force reload
+    setRefreshKey((prev) => prev + 1); // Trigger refresh via refreshKey
+    setCurrentPage(1); // Reset to first page
   };
 
   return (
@@ -228,11 +239,10 @@ export function FeaturesTable() {
           if (column.key === 'showOnHomePage') {
             return (
               <span
-                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                  row.showOnHomePage
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-gray-100 text-gray-800'
-                }`}
+                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${row.showOnHomePage
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-gray-100 text-gray-800'
+                  }`}
               >
                 {row.showOnHomePage ? 'On Home' : 'Hidden'}
               </span>

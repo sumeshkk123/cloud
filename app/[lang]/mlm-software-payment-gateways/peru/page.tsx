@@ -13,7 +13,7 @@ import {
   ArrowUpRight,
   BarChart4,
   Building,
-  ChartArea,
+  LineChart,
   Compass,
   Layers,
   Map,
@@ -77,7 +77,7 @@ const HERO_PILLARS: HeroPillar[] = [
     title: "AI observability",
     description:
       "Copilots monitor conversion, settlement, and sentiment across Lima, Arequipa, Trujillo, and Cusco to keep expansion predictable.",
-    icon: ChartArea
+    icon: LineChart
   },
   {
     title: "Compliance guardrails",

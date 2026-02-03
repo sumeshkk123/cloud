@@ -22,6 +22,7 @@ import {
   Handshake as HandshakeIcon,
   HeartHandshake,
   ShieldCheck,
+  Lightbulb,
   Sparkles,
   Target,
   Trophy
@@ -31,7 +32,6 @@ import {
   ChartLineUp,
   GlobeHemisphereWest,
   Handshake,
-  Lighthouse,
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -287,7 +287,7 @@ const INNOVATION_SIGNALS: Innovation[] = [
     description:
       "Executive appointments across operations and Southeast Asia signal long-term investment in supply chain and market compliance.",
     proof: "Direct Selling News, July 2018",
-    icon: Lighthouse
+    icon: Lightbulb
   }
 ];
 

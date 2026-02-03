@@ -5,6 +5,7 @@ import { checkPermission } from '@/lib/utils/permissions-server';
 import { Permission } from '@/lib/permissions';
 import {
   listIntegrations,
+  listIntegrationsWithLocales,
   getIntegrationById,
   createIntegration,
   updateIntegration,
@@ -27,6 +28,8 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const allTranslations = searchParams.get('all') === 'true';
+    const withTranslations = searchParams.get('withTranslations') === 'true';
+    const locale = searchParams.get('locale') || 'en';
 
     if (id) {
       if (allTranslations) {
@@ -41,11 +44,18 @@ export async function GET(request: Request) {
       return NextResponse.json(integrationRecord);
     }
 
-    const integrations = await listIntegrations('en');
-    console.log('[GET /api/admin/integrations] Returning integrations:', integrations.length);
-    return NextResponse.json(integrations);
+    if (withTranslations) {
+      const integrations = await listIntegrationsWithLocales(locale);
+      return NextResponse.json(integrations, {
+        headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
+      });
+    }
+
+    const integrations = await listIntegrations(locale);
+    return NextResponse.json(integrations, {
+      headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
+    });
   } catch (error) {
-    console.error('[GET /api/admin/integrations] Error:', error);
     const message = error instanceof Error ? error.message : 'Failed to process request.';
     return NextResponse.json({ error: message }, { status: 500 });
   }
@@ -138,7 +148,7 @@ export async function PUT(request: Request) {
       if (locale !== 'en' && icon) {
         const englishIntegrations = await listIntegrations('en');
         const englishMatch = englishIntegrations.find((i) => i.icon === icon);
-        
+
         if (englishMatch) {
           const integrationRecord = await createIntegration({
             id: englishMatch.id,
@@ -155,15 +165,15 @@ export async function PUT(request: Request) {
     }
 
     const targetLocale = String(locale);
-    
+
     // If locale is different, check if translation exists
     if (targetLocale !== existing.locale) {
       const allTranslations = await getAllIntegrationTranslations(existing.id);
       const existingTranslation = allTranslations.find((t) => t.locale === targetLocale);
-      
+
       const englishVersion = allTranslations.find((t) => t.locale === 'en') || existing;
       const iconToUse = englishVersion.icon || icon;
-      
+
       if (existingTranslation) {
         const integrationRecord = await updateIntegration(existingTranslation.id, {
           icon: iconToUse,
@@ -187,17 +197,30 @@ export async function PUT(request: Request) {
     }
 
     // Update existing entry (same locale)
-    let iconToUse = icon;
-    
+    let iconToUse = icon || null;
+
     if (targetLocale === 'en') {
-      const allTranslations = await getAllIntegrationTranslations(id);
-      if (allTranslations.length > 0 && iconToUse) {
+      // Fetch all translations BEFORE updating to ensure we have the complete list
+      const allTranslationsBeforeUpdate = await getAllIntegrationTranslations(id);
+
+      // Update the English version first
+      const updatedIntegration = await updateIntegration(id, {
+        icon: iconToUse,
+        title,
+        description,
+        connectors: connectorsArray !== undefined ? connectorsArray : existing.connectors,
+        locale: targetLocale,
+      });
+
+      // Sync shared field (icon) to all other translations
+      if (allTranslationsBeforeUpdate.length > 0 && iconToUse !== undefined) {
         await Promise.all(
-          allTranslations
+          allTranslationsBeforeUpdate
             .filter((t) => t.locale !== 'en')
             .map((t) =>
               updateIntegration(t.id, {
                 icon: iconToUse,
+                // Preserve locale-specific fields
                 title: t.title,
                 description: t.description,
                 connectors: t.connectors,
@@ -206,6 +229,8 @@ export async function PUT(request: Request) {
             )
         );
       }
+
+      return NextResponse.json(updatedIntegration);
     } else {
       const allTranslations = await getAllIntegrationTranslations(id);
       const englishVersion = allTranslations.find((t) => t.locale === 'en');

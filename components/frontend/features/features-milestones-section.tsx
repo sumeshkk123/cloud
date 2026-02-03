@@ -1,3 +1,7 @@
+import { Section } from "@/components/ui/section";
+import { SectionTitle } from "@/components/ui/section-title";
+import { Typography } from "@/components/ui/typography";
+
 type Milestone = {
   stage: string;
   title: string;
@@ -11,30 +15,59 @@ interface FeaturesMilestonesSectionProps {
 
 export function FeaturesMilestonesSection({ milestones }: FeaturesMilestonesSectionProps) {
   return (
-    <section className="border-y border-border/60 bg-muted/20 py-20 dark:bg-slate-900/40">
-      <div className="container space-y-12">
-        <div className="max-w-3xl space-y-4">
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            From blueprint to growth in four milestones
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Our delivery framework keeps finance, compliance, and field leaders aligned at every checkpoint.
-          </p>
-        </div>
-        <div className="grid gap-6 lg:grid-cols-4">
-          {milestones.map((milestone) => (
-            <article key={milestone.stage} className="flex h-full flex-col gap-4 rounded-3xl border border-border/60 bg-background p-6 text-left shadow-sm">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold">
-                {milestone.stage}
-              </span>
-              <h3 className="text-lg font-semibold text-foreground">{milestone.title}</h3>
-              <p className="text-sm text-muted-foreground">{milestone.description}</p>
-              <p className="text-xs uppercase tracking-wide text-primary">Outcome</p>
-              <p className="text-sm text-muted-foreground">{milestone.outcome}</p>
-            </article>
-          ))}
+    <Section id="delivery-milestones" variant="gradient" padding="xl" className="relative isolate !overflow-visible">
+      <div className="space-y-12">
+        <SectionTitle
+          badge="Delivery milestones"
+          heading="From blueprint to growth in four milestones"
+          description="Our delivery framework keeps finance, compliance, and field leaders aligned at every checkpoint."
+          centered={true}
+          maxWidth="3xl"
+        />
+
+        <div className="mx-auto container">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-4">
+            {milestones.map((milestone) => (
+              <div
+                key={milestone.stage}
+                className="relative rounded-2xl border border-border/40 bg-background p-6 sm:p-8"
+              >
+                <div className="relative grid gap-6">
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+                      <span className="text-base font-semibold" aria-hidden>
+                        {milestone.stage}
+                      </span>
+                    </div>
+                    <div className="min-w-0 space-y-2">
+                      <Typography as="h3" variant="h5" className="tracking-tight">
+                        {milestone.title}
+                      </Typography>
+                      <Typography as="p" variant="p" textColor="muted" className="text-sm leading-relaxed">
+                        {milestone.description}
+                      </Typography>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-start">
+                    <div className="space-y-3">
+                      <Typography as="p" variant="small" textColor="muted" className="uppercase tracking-wider">
+                        Outcome
+                      </Typography>
+                      <Typography as="p" variant="p" textColor="muted" className="text-sm leading-relaxed">
+                        {milestone.outcome}
+                      </Typography>
+                    </div>
+                    <div className="hidden sm:block">
+                      <div className="h-full w-px bg-gradient-to-b from-transparent via-border to-transparent" aria-hidden />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

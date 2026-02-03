@@ -13,7 +13,7 @@ import {
   Broadcast,
   ChartLineUp,
   DeviceMobile,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   Lightning,
   MapTrifold,
   Notebook,
@@ -319,7 +319,7 @@ export default function OrangeMoneyPage({ params }: OrangeMoneyPageProps) {
               {
                 phase: "Weeks 5-6",
                 detail: "Operational playbooks, AI prompt roll-out, and executive storytelling across Francophone Africa.",
-                icon: GlobeHemisphereSouth
+                icon: GlobeHemisphereEast
               }
             ].map((item) => {
               const Icon = item.icon;

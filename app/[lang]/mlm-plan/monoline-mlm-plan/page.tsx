@@ -24,7 +24,7 @@ import {
   Target,
   Users
 } from "lucide-react";
-import MonolinePlanSimulator from "@/components/frontend/plan/monoline-plan-simulator";
+import MonolinePlanSimulator from "@/components/frontend/plans/all-plans/monoline-plan-simulator";
 
 export const dynamic = "force-static";
 
@@ -638,5 +638,5 @@ function resolveLocale(locale: string): Locale {
     return locale;
   }
 
-  return i18n.defaultLocale;
+  return i18n.defaultLocale as Locale;
 }

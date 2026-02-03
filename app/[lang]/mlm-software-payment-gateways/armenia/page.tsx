@@ -12,7 +12,6 @@ import {
   ArrowUpRight,
   BarChart3,
   Building,
-  ChartNoAxesCombined,
   Compass,
   Cpu,
   Factory,

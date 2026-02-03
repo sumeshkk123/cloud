@@ -11,7 +11,7 @@ import { i18n } from "@/i18n-config";
 import {
   ChatsCircle,
   Flame,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   ListChecks,
   MapPin,
@@ -105,7 +105,7 @@ const NORWAY_SIGNALS: NorwaySignal[] = [
     title: "Digital-first society",
     description:
       "We align Vipps messaging with Norway’s cashless leadership, giving executives the language to articulate strategic differentiation.",
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   },
   {
     title: "Climate-ready operations",

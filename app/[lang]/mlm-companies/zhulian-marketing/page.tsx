@@ -12,7 +12,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Building,
-  GlobeAsiaAustralia,
+  Globe2,
   HandHeart,
   Home,
   Leaf,
@@ -77,7 +77,7 @@ const CORE_METRICS: Metric[] = [
     label: "Primary market",
     value: "Asia",
     detail: "Regional expertise with ambitions to scale globally via digital-first operations.",
-    icon: GlobeAsiaAustralia
+    icon: Globe2
   },
   {
     label: "Community promise",

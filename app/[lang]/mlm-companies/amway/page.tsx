@@ -19,6 +19,7 @@ import {
   Gavel,
   Globe2,
   GraduationCap,
+  Lightbulb,
   ShieldCheck,
   Sparkles
 } from "lucide-react";
@@ -27,7 +28,6 @@ import {
   ChartLineUp,
   GlobeHemisphereWest,
   Handshake,
-  Lighthouse,
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -147,7 +147,7 @@ const VISION_PILLARS: VisionPillar[] = [
     description:
       "Founders’ Fundamentals emphasise freedom so ABOs can tailor schedules, pricing, and customer engagement to local realities while staying aligned with Amway Promise safeguards.",
     proof: "Our Principles — Founders’ Fundamentals (Amway Global).",
-    icon: Lighthouse
+    icon: Lightbulb
   },
   {
     title: "Family-built partnerships",

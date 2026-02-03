@@ -23,7 +23,7 @@ type IconEntry = {
 // Cache for all icons (lazy initialization)
 let ALL_ICONS_CACHE: IconEntry[] | null = null;
 
-// Get all Lucide icons
+// Get all Lucide icons - improved to catch all icons
 const getLucideIcons = (): IconEntry[] => {
   try {
     if (typeof LucideIcons === 'undefined' || LucideIcons === null) {
@@ -36,23 +36,40 @@ const getLucideIcons = (): IconEntry[] => {
       'IconNode',
       'LucideProps',
       'default',
+      'lucide',
+      'LucideReact',
     ]);
 
     if (typeof LucideIcons === 'object') {
-      for (const key in LucideIcons) {
+      // Get all keys from LucideIcons
+      const allKeys = Object.keys(LucideIcons);
+
+      for (const key of allKeys) {
         try {
           if (excludeKeys.has(key)) continue;
 
           const iconComponent = (LucideIcons as any)[key];
           if (iconComponent === undefined || iconComponent === null) continue;
 
-          if (key.length > 0 && key[0] === key[0].toUpperCase() && key[0] !== key[0].toLowerCase()) {
-            if (typeof iconComponent === 'function') {
-              iconNames.push({
-                name: key,
-                type: 'lucide',
-                displayName: `Lucide: ${key}`,
-              });
+          // Check if it's a valid icon component (starts with uppercase and is a function)
+          if (key.length > 0 &&
+            key[0] === key[0].toUpperCase() &&
+            key[0] !== key[0].toLowerCase() &&
+            typeof iconComponent === 'function') {
+            // Additional check: make sure it's not a type/interface
+            try {
+              // Try to create a test instance to verify it's a component
+              const testComponent = iconComponent as React.ComponentType<any>;
+              if (testComponent && typeof testComponent === 'function') {
+                iconNames.push({
+                  name: key,
+                  type: 'lucide',
+                  displayName: `Lucide: ${key}`,
+                });
+              }
+            } catch (err) {
+              // Skip if it's not a valid component
+              continue;
             }
           }
         } catch (err) {
@@ -63,6 +80,7 @@ const getLucideIcons = (): IconEntry[] => {
 
     return iconNames.sort((a, b) => a.name.localeCompare(b.name));
   } catch (error) {
+    console.error('Error getting Lucide icons:', error);
     return [];
   }
 };
@@ -110,7 +128,7 @@ const getFontAwesomeIcons = (): IconEntry[] => {
   try {
     // Get all icon names from the fas library dynamically
     const faIcons: string[] = [];
-    
+
     // Iterate through all icons in the fas library
     if (typeof fas === 'object' && fas !== null) {
       for (const key in fas) {
@@ -119,95 +137,95 @@ const getFontAwesomeIcons = (): IconEntry[] => {
         }
       }
     }
-    
+
     // If dynamic loading didn't work, fallback to a comprehensive list
     if (faIcons.length === 0) {
       const fallbackIcons: string[] = [
-      // Common icons
-      'faHome', 'faUser', 'faUsers', 'faCog', 'faSettings', 'faGear', 'faWrench',
-      'faSearch', 'faFilter', 'faSort', 'faBars', 'faTimes', 'faCheck', 'faPlus', 'faMinus',
-      'faEdit', 'faTrash', 'faSave', 'faDownload', 'faUpload', 'faFile', 'faFolder',
-      'faImage', 'faVideo', 'faMusic', 'faEnvelope', 'faPhone', 'faGlobe', 'faLink',
-      'faShare', 'faHeart', 'faStar', 'faBookmark', 'faTag', 'faTags', 'faCalendar',
-      'faClock', 'faBell', 'faLock', 'faUnlock', 'faShield', 'faKey', 'faEye', 'faEyeSlash',
-      'faChart', 'faChartLine', 'faChartBar', 'faChartPie', 'faDatabase', 'faServer',
-      'faCloud', 'faNetworkWired', 'faWifi', 'faBluetooth', 'faBatteryFull', 'faPowerOff',
-      'faShoppingCart', 'faStore', 'faCreditCard', 'faWallet', 'faDollarSign', 'faBitcoin',
-      'faCoins', 'faGift', 'faTicket', 'faQrcode', 'faBarcode', 'faReceipt',
-      'faQuestionCircle', 'faInfoCircle', 'faExclamationCircle', 'faCheckCircle',
-      'faTimesCircle', 'faWarning', 'faBan', 'faFlag', 'faThumbsUp', 'faThumbsDown',
-      'faComment', 'faComments', 'faReply', 'faForward', 'faSend', 'faInbox',
-      'faHeadphones', 'faLifeRing', 'faSupport', 'faHelp', 'faQuestion',
-      'faCode', 'faTerminal', 'faGithub', 'faGitlab', 'faGit', 'faLaptop', 'faDesktop',
-      'faMobile', 'faTablet', 'faTv', 'faCamera', 'faMicrophone', 'faVolumeUp',
-      'faPlay', 'faPause', 'faStop', 'faForward', 'faBackward', 'faStepForward',
-      'faStepBackward', 'faRedo', 'faUndo', 'faRefresh', 'faSync', 'faSpinner',
-      'faRocket', 'faZap', 'faFire', 'faLightbulb', 'faMagic', 'faWand',
-      'faPalette', 'faPaintBrush', 'faBrush', 'faEraser', 'faCrop', 'faCut',
-      'faCopy', 'faPaste', 'faClipboard', 'faFileAlt', 'faFileArchive', 'faFileCode',
-      'faFileExcel', 'faFileImage', 'faFilePdf', 'faFilePowerpoint', 'faFileVideo',
-      'faFileWord', 'faFolderOpen', 'faFolderPlus', 'faBook', 'faBookOpen', 'faGraduationCap',
-      'faSchool', 'faUniversity', 'faCertificate', 'faAward', 'faTrophy', 'faMedal',
-      'faCrown', 'faGem', 'faDiamond', 'faStarHalf', 'faStarHalfAlt',
-      'faMap', 'faMapMarker', 'faMapPin', 'faLocationArrow', 'faCompass', 'faRoute',
-      'faBuilding', 'faWarehouse', 'faFactory', 'faHospital', 'faHotel', 'faStore',
-      'faHome', 'faHouse', 'faDoorOpen', 'faDoorClosed', 'faWindowMaximize', 'faWindowMinimize',
-      'faCar', 'faBus', 'faPlane', 'faTrain', 'faShip', 'faBicycle', 'faMotorcycle',
-      'faWalking', 'faRunning', 'faSwimmer', 'faDumbbell', 'faFootball', 'faBasketball',
-      'faBaseball', 'faVolleyball', 'faTennis', 'faGolf', 'faSkiing', 'faSnowboarding',
-      'faGamepad', 'faChess', 'faDice', 'faPuzzlePiece', 'faTheaterMasks',
-      'faHeartbeat', 'faStethoscope', 'faPills', 'faSyringe', 'faBandAid', 'faCross',
-      'faApple', 'faAppleAlt', 'faLemon', 'faOrange', 'faBanana', 'faCarrot',
-      'faBread', 'faCheese', 'faEgg', 'faFish', 'faHamburger', 'faHotdog', 'faIceCream',
-      'faPizza', 'faCoffee', 'faWineGlass', 'faBeer', 'faCocktail', 'faGlass',
-      'faShirt', 'faTshirt', 'faHat', 'faSocks', 'faShoe', 'faGlasses', 'faSunglasses',
-      'faRing', 'faNecklace', 'faWatch', 'faUmbrella', 'faBag', 'faSuitcase',
-      'faBaby', 'faChild', 'faUserFriends', 'faUserPlus', 'faUserMinus', 'faUserCheck',
-      'faUserTimes', 'faUserCog', 'faUserEdit', 'faUserLock', 'faUserShield',
-      'faRobot', 'faGhost', 'faDragon', 'faCat', 'faDog', 'faHorse', 'faFish',
-      'faSpider', 'faBug', 'faButterfly', 'faLeaf', 'faTree', 'faFlower', 'faSeedling',
-      'faSun', 'faMoon', 'faCloud', 'faCloudRain', 'faCloudSun', 'faCloudMoon',
-      'faSnowflake', 'faWind', 'faTornado', 'faHurricane', 'faRainbow', 'faUmbrella',
-      'faFire', 'faFlame', 'faVolcano', 'faMountain', 'faWater', 'faWave',
-      'faGlobe', 'faGlobeAmericas', 'faGlobeEurope', 'faGlobeAsia', 'faLanguage',
-      'faTranslate', 'faComments', 'faCommentDots', 'faCommentAlt', 'faCommentSlash',
-      'faPaperPlane', 'faEnvelopeOpen', 'faEnvelopeOpenText', 'faMailBulk',
-      'faAt', 'faHashtag', 'faPercent', 'faAsterisk', 'faAmpersand', 'faEquals',
-      'faPlusCircle', 'faMinusCircle', 'faTimesCircle', 'faDivide', 'faExclamation',
-      'faQuestion', 'faQuoteLeft', 'faQuoteRight', 'faBrackets', 'faParentheses',
-      'faBraces', 'faAngleLeft', 'faAngleRight', 'faAngleUp', 'faAngleDown',
-      'faAngleDoubleLeft', 'faAngleDoubleRight', 'faAngleDoubleUp', 'faAngleDoubleDown',
-      'faArrowLeft', 'faArrowRight', 'faArrowUp', 'faArrowDown', 'faArrowsAlt',
-      'faArrowsAltH', 'faArrowsAltV', 'faLongArrowAltLeft', 'faLongArrowAltRight',
-      'faLongArrowAltUp', 'faLongArrowAltDown', 'faExchangeAlt', 'faRandom',
-      'faRetweet', 'faShare', 'faShareAlt', 'faShareSquare', 'faExternalLinkAlt',
-      'faExternalLinkSquareAlt', 'faLink', 'faUnlink', 'faChain', 'faChainBroken',
-      'faHandPointLeft', 'faHandPointRight', 'faHandPointUp', 'faHandPointDown',
-      'faHandPointer', 'faHandRock', 'faHandPaper', 'faHandScissors', 'faHandLizard',
-      'faHandSpock', 'faThumbsUp', 'faThumbsDown', 'faThumbtack', 'faPushPin',
-      'faCheck', 'faCheckCircle', 'faCheckSquare', 'faCheckDouble', 'faTimes',
-      'faTimesCircle', 'faTimesSquare', 'faBan', 'faStop', 'faStopCircle',
-      'faPause', 'faPauseCircle', 'faPlay', 'faPlayCircle', 'faStepForward',
-      'faStepBackward', 'faFastForward', 'faFastBackward', 'faForward', 'faBackward',
-      'faRedo', 'faRedoAlt', 'faUndo', 'faUndoAlt', 'faSync', 'faSyncAlt', 'faRefresh',
-      'faSpinner', 'faCircleNotch', 'faCog', 'faCogs', 'faWrench', 'faScrewdriver',
-      'faHammer', 'faToolbox', 'faTools', 'faTool', 'faScrewdriverWrench',
-      'faBolt', 'faZap', 'faLightning', 'faFire', 'faFlame', 'faSparkles',
-      'faStar', 'faStarHalf', 'faStarHalfAlt', 'faStarHalfStroke', 'faAsterisk',
-      'faSun', 'faMoon', 'faCloud', 'faCloudRain', 'faCloudSun', 'faCloudMoon',
-      'faSnowflake', 'faWind', 'faTornado', 'faHurricane', 'faRainbow', 'faUmbrella',
-      'faFire', 'faFlame', 'faVolcano', 'faMountain', 'faWater', 'faWave',
-      'faGlobe', 'faGlobeAmericas', 'faGlobeEurope', 'faGlobeAsia', 'faLanguage',
-      'faTranslate', 'faComments', 'faCommentDots', 'faCommentAlt', 'faCommentSlash',
-      'faPaperPlane', 'faEnvelopeOpen', 'faEnvelopeOpenText', 'faMailBulk',
-      'faAt', 'faHashtag', 'faPercent', 'faAsterisk', 'faAmpersand', 'faEquals',
-      'faPlusCircle', 'faMinusCircle', 'faTimesCircle', 'faDivide', 'faExclamation',
-      'faQuestion', 'faQuoteLeft', 'faQuoteRight', 'faBrackets', 'faParentheses',
-      'faBraces', 'faAngleLeft', 'faAngleRight', 'faAngleUp', 'faAngleDown',
-      'faAngleDoubleLeft', 'faAngleDoubleRight', 'faAngleDoubleUp', 'faAngleDoubleDown',
-      'faArrowLeft', 'faArrowRight', 'faArrowUp', 'faArrowDown', 'faArrowsAlt',
-      'faArrowsAltH', 'faArrowsAltV', 'faLongArrowAltLeft', 'faLongArrowAltRight',
-      'faLongArrowAltUp', 'faLongArrowAltDown', 'faExchangeAlt', 'faRandom',
+        // Common icons
+        'faHome', 'faUser', 'faUsers', 'faCog', 'faSettings', 'faGear', 'faWrench',
+        'faSearch', 'faFilter', 'faSort', 'faBars', 'faTimes', 'faCheck', 'faPlus', 'faMinus',
+        'faEdit', 'faTrash', 'faSave', 'faDownload', 'faUpload', 'faFile', 'faFolder',
+        'faImage', 'faVideo', 'faMusic', 'faEnvelope', 'faPhone', 'faGlobe', 'faLink',
+        'faShare', 'faHeart', 'faStar', 'faBookmark', 'faTag', 'faTags', 'faCalendar',
+        'faClock', 'faBell', 'faLock', 'faUnlock', 'faShield', 'faKey', 'faEye', 'faEyeSlash',
+        'faChart', 'faChartLine', 'faChartBar', 'faChartPie', 'faDatabase', 'faServer',
+        'faCloud', 'faNetworkWired', 'faWifi', 'faBluetooth', 'faBatteryFull', 'faPowerOff',
+        'faShoppingCart', 'faStore', 'faCreditCard', 'faWallet', 'faDollarSign', 'faBitcoin',
+        'faCoins', 'faGift', 'faTicket', 'faQrcode', 'faBarcode', 'faReceipt',
+        'faQuestionCircle', 'faInfoCircle', 'faExclamationCircle', 'faCheckCircle',
+        'faTimesCircle', 'faWarning', 'faBan', 'faFlag', 'faThumbsUp', 'faThumbsDown',
+        'faComment', 'faComments', 'faReply', 'faForward', 'faSend', 'faInbox',
+        'faHeadphones', 'faLifeRing', 'faSupport', 'faHelp', 'faQuestion',
+        'faCode', 'faTerminal', 'faGithub', 'faGitlab', 'faGit', 'faLaptop', 'faDesktop',
+        'faMobile', 'faTablet', 'faTv', 'faCamera', 'faMicrophone', 'faVolumeUp',
+        'faPlay', 'faPause', 'faStop', 'faForward', 'faBackward', 'faStepForward',
+        'faStepBackward', 'faRedo', 'faUndo', 'faRefresh', 'faSync', 'faSpinner',
+        'faRocket', 'faZap', 'faFire', 'faLightbulb', 'faMagic', 'faWand',
+        'faPalette', 'faPaintBrush', 'faBrush', 'faEraser', 'faCrop', 'faCut',
+        'faCopy', 'faPaste', 'faClipboard', 'faFileAlt', 'faFileArchive', 'faFileCode',
+        'faFileExcel', 'faFileImage', 'faFilePdf', 'faFilePowerpoint', 'faFileVideo',
+        'faFileWord', 'faFolderOpen', 'faFolderPlus', 'faBook', 'faBookOpen', 'faGraduationCap',
+        'faSchool', 'faUniversity', 'faCertificate', 'faAward', 'faTrophy', 'faMedal',
+        'faCrown', 'faGem', 'faDiamond', 'faStarHalf', 'faStarHalfAlt',
+        'faMap', 'faMapMarker', 'faMapPin', 'faLocationArrow', 'faCompass', 'faRoute',
+        'faBuilding', 'faWarehouse', 'faFactory', 'faHospital', 'faHotel', 'faStore',
+        'faHome', 'faHouse', 'faDoorOpen', 'faDoorClosed', 'faWindowMaximize', 'faWindowMinimize',
+        'faCar', 'faBus', 'faPlane', 'faTrain', 'faShip', 'faBicycle', 'faMotorcycle',
+        'faWalking', 'faRunning', 'faSwimmer', 'faDumbbell', 'faFootball', 'faBasketball',
+        'faBaseball', 'faVolleyball', 'faTennis', 'faGolf', 'faSkiing', 'faSnowboarding',
+        'faGamepad', 'faChess', 'faDice', 'faPuzzlePiece', 'faTheaterMasks',
+        'faHeartbeat', 'faStethoscope', 'faPills', 'faSyringe', 'faBandAid', 'faCross',
+        'faApple', 'faAppleAlt', 'faLemon', 'faOrange', 'faBanana', 'faCarrot',
+        'faBread', 'faCheese', 'faEgg', 'faFish', 'faHamburger', 'faHotdog', 'faIceCream',
+        'faPizza', 'faCoffee', 'faWineGlass', 'faBeer', 'faCocktail', 'faGlass',
+        'faShirt', 'faTshirt', 'faHat', 'faSocks', 'faShoe', 'faGlasses', 'faSunglasses',
+        'faRing', 'faNecklace', 'faWatch', 'faUmbrella', 'faBag', 'faSuitcase',
+        'faBaby', 'faChild', 'faUserFriends', 'faUserPlus', 'faUserMinus', 'faUserCheck',
+        'faUserTimes', 'faUserCog', 'faUserEdit', 'faUserLock', 'faUserShield',
+        'faRobot', 'faGhost', 'faDragon', 'faCat', 'faDog', 'faHorse', 'faFish',
+        'faSpider', 'faBug', 'faButterfly', 'faLeaf', 'faTree', 'faFlower', 'faSeedling',
+        'faSun', 'faMoon', 'faCloud', 'faCloudRain', 'faCloudSun', 'faCloudMoon',
+        'faSnowflake', 'faWind', 'faTornado', 'faHurricane', 'faRainbow', 'faUmbrella',
+        'faFire', 'faFlame', 'faVolcano', 'faMountain', 'faWater', 'faWave',
+        'faGlobe', 'faGlobeAmericas', 'faGlobeEurope', 'faGlobeAsia', 'faLanguage',
+        'faTranslate', 'faComments', 'faCommentDots', 'faCommentAlt', 'faCommentSlash',
+        'faPaperPlane', 'faEnvelopeOpen', 'faEnvelopeOpenText', 'faMailBulk',
+        'faAt', 'faHashtag', 'faPercent', 'faAsterisk', 'faAmpersand', 'faEquals',
+        'faPlusCircle', 'faMinusCircle', 'faTimesCircle', 'faDivide', 'faExclamation',
+        'faQuestion', 'faQuoteLeft', 'faQuoteRight', 'faBrackets', 'faParentheses',
+        'faBraces', 'faAngleLeft', 'faAngleRight', 'faAngleUp', 'faAngleDown',
+        'faAngleDoubleLeft', 'faAngleDoubleRight', 'faAngleDoubleUp', 'faAngleDoubleDown',
+        'faArrowLeft', 'faArrowRight', 'faArrowUp', 'faArrowDown', 'faArrowsAlt',
+        'faArrowsAltH', 'faArrowsAltV', 'faLongArrowAltLeft', 'faLongArrowAltRight',
+        'faLongArrowAltUp', 'faLongArrowAltDown', 'faExchangeAlt', 'faRandom',
+        'faRetweet', 'faShare', 'faShareAlt', 'faShareSquare', 'faExternalLinkAlt',
+        'faExternalLinkSquareAlt', 'faLink', 'faUnlink', 'faChain', 'faChainBroken',
+        'faHandPointLeft', 'faHandPointRight', 'faHandPointUp', 'faHandPointDown',
+        'faHandPointer', 'faHandRock', 'faHandPaper', 'faHandScissors', 'faHandLizard',
+        'faHandSpock', 'faThumbsUp', 'faThumbsDown', 'faThumbtack', 'faPushPin',
+        'faCheck', 'faCheckCircle', 'faCheckSquare', 'faCheckDouble', 'faTimes',
+        'faTimesCircle', 'faTimesSquare', 'faBan', 'faStop', 'faStopCircle',
+        'faPause', 'faPauseCircle', 'faPlay', 'faPlayCircle', 'faStepForward',
+        'faStepBackward', 'faFastForward', 'faFastBackward', 'faForward', 'faBackward',
+        'faRedo', 'faRedoAlt', 'faUndo', 'faUndoAlt', 'faSync', 'faSyncAlt', 'faRefresh',
+        'faSpinner', 'faCircleNotch', 'faCog', 'faCogs', 'faWrench', 'faScrewdriver',
+        'faHammer', 'faToolbox', 'faTools', 'faTool', 'faScrewdriverWrench',
+        'faBolt', 'faZap', 'faLightning', 'faFire', 'faFlame', 'faSparkles',
+        'faStar', 'faStarHalf', 'faStarHalfAlt', 'faStarHalfStroke', 'faAsterisk',
+        'faSun', 'faMoon', 'faCloud', 'faCloudRain', 'faCloudSun', 'faCloudMoon',
+        'faSnowflake', 'faWind', 'faTornado', 'faHurricane', 'faRainbow', 'faUmbrella',
+        'faFire', 'faFlame', 'faVolcano', 'faMountain', 'faWater', 'faWave',
+        'faGlobe', 'faGlobeAmericas', 'faGlobeEurope', 'faGlobeAsia', 'faLanguage',
+        'faTranslate', 'faComments', 'faCommentDots', 'faCommentAlt', 'faCommentSlash',
+        'faPaperPlane', 'faEnvelopeOpen', 'faEnvelopeOpenText', 'faMailBulk',
+        'faAt', 'faHashtag', 'faPercent', 'faAsterisk', 'faAmpersand', 'faEquals',
+        'faPlusCircle', 'faMinusCircle', 'faTimesCircle', 'faDivide', 'faExclamation',
+        'faQuestion', 'faQuoteLeft', 'faQuoteRight', 'faBrackets', 'faParentheses',
+        'faBraces', 'faAngleLeft', 'faAngleRight', 'faAngleUp', 'faAngleDown',
+        'faAngleDoubleLeft', 'faAngleDoubleRight', 'faAngleDoubleUp', 'faAngleDoubleDown',
+        'faArrowLeft', 'faArrowRight', 'faArrowUp', 'faArrowDown', 'faArrowsAlt',
+        'faArrowsAltH', 'faArrowsAltV', 'faLongArrowAltLeft', 'faLongArrowAltRight',
+        'faLongArrowAltUp', 'faLongArrowAltDown', 'faExchangeAlt', 'faRandom',
         'faRetweet', 'faShare', 'faShareAlt', 'faShareSquare', 'faExternalLinkAlt',
         'faExternalLinkSquareAlt', 'faLink', 'faUnlink', 'faChain', 'faChainBroken',
       ];
@@ -227,7 +245,7 @@ const getFontAwesomeIcons = (): IconEntry[] => {
   }
 };
 
-// Get all icons from all libraries
+// Get all icons from all libraries - ensure cache is properly populated
 const getAllIcons = (): IconEntry[] => {
   if (ALL_ICONS_CACHE !== null && Array.isArray(ALL_ICONS_CACHE) && ALL_ICONS_CACHE.length > 0) {
     return ALL_ICONS_CACHE;
@@ -238,6 +256,12 @@ const getAllIcons = (): IconEntry[] => {
   const fontAwesomeIcons = getFontAwesomeIcons();
 
   ALL_ICONS_CACHE = [...lucideIcons, ...remixIcons, ...fontAwesomeIcons];
+
+  // Debug: log icon counts
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`Icon Picker Cache: ${lucideIcons.length} Lucide, ${remixIcons.length} Remix, ${fontAwesomeIcons.length} FontAwesome`);
+  }
+
   return ALL_ICONS_CACHE;
 };
 
@@ -263,23 +287,28 @@ export function IconPicker({
   // Parse icon value to determine type and name
   const parseIconValue = (iconValue?: string): { type: IconType | null; name: string } => {
     if (!iconValue) return { type: null, name: '' };
-    
+
+    const trimmedValue = String(iconValue).trim();
+    if (!trimmedValue) return { type: null, name: '' };
+
     // Format: "type:iconName" or just "iconName" (defaults to lucide)
-    if (iconValue.includes(':')) {
-      const [type, name] = iconValue.split(':');
-      return { type: type as IconType, name };
+    if (trimmedValue.includes(':')) {
+      const [type, name] = trimmedValue.split(':');
+      if (type === 'lucide' || type === 'remix' || type === 'fontawesome') {
+        return { type: type as IconType, name: name.trim() };
+      }
     }
-    
+
     // Try to detect type from name
-    if (iconValue.startsWith('Ri')) {
-      return { type: 'remix', name: iconValue };
+    if (trimmedValue.startsWith('Ri')) {
+      return { type: 'remix', name: trimmedValue };
     }
-    if (iconValue.startsWith('fa')) {
-      return { type: 'fontawesome', name: iconValue };
+    if (trimmedValue.startsWith('fa')) {
+      return { type: 'fontawesome', name: trimmedValue };
     }
-    
+
     // Default to lucide
-    return { type: 'lucide', name: iconValue };
+    return { type: 'lucide', name: trimmedValue };
   };
 
   const { type: currentType, name: currentName } = parseIconValue(value);
@@ -303,7 +332,7 @@ export function IconPicker({
           `fa${iconName}`,
           iconEntry.name,
         ];
-        
+
         for (const key of variations) {
           if (fas[key as keyof typeof fas]) {
             return { type: 'fontawesome', icon: fas[key as keyof typeof fas] };
@@ -319,7 +348,7 @@ export function IconPicker({
   // Render icon based on type
   const renderIcon = (iconEntry: IconEntry, className?: string) => {
     const iconComponent = getIconComponent(iconEntry);
-    
+
     if (!iconComponent) return null;
 
     if (iconEntry.type === 'fontawesome' && typeof iconComponent === 'object' && 'icon' in iconComponent) {
@@ -328,7 +357,7 @@ export function IconPicker({
       const Icon = iconComponent;
       return <Icon className={className} />;
     }
-    
+
     return null;
   };
 
@@ -359,9 +388,138 @@ export function IconPicker({
     }
   }, [search, selectedType]);
 
-  const currentIcon = currentType && currentName 
-    ? getAllIcons().find(icon => icon.type === currentType && icon.name === currentName)
-    : null;
+  // Resolve icon component from value (similar to resolveIcon utility)
+  const resolveIconComponent = (iconValue?: string): React.ComponentType<{ className?: string }> | null => {
+    if (!iconValue) return null;
+
+    const trimmedValue = String(iconValue).trim();
+    if (!trimmedValue) return null;
+
+    // Normalize: if no prefix, assume lucide
+    const normalizedValue = trimmedValue.includes(':') ? trimmedValue : `lucide:${trimmedValue}`;
+
+    // Check if it's in the format "type:iconName"
+    if (normalizedValue.includes(':')) {
+      const [type, iconName] = normalizedValue.split(':');
+
+      if (type === 'lucide') {
+        // Try exact match first
+        let IconComponent = (LucideIcons as any)[iconName] as React.ComponentType<{ className?: string }> | undefined;
+        if (IconComponent && typeof IconComponent === 'function') {
+          return IconComponent;
+        }
+        // Try case-insensitive match
+        const iconKeys = Object.keys(LucideIcons);
+        const matchedKey = iconKeys.find(key => key.toLowerCase() === iconName.toLowerCase());
+        if (matchedKey) {
+          IconComponent = (LucideIcons as any)[matchedKey] as React.ComponentType<{ className?: string }> | undefined;
+          if (IconComponent && typeof IconComponent === 'function') {
+            return IconComponent;
+          }
+        }
+      } else if (type === 'remix') {
+        const IconComponent = (RemixIcon as any)[iconName] as React.ComponentType<{ className?: string }> | undefined;
+        if (IconComponent && typeof IconComponent === 'function') {
+          return IconComponent;
+        }
+      } else if (type === 'fontawesome') {
+        // FontAwesome icons need special handling - try multiple variations
+        const iconNameClean = iconName.replace(/^fa/, '');
+        const variations = [
+          `fa${iconNameClean}`,
+          `fa${iconNameClean.charAt(0).toUpperCase() + iconNameClean.slice(1)}`,
+          `fa${iconNameClean.charAt(0).toUpperCase() + iconNameClean.slice(1).toLowerCase()}`,
+          iconName,
+          `fa${iconName}`,
+        ];
+
+        for (const key of variations) {
+          if (fas[key as keyof typeof fas]) {
+            // Return a component that renders FontAwesome icon
+            return (({ className }: { className?: string }) => {
+              return React.createElement(FontAwesomeIcon, { icon: fas[key as keyof typeof fas], className });
+            }) as React.ComponentType<{ className?: string }>;
+          }
+        }
+      }
+    }
+
+    // Try as Lucide icon name (backward compatibility - without prefix)
+    const LucideIconComponent = (LucideIcons as any)[trimmedValue] as React.ComponentType<{ className?: string }> | undefined;
+    if (LucideIconComponent && typeof LucideIconComponent === 'function') {
+      return LucideIconComponent;
+    }
+
+    return null;
+  };
+
+  // Find the current icon - try exact match first, then case-insensitive
+  // Also try to find it directly from LucideIcons if not in cache
+  const currentIcon = useMemo(() => {
+    if (!currentType || !currentName) return null;
+
+    const allIcons = getAllIcons();
+
+    // Try exact match
+    let found = allIcons.find(icon =>
+      icon.type === currentType && icon.name === currentName
+    );
+
+    if (found) return found;
+
+    // Case-insensitive match for lucide icons
+    if (currentType === 'lucide') {
+      found = allIcons.find(icon =>
+        icon.type === 'lucide' && icon.name.toLowerCase() === currentName.toLowerCase()
+      );
+
+      if (found) return found;
+
+      // If still not found, try to find it directly in LucideIcons and add to cache
+      try {
+        const iconKeys = Object.keys(LucideIcons);
+        const matchedKey = iconKeys.find(key =>
+          key.toLowerCase() === currentName.toLowerCase() &&
+          key[0] === key[0].toUpperCase()
+        );
+
+        if (matchedKey) {
+          const iconComponent = (LucideIcons as any)[matchedKey];
+          if (iconComponent && typeof iconComponent === 'function') {
+            // Create entry and add to cache
+            const newEntry: IconEntry = {
+              name: matchedKey,
+              type: 'lucide',
+              displayName: `Lucide: ${matchedKey}`,
+            };
+            if (ALL_ICONS_CACHE) {
+              ALL_ICONS_CACHE.push(newEntry);
+            }
+            return newEntry;
+          }
+        }
+      } catch (err) {
+        // Silently fail
+      }
+    }
+
+    return null;
+  }, [currentType, currentName]);
+
+  // Get icon component from value (for rendering when not in cache)
+  const currentIconComponent = value ? resolveIconComponent(value) : null;
+
+  // Get display name for the current value
+  const getDisplayName = (iconValue?: string): string => {
+    if (!iconValue) return '';
+    const { type, name } = parseIconValue(iconValue);
+    if (!type || !name) return iconValue;
+
+    if (type === 'lucide') return `Lucide: ${name}`;
+    if (type === 'remix') return `Remix: ${name}`;
+    if (type === 'fontawesome') return `FA: ${name.replace(/^fa/, '')}`;
+    return iconValue;
+  };
 
   // Close icon picker when clicking outside
   useEffect(() => {
@@ -402,11 +560,20 @@ export function IconPicker({
           <div className="flex items-center gap-2">
             {currentIcon ? (
               <>
-                <div className="h-5 w-5 flex items-center justify-center">
+                <div className="h-5 w-5 flex items-center justify-center flex-shrink-0">
                   {renderIcon(currentIcon, 'h-5 w-5 text-gray-600')}
                 </div>
-                <span className="text-sm">{currentIcon.displayName}</span>
+                <span className="text-sm text-gray-900 dark:text-gray-100">{currentIcon.displayName}</span>
               </>
+            ) : value && currentIconComponent ? (
+              <>
+                <div className="h-5 w-5 flex items-center justify-center flex-shrink-0">
+                  {React.createElement(currentIconComponent, { className: 'h-5 w-5 text-gray-600' })}
+                </div>
+                <span className="text-sm text-gray-900 dark:text-gray-100">{getDisplayName(value)}</span>
+              </>
+            ) : value ? (
+              <span className="text-sm text-gray-600 dark:text-gray-400 font-mono">{value}</span>
             ) : (
               <span className="text-gray-400">{placeholder}</span>
             )}
@@ -504,7 +671,7 @@ export function IconPicker({
               filteredIcons.map((iconEntry) => {
                 const iconValue = `${iconEntry.type}:${iconEntry.name}`;
                 const isSelected = value === iconValue;
-                
+
                 return (
                   <button
                     key={iconValue}

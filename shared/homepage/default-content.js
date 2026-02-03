@@ -124,31 +124,43 @@ export default {
     items: [
       {
         name: "Capterra",
-        logo: "/wp-content/uploads/2024/06/capture-img.webp",
-        rating: 4.9,
+        logo: "/images/capture-img.webp",
+        logoDark: "/images/capture-white-img.webp",
+        rating: 5.0,
         quote: "Implementation expertise and responsive support",
         href: "https://www.capterra.com/p/220236/Cloud-MLM-Software/#reviews"
       },
       {
         name: "GoodFirms",
-        logo: "/wp-content/uploads/2024/06/goodfirm-img.webp",
-        rating: 4.8,
+        logo: "/images/goodfirm-img.webp",
+        logoDark: "/images/goodfirm-white-img.webp",
+        rating: 5.0,
         quote: "Feature depth with intuitive configuration",
         href: "https://www.goodfirms.co/software/cloud-mlm-software"
       },
       {
         name: "Software Advice",
-        logo: "/wp-content/uploads/2024/06/sofware-advice-img.webp",
-        rating: 4.9,
+        logo: "/images/sofware-advice-img.webp",
+        logoDark: "/images/sofware-advice-white-img.webp",
+        rating: 5.0,
         quote: "Category leader for onboarding and automation",
         href: "https://www.softwareadvice.com/mlm/cloud-mlm-software-profile/"
       },
       {
         name: "SoftwareSuggest",
-        logo: "/wp-content/uploads/2024/06/software-suggest-img.webp",
-        rating: 4.8,
+        logo: "/images/software-suggest-img.webp",
+        logoDark: "/images/software-suggest-white-img.webp",
+        rating: 5.0,
         quote: "Praised for scalability and multilingual rollouts",
         href: "https://www.softwaresuggest.com/cloud-mlm-software/reviews"
+      },
+      {
+        name: "Google Review",
+        logo: "/images/google-review-img.webp",
+        logoDark: "/images/google-review-white-img.webp",
+        rating: 5.0,
+        quote: "Trusted by MLM businesses worldwide",
+        href: "https://g.page/r/cloud-mlm-software/review"
       }
     ]
   },

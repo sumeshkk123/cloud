@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import {
   listTestimonials,
+  listTestimonialsWithLocales,
   getTestimonialById,
   createTestimonial,
   updateTestimonial,
@@ -20,6 +21,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const allTranslations = searchParams.get('all') === 'true';
+    const withTranslations = searchParams.get('withTranslations') === 'true';
     const locale = searchParams.get('locale') || 'en';
 
     if (id) {
@@ -33,8 +35,16 @@ export async function GET(request: Request) {
       return NextResponse.json(testimonial);
     }
 
+    if (withTranslations) {
+      const testimonials = await listTestimonialsWithLocales('en');
+      return NextResponse.json(testimonials, {
+        headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
+      });
+    }
     const testimonials = await listTestimonials('en');
-    return NextResponse.json(testimonials);
+    return NextResponse.json(testimonials, {
+      headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to process request.';
     return NextResponse.json({ error: message }, { status: 500 });

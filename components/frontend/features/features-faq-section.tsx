@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n-config";
 import { SectionTitle } from "@/components/ui/section-title";
 import { FaqCard } from "@/components/frontend/common/faq-card";
 import { Section } from "@/components/ui/section";
+import { getFeaturesContent } from "@/lib/features";
 
 interface FaqItem {
   id: string;
@@ -17,6 +18,7 @@ interface FeaturesFaqSectionProps {
 }
 
 export function FeaturesFaqSection({ locale }: FeaturesFaqSectionProps) {
+  const t = getFeaturesContent(locale);
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,15 +64,15 @@ export function FeaturesFaqSection({ locale }: FeaturesFaqSectionProps) {
   return (
     <Section variant="gradient" padding="lg" containerClassName="space-y-12">
       <SectionTitle
-        badge="FAQs"
-        heading="Frequently asked questions"
-        description="Answers to the most common questions from evaluating teams, finance leaders, and field organisations considering Cloud MLM Software."
+        badge={t.faq?.badge}
+        heading={t.faq?.heading}
+        description={t.faq?.description}
         maxWidth="3xl"
       />
       <div className="space-y-6 max-w-5xl mx-auto">
         {isLoading ? (
           <div className="text-center py-8 text-muted-foreground">
-            Loading FAQs...
+            {t.faq?.loadingText}
           </div>
         ) : (
           <>
@@ -90,7 +92,7 @@ export function FeaturesFaqSection({ locale }: FeaturesFaqSectionProps) {
                 })}
                 {faqs.length === 0 && (
                   <div className="text-center py-8 text-muted-foreground">
-                    No FAQs available at the moment.
+                    {t.faq?.emptyText}
                   </div>
                 )}
               </div>

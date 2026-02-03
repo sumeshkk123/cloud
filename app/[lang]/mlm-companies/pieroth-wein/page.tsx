@@ -14,7 +14,6 @@ import {
   Award,
   Building2,
   CalendarClock,
-  Goblet,
   HandshakeIcon,
   Leaf,
   MapPin,
@@ -23,7 +22,7 @@ import {
   Target,
   Users
 } from "lucide-react";
-import { GlobeHemisphereEurope, UsersThree, Wine } from "@phosphor-icons/react/dist/ssr";
+import { GlobeHemisphereEast, UsersThree, Wine } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
 
@@ -80,7 +79,7 @@ const PIEROTH_SNAPSHOT: Snapshot[] = [
     label: "Primary market",
     value: "Germany & Europe",
     detail: "Premium tastings and cellar-door experiences cultivated across the region.",
-    icon: GlobeHemisphereEurope
+    icon: GlobeHemisphereEast
   },
   {
     label: "Team",
@@ -119,7 +118,7 @@ const VINTAGE_PILLARS: Vintage[] = [
     title: "Experiential selling",
     description: "Advisors host curated tastings that educate, delight, and foster loyalty.",
     proof: "In-home salons, cellar events, and digital tastings create multi-sensory journeys.",
-    icon: Goblet
+    icon: Wine
   },
   {
     title: "Sustainable viticulture",
@@ -161,7 +160,7 @@ const CLOUD_WINE_CAPABILITIES: PlatformCapability[] = [
     title: "Curated event orchestration",
     description: "Plan tastings, manage RSVPs, and automate follow-ups across in-person and virtual salons.",
     payoff: "Deliver seamless hospitality while preserving the artisanal touch.",
-    icon: Goblet
+    icon: Wine
   },
   {
     title: "Single-level compensation clarity",
@@ -173,7 +172,7 @@ const CLOUD_WINE_CAPABILITIES: PlatformCapability[] = [
     title: "Global supply coordination",
     description: "Sync inventory, allocations, and shipping windows across vineyards and markets.",
     payoff: "Ensure every collector receives their bottles on time with minimal friction.",
-    icon: GlobeHemisphereEurope
+    icon: GlobeHemisphereEast
   }
 ];
 

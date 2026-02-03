@@ -53,18 +53,21 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
     }, [locale]);
 
     return (
-        <Section variant="gradient" padding="md" containerClassName="space-y-10">
-
+        <Section variant="primary" padding="md" containerClassName="space-y-10">
+            <div className="absolute inset-0 -z-20">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10" />
+            </div>
             <SectionTitle
                 badge={listSection.badge}
                 heading={listSection.heading}
                 description={listSection.description}
                 maxWidth="3xl"
             />
-            <div className="container space-y-10 rounded-3xl border border-border/50 bg-primary/10 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-900 p-10 shadow-[0_40px_110px_-80px_rgba(15,23,42,0.35)] backdrop-blur dark:bg-card/60 overflow-hidden">
+            <div className="container px-4">
 
                 {isLoading ? (
-                    <div className="grid gap-6 md:grid-cols-3">
+                    <div className="grid gap-8 md:grid-cols-3">
                         {[1, 2, 3].map((i) => (
                             <div key={i} className="animate-pulse rounded-2xl border border-border/50 bg-card p-6">
                                 <div className="h-12 w-12 bg-muted rounded-full mb-4" />
@@ -76,7 +79,7 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
                         ))}
                     </div>
                 ) : modules.length > 0 ? (
-                    <div className="grid md:grid-cols-3">
+                    <div className="grid  gap-3 md:grid-cols-3">
                         {modules.map((module) => {
                             const Icon = resolveIcon(module.image, Package);
                             return (

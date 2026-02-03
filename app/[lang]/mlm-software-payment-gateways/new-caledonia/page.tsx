@@ -10,7 +10,7 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import {
   Anchor,
-  ChartsLine,
+  ChartLine,
   Compass,
   CurrencyCircleDollar,
   Lightning,
@@ -105,7 +105,7 @@ const GATEWAY_WAVES: GatewayWave[] = [
       "E-wallet orchestrates instant commissions with maker-checker controls.",
       "E-voucher delivers campaign incentives, loyalty perks, and event access effortlessly."
     ],
-    icon: ChartsLine
+    icon: ChartLine
   }
 ];
 

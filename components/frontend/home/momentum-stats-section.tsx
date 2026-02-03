@@ -60,7 +60,7 @@ export function MomentumStatsSection({
               label={stat.label}
               description={stat.description}
               highlight={stat.highlight}
-              readMoreHref="#"
+              // readMoreHref="#"
               variant={isHighlighted ? "highlighted" : "default"}
             />
           );
@@ -70,23 +70,40 @@ export function MomentumStatsSection({
       {/* Analyst recognition section - below the stats cards */}
       {trustItems.length > 0 && (
         <div className="relative">
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
             {trustItems.map((badge) => (
               <Link
                 key={badge.name}
                 href={badge.href}
                 className="group relative flex flex-col gap-4 rounded-2xl bg-primary/10 dark:bg-gray-900 p-6 transition-all duration-300 hover:border-primary/30 hover:bg-primary/15 dark:hover:bg-primary/25"
               >
-                {/* Logo */}
+                {/* Logo - light and dark variants from public/images */}
                 <div className="flex justify-center">
-                  <div className="relative h-12 w-auto">
+                  <div className="relative h-12 w-32">
                     <SmartImage
                       src={badge.logo}
                       alt={`${badge.name} - Trusted MLM Software Partner for Network Marketing`}
                       width={160}
                       height={60}
-                      className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 dark:brightness-0 dark:invert"
+                      className="h-12 w-auto max-w-full object-contain object-center transition-transform duration-300 group-hover:scale-105 dark:hidden"
                     />
+                    {badge.logoDark ? (
+                      <SmartImage
+                        src={badge.logoDark}
+                        alt={`${badge.name} - Trusted MLM Software Partner for Network Marketing`}
+                        width={160}
+                        height={60}
+                        className="absolute inset-0 hidden h-12 w-auto max-w-full object-contain object-center transition-transform duration-300 group-hover:scale-105 dark:block"
+                      />
+                    ) : (
+                      <SmartImage
+                        src={badge.logo}
+                        alt={`${badge.name} - Trusted MLM Software Partner for Network Marketing`}
+                        width={160}
+                        height={60}
+                        className="absolute inset-0 hidden h-12 w-auto max-w-full object-contain object-center transition-transform duration-300 group-hover:scale-105 dark:block dark:brightness-0 dark:invert"
+                      />
+                    )}
                   </div>
                 </div>
 

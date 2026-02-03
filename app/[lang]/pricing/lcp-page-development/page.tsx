@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowUpRight,
   BadgeCheck,
-  ChartBarStacked,
-  CursorClick,
+  BarChart2,
+  MousePointer2,
   Globe2,
   Laptop,
   Rocket,
@@ -78,13 +78,13 @@ const HERO_METRICS: Metric[] = [
     label: "LCPs launched",
     value: "320+",
     detail: "High-converting landing capture pages for MLM recruitment and product launches.",
-    icon: CursorClick
+    icon: MousePointer2
   },
   {
     label: "Average conversion lift",
     value: "48%",
     detail: "Compared to legacy lead capture experiences within 60 days of deployment.",
-    icon: ChartBarStacked
+    icon: BarChart2
   },
   {
     label: "Global rollout support",

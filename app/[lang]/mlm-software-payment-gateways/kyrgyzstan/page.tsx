@@ -22,7 +22,7 @@ import {
   Lightning,
   MapTrifold,
   Megaphone,
-  Mountain,
+  Mountains,
   Plugs,
   ShieldCheck,
   Sparkle,
@@ -219,7 +219,7 @@ const JOURNEY: Journey[] = [
     title: "Wire the platform",
     copy:
       "Multi currency, ticketing, automation, vouchers, wallet, backup, emails, KYC, and multi-lingual touchpoints interlock with telemetry.",
-    icon: Mountain
+    icon: Mountains
   },
   {
     stage: "03",

@@ -25,7 +25,7 @@ import {
   TrendingUp,
   Users
 } from "lucide-react";
-import GenerationPlanSimulator from "@/components/frontend/plan/generation-plan-simulator";
+import GenerationPlanSimulator from "@/components/frontend/plans/all-plans/generation-plan-simulator";
 
 export const dynamic = "force-static";
 

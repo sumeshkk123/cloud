@@ -10,12 +10,11 @@ import { i18n } from "@/i18n-config";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
-  Balance,
+  Scale,
   BarChart2,
   ClipboardSignature,
   Compass,
   Lightbulb,
-  Scale,
   Target,
   Users
 } from "lucide-react";
@@ -219,7 +218,7 @@ export default function WorthwhileInvestmentPage({ params }: WorthwhileInvestmen
           <div className="space-y-6 rounded-3xl border border-rose-200/60 bg-white/80 p-10 shadow-lg shadow-orange-100 dark:border-rose-500/30 dark:bg-slate-900/70 dark:shadow-none">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-rose-100/80 p-3 dark:bg-rose-500/20">
-                <Balance className="h-6 w-6 text-rose-600 dark:text-rose-300" aria-hidden />
+                <Scale className="h-6 w-6 text-rose-600 dark:text-rose-300" aria-hidden />
               </div>
               <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">The Cons of MLM</h2>
             </div>

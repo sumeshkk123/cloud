@@ -94,6 +94,7 @@ export function ConnectorForm({
       setSavedLocales([]);
       setActiveTab('en');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadSliderData runs when englishSliderTitle changes
   }, [englishSliderTitle]);
 
   const loadSliderData = async () => {

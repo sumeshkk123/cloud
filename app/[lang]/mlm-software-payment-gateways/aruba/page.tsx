@@ -15,6 +15,7 @@ import {
   Compass,
   Gauge,
   Globe2,
+  Lightbulb,
   Map,
   Megaphone,
   Sparkles,
@@ -26,7 +27,6 @@ import {
   CurrencyCircleDollar,
   DeviceMobile,
   Handshake,
-  Lighthouse,
   ShieldCheck,
   TreePalm
 } from "@phosphor-icons/react/dist/ssr";
@@ -102,7 +102,7 @@ const INSIGHTS: Insight[] = [
     subtitle: "Licensing, AML, and FX guardrails",
     description:
       "Cloud MLM Software embeds Centrale Bank van Aruba requirements, FIU reporting, and FX controls so your payout strategy stays audit-ready.",
-    icon: Lighthouse
+    icon: Lightbulb
   },
   {
     title: "Tourism-driven commerce",

@@ -1395,7 +1395,7 @@ export default function TopMlmCompanies2025Page({ params }: PageProps) {
                 className="rounded-3xl border border-slate-200 bg-white/90 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg dark:border-slate-700 dark:bg-slate-900/70"
               >
                 <div className={cn("mb-4 inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold", badgeClasses)}>
-                  <Icon className="mr-2 h-4 w-4" weight="fill" aria-hidden />
+                  <Icon className="mr-2 h-4 w-4" aria-hidden />
                   {title}
                 </div>
                 <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">{description}</p>

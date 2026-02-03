@@ -1,0 +1,114 @@
+{
+  "hero": {
+    "badgeText": "平台概览",
+    "primaryCta": "申请平台演示讲解",
+    "secondaryCta": "体验在线演示",
+    "description": "Cloud MLM Software 将奖金结算、商业、电商、赋能、合规与 AI 助手统一在一套平台中，让每个团队——从管理层到经销商——都基于同一份事实数据协同工作。",
+    "beforeText": "构建、自动化并扩展",
+    "highlightText": "现代直销",
+    "afterText": "体验，尽在一体化平台。",
+    "metrics": {
+      "modulesShipped": {
+        "label": "已交付模块",
+        "detail": "奖金、商业、电商、分析与赋能开箱即用。"
+      },
+      "launchVelocity": {
+        "label": "上线速度",
+        "detail": "从方案到生产上线的平均周期。"
+      },
+      "aiCopilots": {
+        "label": "已上线的 AI 助手",
+        "detail": "AI 助手为管理层、一线与成功团队提供简报与洞察。"
+      }
+    }
+  },
+  "categories": {
+    "AI": {
+      "badge": "AI 能力",
+      "heading": "加速一线增长的 AI 功能",
+      "description": "机器学习驱动产品推荐、奖金预测与销售辅导，让管理者基于洞察快速决策，而不是依赖表格。",
+      "columns": "md:grid-cols-3"
+    },
+    "Core": {
+      "badge": "平台核心能力",
+      "heading": "企业级 MLM 软件应具备的一切",
+      "description": "Cloud MLM Software 提供可扩展性、多区域运营与全渠道沟通，让团队自信高效地管理日常业务。",
+      "columns": "md:grid-cols-2 xl:grid-cols-3"
+    },
+    "Performance": {
+      "badge": "性能",
+      "heading": "为速度、规模与稳定而生",
+      "description": "从高响应界面到缓存与优化，无论促销上线还是结算关账，平台始终保持高性能。",
+      "columns": "md:grid-cols-2 xl:grid-cols-3"
+    },
+    "Security": {
+      "badge": "安全与合规",
+      "heading": "面向全球扩张的安全优先架构",
+      "description": "多层防护、成熟框架与韧性运维，帮助你在进入新区域时满足监管要求并稳健扩张。",
+      "columns": "md:grid-cols-2 xl:grid-cols-3"
+    },
+    "Unique": {
+      "badge": "差异化能力",
+      "heading": "让 Cloud MLM Software 脱颖而出的加分项",
+      "description": "专为直销打造的服务与模块，轻松应对复杂集成、营销项目与一线体验。",
+      "columns": "md:grid-cols-2 xl:grid-cols-3"
+    },
+    "Compensation": {
+      "badge": "奖金与发放",
+      "heading": "配置激励方案，自动化合规发放",
+      "description": "将财务、法务与一线管理者对齐到同一套奖金体系中，一站式完成建模、测试、薪酬发放与合规管理。",
+      "columns": "md:grid-cols-2 xl:grid-cols-4"
+    },
+    "Commerce": {
+      "badge": "商业与客户体验",
+      "heading": "在每个渠道打动客户与经销商",
+      "description": "整合 B2C 商城、复制站点与移动销售工具，并通过旅程自动化提升留存、扩大客户终身价值。",
+      "columns": "md:grid-cols-2 xl:grid-cols-4"
+    },
+    "Integrations": {
+      "badge": "集成与 API",
+      "heading": "无需脆弱的定制代码也能连接生态",
+      "description": "使用认证连接器、Webhook 与 API 对接商业、CRM、客服与分析平台，同时确保数据一致性与准确性。",
+      "columns": "md:grid-cols-2 xl:grid-cols-4"
+    },
+    "Enablement": {
+      "badge": "赋能与成功",
+      "heading": "用知识、辅导与专家支持赋能每个团队",
+      "description": "从入门培训到持续优化，Cloud MLM Software 提供作战手册、分析能力与专家团队，确保长期稳定采用。",
+      "columns": "md:grid-cols-2 xl:grid-cols-4"
+    }
+  },
+  "navigation": [
+    { "label": "奖金", "href": "#compensation-features" },
+    { "label": "AI", "href": "#ai-features" },
+    { "label": "核心", "href": "#core-features" },
+    { "label": "性能", "href": "#performance-features" },
+    { "label": "安全", "href": "#security-features" },
+    { "label": "商业", "href": "#commerce-features" },
+    { "label": "集成", "href": "#integration-features" },
+    { "label": "赋能", "href": "#enablement-features" },
+    { "label": "差异化", "href": "#unique-features" }
+  ],
+  "common": {
+    "loadingText": "正在加载功能...",
+    "learnMore": "了解更多"
+  },
+  "faq": {
+    "badge": "常见问题",
+    "heading": "常见问题解答",
+    "description": "为评估团队、财务负责人以及正在考虑 Cloud MLM Software 的一线组织，解答最常见的问题。",
+    "loadingText": "正在加载常见问题...",
+    "emptyText": "当前暂无常见问题。"
+  },
+  "cta": {
+    "title": "体验 Cloud MLM Software 的真实运行",
+    "description": "告诉我们你的目标，我们将为你定制演示——涵盖模块、集成、自动化与适用于你品牌的 AI 助手。",
+    "primaryButtonText": "预约策略沟通",
+    "secondaryButtonText": "探索在线平台",
+    "trust": {
+      "quickImplementation": "快速实施",
+      "expertConsultation": "专家咨询",
+      "provenResults": "可验证的成果"
+    }
+  }
+}

@@ -10,6 +10,7 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { ArrowUpRight } from "lucide-react";
 import {
+  Bank,
   Buildings,
   ChartLineUp,
   ChatsCircle,

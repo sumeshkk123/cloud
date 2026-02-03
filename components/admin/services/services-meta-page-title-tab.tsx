@@ -62,16 +62,19 @@ export function ServicesMetaPageTitleTab() {
 
   useEffect(() => {
     loadServicePages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
   }, []);
 
   useEffect(() => {
     if (servicePages.length > 0) {
       loadAllData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllData runs when servicePages changes
   }, [servicePages.length]);
 
   useEffect(() => {
     loadAllData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllData runs when refreshKey changes
   }, [refreshKey]);
 
   const loadAllData = async () => {
@@ -385,7 +388,7 @@ export function ServicesMetaPageTitleTab() {
           setLocaleToDelete('en');
         }}
         onConfirm={handleDelete}
-        isDeleting={isDeleting}
+        isLoading={isDeleting}
         title="Delete Meta Details & Page Title"
         message={`Are you sure you want to delete meta details and page title for page "${pageToDelete}" (${localeToDelete})?`}
       />

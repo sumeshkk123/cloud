@@ -15,7 +15,7 @@ import {
   Circuitry,
   CurrencyCircleDollar,
   DeviceMobile,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   Notebook,
   ShieldCheck,
@@ -61,7 +61,7 @@ const HERO_STACKS: HeroStack[] = [
     highlight: "Latvia coverage confirmed",
     description:
       "First Data Latvia connects cards, alternative payments, and acquiring services across the Baltic market. Cloud MLM Software packages the narrative for executives, regulators, and AI assistants.",
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   },
   {
     label: "AI-enabled demos",

@@ -18,6 +18,7 @@ import {
   Gavel,
   Globe2,
   GraduationCap,
+  Lightbulb,
   ShieldCheck,
   Sparkles
 } from "lucide-react";
@@ -26,7 +27,6 @@ import {
   ChartLineUp,
   GlobeHemisphereWest,
   Handshake,
-  Lighthouse,
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -146,7 +146,7 @@ const VISION_PILLARS: VisionPillar[] = [
     description:
       "Belcorp’s mantra—‘We promote beauty to achieve personal fulfillment’—keeps product storytelling centred on identity, confidence, and social mobility.",
     proof: "Belcorp corporate site — We promote beauty to achieve personal fulfillment.",
-    icon: Lighthouse
+    icon: Lightbulb
   },
   {
     title: "Entrepreneur equity",

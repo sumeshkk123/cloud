@@ -22,7 +22,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import {
   ArrowUpRight,
-  ChartBar,
+  BarChart,
   Globe2,
   Layout,
   Orbit,
@@ -126,7 +126,7 @@ const MODULE_BLOCKS: ModuleBlock[] = [
   {
     title: "Ticket system module",
     detail: "Routes compliance, PSP, and support cases with SLA dashboards and AI summaries.",
-    icon: ChartBar
+    icon: BarChart
   },
   {
     title: "Auto responder",

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/adminUi/button';
@@ -41,12 +41,21 @@ export function TestimonialsTable() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const hasLoadedRef = useRef(false);
 
-  const loadItems = async (forceRefresh = false) => {
+  const loadItems = async (forceReload = false) => {
     try {
-      setIsLoading(true);
-      const res = await fetch('/api/admin/testimonials?locale=en', {
-        next: { revalidate: 0 },
+      if (forceReload || !hasLoadedRef.current) {
+        setIsLoading(true);
+      }
+      const timestamp = Date.now();
+      const res = await fetch(`/api/admin/testimonials?locale=en&withTranslations=true&_t=${timestamp}`, {
+        credentials: 'include',
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+        },
       });
       const data = await res.json();
       if (!res.ok) {
@@ -59,38 +68,22 @@ export function TestimonialsTable() {
       }
       const mapped: TestimonialRow[] = Array.isArray(data)
         ? data.map((item: any) => ({
-            id: String(item.id),
-            name: String(item.name || ''),
-            role: item.role ? String(item.role) : '',
-            content: String(item.content || ''),
-            image: item.image ? String(item.image) : undefined,
-            locale: String(item.locale || 'en'),
-            updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
-          }))
+          id: String(item.id),
+          name: String(item.name || ''),
+          role: item.role ? String(item.role) : '',
+          content: String(item.content || ''),
+          image: item.image ? String(item.image) : undefined,
+          locale: String(item.locale || 'en'),
+          updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
+          availableLocales: Array.isArray(item.availableLocales) ? item.availableLocales : [item.locale || 'en'],
+        }))
         : [];
 
-      // Fetch available locales for each testimonial (linked by name)
-      const itemsWithLocales = await Promise.all(
-        mapped.map(async (item) => {
-          try {
-            const translationsRes = await fetch(
-              `/api/admin/testimonials?id=${encodeURIComponent(item.id)}&all=true`,
-              { next: { revalidate: 0 } }
-            );
-            if (translationsRes.ok) {
-              const translationsData = await translationsRes.json();
-              const locales = translationsData?.translations?.map((t: any) => t.locale) || [item.locale];
-              return { ...item, availableLocales: locales };
-            }
-          } catch (error) {
-            // Silent fail
-          }
-          return { ...item, availableLocales: [item.locale] };
-        })
-      );
-
-      setItems(itemsWithLocales);
+      setItems(mapped);
       setCurrentPage(1);
+      if (!forceReload) {
+        hasLoadedRef.current = true;
+      }
     } catch (error) {
       setItems([]);
       setCurrentPage(1);
@@ -99,8 +92,15 @@ export function TestimonialsTable() {
     }
   };
 
+  const handleFormSave = async () => {
+    hasLoadedRef.current = false; // Reset loaded flag to force reload
+    setRefreshKey((prev) => prev + 1); // Trigger refresh via refreshKey
+    setCurrentPage(1); // Reset to first page
+  };
+
   useEffect(() => {
     loadItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadItems runs when refreshKey changes
   }, [refreshKey]);
 
   // Optimized: Direct use of items, no unnecessary filtering
@@ -152,6 +152,7 @@ export function TestimonialsTable() {
               <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
                 {row.image ? (
                   row.image.startsWith('/uploads/') || row.image.startsWith('/images/') ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
                     <img
                       src={`${row.image}?t=${refreshKey}`}
                       alt={row.name}
@@ -271,11 +272,7 @@ export function TestimonialsTable() {
             setEditingId(null);
             setFormToast(null);
           }}
-          onSave={async () => {
-            await new Promise(resolve => setTimeout(resolve, 100));
-            await loadItems(true);
-            setRefreshKey(prev => prev + 1);
-          }}
+          onSave={handleFormSave}
           onToastChange={(toast) => setFormToast(toast || null)}
           onLoadingChange={setIsFormLoading}
           onSavingChange={setIsFormSaving}

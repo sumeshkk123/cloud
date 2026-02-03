@@ -23,10 +23,10 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import {
   ArrowUpRight,
-  ChartPie,
   Globe2,
-  Lifebuoy,
+  LifeBuoy,
   Map,
+  PieChart,
   Waves
 } from "lucide-react";
 
@@ -136,7 +136,7 @@ const MODULE_ITEMS: ModuleItem[] = [
   {
     title: "E-voucher engine",
     description: "Supports incentive programmes, events, and loyalty campaigns with redemption telemetry.",
-    icon: ChartPie
+    icon: PieChart
   },
   {
     title: "E-wallet manager",
@@ -146,7 +146,7 @@ const MODULE_ITEMS: ModuleItem[] = [
   {
     title: "Backup manager",
     description: "Keeps storefronts, automations, and compliance artefacts safe during outages.",
-    icon: Lifebuoy
+    icon: LifeBuoy
   },
   {
     title: "Emails module",

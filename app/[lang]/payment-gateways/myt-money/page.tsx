@@ -13,7 +13,7 @@ import {
   Broadcast,
   ChartLineUp,
   DeviceMobile,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   Lightning,
   MapPin,
   Notebook,
@@ -96,7 +96,7 @@ const PILLARS: Pillar[] = [
     title: "Regional runway",
     description:
       "Prepared localisation matrices and telemetry dashboards extend the programme into the Indian Ocean and African markets.",
-    icon: GlobeHemisphereSouth
+    icon: GlobeHemisphereEast
   }
 ];
 

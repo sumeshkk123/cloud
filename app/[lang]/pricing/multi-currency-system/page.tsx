@@ -22,8 +22,6 @@ import {
 import {
   ArrowsLeftRight,
   CurrencyCircleDollar,
-  CurrencyCircleEuro,
-  CurrencyCircleYen,
   Gauge,
   MapTrifold,
   UsersFour
@@ -149,7 +147,7 @@ const PACKAGES: Package[] = [
       "Localized compensation statements and tax schedules",
       "Finance and support enablement playbook"
     ],
-    icon: CurrencyCircleEuro
+    icon: CurrencyCircleDollar
   },
   {
     name: "Global operations suite",
@@ -161,7 +159,7 @@ const PACKAGES: Package[] = [
       "Automated compliance reporting per jurisdiction",
       "Executive scorecards for margin and payout health"
     ],
-    icon: CurrencyCircleYen
+    icon: CurrencyCircleDollar
   },
   {
     name: "Enterprise treasury fabric",

@@ -3,13 +3,13 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import {
   listModules,
+  listModulesWithLocales,
   getModuleById,
   createModule,
   updateModule,
   deleteModule,
   getAllModuleTranslations,
 } from '@/lib/api/modules';
-import { prisma } from '@/lib/db/prisma';
 
 export async function GET(request: Request) {
   try {
@@ -36,73 +36,19 @@ export async function GET(request: Request) {
       return NextResponse.json(moduleRecord);
     }
 
-    // Fetch English modules
-    const modules = await listModules('en');
-    
-    // If withTranslations is true, fetch all translations and group by image+showOnHomePage
+    // If withTranslations is true, use single-query list (avoids N+1)
     if (withTranslations) {
-      // Get all unique image+showOnHomePage combinations
-      const moduleGroups = new Map<string, typeof modules>();
-      modules.forEach(module => {
-        const groupKey = `${module.image || 'no-image'}_${module.showOnHomePage ? 'home' : 'no-home'}`;
-        if (!moduleGroups.has(groupKey)) {
-          moduleGroups.set(groupKey, []);
-        }
-        moduleGroups.get(groupKey)!.push(module);
+      const modulesWithLocales = await listModulesWithLocales('en');
+      return NextResponse.json(modulesWithLocales, {
+        headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
       });
-
-      // Fetch all translations for all groups in parallel
-      const allTranslations = await Promise.all(
-        Array.from(moduleGroups.entries()).map(async ([groupKey, groupModules]) => {
-          if (groupModules.length === 0) return [];
-          const firstModule = groupModules[0];
-          return await prisma.modules.findMany({
-            where: {
-              image: firstModule.image || undefined,
-              showOnHomePage: firstModule.showOnHomePage,
-            },
-            orderBy: { locale: 'asc' },
-            select: {
-              id: true,
-              slug: true,
-              title: true,
-              description: true,
-              image: true,
-              hasDetailPage: true,
-              showOnHomePage: true,
-              locale: true,
-              createdAt: true,
-              updatedAt: true,
-            },
-          });
-        })
-      );
-
-      // Create a map of module group to available locales
-      const localeMap = new Map<string, string[]>();
-      allTranslations.flat().forEach(module => {
-        const groupKey = `${module.image || 'no-image'}_${module.showOnHomePage ? 'home' : 'no-home'}`;
-        if (!localeMap.has(groupKey)) {
-          localeMap.set(groupKey, []);
-        }
-        localeMap.get(groupKey)!.push(module.locale);
-      });
-
-      // Map modules with their available locales
-      const modulesWithLocales = modules.map((module) => {
-        const groupKey = `${module.image || 'no-image'}_${module.showOnHomePage ? 'home' : 'no-home'}`;
-        const availableLocales = localeMap.get(groupKey) || [module.locale];
-        
-        return {
-          ...module,
-          availableLocales, // Include translation info
-        };
-      });
-      
-      return NextResponse.json(modulesWithLocales);
     }
 
-    return NextResponse.json(modules);
+    const modules = await listModules('en');
+
+    return NextResponse.json(modules, {
+      headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to process request.';
     return NextResponse.json({ error: message }, { status: 500 });
@@ -166,7 +112,7 @@ export async function PUT(request: Request) {
       if (locale !== 'en' && image) {
         const englishModules = await listModules('en');
         const englishMatch = englishModules.find((m) => m.image === image && m.showOnHomePage === Boolean(showOnHomePage ?? false));
-        
+
         if (englishMatch) {
           const moduleRecord = await createModule({
             slug: null,
@@ -184,16 +130,16 @@ export async function PUT(request: Request) {
     }
 
     const targetLocale = String(locale);
-    
+
     // If locale is different, check if translation exists
     if (targetLocale !== existing.locale) {
       const allTranslations = await getAllModuleTranslations(existing.id);
       const existingTranslation = allTranslations.find((t) => t.locale === targetLocale);
-      
+
       const englishVersion = allTranslations.find((t) => t.locale === 'en') || existing;
       const imageToUse = englishVersion.image || image;
       const showOnHomePageToUse = englishVersion.showOnHomePage;
-      
+
       if (existingTranslation) {
         const moduleRecord = await updateModule(existingTranslation.id, {
           slug: null,
@@ -222,7 +168,7 @@ export async function PUT(request: Request) {
     // Update existing entry (same locale)
     let imageToUse = image;
     let showOnHomePageToUse = Boolean(showOnHomePage ?? false);
-    
+
     if (targetLocale === 'en') {
       const allTranslations = await getAllModuleTranslations(id);
       if (allTranslations.length > 0 && imageToUse) {
@@ -283,7 +229,7 @@ export async function DELETE(request: Request) {
     }
 
     const translations = await getAllModuleTranslations(id);
-    
+
     if (translations.length > 0) {
       await Promise.all(
         translations.map((t) => deleteModule(t.id))

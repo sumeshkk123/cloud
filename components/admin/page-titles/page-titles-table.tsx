@@ -45,6 +45,7 @@ export function PageTitlesTable() {
             // Fetch all page titles (all locales) to show available translations
             const res = await fetch('/api/admin/page-titles', {
                 cache: 'no-store',
+                credentials: 'include',
             });
             const data = await res.json();
 
@@ -68,7 +69,7 @@ export function PageTitlesTable() {
             // Optimized: Process data more efficiently
             const pageMap = new Map<string, PageTitleRow>();
             const pageUpdatedAtMap = new Map<string, number>();
-            
+
             // Single pass through data
             for (const item of data) {
                 const pageKey = String(item.page || '');
@@ -96,12 +97,16 @@ export function PageTitlesTable() {
                     };
                     pageMap.set(pageKey, pageTitle);
                 }
-                
+
                 // Add locale to available locales
-                if (item.locale && !pageTitle.availableLocales.includes(item.locale)) {
-                    pageTitle.availableLocales.push(item.locale);
+                if (item.locale) {
+                    const locales = pageTitle.availableLocales ?? [];
+                    if (!locales.includes(item.locale)) {
+                        locales.push(item.locale);
+                        pageTitle.availableLocales = locales;
+                    }
                 }
-                
+
                 // Use English version for display if available
                 if (item.locale === 'en') {
                     pageTitle.title = item.title || '';
@@ -118,11 +123,11 @@ export function PageTitlesTable() {
                     item.updatedAt = new Date(timestamp);
                 }
             }
-            
+
             // Sort by updatedAt (descending - most recent first)
             items.sort((a, b) => {
-                const aTime = a.updatedAt?.getTime() || 0;
-                const bTime = b.updatedAt?.getTime() || 0;
+                const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+                const bTime = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
                 return bTime - aTime;
             });
 
@@ -202,7 +207,7 @@ export function PageTitlesTable() {
                 emptyMessage="No page titles yet. Create your first page title!"
                 renderCell={(column, row) => {
                     if (!row) return <span className="text-gray-400">-</span>;
-                    
+
                     if (column.key === 'page') {
                         return (
                             <span className="font-medium text-gray-900">

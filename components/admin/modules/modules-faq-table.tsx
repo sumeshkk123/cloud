@@ -182,7 +182,7 @@ export function ModulesFaqTable() {
                                 }
                                 if (column.key === 'languages') {
                                     const availableLocales = row.availableLocales || ['en'];
-                                    const allLocales = ['en', 'es', 'it', 'de', 'pt', 'zh'];
+                                    const allLocales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
                                     return (
                                         <div className="grid grid-cols-3 gap-1 w-48">
                                             {allLocales.map((loc) => {
@@ -265,7 +265,7 @@ export function ModulesFaqTable() {
                     setFaqToDelete(null);
                 }}
                 onConfirm={handleDelete}
-                isDeleting={isDeleting}
+                isLoading={isDeleting}
                 title="Delete Module FAQ"
                 message="Are you sure you want to delete this module FAQ? This action cannot be undone."
             />

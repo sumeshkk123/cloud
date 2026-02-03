@@ -13,7 +13,7 @@ import {
   ArrowSquareOut,
   ChartLineUp,
   CirclesThree,
-  ClipboardCheck,
+  ClipboardText,
   GlobeHemisphereWest,
   MapTrifold,
   MonitorPlay,
@@ -93,7 +93,7 @@ const INTEGRATION_STEPS: IntegrationStep[] = [
     focus: "Operational confidence",
     detail:
       "Configure Multi currency, E-Wallet, Ticketing, and Backup Manager modules for dependable reconciliation and support.",
-    icon: ClipboardCheck
+    icon: ClipboardText
   },
   {
     step: "04",

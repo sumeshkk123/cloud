@@ -63,7 +63,7 @@ export function HomePageHeroSection({
   const titleParts = displayTitle ? parseTitle(displayTitle) : { highlightText: displayTitle || 'MLM Software' };
 
   return (
-    <section className="relative isolate pt-6 pb-0 rounded-3xl m-2 mb-0">
+    <section className="relative isolate pt-6 pb-0 rounded-3xl m-2">
       {/* Background Image */}
       <div
         className="absolute inset-0 -z-20 opacity-100 dark:opacity-100 overflow-hidden rounded-3xl"
@@ -80,7 +80,7 @@ export function HomePageHeroSection({
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-slate-900/70 via-slate-900/60 to-slate-900/70 rounded-3xl" aria-hidden />
 
       <div className="container relative">
-        <div className="grid gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center px-4 pt-16">
+        <div className="grid gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center px-4 py-16">
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center lg:mx-0 lg:items-start lg:text-left">
             <div className="space-y-4 w-full">
               <PageTitle
@@ -168,8 +168,8 @@ export function HomePageHeroSection({
             )}
           </div>
           <div className="relative mx-auto w-full max-w-xl lg:ml-auto">
-            <div className="relative flex flex-col gap-4 overflow-hidden rounded-t-3xl border border-border/30 bg-card text-foreground pt-6">
-              <div className="flex items-center justify-between gap-4 px-6 pt-8">
+            <div className="relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-border/30 bg-card text-foreground pb-4">
+              <div className="flex items-center justify-between gap-4 px-6 pt-6 pb-2">
                 <Badge variant="default">
                   Platform snapshot
                 </Badge>
@@ -189,7 +189,7 @@ export function HomePageHeroSection({
                   <BulletList items={data.features} />
                 </div>
               )}
-              <div className="relative px-6 py-5">
+              <div className="relative px-6 py-4">
                 <div className="relative overflow-hidden rounded-3xl border border-border/30 bg-muted/40 shadow-xl">
                   <SmartImage
                     src="/wp-content/uploads/2024/06/cloudDashboardDemo.webp"

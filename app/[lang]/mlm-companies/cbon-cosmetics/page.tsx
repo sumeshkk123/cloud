@@ -18,6 +18,7 @@ import {
   Gavel,
   Globe2,
   HeartHandshake,
+  Lightbulb,
   ShieldCheck,
   Sparkles,
   Store,
@@ -28,7 +29,6 @@ import {
   ChartLineUp,
   GlobeHemisphereEast,
   Handshake,
-  Lighthouse,
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -149,7 +149,7 @@ const VISION_PILLARS: VisionPillar[] = [
     description:
       "Leadership reframed the mission as “Orchestrate the Beauty,” expecting every team to perform like an ensemble delivering one experience.",
     proof: "C'BON Top Message (Japanese) — CEO Sakiyama outlines the new vision “Orchestrate the Beauty” and Above & Beyond ambition.",
-    icon: Lighthouse
+    icon: Lightbulb
   },
   {
     title: "Accountability to skin",

@@ -14,7 +14,7 @@ import {
   Building,
   Globe2,
   Languages,
-  MapPinned,
+  MapPin,
   ShieldCheck,
   Sparkles
 } from "lucide-react";

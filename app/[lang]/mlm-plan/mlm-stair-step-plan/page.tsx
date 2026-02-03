@@ -24,7 +24,7 @@ import {
   Target,
   Users
 } from "lucide-react";
-import StairStepPlanSimulator from "@/components/frontend/plan/stair-step-plan-simulator";
+import StairStepPlanSimulator from "@/components/frontend/plans/all-plans/stair-step-plan-simulator";
 
 export const dynamic = "force-static";
 
@@ -299,7 +299,7 @@ const FAQS: Faq[] = [
   {
     question: "How do you onboard field leaders to the new cadence?",
     answer:
-      "Our enablement team rolls out guided training, simulator walk-throughs, and AI-assisted coaching prompts. Leaders can self-audit progress inside the mobile app with goal trackers." 
+      "Our enablement team rolls out guided training, simulator walk-throughs, and AI-assisted coaching prompts. Leaders can self-audit progress inside the mobile app with goal trackers."
   }
 ];
 
@@ -638,5 +638,5 @@ function resolveLocale(locale: string): Locale {
     return locale;
   }
 
-  return i18n.defaultLocale;
+  return i18n.defaultLocale as Locale;
 }

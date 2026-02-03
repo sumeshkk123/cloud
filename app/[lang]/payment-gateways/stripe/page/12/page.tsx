@@ -7,7 +7,7 @@ import { isSupportedLocale } from "@/lib/i18n-utils";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
-import { ArrowSquareUpRight, CompassTool, FlagBanner, GlobeHemisphereNorth, MapTrifold } from "@phosphor-icons/react/dist/ssr";
+import { ArrowSquareUpRight, CompassTool, FlagBanner, GlobeHemisphereEast, MapTrifold } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
 
@@ -209,7 +209,7 @@ export default function StripePage12({ params }: StripePage12Props) {
               <MapTrifold className="h-6 w-6" aria-hidden />
               <CompassTool className="h-6 w-6" aria-hidden />
               <FlagBanner className="h-6 w-6" aria-hidden />
-              <GlobeHemisphereNorth className="h-6 w-6" aria-hidden />
+              <GlobeHemisphereEast className="h-6 w-6" aria-hidden />
             </div>
             <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
               Build your Stripe regional dashboard

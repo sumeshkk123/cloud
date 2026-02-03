@@ -12,6 +12,7 @@ import { ArrowUpRight } from "lucide-react";
 import {
   Bank,
   ChatsCircle,
+  ClipboardText,
   Compass,
   CreditCard,
   CurrencyCircleDollar,

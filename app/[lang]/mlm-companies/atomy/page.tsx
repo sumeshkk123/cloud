@@ -16,13 +16,13 @@ import {
   Factory,
   Globe2,
   HeartHandshake,
+  Lightbulb,
   ShieldCheck,
   Sparkles
 } from "lucide-react";
 import {
   ChartLineUp,
   GlobeHemisphereWest,
-  Lighthouse,
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -164,7 +164,7 @@ const VISION_PILLARS: VisionPillar[] = [
       "The brand’s Success Academy shifted to 4K live broadcasts and VR business tools during the pandemic, reinforcing hybrid engagement as a permanent pillar.",
     proof:
       "Direct Selling News — Global Atomy Taking Off (August 22, 2021).",
-    icon: Lighthouse
+    icon: Lightbulb
   },
   {
     title: "Impact-led growth",
@@ -281,7 +281,7 @@ const INNOVATION_SIGNALS: Innovation[] = [
       "VR-enhanced academies, multilingual broadcasts, and centrally produced tools let leaders duplicate at scale without travel friction.",
     proof:
       "Direct Selling News — Global Atomy Taking Off (August 22, 2021).",
-    icon: Lighthouse
+    icon: Lightbulb
   },
   {
     title: "Science-backed hero product",
@@ -876,15 +876,8 @@ export default function AtomyPage({ params }: AtomyPageProps) {
 }
 
 function resolveLocale(lang: SupportedLocale): Locale {
-  const locale = i18n.locales.find((item) => item.code === lang);
-
-  if (!locale) {
-    return i18n.defaultLocale;
+  if (!isSupportedLocale(lang)) {
+    return i18n.defaultLocale as Locale;
   }
-
-  if (!isSupportedLocale(locale.code)) {
-    return i18n.defaultLocale;
-  }
-
-  return locale;
+  return lang as Locale;
 }

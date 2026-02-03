@@ -13,7 +13,7 @@ import {
   BadgeDollarSign,
   BarChart4,
   Building2,
-  ChartSpline,
+  LineChart,
   Compass,
   Factory,
   Globe,

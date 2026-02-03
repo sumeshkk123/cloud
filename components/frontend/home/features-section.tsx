@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import type { Locale } from "@/i18n-config";
 import type { HomepageContent } from "@/types/homepage";
 import Link from "next/link";
-import { Package, Code, ArrowUpRight, Users } from "lucide-react";
+import { Code, Users } from "lucide-react";
 import { SectionTitle } from "@/components/ui/section-title";
 import { FeatureCard } from "@/components/frontend/common/feature-card";
 import { resolveIcon, localizedHref } from "./utils";
@@ -16,6 +16,7 @@ import { Typography } from "@/components/ui/typography";
 import { InfoCtaBox } from "@/components/ui/info-cta-box";
 import * as LucideIcons from "lucide-react";
 import type { ComponentType } from "react";
+import { getHomeFeaturesContent } from "@/lib/home-features";
 
 // Helper function to generate slug from title
 function generateSlug(title: string): string {
@@ -47,6 +48,7 @@ export function FeaturesSection({ locale, data }: { locale: Locale; data?: Homep
     const [isLoading, setIsLoading] = useState(true);
     const modulesContent = getModulesContent(locale);
     const readMoreButtonText = modulesContent.homeSection.exploreAllModules;
+    const t = getHomeFeaturesContent(locale);
 
     // Helper function to get icon component from icon string
     const getIconComponent = (iconName: string | null | undefined): ComponentType<{ className?: string }> => {
@@ -80,7 +82,7 @@ export function FeaturesSection({ locale, data }: { locale: Locale; data?: Homep
                         // Extract features/bullets array (max 3)
                         let featuresList: string[] = [];
                         if (feature.features && Array.isArray(feature.features)) {
-                            featuresList = feature.features.slice(0, 3).map((f: any) => String(f));
+                            featuresList = feature.features.slice(0, 2).map((f: any) => String(f));
                         }
 
                         return {
@@ -135,9 +137,9 @@ export function FeaturesSection({ locale, data }: { locale: Locale; data?: Homep
                     {/* Left Column - Sticky */}
                     <div className="lg:sticky lg:top-24 lg:self-start lg:h-fit space-y-6">
                         <SectionTitle
-                            badge={data?.badge || "MLM Software Features"}
-                            heading={data?.heading || "Discover Features Flourishing with Cloud MLM Software"}
-                            description={data?.description || "Cloud MLM Software is an AI-driven solution designed to optimize MLM networks. With its intelligent automation, data insights, and seamless scalability enables businesses to grow efficiently and strategically."}
+                            badge={data?.badge || t.section.badge}
+                            heading={data?.heading || t.section.heading}
+                            description={data?.description || t.section.description}
                             centered={false}
                             maxWidth="full"
                         />
@@ -145,8 +147,8 @@ export function FeaturesSection({ locale, data }: { locale: Locale; data?: Homep
                         {/* Trust Card */}
                         <InfoCtaBox
                             icon={Users}
-                            text="Trusted By 500+ MLM Companies And 120K+ Distributors Worldwide."
-                            buttonText="Explore All Features"
+                            text={t.trustCard.text}
+                            buttonText={t.trustCard.buttonText}
                             buttonHref={localizedHref(locale, "/features")}
                         />
                     </div>
@@ -187,7 +189,7 @@ export function FeaturesSection({ locale, data }: { locale: Locale; data?: Homep
                                             title={feature.title}
                                             description={feature.description}
                                             href={localizedHref(locale, feature.href)}
-                                            buttonText="Explore more"
+                                            buttonText={t.common.exploreMore}
                                             bullets={feature.features}
                                         />
                                     );
@@ -196,7 +198,7 @@ export function FeaturesSection({ locale, data }: { locale: Locale; data?: Homep
                         ) : (
                             <div className="text-center py-12">
                                 <Typography variant="p" textColor="muted">
-                                    No features available yet.
+                                    {t.common.emptyState}
                                 </Typography>
                             </div>
                         )}

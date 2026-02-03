@@ -12,12 +12,12 @@ import {
   ArrowSquareOut,
   CompassTool,
   DeviceTabletCamera,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   MapTrifold,
   NavigationArrow,
   NotePencil,
-  Radar,
+  Binoculars,
   ShieldCheck,
   Sparkle,
   SquaresFour,
@@ -130,7 +130,7 @@ const WORKSTREAMS: Workstream[] = [
       "Ticketing workflows with AI recommendations and SLA visibility.",
       "Dashboards surfacing retention, churn, and revenue growth indicators."
     ],
-    icon: Radar
+    icon: Binoculars
   }
 ];
 
@@ -408,7 +408,7 @@ export default function MobilePayPage({ params }: MobilePayPageProps) {
                 phase: "Weeks 5-6",
                 detail:
                   "Operational playbooks, AI prompt roll-out, and executive media activations across the Nordics.",
-                icon: GlobeHemisphereNorth
+                icon: GlobeHemisphereEast
               }
             ].map((item) => {
               const Icon = item.icon;

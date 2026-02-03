@@ -14,7 +14,7 @@ import {
   CompassTool,
   Cpu,
   DeviceMobile,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   MapPinLine,
   Notebook,
@@ -96,7 +96,7 @@ const STORY_WAVES: StoryWave[] = [
     title: "Regional runway",
     description:
       "Extend Montonio success into Finland, Latvia, and Lithuania with localisation matrices, settlement guidance, and telemetry dashboards.",
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   }
 ];
 

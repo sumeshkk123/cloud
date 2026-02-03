@@ -1,0 +1,1034 @@
+{
+  "exportedAt": "2026-01-28T10:18:39.639Z",
+  "locale": "en",
+  "count": 56,
+  "items": [
+    {
+      "id": "d83f48ef-fb3c-450f-9424-2db547e7ab46",
+      "locale": "en",
+      "slug": null,
+      "title": "Magento Integration",
+      "description": "Synchronize Magento stores for inventory, orders, and memberships without custom plumbing.",
+      "icon": "ShoppingBag",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Inventory synchronization",
+        "Order synchronization",
+        "Membership sync",
+        "No custom coding required",
+        "Seamless integration"
+      ]
+    },
+    {
+      "id": "0d581cd3-25d5-4b31-95b0-296eb9ba0d19",
+      "locale": "en",
+      "slug": null,
+      "title": "OpenCart, WordPress, Drupal APIs",
+      "description": "Connect commerce stacks with secure APIs and keep catalogs, orders, and payouts in sync.",
+      "icon": "Code",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Secure API connections",
+        "Catalog synchronization",
+        "Order sync",
+        "Payout synchronization",
+        "OpenCart, WordPress, Drupal support"
+      ]
+    },
+    {
+      "id": "9b69bee9-ff91-45ad-8255-ae067ba6d714",
+      "locale": "en",
+      "slug": "replicated-websites",
+      "title": "Replicated Websites",
+      "description": "Launch distributor-branded microsites with SEO-friendly URLs and content governance.",
+      "icon": "Globe",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Distributor-branded microsites",
+        "SEO-friendly URLs",
+        "Content governance",
+        "Brand customization",
+        "Multi-site management"
+      ]
+    },
+    {
+      "id": "03b6b3ae-4bfe-4ea4-a7e9-ae41e0cd361a",
+      "locale": "en",
+      "slug": null,
+      "title": "Lead Capture Management",
+      "description": "Build high-converting lead capture pages and track conversion journeys end-to-end.",
+      "icon": "UserPlus",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "High-converting lead pages",
+        "Conversion journey tracking",
+        "Lead capture forms",
+        "End-to-end tracking",
+        "Conversion optimization"
+      ]
+    },
+    {
+      "id": "d5c91272-c2a5-4f6f-b145-6fc9ad90de9d",
+      "locale": "en",
+      "slug": "self-hosted-deployments",
+      "title": "Self-hosted Deployments",
+      "description": "Retain complete infrastructure control with optional self-hosted installs and managed updates.",
+      "icon": "Server",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Complete infrastructure control",
+        "Optional self-hosted installs",
+        "Managed updates",
+        "On-premise deployment",
+        "Infrastructure flexibility"
+      ]
+    },
+    {
+      "id": "034d909c-f5f2-495c-b032-b3b13153e134",
+      "locale": "en",
+      "slug": null,
+      "title": "Field Coaching",
+      "description": "Give leaders dashboards, scorecards, and coaching templates to grow emerging talent and accelerate momentum.",
+      "icon": "Users",
+      "category": "Enablement",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "One-on-one coaching plans",
+        "Leaderboards with fair scoring",
+        "Recognition and rewards automation",
+        "Leader dashboards",
+        "Coaching templates"
+      ]
+    },
+    {
+      "id": "d24f4dad-2c05-4178-b96a-1ed11fd969c7",
+      "locale": "en",
+      "slug": null,
+      "title": "Partner Success Desk",
+      "description": "Dedicated success managers help plan launches, review metrics, and share best practices tailored to your growth stage.",
+      "icon": "Headphones",
+      "category": "Enablement",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Quarterly business reviews",
+        "Adoption scorecards and benchmarks",
+        "Executive briefings and workshops",
+        "Launch planning support",
+        "Best practices sharing"
+      ]
+    },
+    {
+      "id": "6539dec1-a37c-43cc-8d54-cebcd6317f7f",
+      "locale": "en",
+      "slug": null,
+      "title": "Knowledge Base",
+      "description": "Publish product updates, compliance guides, and playbooks with AI search so answers surface instantly across the field.",
+      "icon": "BookOpen",
+      "category": "Enablement",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Granular access and versioning",
+        "AI-powered semantic search",
+        "Embedded feedback loops",
+        "Product updates",
+        "Compliance guides"
+      ]
+    },
+    {
+      "id": "a64492bc-7a41-439e-9e23-69ec2b12fe9a",
+      "locale": "en",
+      "slug": null,
+      "title": "Learning Paths",
+      "description": "Curate multimedia training, certifications, and quizzes that adapt to role, rank, and market objectives.",
+      "icon": "GraduationCap",
+      "category": "Enablement",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Role-based curriculum sequencing",
+        "Progress tracking and nudges",
+        "Micro-learning content builder",
+        "Multimedia training",
+        "Certification programs"
+      ]
+    },
+    {
+      "id": "c84585ed-023d-436e-87d3-e18f04327ee7",
+      "locale": "en",
+      "slug": "support-communications",
+      "title": "Support & Communications",
+      "description": "Integrate with Zendesk, Freshdesk, Twilio, and WhatsApp Business to coordinate tickets, notifications, and conversations.",
+      "icon": "MessageCircle",
+      "category": "Integrations",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Ticket sync with distributor records",
+        "Template libraries for SMS and chat",
+        "Automated SLA and escalation triggers",
+        "Zendesk and Freshdesk integration",
+        "Twilio and WhatsApp Business support"
+      ]
+    },
+    {
+      "id": "9cee7b77-c09c-4368-91e9-ffb0527176e5",
+      "locale": "en",
+      "slug": null,
+      "title": "Data & BI Pipelines",
+      "description": "Stream data into Snowflake, BigQuery, Power BI, and Looker to fuel enterprise analytics without bespoke engineering.",
+      "icon": "BarChart",
+      "category": "Integrations",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Managed data models and APIs",
+        "Event streaming for near real-time dashboards",
+        "Secure token-based access controls",
+        "Snowflake and BigQuery support",
+        "Power BI and Looker integration"
+      ]
+    },
+    {
+      "id": "e7f26d29-f793-45ad-b535-e88d18843f85",
+      "locale": "en",
+      "slug": null,
+      "title": "CRM and Marketing Automation",
+      "description": "Bring Salesforce, HubSpot, Zoho, and marketing clouds into the mix so campaigns, leads, and service data stay unified.",
+      "icon": "Target",
+      "category": "Integrations",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Field activity back to CRM timelines",
+        "Lead scoring and routing automation",
+        "Consent and preference synchronisation",
+        "Salesforce and HubSpot integration",
+        "Marketing cloud connectivity"
+      ]
+    },
+    {
+      "id": "86d17e7c-1843-4c7c-9586-a26ef655b902",
+      "locale": "en",
+      "slug": null,
+      "title": "Commerce Platforms",
+      "description": "Prebuilt connectors for Shopify, Magento, WooCommerce, and custom storefronts keep orders, inventory, and payouts in sync.",
+      "icon": "ShoppingBag",
+      "category": "Integrations",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Two-way product and order sync",
+        "Payment gateway tokenisation",
+        "Extensible webhooks and SDKs",
+        "Shopify integration",
+        "Magento and WooCommerce support"
+      ]
+    },
+    {
+      "id": "9e0f082d-4461-4717-ad14-936635a4456a",
+      "locale": "en",
+      "slug": null,
+      "title": "Order Orchestration",
+      "description": "Connect fulfilment, shipping, and customer care with real-time status updates to distributors and buyers.",
+      "icon": "Package",
+      "category": "Commerce",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Carrier integrations and webhook alerts",
+        "Return and replacement workflows",
+        "Support ticket linkage for escalations",
+        "Real-time status updates",
+        "Fulfilment management"
+      ]
+    },
+    {
+      "id": "19cb0d61-a5ec-42b6-a904-91e4cf1df1d9",
+      "locale": "en",
+      "slug": "field-enablement-storefronts",
+      "title": "Field Enablement Storefronts",
+      "description": "Launch replicated sites and mobile selling tools that mirror corporate content while providing personalisation control to sellers.",
+      "icon": "Store",
+      "category": "Commerce",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Brand-safe content governance",
+        "Personalised landing page builder",
+        "Media library with usage analytics",
+        "Replicated sites",
+        "Mobile selling tools"
+      ]
+    },
+    {
+      "id": "e670a85a-0e54-416e-ad31-bee6d9288779",
+      "locale": "en",
+      "slug": "customer-journeys",
+      "title": "Customer Journeys",
+      "description": "Deliver onboarding, autoship, subscription, and loyalty experiences that drive repeat purchases and referrals.",
+      "icon": "Route",
+      "category": "Commerce",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Lifecycle messaging across channels",
+        "Autoship and subscription management",
+        "Loyalty tiers tied to recognition",
+        "Onboarding automation",
+        "Referral programs"
+      ]
+    },
+    {
+      "id": "4c97e104-af48-4993-b32e-c4abd84bdf5b",
+      "locale": "en",
+      "slug": "unified-commerce-hub",
+      "title": "Unified Commerce Hub",
+      "description": "Manage catalogues, pricing, promos, and inventory for B2B, B2C, and distributor storefronts in one control centre.",
+      "icon": "ShoppingCart",
+      "category": "Commerce",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Localized pricing and taxation",
+        "Inventory sync across warehouses",
+        "Promotion builder with guardrails",
+        "B2B and B2C support",
+        "Centralized management"
+      ]
+    },
+    {
+      "id": "db4e7df7-52ae-4ea6-a9e4-08d8dc8768fb",
+      "locale": "en",
+      "slug": "payment-gateways",
+      "title": "Payment Gateways",
+      "description": "Certified integrations with global gateways deliver compliant payment acceptance and settlement.",
+      "icon": "CreditCard",
+      "category": "Security",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Tokenized payments",
+        "Multi-currency support",
+        "Certified integrations",
+        "Compliant processing",
+        "Global gateway support"
+      ]
+    },
+    {
+      "id": "b0b26932-b6ca-4132-9e86-f094b4e7b467",
+      "locale": "en",
+      "slug": "secure-authentication",
+      "title": "Secure Authentication",
+      "description": "MFA, password policies, and session management keep every identity verified across devices.",
+      "icon": "Lock",
+      "category": "Security",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Conditional access",
+        "Device trust scoring",
+        "Multi-factor authentication",
+        "Password policies",
+        "Session management"
+      ]
+    },
+    {
+      "id": "691647b4-f486-4d07-bb2c-bdf6999857c3",
+      "locale": "en",
+      "slug": "resilient-backups",
+      "title": "Resilient Backups",
+      "description": "Encrypted, versioned backups with rapid restore paths keep you covered against any outage or incident.",
+      "icon": "HardDrive",
+      "category": "Security",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Geo redundancy",
+        "Point-in-time recovery",
+        "Encrypted backups",
+        "Versioned storage",
+        "Rapid restore"
+      ]
+    },
+    {
+      "id": "82d4ab75-809d-4f87-b23e-d246dc8fda90",
+      "locale": "en",
+      "slug": "laravel-platform",
+      "title": "Laravel Platform",
+      "description": "Built on Laravel for modern security patterns, rapid iteration, and proven enterprise stability.",
+      "icon": "Code",
+      "category": "Security",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Framework-level protections",
+        "Testing harnesses",
+        "Modern security patterns",
+        "Enterprise stability",
+        "Rapid iteration"
+      ]
+    },
+    {
+      "id": "4012540b-d003-42c7-bc1b-bd5ccb42a93a",
+      "locale": "en",
+      "slug": "secure-mlm-foundation",
+      "title": "Secure MLM Foundation",
+      "description": "Defense-in-depth spans infrastructure, data, and admin guardrails so scaling never compromises trust.",
+      "icon": "Shield",
+      "category": "Security",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Role-based access",
+        "IP allowlisting",
+        "Audit logging",
+        "Infrastructure security",
+        "Data protection"
+      ]
+    },
+    {
+      "id": "ecc130a3-1e93-4ead-b752-14fb61aed5df",
+      "locale": "en",
+      "slug": "powerfully-responsive",
+      "title": "Powerfully Responsive",
+      "description": "Component-driven UI scales elegantly across device rotations, split screens, and accessibility settings.",
+      "icon": "Maximize",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Accessible typography",
+        "Touch-friendly controls",
+        "Device rotation support",
+        "Split screen compatibility",
+        "Accessibility settings"
+      ]
+    },
+    {
+      "id": "26bb437c-f1e8-450f-84fc-f14c049880c3",
+      "locale": "en",
+      "slug": "optimized-everywhere",
+      "title": "Optimized Everywhere",
+      "description": "Device-aware rendering ensures every page looks great and performs on any screen or OS.",
+      "icon": "Monitor",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Viewport detection",
+        "Asset scaling",
+        "Cross-device compatibility",
+        "OS-specific optimizations",
+        "Responsive design"
+      ]
+    },
+    {
+      "id": "9fda68ba-a4a2-4655-ad12-f7398d8d64da",
+      "locale": "en",
+      "slug": "flexible-integrations",
+      "title": "Flexible Integrations",
+      "description": "Connect commerce, CRM, BI, and communications platforms with prebuilt and API-level integrations.",
+      "icon": "Plug",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "REST and webhooks",
+        "SDKs for custom apps",
+        "Prebuilt connectors",
+        "API-level integrations",
+        "Platform connectivity"
+      ]
+    },
+    {
+      "id": "15080cde-e17a-4d7a-9f05-63e9e03bce2b",
+      "locale": "en",
+      "slug": "web-based-management",
+      "title": "Web-based Management",
+      "description": "Run the entire business from any browser with no thick-client installs or VPN requirements.",
+      "icon": "Globe",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Responsive admin console",
+        "Secure remote access",
+        "No client installation",
+        "Browser-based access",
+        "VPN-free operation"
+      ]
+    },
+    {
+      "id": "04a33c3c-ae59-41e8-8126-73892b5f4ac2",
+      "locale": "en",
+      "slug": "backend-caching",
+      "title": "Backend Caching",
+      "description": "Smart cache layers cut database load and deliver consistent performance during enrollment spikes.",
+      "icon": "Database",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Granular controls",
+        "Instant cache busting",
+        "Reduced database load",
+        "Consistent performance",
+        "Enrollment spike handling"
+      ]
+    },
+    {
+      "id": "c2bd03b7-65ed-4f56-b5cf-a0e3f134632b",
+      "locale": "en",
+      "slug": "minified-resources",
+      "title": "Minified Resources",
+      "description": "Bundled and minified assets reduce payload size and accelerate renders across global connections.",
+      "icon": "Package",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Optimized CSS/JS",
+        "Deferred non-critical loads",
+        "Reduced payload size",
+        "Faster page loads",
+        "Global connection optimization"
+      ]
+    },
+    {
+      "id": "97a4ced9-f503-4493-bf64-81725ff005be",
+      "locale": "en",
+      "slug": "dynamic-compression",
+      "title": "Dynamic Compression",
+      "description": "Plan compression rules keep non-performing legs from blocking payouts while protecting true earners.",
+      "icon": "Compress",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Binary and unilevel compatible",
+        "Configurable eligibility",
+        "Non-performing leg management",
+        "Payout protection",
+        "Performance optimization"
+      ]
+    },
+    {
+      "id": "568d73a7-1c69-412d-a679-62b0b7fc567d",
+      "locale": "en",
+      "slug": "improved-page-speed",
+      "title": "Improved Page Speed",
+      "description": "Aggressive caching, async assets, and optimized queries keep experiences fast even during peak volume.",
+      "icon": "Zap",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Server-side rendering",
+        "Real-time monitoring",
+        "Aggressive caching",
+        "Async asset loading",
+        "Optimized database queries"
+      ]
+    },
+    {
+      "id": "585a651c-1d6b-4a15-b2cb-0500a2413043",
+      "locale": "en",
+      "slug": "mobile-friendly",
+      "title": "Mobile Friendly",
+      "description": "Responsive layouts deliver full functionality on phones and tablets with offline-friendly patterns.",
+      "icon": "Smartphone",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Adaptive navigation",
+        "Push-ready alerts",
+        "Full functionality on mobile",
+        "Offline-friendly patterns",
+        "Responsive layouts"
+      ]
+    },
+    {
+      "id": "79afefe3-b97a-4f2c-af71-d671f6e9182a",
+      "locale": "en",
+      "slug": "tax-compliance-kyc",
+      "title": "Tax, Compliance, and KYC",
+      "description": "Collect documentation, apply withholding, and maintain locality-specific compliance artifacts with minimal manual effort.",
+      "icon": "FileText",
+      "category": "Compensation",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Automated TDS/VAT handling per market",
+        "Document vault with expiry alerts",
+        "Country-specific onboarding workflows",
+        "KYC documentation management",
+        "Compliance artifact tracking"
+      ]
+    },
+    {
+      "id": "f737a13a-8684-48a7-94cf-d54cd6ba44b1",
+      "locale": "en",
+      "slug": "clean-interface",
+      "title": "Clean Interface",
+      "description": "Modern UX keeps focus on the metrics and workflows that matter without clutter or training bloat.",
+      "icon": "Layout",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Drag-and-drop dashboards",
+        "Inline help and tours",
+        "Modern user experience",
+        "Clutter-free interface",
+        "Intuitive workflows"
+      ]
+    },
+    {
+      "id": "41db5e2f-c863-4e6d-853b-7efd2469c526",
+      "locale": "en",
+      "slug": "leadership-pool-management",
+      "title": "Leadership & Pool Management",
+      "description": "Fund, allocate, and reconcile executive bonuses, influencer pools, and incentive trips—all tracked inside Cloud MLM Software.",
+      "icon": "Users",
+      "category": "Compensation",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Pool eligibility dashboards",
+        "Real-time funding projections",
+        "Recognition feeds tied to payouts",
+        "Executive bonus management",
+        "Incentive trip tracking"
+      ]
+    },
+    {
+      "id": "ea4ee14c-721b-4ec5-835d-07217bfa30ff",
+      "locale": "en",
+      "slug": "commission-operations",
+      "title": "Commission Operations",
+      "description": "Schedule weekly, monthly, and incentive-based payouts with automated validations, deductions, and audit-ready exports.",
+      "icon": "DollarSign",
+      "category": "Compensation",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Automated period closing and adjustments",
+        "Ledger sync with ERP and banking partners",
+        "Exception routing for finance sign-off",
+        "Weekly and monthly payout processing",
+        "Audit-ready exports"
+      ]
+    },
+    {
+      "id": "06b1b045-15d2-4a6c-bce4-c835941d9dca",
+      "locale": "en",
+      "slug": "compensation-plan-studio",
+      "title": "Compensation Plan Studio",
+      "description": "Model binary, matrix, unilevel, board, and hybrid plans with governance-ready workflows that keep finance and compliance aligned.",
+      "icon": "Settings",
+      "category": "Compensation",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Drag-and-drop rules, bonuses, and rank logic",
+        "Version control with sandbox approvals",
+        "Scenario simulations before payroll lock",
+        "Multiple plan types support",
+        "Governance-ready workflows"
+      ]
+    },
+    {
+      "id": "4f6f4400-7ff5-43f8-99b9-cdfada4864d5",
+      "locale": "en",
+      "slug": "e-voucher-generator",
+      "title": "E-Voucher Generator",
+      "description": "E-vouchers are a secure and simple method for online product payments and membership purchases. Many MLM companies have adopted this method to collect payments from members across the country.",
+      "icon": "Ticket",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Secure voucher generation",
+        "Online payment method",
+        "Membership purchase support",
+        "Voucher encoding",
+        "Voucher tracking",
+        "Franchise distribution",
+        "Member ordering concept"
+      ]
+    },
+    {
+      "id": "20d93804-0f86-4144-b3b3-c48176442039",
+      "locale": "en",
+      "slug": "web-designing",
+      "title": "Web Designing",
+      "description": "We are the creators of the global introduction scenario and the designers and consultants of websites. We provide trendy MLM website designs relevant to your site along with their MLM software.",
+      "icon": "Globe",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Custom website design",
+        "MLM-specific designs",
+        "Responsive layouts",
+        "Modern UI/UX",
+        "Brand integration",
+        "Professional design services",
+        "Website consultation"
+      ]
+    },
+    {
+      "id": "7058032b-2eb1-48e7-8dde-86c50ec52698",
+      "locale": "en",
+      "slug": "powerful-email-system",
+      "title": "Powerful Email System",
+      "description": "The Cloud MLM Software is integrated with the powerful E-mail system and it is used to communicate between users on the internet, the user to admin, user to sponsor, user to user, form, send, receive or reply emails.",
+      "icon": "Inbox",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Internal messaging system",
+        "User-to-user communication",
+        "Admin communication",
+        "Sponsor messaging",
+        "Email marketing",
+        "Bulk email sending",
+        "Email templates"
+      ]
+    },
+    {
+      "id": "77ea234b-5d2b-432c-bf8f-47eee81c8046",
+      "locale": "en",
+      "slug": "theme-changing-options",
+      "title": "Theme Changing Options",
+      "description": "Theme options could be a system admin page which provides some WordPress themes. It enables members to modify theme settings without changing theme files or touching any code.",
+      "icon": "Palette",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Theme customization",
+        "No-code theme changes",
+        "Multiple theme options",
+        "Customizable colors",
+        "Font selection",
+        "Layout options",
+        "Visual customization"
+      ]
+    },
+    {
+      "id": "77a2cbff-bb2c-4a4b-9c2f-bc3d69aed193",
+      "locale": "en",
+      "slug": "auto-responder-system",
+      "title": "Auto-responder System",
+      "description": "An auto-responder is a system that enables you to generate leads, build targeted prospect lists, increase sales and referrals, and automatically send a single email response based on predefined forms, client interactions, and selected activities.",
+      "icon": "Mail",
+      "category": "Unique",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Automated email responses",
+        "Lead generation",
+        "Targeted prospect lists",
+        "Sales automation",
+        "Referral management",
+        "Predefined form responses",
+        "Activity-based triggers"
+      ]
+    },
+    {
+      "id": "bf47c89d-f559-434f-b92d-cc040db2b08f",
+      "locale": "en",
+      "slug": "privileged-user-system",
+      "title": "Privileged User System",
+      "description": "The Cloud MLM Privilege system provides features to set up users to handle the network, allow them authorizations to handle admin performance. This system allows the company to add its members with assured privilege or tasks.",
+      "icon": "Shield",
+      "category": "Security",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "User privilege management",
+        "Role-based access control",
+        "Network administration",
+        "Admin authorization",
+        "Task-based permissions",
+        "Secure user management"
+      ]
+    },
+    {
+      "id": "87df6f42-5428-446b-8c93-6574ecf4b5e6",
+      "locale": "en",
+      "slug": "payment-processing-system",
+      "title": "Payment Processing System",
+      "description": "Online payment processing influences creative technologies that enable companies to take payments through the web, including credit and debit cards. Supports weekly and monthly payout processing with income-wise statement details.",
+      "icon": "CreditCard",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Online payment processing",
+        "Credit and debit card support",
+        "Weekly payout processing",
+        "Monthly payout processing",
+        "Income statement details",
+        "Multiple payment gateways",
+        "Secure transactions"
+      ]
+    },
+    {
+      "id": "0432a7f7-c901-43c9-b328-a899a605f268",
+      "locale": "en",
+      "slug": "advanced-reporting-system",
+      "title": "Advanced Reporting System",
+      "description": "The Advanced Reporting system gives the facts you require at your fingertips. Choose the right report fast with templates packaged for production, large scale, builder, and distribution.",
+      "icon": "BarChart",
+      "category": "Performance",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Comprehensive reporting",
+        "Report templates",
+        "Production reports",
+        "Sales analytics",
+        "Team performance reports",
+        "Exportable dashboards",
+        "Scheduled reports"
+      ]
+    },
+    {
+      "id": "dab31063-4d20-4c01-b3ab-d6b2c8c8c246",
+      "locale": "en",
+      "slug": "white-label-mlm-software",
+      "title": "White Label MLM Software",
+      "description": "Fully customizable white label solution that allows you to brand the software with your company name and logo.",
+      "icon": "Tag",
+      "category": "Core",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Custom branding",
+        "Company logo integration",
+        "Branded interface",
+        "Customizable design",
+        "White label solution",
+        "Full customization"
+      ]
+    },
+    {
+      "id": "86c7a30a-74fc-4f51-bbfc-3a94420e796b",
+      "locale": "en",
+      "slug": "support-ticket-system-module",
+      "title": "Support / Ticket System Module",
+      "description": "Cloud MLM Software's ticket system module is a great way to be in touch with users and provide efficient customer support.",
+      "icon": "Ticket",
+      "category": "Core",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Ticket creation and management",
+        "User support tracking",
+        "Efficient customer support",
+        "Canned responses",
+        "Ticket status tracking",
+        "Support team collaboration"
+      ]
+    },
+    {
+      "id": "e04ab1de-572c-4752-941b-f581280e56a7",
+      "locale": "en",
+      "slug": "sms-integration",
+      "title": "SMS Integration",
+      "description": "Integrate SMS notifications to keep your distributors informed about commissions, bonuses, and important updates.",
+      "icon": "MessageSquare",
+      "category": "Core",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "SMS notifications",
+        "Commission alerts",
+        "Bonus notifications",
+        "Important updates",
+        "Automated messaging",
+        "Multi-carrier support"
+      ]
+    },
+    {
+      "id": "be5a5f4d-5656-4bbe-8504-f586d07aab54",
+      "locale": "en",
+      "slug": "easy-navigation",
+      "title": "Easy Navigation",
+      "description": "User-friendly interface with intuitive navigation that makes it easy for distributors to manage their accounts and track performance.",
+      "icon": "Navigation",
+      "category": "Core",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "Intuitive user interface",
+        "Easy account management",
+        "Performance tracking",
+        "User-friendly design",
+        "Quick access to features"
+      ]
+    },
+    {
+      "id": "03347bd4-8613-4286-866a-104ff02471ac",
+      "locale": "en",
+      "slug": "great-support",
+      "title": "Great Support",
+      "description": "24x7 customer support to help you with all your MLM software needs. Our expert team is always ready to assist you.",
+      "icon": "Headphones",
+      "category": "Core",
+      "hasDetailPage": false,
+      "showOnHomePage": false,
+      "features": [
+        "24x7 customer support",
+        "Expert technical assistance",
+        "Quick response times",
+        "Multiple support channels",
+        "Comprehensive documentation"
+      ]
+    },
+    {
+      "id": "deeeb63b-a7ed-4e0b-b5e5-d50370d2658a",
+      "locale": "en",
+      "slug": "multi-currency-system",
+      "title": "Multi Currency System",
+      "description": "Support multiple currencies with accurate conversion and tax handling. Enable international teams to operate smoothly and receive accurate commissions based on local exchange rates.",
+      "icon": "DollarSign",
+      "category": "Core",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Multiple currency support",
+        "Real-time exchange rates",
+        "Accurate commission calculations",
+        "Tax handling by region",
+        "Currency conversion",
+        "International payment support"
+      ]
+    },
+    {
+      "id": "2faed7fc-45b7-4fbe-9b72-67bf09f4d180",
+      "locale": "en",
+      "slug": "multilingual-translation-system",
+      "title": "Multilingual Translation System",
+      "description": "Multilingual module helps to expand the MLM business beyond the borders. Our MLM software supports multiple languages to reach global markets.",
+      "icon": "Languages",
+      "category": "Core",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Multi-language support",
+        "Global market reach",
+        "Localized content",
+        "Translation management",
+        "Language switching",
+        "Regional customization"
+      ]
+    },
+    {
+      "id": "2fbc9345-de04-484b-8825-59bc74c69fd0",
+      "locale": "en",
+      "slug": "in-built-e-wallet",
+      "title": "In-built E-Wallet",
+      "description": "An E-wallet is an online prepaid account where you can store money to use when needed. With this preloaded facility, consumers can purchase a wide range of products, from airline tickets to groceries, without swiping a debit or credit card.",
+      "icon": "Wallet",
+      "category": "Core",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Prepaid account management",
+        "Secure money storage",
+        "Easy fund transfers",
+        "E-pin generation",
+        "Repurchase using wallet funds",
+        "Payout to wallet transfer"
+      ]
+    },
+    {
+      "id": "52146eb7-1560-4c16-8c42-c2ee8c893995",
+      "locale": "en",
+      "slug": "highly-extensible",
+      "title": "Highly Extensible",
+      "description": "MLM software is essential for any direct selling business to operate seamlessly. Our secure, reliable, and user-friendly MLM software enables your company to effectively track customers and manage operations. With our software, your MLM company is equipped to expand beyond expectations.",
+      "icon": "Layers",
+      "category": "Core",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Customizable architecture",
+        "Modular design",
+        "Easy integration",
+        "Scalable infrastructure",
+        "Plugin support",
+        "API access"
+      ]
+    },
+    {
+      "id": "69950d68-6a35-4258-b734-47534aba8081",
+      "locale": "en",
+      "slug": "ai-powered-smart-recruiter",
+      "title": "AI-powered Smart Recruiter",
+      "description": "Identify high-potential leads and fast-growing team members using intelligent algorithms that learn from past performance.",
+      "icon": "Users",
+      "category": "AI",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Intelligent lead identification",
+        "High-potential lead detection",
+        "Performance-based team member analysis",
+        "Algorithm-driven recruitment"
+      ]
+    },
+    {
+      "id": "fea61d2e-3da2-472e-8d59-244dbcc97ceb",
+      "locale": "en",
+      "slug": "predictive-commission-forecasting",
+      "title": "Predictive Commission Forecasting",
+      "description": "Leverage machine learning to estimate upcoming commissions, bonuses, and team earnings—before the month ends.",
+      "icon": "TrendingUp",
+      "category": "AI",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "Machine learning-based forecasting",
+        "Commission estimation",
+        "Bonus predictions",
+        "Team earnings projections"
+      ]
+    },
+    {
+      "id": "7aa7e0b4-379a-4dcf-8415-0dcfd14c0aaf",
+      "locale": "en",
+      "slug": "smart-product-recommendations",
+      "title": "Smart Product Recommendations",
+      "description": "Boost sales with AI-driven suggestions tailored to each distributor's buying habits and customer preferences.",
+      "icon": "Sparkles",
+      "category": "AI",
+      "hasDetailPage": false,
+      "showOnHomePage": true,
+      "features": [
+        "AI-driven product suggestions",
+        "Personalized recommendations based on buying habits",
+        "Customer preference analysis",
+        "Sales boost automation"
+      ]
+    }
+  ]
+}

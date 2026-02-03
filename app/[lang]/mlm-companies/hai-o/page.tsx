@@ -181,18 +181,18 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     "Review Hai-O’s revenue profile, heritage pillars, field programmes, and Cloud MLM Software enablement for Malaysian wellness leaders.";
 
   const alternates = i18n.locales.reduce<Record<string, string>>((acc, currentLocale) => {
-    acc[currentLocale] = buildLocalizedPath(currentLocale, "/mlm-companies/hai-o");
+    acc[currentLocale] = buildLocalizedPath("/mlm-companies/hai-o", currentLocale as SupportedLocale);
     return acc;
   }, {});
 
   return {
     title,
     description,
-    alternates: { canonical: buildLocalizedPath(locale, "/mlm-companies/hai-o"), languages: alternates },
+    alternates: { canonical: buildLocalizedPath("/mlm-companies/hai-o", locale as SupportedLocale), languages: alternates },
     openGraph: {
       title,
       description,
-      url: buildLocalizedPath(locale, "/mlm-companies/hai-o"),
+      url: buildLocalizedPath("/mlm-companies/hai-o", locale as SupportedLocale),
       type: "article"
     }
   };
@@ -201,9 +201,9 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 export default function HaiOPage({ params }: { params: { lang: Locale } }) {
   const locale = isSupportedLocale(params.lang) ? params.lang : i18n.defaultLocale;
 
-  const demoHref = buildLocalizedPath(locale, "/free-mlm-software-demo");
-  const contactHref = buildLocalizedPath(locale, "/contact");
-  const companiesHref = buildLocalizedPath(locale, "/mlm-companies");
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
+  const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
+  const companiesHref = buildLocalizedPath("/mlm-companies", locale as SupportedLocale);
 
   return (
     <div className="space-y-24 pb-20 pt-16">

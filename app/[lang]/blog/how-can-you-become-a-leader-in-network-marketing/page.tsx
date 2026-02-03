@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
   CalendarCheck,
-  ChartBar,
+  BarChart3,
   Compass,
   Handshake,
   Lightbulb,
@@ -59,7 +59,7 @@ const METRICS: Metric[] = [
     label: "Global MLM millionaires",
     value: "1200+",
     description: "Network marketing has produced well over a thousand millionaires worldwide—proof leadership matters.",
-    icon: ChartBar
+    icon: BarChart3
   },
   {
     label: "Average leader tenure",

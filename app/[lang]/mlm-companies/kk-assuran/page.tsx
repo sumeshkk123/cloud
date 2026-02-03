@@ -22,7 +22,7 @@ type Metric = {
   icon: IconType;
 };
 
-type Promise = {
+type PromiseItem = {
   title: string;
   body: string;
   proof: string;
@@ -62,7 +62,7 @@ const METRICS: Metric[] = [
   }
 ];
 
-const PROMISES: Promise[] = [
+const PROMISES: PromiseItem[] = [
   {
     title: "Holistic protection",
     body: "KK Assuran designs insurance solutions that mix life, critical illness, and family-focused coverage.",

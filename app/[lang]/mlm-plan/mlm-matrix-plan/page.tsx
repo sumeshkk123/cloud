@@ -24,7 +24,7 @@ import {
   Target,
   Users
 } from "lucide-react";
-import MatrixPlanSimulator from "@/components/frontend/plan/matrix-plan-simulator";
+import MatrixPlanSimulator from "@/components/frontend/plans/all-plans/matrix-plan-simulator";
 
 export const dynamic = "force-static";
 
@@ -504,7 +504,7 @@ export default function MLMMatrixPlanPage({ params }: MLMMatrixPlanPageProps) {
             Member and leader journey clarity
           </h2>
           <p className="text-sm text-muted-foreground">
-            Give every participant clarity on placement, qualification, and payout so confidence stays high throughout the matrix. 
+            Give every participant clarity on placement, qualification, and payout so confidence stays high throughout the matrix.
           </p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">

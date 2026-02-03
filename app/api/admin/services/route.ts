@@ -53,7 +53,7 @@ export async function GET(request: Request) {
 
     // Fetch English services
     const services = await listServices('en');
-    
+
     // If withTranslations is true, fetch all translations and group by icon+showOnHomePage
     if (withTranslations) {
       // Get all unique icon+showOnHomePage combinations
@@ -95,7 +95,7 @@ export async function GET(request: Request) {
       const safeServices = services.map((service) => {
         const groupKey = `${service.icon || 'no-icon'}_${service.showOnHomePage ? 'home' : 'no-home'}`;
         const availableLocales = localeMap.get(groupKey) || [service.locale];
-        
+
         return {
           id: String(service.id),
           title: String(service.title || ''),
@@ -112,7 +112,7 @@ export async function GET(request: Request) {
           availableLocales, // Include translation info
         };
       });
-      
+
       return NextResponse.json(safeServices);
     }
 
@@ -229,7 +229,7 @@ export async function PUT(request: Request) {
       if (locale !== 'en') {
         const englishServices = await listServices('en');
         const englishMatch = englishServices.find((s) => s.icon === String(icon) && s.showOnHomePage === Boolean(showOnHomePage ?? false));
-        
+
         if (englishMatch) {
           const service = await createService({
             title: String(title),
@@ -249,20 +249,22 @@ export async function PUT(request: Request) {
     }
 
     const targetLocale = String(locale);
-    
+
     if (targetLocale !== existing.locale) {
       const allTranslations = await getAllServiceTranslations(existing.id);
       const existingTranslation = allTranslations.find((t) => t.locale === targetLocale);
       const englishVersion = allTranslations.find((t) => t.locale === 'en') || existing;
       const iconToUse = englishVersion.icon || String(icon);
       const showOnHomePageToUse = englishVersion.showOnHomePage;
-      
+
+      const imageToUseForTranslation = englishVersion.image || (image ? String(image) : null);
+
       if (existingTranslation) {
         const service = await updateService(existingTranslation.id, {
           title: String(title),
           description: String(description),
           content: content ? String(content) : null,
-          image: image ? String(image) : null,
+          image: imageToUseForTranslation,
           icon: iconToUse,
           keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
           serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
@@ -275,7 +277,7 @@ export async function PUT(request: Request) {
           title: String(title),
           description: String(description),
           content: content ? String(content) : null,
-          image: image ? String(image) : null,
+          image: imageToUseForTranslation,
           icon: iconToUse,
           keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
           serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
@@ -287,27 +289,54 @@ export async function PUT(request: Request) {
     }
 
     let iconToUse = String(icon);
+    let imageToUse = image ? String(image) : null;
     let showOnHomePageToUse = Boolean(showOnHomePage ?? false);
-    
+
     if (targetLocale === 'en') {
-      const allTranslations = await getAllServiceTranslations(id);
-      if (allTranslations.length > 0) {
+      // Fetch all translations BEFORE updating to ensure we have the complete list
+      const allTranslationsBeforeUpdate = await getAllServiceTranslations(id);
+
+      // Update the English version first
+      const updatedService = await updateService(id, {
+        title: String(title),
+        description: String(description),
+        content: content ? String(content) : null,
+        image: imageToUse,
+        icon: iconToUse,
+        keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
+        serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
+        showOnHomePage: showOnHomePageToUse,
+        locale: targetLocale,
+      });
+
+      // Sync shared fields (icon, image, showOnHomePage) to all other translations
+      if (allTranslationsBeforeUpdate.length > 0) {
         await Promise.all(
-          allTranslations
+          allTranslationsBeforeUpdate
             .filter((t) => t.locale !== 'en')
             .map((t) =>
               updateService(t.id, {
                 icon: iconToUse,
+                image: imageToUse,
                 showOnHomePage: showOnHomePageToUse,
+                // Preserve locale-specific fields
+                title: t.title,
+                description: t.description,
+                content: t.content,
+                keyBenefits: t.keyBenefits,
+                serviceHighlights: t.serviceHighlights,
               })
             )
         );
       }
+
+      return NextResponse.json(updatedService);
     } else {
       const allTranslations = await getAllServiceTranslations(id);
       const englishVersion = allTranslations.find((t) => t.locale === 'en');
       if (englishVersion) {
         iconToUse = englishVersion.icon || iconToUse;
+        imageToUse = englishVersion.image || imageToUse;
         showOnHomePageToUse = englishVersion.showOnHomePage;
       }
     }
@@ -316,7 +345,7 @@ export async function PUT(request: Request) {
       title: String(title),
       description: String(description),
       content: content ? String(content) : null,
-      image: image ? String(image) : null,
+      image: imageToUse,
       icon: iconToUse,
       keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
       serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
@@ -346,7 +375,7 @@ export async function DELETE(request: Request) {
     }
 
     const translations = await getAllServiceTranslations(id);
-    
+
     if (translations.length > 0) {
       await Promise.all(
         translations.map((t) => deleteService(t.id))

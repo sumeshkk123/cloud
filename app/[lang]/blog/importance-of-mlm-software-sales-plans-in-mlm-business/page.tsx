@@ -13,7 +13,7 @@ import {
   BarChart3,
   Building,
   ClipboardList,
-  Graph,
+  LineChart,
   Layers,
   Network,
   Presentation,
@@ -47,7 +47,7 @@ const HERO_INSIGHTS: Highlight[] = [
     title: "Everyone looks for online business opportunities even housewives and students.",
     description:
       "The business trends and strategies are changing day to day, the MLM business industry also changes its business trends and strategies to do MLM business online.",
-    icon: Graph
+    icon: LineChart
   },
   {
     title: "This time the necessity of online MLM software raising.",

@@ -2,6 +2,7 @@
 
 import type { ComponentType, MouseEvent } from "react";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { SmartImage } from "@/components/ui/smart-image";
 import Link from "next/link";
 import { Menu, ChevronDown } from "lucide-react";
@@ -38,6 +39,7 @@ export function MenuBar({
     languageAriaLabel,
     languageOptions
 }: MenuBarProps) {
+    const pathname = usePathname();
     const [openMega, setOpenMega] = useState<string | null>(null);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -129,10 +131,18 @@ export function MenuBar({
         [sortedNav, openMega]
     );
 
+    function isNavItemActive(itemHref: string): boolean {
+        const pathWithoutLocale = pathname?.replace(/^\/[a-z]{2}(?:\/|$)/i, "/") || "/";
+        const normalizedPath = pathWithoutLocale.replace(/\/$/, "") || "/";
+        const normalizedHref = (itemHref || "").replace(/\/$/, "") || "/";
+        return normalizedPath === normalizedHref || (normalizedHref !== "/" && normalizedPath.startsWith(normalizedHref + "/"));
+    }
+
     function HeaderLink({ item, locale }: { item: NavItem; locale: SupportedLocale }) {
         if (!item.href) return null;
         const href = resolveHref(item.href, locale);
         if (!href) return null;
+        const isActive = isNavItemActive(item.href);
 
         return (
             <Link
@@ -140,7 +150,8 @@ export function MenuBar({
                 className={cn(
                     "inline-flex items-center rounded-full px-3 py-2 text-sm font-medium transition",
                     "text-muted-foreground hover:text-foreground hover:bg-muted/40",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                    isActive && "text-primary font-semibold"
                 )}
             >
                 {item.label}
@@ -191,7 +202,7 @@ export function MenuBar({
                                 </Link>
                             </div>
                             <nav className="relative hidden flex-1 items-center justify-center lg:flex">
-                                <ul className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                                <ul className="flex items-center gap-0.5 text-sm font-medium text-muted-foreground">
                                     {sortedNav.map((item) => {
                                         const isMega = item.kind === "mega" && Boolean(item.mega);
                                         const isOpen = openMega === item.label;
@@ -222,7 +233,7 @@ export function MenuBar({
                                                             "inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition",
                                                             "text-muted-foreground hover:text-foreground hover:bg-muted/40",
                                                             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                                                            isOpen ? "bg-primary/10 text-foreground shadow-sm" : ""
+                                                            (isOpen || (item.href && isNavItemActive(item.href))) ? "text-primary font-semibold" : ""
                                                         )}
                                                         onClick={() => {
                                                             cancelScheduledOpen();

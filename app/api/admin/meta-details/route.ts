@@ -34,7 +34,9 @@ export async function GET(request: NextRequest) {
 
     // Get all meta details (all locales)
     const records = await getAllMetaDetails();
-    return NextResponse.json(records);
+    return NextResponse.json(records, {
+      headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
+    });
   } catch (error) {
     console.error('[API] Error fetching meta details:', error);
     return NextResponse.json(

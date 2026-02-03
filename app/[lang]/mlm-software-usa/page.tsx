@@ -15,7 +15,7 @@ import {
   FileText,
   Flag,
   Gavel,
-  MapPinned,
+  MapPin,
   ShieldCheck,
   Sparkles
 } from "lucide-react";
@@ -77,7 +77,7 @@ const CAPABILITIES: Capability[] = [
   {
     title: "Territory intelligence",
     detail: "Assign territories, track regional performance, and plan pop-up events or roadshows with geo insights.",
-    icon: MapPinned
+    icon: MapPin
   }
 ];
 

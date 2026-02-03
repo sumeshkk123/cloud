@@ -13,9 +13,8 @@ import {
   ArrowUpRight,
   BarChart3,
   Bell,
-  ChartNoAxesGantt,
-  ChartSpline,
-  CircleCheck,
+  LineChart,
+  CheckCircle,
   Shield
 } from "lucide-react";
 import {
@@ -90,7 +89,7 @@ const HERO_METRICS: Metric[] = [
     label: "Engagement uplift",
     value: "37%",
     detail: "Average boost in click-through and activation in the first 60 days.",
-    icon: ChartSpline
+    icon: LineChart
   },
   {
     label: "Compliance response time",
@@ -189,7 +188,7 @@ const JOURNEY: JourneyStage[] = [
     title: "Launch & optimisation",
     description: "Pilot launch with analytics instrumentation and rapid iteration support.",
     duration: "Weeks 5-6",
-    icon: ChartNoAxesGantt
+    icon: BarChart3
   }
 ];
 
@@ -373,7 +372,7 @@ export default function EmailPricingPage({ params }: EmailPricingPageProps) {
                   <ul className="space-y-3 text-sm text-muted-foreground">
                     {pkg.outcomes.map((item) => (
                       <li key={item} className="flex items-start gap-2">
-                        <CircleCheck className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
+                        <CheckCircle className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
                         <span>{item}</span>
                       </li>
                     ))}

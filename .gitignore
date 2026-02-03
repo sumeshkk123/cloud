@@ -38,3 +38,6 @@ next-env.d.ts
 # backup folder (keep structure, ignore contents)
 backup/*
 !backup/.gitkeep
+
+# large uploads / media (use Git LFS or host elsewhere)
+migration/

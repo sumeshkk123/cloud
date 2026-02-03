@@ -245,18 +245,18 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     "Dive into Diana’s skincare, lingerie, and wellness opportunity. Understand revenue signals, ambassador programmes, and Cloud MLM enablement tailored for beauty thought leaders.";
 
   const alternates = i18n.locales.reduce<Record<string, string>>((acc, currentLocale) => {
-    acc[currentLocale] = buildLocalizedPath(currentLocale, "/mlm-companies/diana");
+    acc[currentLocale] = buildLocalizedPath("/mlm-companies/diana", currentLocale as SupportedLocale);
     return acc;
   }, {});
 
   return {
     title,
     description,
-    alternates: { canonical: buildLocalizedPath(locale, "/mlm-companies/diana"), languages: alternates },
+    alternates: { canonical: buildLocalizedPath("/mlm-companies/diana", locale as SupportedLocale), languages: alternates },
     openGraph: {
       title,
       description,
-      url: buildLocalizedPath(locale, "/mlm-companies/diana"),
+      url: buildLocalizedPath("/mlm-companies/diana", locale as SupportedLocale),
       type: "article"
     }
   };
@@ -265,9 +265,9 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 export default function DianaPage({ params }: { params: { lang: Locale } }) {
   const locale = isSupportedLocale(params.lang) ? params.lang : i18n.defaultLocale;
 
-  const demoHref = buildLocalizedPath(locale, "/free-mlm-software-demo");
-  const contactHref = buildLocalizedPath(locale, "/contact");
-  const companiesHref = buildLocalizedPath(locale, "/mlm-companies");
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
+  const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
+  const companiesHref = buildLocalizedPath("/mlm-companies", locale as SupportedLocale);
 
   return (
     <div className="space-y-24 pb-20 pt-16">

@@ -14,7 +14,7 @@ import {
   ArrowUpRight,
   Compass,
   LayoutGrid,
-  Lifebuoy,
+  LifeBuoy,
   Map,
   Radar,
   Sparkles,
@@ -191,7 +191,7 @@ const TIMELINE: TimelineStage[] = [
       "Alerting for chargeback spikes, airline cancellations, or AML triggers",
       "Daily AI-generated summaries for executives and island leaders"
     ],
-    icon: Lifebuoy
+    icon: LifeBuoy
   },
   {
     phase: "04",

@@ -12,7 +12,6 @@ import {
   ArrowUpRight,
   BarChartBig,
   Building,
-  ChartBarStacked,
   Compass,
   Factory,
   Gauge,
@@ -22,6 +21,7 @@ import {
   Radar,
   ShieldCheck,
   Sparkles,
+  Lightbulb,
   Waypoints
 } from "lucide-react";
 import {
@@ -30,7 +30,6 @@ import {
   Cpu,
   CurrencyCircleDollar,
   Handshake,
-  Lighthouse,
   MapTrifold,
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
@@ -106,7 +105,7 @@ const INSIGHTS: Insight[] = [
     subtitle: "Embed regulatory confidence",
     description:
       "Cloud MLM Software harmonises AUSTRAC reporting, APRA guidance, and ASIC obligations in one compliance cockpit with automated artefacts.",
-    icon: Lighthouse
+    icon: Lightbulb
   },
   {
     title: "Omnichannel commerce",

@@ -10,7 +10,7 @@ import { i18n } from "@/i18n-config";
 import { Button } from "@/components/ui/button";
 import {
   ArrowUpRight,
-  ChartBar,
+  BarChart3,
   Compass,
   Earth,
   Layers,
@@ -127,7 +127,7 @@ const MARKET_INSIGHTS: Insight[] = [
     title: "Sector focus",
     copy:
       "Agriculture, wellness, and telecom networks require transparent payout, inventory, and compliance analytics to build trust.",
-    icon: ChartBar
+    icon: BarChart3
   }
 ];
 

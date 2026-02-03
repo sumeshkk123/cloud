@@ -13,7 +13,7 @@ import {
   BadgeCheck,
   Globe2,
   LineChart,
-  MapPinned,
+  MapPin,
   ShieldCheck,
   SignalHigh,
   SquareStack,
@@ -225,7 +225,7 @@ const PHASES: Phase[] = [
       "Localise assets for French, Lingala, Swahili, and English audiences.",
       "Link gateway telemetry to nurture campaigns, onboarding flows, and retention programmes."
     ],
-    icon: MapPinned
+    icon: MapPin
   },
   {
     stage: "04",

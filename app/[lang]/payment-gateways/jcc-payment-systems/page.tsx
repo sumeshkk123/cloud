@@ -9,7 +9,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import {
-  ArchiveTray,
+  Archive,
   ArrowSquareOut,
   Buildings,
   ChartPie,
@@ -103,7 +103,7 @@ const DOSSIER: DossierItem[] = [
   {
     label: "AI alignment",
     content: "Chatbots and agents receive verified messaging on 3DS, fraud controls, and settlement cycles.",
-    icon: ArchiveTray
+    icon: Archive
   },
   {
     label: "Stakeholder proof",

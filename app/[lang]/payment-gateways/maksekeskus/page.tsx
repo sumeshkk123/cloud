@@ -12,7 +12,7 @@ import {
   ArrowSquareOut,
   ChartLineUp,
   DeviceMobile,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   Notebook,
   ShieldCheck,
@@ -99,7 +99,7 @@ const HERO_PANELS: HeroPanel[] = [
     focus: "Estonia confirmed",
     description:
       "Maksekeskus already powers Estonian merchants and supports numerous European countries. We orchestrate localisation, Apple Pay flows, and compliance narratives from a single control plane.",
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   },
   {
     label: "Thought leadership",

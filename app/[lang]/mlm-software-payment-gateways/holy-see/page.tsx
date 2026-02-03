@@ -14,7 +14,7 @@ import {
   Building2,
   Globe2,
   Layers,
-  MapPinned,
+  MapPin,
   Sparkles,
   Target
 } from "lucide-react";
@@ -122,7 +122,7 @@ const OPPORTUNITIES: Opportunity[] = [
     title: "Philanthropy & cultural programmes",
     copy:
       "Museums, cultural projects, and humanitarian outreach require grant governance, recurring donations, and multi-language storytelling.",
-    icon: MapPinned
+    icon: MapPin
   },
   {
     title: "Education & health missions",

@@ -21,5 +21,96 @@ export default {
         detail: "Copilots now brief leadership, field, and success teams."
       }
     }
+  },
+  categories: {
+    AI: {
+      badge: "AI capabilities",
+      heading: "AI features that accelerate field momentum",
+      description: "Machine learning powers product recommendations, commission forecasting, and sales coaching so leaders can act on insights instead of spreadsheets.",
+      columns: "md:grid-cols-3"
+    },
+    Core: {
+      badge: "Core platform features",
+      heading: "Everything you expect from enterprise MLM software",
+      description: "Cloud MLM Software bundles extensibility, multi-region operations, and omnichannel communications so your teams can run daily business with confidence.",
+      columns: "md:grid-cols-2 xl:grid-cols-3"
+    },
+    Performance: {
+      badge: "Performance",
+      heading: "Built for speed, scale, and reliability",
+      description: "From responsive interfaces to caching and optimization, the platform stays fast whether you are launching a promotion or closing a period.",
+      columns: "md:grid-cols-2 xl:grid-cols-3"
+    },
+    Security: {
+      badge: "Security & compliance",
+      heading: "Security-first architecture for global expansion",
+      description: "Multi-layer protection, verified frameworks, and resilient operations help you meet regulatory expectations while scaling into new regions.",
+      columns: "md:grid-cols-2 xl:grid-cols-3"
+    },
+    Unique: {
+      badge: "Unique capabilities",
+      heading: "Extras that set Cloud MLM Software apart",
+      description: "Handle complex integrations, marketing programs, and field experiences with services and modules designed specifically for direct selling.",
+      columns: "md:grid-cols-2 xl:grid-cols-3"
+    },
+    Compensation: {
+      badge: "Compensation & payouts",
+      heading: "Configure rewarding plans and automate compliant payouts",
+      description: "Align finance, legal, and field leaders with a compensation stack that handles modelling, testing, payroll, and compliance in one place.",
+      columns: "md:grid-cols-2 xl:grid-cols-4"
+    },
+    Commerce: {
+      badge: "Commerce & customer experience",
+      heading: "Delight customers and distributors on every channel",
+      description: "Combine B2C storefronts, replicated sites, and mobile selling tools with journey automation that retains customers and grows lifetime value.",
+      columns: "md:grid-cols-2 xl:grid-cols-4"
+    },
+    Integrations: {
+      badge: "Integrations & APIs",
+      heading: "Connect your ecosystem without brittle custom code",
+      description: "Use certified connectors, webhooks, and APIs to link commerce, CRM, support, and analytics platforms while maintaining data fidelity.",
+      columns: "md:grid-cols-2 xl:grid-cols-4"
+    },
+    Enablement: {
+      badge: "Enablement & success",
+      heading: "Equip every team with knowledge, coaching, and expert support",
+      description: "From onboarding to ongoing optimisation, Cloud MLM Software includes the playbooks, analytics, and specialists that ensure sustained adoption.",
+      columns: "md:grid-cols-2 xl:grid-cols-4"
+    }
+  },
+  navigation: [
+    { label: "Compensation", href: "#compensation-features" },
+    { label: "AI", href: "#ai-features" },
+    { label: "Core", href: "#core-features" },
+    { label: "Performance", href: "#performance-features" },
+    { label: "Security", href: "#security-features" },
+    { label: "Commerce", href: "#commerce-features" },
+    { label: "Integrations", href: "#integration-features" },
+    { label: "Enablement", href: "#enablement-features" },
+    { label: "Unique", href: "#unique-features" }
+  ],
+  common: {
+    loadingText: "Loading features...",
+    learnMore: "Learn more"
+  },
+  faq: {
+    badge: "FAQs",
+    heading: "Frequently asked questions",
+    description:
+      "Answers to the most common questions from evaluating teams, finance leaders, and field organisations considering Cloud MLM Software.",
+    loadingText: "Loading FAQs...",
+    emptyText: "No FAQs available at the moment."
+  },
+  cta: {
+    title: "See Cloud MLM Software in action",
+    description:
+      "Share your objectives and we'll craft a tailored demo—covering modules, integrations, automations, and copilots ready for your brand.",
+    primaryButtonText: "Plan a strategy session",
+    secondaryButtonText: "Explore the live platform",
+    trust: {
+      quickImplementation: "Quick implementation",
+      expertConsultation: "Expert consultation",
+      provenResults: "Proven results"
+    }
   }
 };

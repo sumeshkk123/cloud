@@ -1,0 +1,44 @@
+{
+  "heroSection": {
+    "badgeText": "Kostenlose geführte Demo",
+    "fallbackTitle": "Erleben Sie Cloud MLM Software mit Ihren Daten, Ihren Plänen und Ihren Teams.",
+    "fallbackDescription": "Erkunden Sie Vergütung, Automatisierung, Analytics und KI-Copiloten in einer sicheren Sandbox, die speziell für Ihre Direktvertriebsmarke konfiguriert ist.",
+    "primaryCta": "Demo-Termin reservieren",
+    "secondaryCta": "Plattformfunktionen ansehen",
+    "includedValue": "Inklusive",
+    "metrics": {
+      "tailoredSandbox": {
+        "label": "Individuelle Sandbox",
+        "value": "Inklusive",
+        "detail": "Mit Ihren Planvorlagen und Datenbeispielen"
+      },
+      "guidedWalkthroughs": {
+        "label": "Geführte Walkthroughs",
+        "value": "Inklusive",
+        "detail": "Vergütung, Mobile und Analytics-Module"
+      },
+      "accessWindow": {
+        "label": "30 Tage Zugang",
+        "value": "30 Tage",
+        "detail": "Optionale Verlängerungen während der Planung"
+      },
+      "securityBriefing": {
+        "label": "Security-Briefing",
+        "value": "Inklusive",
+        "detail": "Compliance-Review für Legal- und IT-Teams"
+      }
+    }
+  },
+  "planDemosSection": {
+    "adminViewpoint": "Admin-Ansicht",
+    "distributorViewpoint": "Vertriebspartner-Ansicht",
+    "exploreDemo": "Demo erkunden",
+    "bookYourDemo": "Demo buchen"
+  },
+  "faqSection": {
+    "badge": "Demo-FAQs",
+    "heading": "Häufig gestellte Fragen",
+    "description": "Praktische Details, die Teams häufig vor der Aktivierung der kostenlosen Demo klären.",
+    "noFaqsText": "Derzeit sind keine FAQs verfügbar."
+  }
+}

@@ -8,7 +8,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import {
-  Activity,
+  Pulse,
   ArrowSquareOut,
   ChatsCircle,
   CirclesFour,
@@ -196,7 +196,7 @@ export default function StripePage5({ params }: StripePage5Props) {
                     </p>
                   </div>
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-700 dark:bg-white/10 dark:text-white">
-                    <Activity className="h-5 w-5" aria-hidden />
+                    <Pulse className="h-5 w-5" aria-hidden />
                   </span>
                 </div>
                 <p className="text-sm leading-6 text-slate-700 dark:text-slate-200">{signal.insight}</p>

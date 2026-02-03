@@ -26,7 +26,7 @@ import {
   Sparkles,
   Users
 } from "lucide-react";
-import PartyPlanSimulator from "@/components/frontend/plan/party-plan-simulator";
+import PartyPlanSimulator from "@/components/frontend/plans/all-plans/party-plan-simulator";
 
 export const dynamic = "force-static";
 

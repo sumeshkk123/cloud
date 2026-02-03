@@ -203,18 +203,18 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
     "Uncover Energetix’s magnetic jewelry opportunity: revenue signals, experience pillars, product collections, and Cloud MLM enablement to grow compliant, design-led communities.";
 
   const alternates = i18n.locales.reduce<Record<string, string>>((acc, currentLocale) => {
-    acc[currentLocale] = buildLocalizedPath(currentLocale, "/mlm-companies/energetix");
+    acc[currentLocale] = buildLocalizedPath("/mlm-companies/energetix", currentLocale as SupportedLocale);
     return acc;
   }, {});
 
   return {
     title,
     description,
-    alternates: { canonical: buildLocalizedPath(locale, "/mlm-companies/energetix"), languages: alternates },
+    alternates: { canonical: buildLocalizedPath("/mlm-companies/energetix", locale as SupportedLocale), languages: alternates },
     openGraph: {
       title,
       description,
-      url: buildLocalizedPath(locale, "/mlm-companies/energetix"),
+      url: buildLocalizedPath("/mlm-companies/energetix", locale as SupportedLocale),
       type: "article"
     }
   };
@@ -223,9 +223,9 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 export default function EnergetixPage({ params }: { params: { lang: Locale } }) {
   const locale = isSupportedLocale(params.lang) ? params.lang : i18n.defaultLocale;
 
-  const demoHref = buildLocalizedPath(locale, "/free-mlm-software-demo");
-  const contactHref = buildLocalizedPath(locale, "/contact");
-  const companiesHref = buildLocalizedPath(locale, "/mlm-companies");
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
+  const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
+  const companiesHref = buildLocalizedPath("/mlm-companies", locale as SupportedLocale);
 
   return (
     <div className="space-y-24 pb-20 pt-16">

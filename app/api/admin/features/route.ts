@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import {
   listFeatures,
+  listFeaturesWithLocales,
   getFeatureById,
   createFeature,
   updateFeature,
@@ -37,41 +38,19 @@ export async function GET(request: Request) {
       return NextResponse.json(featureRecord);
     }
 
-    // Fetch English features
-    const features = await listFeatures('en');
-    
-    // If withTranslations is true, fetch all translations and group by id
+    // If withTranslations is true, use single-query list (avoids N+1)
     if (withTranslations) {
-      // Fetch all translations for all features in parallel
-      const allTranslations = await Promise.all(
-        features.map(async (feature) => {
-          return await getAllFeatureTranslations(feature.id);
-        })
-      );
-
-      // Create a map of feature id to available locales
-      const localeMap = new Map<string, string[]>();
-      allTranslations.flat().forEach(feature => {
-        if (!localeMap.has(feature.id)) {
-          localeMap.set(feature.id, []);
-        }
-        localeMap.get(feature.id)!.push(feature.locale);
+      const featuresWithLocales = await listFeaturesWithLocales(locale || 'en');
+      return NextResponse.json(featuresWithLocales, {
+        headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
       });
-
-      // Map features with their available locales
-      const featuresWithLocales = features.map((feature) => {
-        const availableLocales = localeMap.get(feature.id) || [feature.locale];
-        
-        return {
-          ...feature,
-          availableLocales, // Include translation info
-        };
-      });
-      
-      return NextResponse.json(featuresWithLocales);
     }
 
-    return NextResponse.json(features);
+    const features = await listFeatures(locale || 'en');
+
+    return NextResponse.json(features, {
+      headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to process request.';
     return NextResponse.json({ error: message }, { status: 500 });
@@ -132,10 +111,10 @@ export async function PUT(request: Request) {
     }
 
     const targetLocale = String(locale);
-    
+
     // Check if feature exists in this locale
     const existing = await getFeatureById(id, targetLocale);
-    
+
     if (existing) {
       // Update existing entry
       const featureRecord = await updateFeature(id, targetLocale, {
@@ -148,6 +127,26 @@ export async function PUT(request: Request) {
         showOnHomePage: Boolean(showOnHomePage ?? false),
         features: features || null,
       });
+
+      // Sync showOnHomePage, icon, and category across all translations (shared fields)
+      const showOnHomePageValue = Boolean(showOnHomePage ?? false);
+      const iconValue = String(icon);
+      const categoryValue = String(category);
+
+      // Update all other translations with shared values
+      await prisma.features.updateMany({
+        where: {
+          id,
+          locale: { not: targetLocale }, // Update all except current locale
+        },
+        data: {
+          showOnHomePage: showOnHomePageValue,
+          icon: iconValue,
+          category: categoryValue,
+          updatedAt: new Date(),
+        },
+      });
+
       return NextResponse.json(featureRecord);
     } else {
       // Create new translation with same ID
@@ -163,6 +162,26 @@ export async function PUT(request: Request) {
         locale: targetLocale,
         features: features || null,
       });
+
+      // Sync showOnHomePage, icon, and category across all translations (shared fields)
+      const showOnHomePageValue = Boolean(showOnHomePage ?? false);
+      const iconValue = String(icon);
+      const categoryValue = String(category);
+
+      // Update all other translations with shared values
+      await prisma.features.updateMany({
+        where: {
+          id,
+          locale: { not: targetLocale }, // Update all except current locale
+        },
+        data: {
+          showOnHomePage: showOnHomePageValue,
+          icon: iconValue,
+          category: categoryValue,
+          updatedAt: new Date(),
+        },
+      });
+
       return NextResponse.json(featureRecord);
     }
   } catch (error) {

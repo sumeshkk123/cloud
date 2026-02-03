@@ -261,7 +261,7 @@ export default function MaldivesPaymentGatewayPage({ params }: MaldivesPageProps
               </span>
               <div className="space-y-6">
                 <h1 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-                  Maldives' payment gateways orchestrated for resort-ready growth
+                  Maldives&apos; payment gateways orchestrated for resort-ready growth
                 </h1>
                 <p className="max-w-2xl text-base text-muted-foreground">
                   We keep the WordPress heritage—gateway list, module roster, and the “Ways to accept payments” headline—while layering automation, compliance guardrails, and AI telemetry for tourism, hospitality, and donor programmes.
@@ -310,7 +310,7 @@ export default function MaldivesPaymentGatewayPage({ params }: MaldivesPageProps
       <section className="container space-y-12">
         <div className="space-y-3 text-center">
           <h2 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Gateway plays for Maldives' tourism, hospitality, and innovation programmes
+            Gateway plays for Maldives&apos; tourism, hospitality, and innovation programmes
           </h2>
           <p className="mx-auto max-w-3xl text-sm text-muted-foreground">
             Each connector receives automation, compliance, and AI telemetry so leadership can align commerce, philanthropy, and digital services.

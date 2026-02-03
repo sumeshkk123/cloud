@@ -12,10 +12,10 @@ import {
   ArrowUpRight,
   Briefcase,
   Building,
-  ChartPie,
   DollarSign,
   Globe,
   LineChart,
+  PieChart,
   ShieldCheck,
   Sparkle,
   Trophy,
@@ -51,7 +51,7 @@ const VALUE_DRIVERS: ValueDriver[] = [
   {
     title: "Decision-grade data",
     detail: "Every stakeholder gains dashboards that reveal growth, retention, and profitability in real time.",
-    icon: ChartPie
+    icon: PieChart
   },
   {
     title: "Operational clarity",

@@ -17,7 +17,8 @@ import {
   Layers3,
   ShieldCheck,
   Signal,
-  Sparkles
+  Sparkles,
+  Waves
 } from "lucide-react";
 import {
   ChatCenteredDots,

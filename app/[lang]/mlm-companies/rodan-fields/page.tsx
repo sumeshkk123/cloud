@@ -17,8 +17,7 @@ import {
   Microscope,
   ShieldCheck,
   Sparkles,
-  Users2,
-  Vial
+  Users2
 } from "lucide-react";
 import { ChartLineUp, HandHeart, UsersFour, UsersThree } from "@phosphor-icons/react/dist/ssr";
 
@@ -99,7 +98,7 @@ const CLINICAL_PILLARS: ClinicalPillar[] = [
     description:
       "Rodan + Fields pairs clinically-tested formulas with precise ingredient sequencing to deliver visible results.",
     emphasis: "Consultants turn complex science into simple daily rituals that build trust quickly.",
-    icon: Vial
+    icon: FlaskConical
   },
   {
     title: "Targeted regimen architecture",

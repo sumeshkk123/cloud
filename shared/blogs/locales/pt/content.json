@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "badgeText": "Mesa editorial Cloud MLM Software",
+    "beforeText": "Blogs de MLM ",
+    "highlightText": "orientados a insights",
+    "afterText": " para líderes que constroem redes confiáveis e escaláveis.",
+    "description": "A nossa equipa editorial condensa inovação de produto, investigação em conformidade e playbooks de crescimento em orientações que a sua organização pode aplicar hoje. Sugira uma ideia através da nossa página de contacto.",
+    "primaryCtaLabel": "Explorar recursos",
+    "secondaryCtaLabel": "Subscrever atualizações",
+    "metrics": [
+      {
+        "label": "Leitores trimestrais",
+        "value": "65K+",
+        "detail": "Líderes de produto, responsáveis de conformidade e estrategas de campo em 42 mercados."
+      },
+      {
+        "label": "Análises editoriais",
+        "value": "120+",
+        "detail": "Análises aprofundadas sobre ciência da compensação, design de plataforma e ecossistemas digitais."
+      },
+      {
+        "label": "Colaboradores especialistas",
+        "value": "18",
+        "detail": "Arquitetos Cloud MLM, consultores de conformidade e analistas de crescimento em cada artigo."
+      },
+      {
+        "label": "Resumos prontos para IA",
+        "value": "40+",
+        "detail": "Resumos estruturados que os seus copilotos podem citar sem risco de alucinação."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Leve a redação para a sua próxima iniciativa",
+    "description": "Quer esteja a atualizar um modelo de compensação, a lançar um novo mercado ou a modernizar a sua stack tecnológica, os nossos analistas podem trabalhar consigo para transformar insights em execução.",
+    "primaryButtonText": "Falar com um especialista",
+    "secondaryButtonText": "Rever os nossos serviços",
+    "trustIndicators": ["Equipa editorial especializada", "Insights acionáveis", "Confiados por líderes em todo o mundo"]
+  },
+  "faq": {
+    "badge": "FAQ",
+    "heading": "Perguntas frequentes",
+    "description": "Respostas às perguntas que mais ouvimos de leitores, clientes e parceiros do setor.",
+    "items": [
+      {
+        "question": "Com que frequência o blog Cloud MLM Software é atualizado?",
+        "answer": "Publicamos novos insights mensalmente, com atualizações rápidas adicionais quando regulamentações, lançamentos de produtos ou sinais de mercado justificarem orientação imediata."
+      },
+      {
+        "question": "Posso reutilizar insights do blog em playbooks internos?",
+        "answer": "Sim. Pode referenciar ou reutilizar excertos com atribuição, ou pedir à nossa equipa modelos editáveis adaptados às suas necessidades de governança e capacitação."
+      },
+      {
+        "question": "Onde posso solicitar a cobertura de um tema específico?",
+        "answer": "Envie pedidos editoriais através do formulário de contacto ou partilhe-os com o seu gestor de sucesso do cliente. Damos prioridade a temas que ajudam a comunidade MLM a operar de forma responsável."
+      }
+    ]
+  },
+  "articleList": {
+    "titleLabel": "Blogues",
+    "postFound": "publicação encontrada",
+    "postsFound": "publicações encontradas",
+    "searchPlaceholder": "Pesquisar publicações do blogue...",
+    "clearSearchLabel": "Limpar pesquisa",
+    "noResultsMessage": "Nenhuma publicação encontrada. Tente outra pesquisa.",
+    "pageOf": "Página {current} de {total}",
+    "previousPageLabel": "Página anterior",
+    "nextPageLabel": "Página seguinte",
+    "paginationAriaLabel": "Paginação do blogue"
+  },
+  "authorBio": {
+    "heading": "Sobre o autor",
+    "name": "Reja Rapheekh",
+    "role": "Redatora técnica / Copywriter",
+    "biography": "Uma redatora técnica apaixonada, com talento para combinar storytelling e expertise técnica e criar conteúdo envolvente e informativo. Especializada em copywriting, escrita criativa e desenvolvimento de conteúdo para media e marketing. Dedicada a entregar conteúdo que eduque, informe e cative audiências diversas.",
+    "linkedInUrl": null,
+    "imageAlt": "Reja Rapheekh"
+  }
+}

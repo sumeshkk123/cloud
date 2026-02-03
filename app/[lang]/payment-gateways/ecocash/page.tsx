@@ -16,7 +16,7 @@ import {
   Circuitry,
   ClockCountdown,
   CloudLightning,
-  GlobeHemisphereSouth,
+  GlobeHemisphereEast,
   GridFour,
   Handshake,
   Lightning,
@@ -64,7 +64,7 @@ const HERO_BADGES: HeroBadge[] = [
     title: "Zimbabwe & Lesotho ready",
     caption:
       "EcoCash adoption is strong across Southern Africa—our WordPress archive highlights both markets in August 2024.",
-    icon: GlobeHemisphereSouth
+    icon: GlobeHemisphereEast
   },
   {
     title: "AI narrated demos",

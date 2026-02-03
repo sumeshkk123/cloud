@@ -15,7 +15,8 @@ import {
   Globe2,
   Layers3,
   Snowflake,
-  Sparkles
+  Sparkles,
+  Waves
 } from "lucide-react";
 import {
   ChatCenteredDots,

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
-import { Plus } from 'lucide-react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
+import { Plus, Plug } from 'lucide-react';
 import { Button } from '@/components/ui/adminUi/button';
 import { Table } from '@/components/ui/adminUi/table';
 import { Pagination } from '@/components/ui/adminUi/pagination';
@@ -39,14 +39,23 @@ export function IntegrationTable() {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const hasLoadedRef = useRef(false);
 
-  const loadItems = async () => {
+  const loadItems = async (forceReload = false) => {
     try {
-      setIsLoading(true);
-      const res = await fetch('/api/admin/integrations?locale=en', {
-        next: { revalidate: 0 },
+      if (forceReload || !hasLoadedRef.current) {
+        setIsLoading(true);
+      }
+      const timestamp = Date.now();
+      const res = await fetch(`/api/admin/integrations?locale=en&withTranslations=true&_t=${timestamp}`, {
+        credentials: 'include',
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+        },
       });
-      
+
       let data;
       try {
         data = await res.json();
@@ -72,67 +81,40 @@ export function IntegrationTable() {
         return;
       }
 
-      console.log('[IntegrationTable] API response:', { status: res.status, dataLength: Array.isArray(data) ? data.length : 'not array', data });
-
       const mapped: IntegrationRow[] = Array.isArray(data)
         ? data.map((item: any) => {
-            let connectors: string[] | null = null;
-            if (item.connectors) {
-              if (Array.isArray(item.connectors)) {
-                connectors = item.connectors;
-              } else if (typeof item.connectors === 'string') {
-                try {
-                  const parsed = JSON.parse(item.connectors);
-                  connectors = Array.isArray(parsed) ? parsed : [item.connectors];
-                } catch {
-                  // If parsing fails, treat as a single connector string
-                  connectors = [item.connectors];
-                }
+          let connectors: string[] | null = null;
+          if (item.connectors) {
+            if (Array.isArray(item.connectors)) {
+              connectors = item.connectors;
+            } else if (typeof item.connectors === 'string') {
+              try {
+                const parsed = JSON.parse(item.connectors);
+                connectors = Array.isArray(parsed) ? parsed : [item.connectors];
+              } catch {
+                connectors = [item.connectors];
               }
             }
-            return {
-              id: String(item.id),
-              icon: item.icon ? String(item.icon) : null,
-              title: String(item.title || ''),
-              description: String(item.description || ''),
-              connectors,
-              locale: String(item.locale || 'en'),
-              updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
-            };
-          })
+          }
+          return {
+            id: String(item.id),
+            icon: item.icon ? String(item.icon) : null,
+            title: String(item.title || ''),
+            description: String(item.description || ''),
+            connectors,
+            locale: String(item.locale || 'en'),
+            availableLocales: Array.isArray(item.availableLocales) ? item.availableLocales : [item.locale || 'en'],
+            updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
+          };
+        })
         : [];
 
-      // Fetch available locales for each integration
-      const itemsWithLocales = await Promise.all(
-        mapped.map(async (item) => {
-          try {
-            const translationsRes = await fetch(
-              `/api/admin/integrations?id=${encodeURIComponent(item.id)}&all=true`,
-              { next: { revalidate: 0 } }
-            );
-            if (translationsRes.ok) {
-              let translationsData;
-              try {
-                translationsData = await translationsRes.json();
-              } catch (jsonError) {
-                console.error(`[IntegrationTable] Failed to parse translations JSON for ${item.id}:`, jsonError);
-                return { ...item, availableLocales: [item.locale] };
-              }
-              const locales = translationsData?.translations?.map((t: any) => t.locale) || [item.locale];
-              return { ...item, availableLocales: locales };
-            }
-          } catch (error) {
-            console.error(`[IntegrationTable] Error fetching translations for ${item.id}:`, error);
-          }
-          return { ...item, availableLocales: [item.locale] };
-        })
-      );
-
-      console.log('[IntegrationTable] Items loaded:', itemsWithLocales.length);
-      setItems(itemsWithLocales);
+      setItems(mapped);
+      if (!forceReload) {
+        hasLoadedRef.current = true;
+      }
       setCurrentPage(1);
     } catch (error) {
-      console.error('[IntegrationTable] Load error:', error);
       const errorMessage = error instanceof Error ? error.message : 'Failed to load integrations.';
       showToast(`Failed to load integrations: ${errorMessage}`, 'error');
       setItems([]);
@@ -144,6 +126,7 @@ export function IntegrationTable() {
 
   useEffect(() => {
     loadItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
   }, []);
 
   const filtered = useMemo(() => items, [items]);
@@ -190,7 +173,9 @@ export function IntegrationTable() {
   };
 
   const handleFormSave = async () => {
-    await loadItems();
+    hasLoadedRef.current = false; // Reset loaded flag to force reload
+    await loadItems(true); // Force reload
+    setCurrentPage(1); // Reset to first page
   };
 
   return (
@@ -225,7 +210,7 @@ export function IntegrationTable() {
               emptyMessage={isLoading ? 'Loading integrations...' : 'No integrations available yet.'}
               renderCell={(column, row) => {
                 if (column.key === 'icon') {
-                  const IconComponent = row.icon ? resolveIcon(row.icon) : null;
+                  const IconComponent = row.icon ? resolveIcon(row.icon, Plug) : null;
                   return (
                     <div className="flex items-center justify-center">
                       {IconComponent ? (
@@ -316,7 +301,7 @@ export function IntegrationTable() {
           setDeleteId(null);
         }}
         onConfirm={handleDelete}
-        isDeleting={isDeleting}
+        isLoading={isDeleting}
         title="Delete Integration"
         message="Are you sure you want to delete this integration? This action cannot be undone."
       />

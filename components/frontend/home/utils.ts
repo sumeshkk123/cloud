@@ -82,14 +82,22 @@ export const ICON_MAP: Record<string, LucideIcon> = {
  */
 export function resolveIcon(iconValue: string | null | undefined, fallback: LucideIcon): ComponentType<{ className?: string }> {
   if (!iconValue) return fallback;
-  
+
+  const trimmedValue = String(iconValue).trim();
+  if (!trimmedValue) return fallback;
+
+  // Normalize: if no prefix, assume lucide
+  const normalizedValue = trimmedValue.includes(':') ? trimmedValue : `lucide:${trimmedValue}`;
+
   // Check if it's in the format "type:iconName"
-  if (iconValue.includes(':')) {
-    const [type, iconName] = iconValue.split(':');
-    
+  if (normalizedValue.includes(':')) {
+    const [type, iconName] = normalizedValue.split(':');
+
     if (type === 'lucide') {
       const IconComponent = (LucideIcons as any)[iconName] as ComponentType<{ className?: string }> | undefined;
-      return IconComponent || fallback;
+      if (IconComponent) {
+        return IconComponent;
+      }
     } else if (type === 'remix') {
       const IconComponent = (RemixIcon as any)[iconName] as ComponentType<{ className?: string }> | undefined;
       if (IconComponent) {
@@ -106,7 +114,7 @@ export function resolveIcon(iconValue: string | null | undefined, fallback: Luci
         iconName, // Original name as-is
         `fa${iconName}`, // Original name with fa prefix
       ];
-      
+
       for (const key of variations) {
         if (fas[key as keyof typeof fas]) {
           // Return a component that renders FontAwesome icon using React.createElement
@@ -117,18 +125,18 @@ export function resolveIcon(iconValue: string | null | undefined, fallback: Luci
       }
     }
   }
-  
-  // Try as Lucide icon name (backward compatibility)
-  if (ICON_MAP[iconValue]) {
-    return ICON_MAP[iconValue];
+
+  // Try as Lucide icon name (backward compatibility - without prefix)
+  if (ICON_MAP[trimmedValue]) {
+    return ICON_MAP[trimmedValue];
   }
-  
-  // Try to find in Lucide icons dynamically
-  const LucideIconComponent = (LucideIcons as any)[iconValue] as ComponentType<{ className?: string }> | undefined;
+
+  // Try to find in Lucide icons dynamically (without prefix)
+  const LucideIconComponent = (LucideIcons as any)[trimmedValue] as ComponentType<{ className?: string }> | undefined;
   if (LucideIconComponent) {
     return LucideIconComponent;
   }
-  
+
   return fallback;
 }
 

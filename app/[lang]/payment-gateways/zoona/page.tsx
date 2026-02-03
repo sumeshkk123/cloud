@@ -16,7 +16,7 @@ import {
   MapPin,
   ShieldCheck,
   UsersThree,
-  VectorTriangle
+  Triangle
 } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
@@ -203,7 +203,7 @@ export default function ZoonaPage({ params }: ZoonaPageProps) {
           </div>
           <div className="flex flex-col gap-6 rounded-[2.5rem] border border-emerald-100 bg-gradient-to-br from-white via-emerald-50 to-white p-8 shadow-xl dark:border-white/10 dark:bg-gradient-to-br dark:from-emerald-900/40 dark:via-slate-950 dark:to-black">
             <div className="flex items-center gap-3">
-              <VectorTriangle className="h-6 w-6 text-emerald-600 dark:text-emerald-200" aria-hidden />
+              <Triangle className="h-6 w-6 text-emerald-600 dark:text-emerald-200" aria-hidden />
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-200">Launch roadmap</p>
             </div>
             <div className="space-y-6">

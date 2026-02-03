@@ -5,6 +5,23 @@ import type { HomepageContent } from "@/types/homepage";
 import type { SupportedLocale } from "@/config/site";
 import { getHomepageContent as getHomepageContentFromDb } from "@/lib/api/homepage";
 
+function getLocaleFilesystemAlias(locale: SupportedLocale): string {
+  // Repo uses some locale directories that don't exactly match `i18n-config.ts`
+  // Keep behavior stable by aliasing supported locales to existing folders.
+  if (locale === "zh") return "zh-Hans";
+  if (locale === "pt") return "pt-PT";
+  return locale;
+}
+
+function getHomepageContentFromFilesystem(locale: SupportedLocale): Partial<HomepageContent> | null {
+  const fsLocale = getLocaleFilesystemAlias(locale);
+  try {
+    return require(`../shared/homepage/locales/${fsLocale}/content.json`);
+  } catch {
+    return null;
+  }
+}
+
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -99,16 +116,20 @@ function normalizeHomepageContent(content: HomepageContent): HomepageContent {
 export async function getHomepageContent(locale: SupportedLocale): Promise<HomepageContent> {
   try {
     const cmsContent = await getHomepageContentFromDb(locale);
+    const fileContent = getHomepageContentFromFilesystem(locale);
+    const localizedDefault = fileContent ? mergeContent(defaultContent as HomepageContent, fileContent) : (defaultContent as HomepageContent);
     // If no database content, use default content directly
     if (!cmsContent) {
-      return normalizeHomepageContent(defaultContent as HomepageContent);
+      return normalizeHomepageContent(localizedDefault);
     }
     // Merge database content with default content
-    const merged = mergeContent(defaultContent as HomepageContent, cmsContent);
+    const merged = mergeContent(localizedDefault, cmsContent);
     return normalizeHomepageContent(merged);
   } catch (error) {
     console.error(`[getHomepageContent] Error for locale ${locale}:`, error);
     // Return default content if there's an error
-    return normalizeHomepageContent(defaultContent as HomepageContent);
+    const fileContent = getHomepageContentFromFilesystem(locale);
+    const localizedDefault = fileContent ? mergeContent(defaultContent as HomepageContent, fileContent) : (defaultContent as HomepageContent);
+    return normalizeHomepageContent(localizedDefault);
   }
 }

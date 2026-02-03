@@ -14,7 +14,7 @@ import {
   ChartLineUp,
   Circuitry,
   Coins,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   MapPin,
   ShieldCheck,
@@ -58,7 +58,7 @@ const HERO_METRICS: Metric[] = [
     label: "Regional spotlight",
     value: "Baltics",
     detail: "Latvia and Lithuania anchor Paysera’s payment leadership.",
-    icon: GlobeHemisphereNorth
+    icon: GlobeHemisphereEast
   },
   {
     label: "Experience promise",

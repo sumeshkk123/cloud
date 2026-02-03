@@ -15,7 +15,7 @@ import {
   ChartLineUp,
   Compass,
   DeviceTabletCamera,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   MapTrifold,
   Notebook,

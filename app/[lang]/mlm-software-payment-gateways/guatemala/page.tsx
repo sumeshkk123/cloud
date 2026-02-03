@@ -13,7 +13,7 @@ import {
   BarChart3,
   Globe2,
   Layers,
-  MapPinned,
+  MapPin,
   Sparkles,
   Target
 } from "lucide-react";
@@ -166,7 +166,7 @@ const STAGES: Stage[] = [
       "Stakeholder RACI joining Guatemala HQ, Mexico, and US leadership councils.",
       "Solution architecture describing connectors, monitoring, and escalation paths."
     ],
-    icon: MapPinned
+    icon: MapPin
   },
   {
     step: "Sprint 02",

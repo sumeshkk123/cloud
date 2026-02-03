@@ -13,7 +13,7 @@ import {
   ChartLineUp,
   Circuitry,
   Compass,
-  GlobeHemisphereNorth,
+  GlobeHemisphereEast,
   Lightning,
   MapPin,
   ShieldCheck,
@@ -323,7 +323,7 @@ export default function QuickPayPage({ params }: QuickPayPageProps) {
           <article className="flex flex-col gap-4 rounded-3xl border border-border/60 bg-background p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md dark:border-white/15 dark:bg-white/5">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Denmark</h3>
-              <GlobeHemisphereNorth className="h-6 w-6 text-blue-600 dark:text-blue-200" aria-hidden />
+              <GlobeHemisphereEast className="h-6 w-6 text-blue-600 dark:text-blue-200" aria-hidden />
             </div>
             <p className="text-sm text-slate-600 dark:text-white/70">
               Emphasise subscription billing, omnichannel retail, and bilingual (Danish/English) enablement anchored by QuickPay&apos;s platform.

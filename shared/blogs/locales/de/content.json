@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "badgeText": "Cloud MLM Software Redaktion",
+    "beforeText": "Insight-orientierte ",
+    "highlightText": "MLM-Blogs",
+    "afterText": " für Führungskräfte, die vertrauenswürdige, skalierbare Netzwerke aufbauen.",
+    "description": "Unser Redaktionsteam bündelt Produktinnovation, Compliance-Forschung und Wachstums-Playbooks in Handlungsempfehlungen, die Ihre Organisation heute umsetzen kann. Schlagen Sie eine Idee über unsere Kontaktseite vor.",
+    "primaryCtaLabel": "Ressourcen durchsuchen",
+    "secondaryCtaLabel": "Updates abonnieren",
+    "metrics": [
+      {
+        "label": "Vierteljährliche Leser",
+        "value": "65K+",
+        "detail": "Produktverantwortliche, Compliance-Beauftragte und Feldstrategen in 42 Märkten."
+      },
+      {
+        "label": "Editoriale Vertiefungen",
+        "value": "120+",
+        "detail": "Langform-Analysen zu Vergütungswissenschaft, Plattformdesign und digitalen Ökosystemen."
+      },
+      {
+        "label": "Experten-Autoren",
+        "value": "18",
+        "detail": "Cloud-MLM-Architekten, Compliance-Berater und Wachstumsanalysten in jedem Artikel."
+      },
+      {
+        "label": "KI-taugliche Kurzfassungen",
+        "value": "40+",
+        "detail": "Strukturierte Zusammenfassungen, die Ihre Copilots ohne Halluzinationsrisiko zitieren können."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Bringen Sie die Redaktion in Ihre nächste Initiative",
+    "description": "Ob Sie ein Vergütungsmodell überarbeiten, einen neuen Markt erschließen oder Ihren Tech-Stack modernisieren – unsere Analysten unterstützen Sie dabei, Erkenntnisse in die Umsetzung zu bringen.",
+    "primaryButtonText": "Mit einem Experten sprechen",
+    "secondaryButtonText": "Unsere Leistungen ansehen",
+    "trustIndicators": ["Expertenteam der Redaktion", "Umsetzbare Erkenntnisse", "Vertrauen von Führungskräften weltweit"]
+  },
+  "faq": {
+    "badge": "FAQ",
+    "heading": "Häufig gestellte Fragen",
+    "description": "Antworten auf die Fragen, die wir am häufigsten von Lesern, Kunden und Branchenpartnern hören.",
+    "items": [
+      {
+        "question": "Wie oft wird der Cloud MLM Software-Blog aktualisiert?",
+        "answer": "Wir veröffentlichen monatlich neue Einblicke, mit zusätzlichen schnellen Updates, wenn Vorschriften, Produktfreigaben oder Marktsignale sofortige Orientierung erfordern."
+      },
+      {
+        "question": "Kann ich Blog-Einblicke in internen Playbooks wiederverwenden?",
+        "answer": "Ja. Sie können Auszüge mit Quellenangabe referenzieren oder wiederverwenden, oder unser Team um bearbeitbare Vorlagen bitten, die auf Ihre Governance- und Enablement-Bedürfnisse zugeschnitten sind."
+      },
+      {
+        "question": "Wo kann ich die Behandlung eines bestimmten Themas anfragen?",
+        "answer": "Reichen Sie redaktionelle Anfragen über das Kontaktformular ein oder teilen Sie sie Ihrem Customer-Success-Manager mit. Wir priorisieren Themen, die der MLM-Community helfen, verantwortungsvoll zu agieren."
+      }
+    ]
+  },
+  "articleList": {
+    "titleLabel": "Blogs",
+    "postFound": "Beitrag gefunden",
+    "postsFound": "Beiträge gefunden",
+    "searchPlaceholder": "Blogbeiträge suchen...",
+    "clearSearchLabel": "Suche löschen",
+    "noResultsMessage": "Keine Beiträge gefunden. Versuchen Sie eine andere Suche.",
+    "pageOf": "Seite {current} von {total}",
+    "previousPageLabel": "Vorherige Seite",
+    "nextPageLabel": "Nächste Seite",
+    "paginationAriaLabel": "Blog-Paginierung"
+  },
+  "authorBio": {
+    "heading": "Über den Autor",
+    "name": "Reja Rapheekh",
+    "role": "Technische Redakteurin / Werbetexterin",
+    "biography": "Eine leidenschaftliche technische Redakteurin mit Gespür für die Verbindung von Storytelling und technischer Expertise, um ansprechende und informative Inhalte zu erstellen. Spezialisiert auf Werbetext, kreatives Schreiben und Content-Entwicklung für Medien und Marketing. Verpflichtet, Inhalte zu liefern, die bilden, informieren und vielfältige Zielgruppen fesseln.",
+    "linkedInUrl": null,
+    "imageAlt": "Reja Rapheekh"
+  }
+}

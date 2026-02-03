@@ -14,7 +14,7 @@ import {
   BarChart3,
   Building2,
   CircleEqual,
-  CircleGauge,
+  Gauge,
   Cpu,
   Globe2,
   Handshake,
@@ -137,7 +137,7 @@ const JOURNEY: Journey[] = [
       "Consultants personalize daily routines, encourage progress tracking, and co-create goals that blend beauty with wellbeing.",
     support:
       "Automated prompts, AI checklists, and compliance-safe scripts keep every recommendation accurate and motivating.",
-    icon: CircleGauge
+    icon: Gauge
   },
   {
     stage: "Momentum stewardship",
@@ -162,7 +162,7 @@ const CLOUD_PLAYS: CloudPlay[] = [
     description:
       "Gives leaders a live view into consultant performance, customer satisfaction, and academy participation.",
     payoff: "Turns data into coaching moments that elevate both customer delight and earnings progression.",
-    icon: CircleGauge
+    icon: Gauge
   },
   {
     title: "Innovation feedback loop",

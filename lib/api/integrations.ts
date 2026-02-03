@@ -17,7 +17,7 @@ export async function listIntegrations(locale?: string): Promise<IntegrationReco
   if (locale) {
     whereClause.locale = locale;
   }
-  
+
   try {
     if (!prisma || !prisma.integrations) {
       throw new Error('Prisma client is not initialized or integrations model is missing. Please run: npx prisma generate');
@@ -25,17 +25,15 @@ export async function listIntegrations(locale?: string): Promise<IntegrationReco
 
     const integrations = await prisma.integrations.findMany({
       where: whereClause,
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
     });
-    
-    console.log(`[listIntegrations] Found ${integrations.length} integrations for locale: ${locale || 'all'}`);
-    
+
     // Parse connectors JSON if it exists
     return integrations.map(integration => {
       let connectors: string[] | null = null;
       if (integration.connectors) {
         if (Array.isArray(integration.connectors)) {
-          connectors = integration.connectors;
+          connectors = integration.connectors as string[];
         } else if (typeof integration.connectors === 'string') {
           try {
             const parsed = JSON.parse(integration.connectors);
@@ -52,6 +50,55 @@ export async function listIntegrations(locale?: string): Promise<IntegrationReco
         connectors,
       };
     }) as IntegrationRecord[];
+  } catch (error: any) {
+    if (error?.code === 'P2021' || error?.message?.includes('does not exist')) {
+      throw new Error('Integrations table does not exist. Please run database migrations.');
+    }
+    throw error;
+  }
+}
+
+/** Single-query list: all integrations (en as primary) with availableLocales. Use for admin list to avoid N+1. */
+export async function listIntegrationsWithLocales(
+  primaryLocale: string = 'en'
+): Promise<(IntegrationRecord & { availableLocales: string[] })[]> {
+  try {
+    if (!prisma?.integrations) {
+      throw new Error('Prisma client is not initialized or integrations model is missing.');
+    }
+    const rows = await prisma.integrations.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+    const byId = new Map<string, typeof rows>();
+    for (const row of rows) {
+      if (!byId.has(row.id)) byId.set(row.id, []);
+      byId.get(row.id)!.push(row);
+    }
+    const result: (IntegrationRecord & { availableLocales: string[] })[] = [];
+    for (const [, group] of byId) {
+      const locales = [...new Set(group.map((r) => r.locale))].sort();
+      const primary = group.find((r) => r.locale === primaryLocale) ?? group[0];
+      let connectors: string[] | null = null;
+      if (primary.connectors) {
+        if (Array.isArray(primary.connectors)) {
+          connectors = primary.connectors as string[];
+        } else if (typeof primary.connectors === 'string') {
+          try {
+            const parsed = JSON.parse(primary.connectors);
+            connectors = Array.isArray(parsed) ? parsed : [primary.connectors];
+          } catch {
+            connectors = [primary.connectors];
+          }
+        }
+      }
+      result.push({
+        ...primary,
+        connectors,
+        availableLocales: locales,
+      } as IntegrationRecord & { availableLocales: string[] });
+    }
+    result.sort((a, b) => (b.createdAt.getTime?.() ?? 0) - (a.createdAt.getTime?.() ?? 0));
+    return result;
   } catch (error: any) {
     if (error?.code === 'P2021' || error?.message?.includes('does not exist')) {
       throw new Error('Integrations table does not exist. Please run database migrations.');
@@ -82,7 +129,7 @@ export async function getIntegrationById(id: string, locale?: string): Promise<I
     let connectors: string[] | null = null;
     if (integration.connectors) {
       if (Array.isArray(integration.connectors)) {
-        connectors = integration.connectors;
+        connectors = integration.connectors as string[];
       } else if (typeof integration.connectors === 'string') {
         try {
           const parsed = JSON.parse(integration.connectors);
@@ -127,7 +174,7 @@ export async function getAllIntegrationTranslations(id: string): Promise<Integra
       let connectors: string[] | null = null;
       if (integration.connectors) {
         if (Array.isArray(integration.connectors)) {
-          connectors = integration.connectors;
+          connectors = integration.connectors as string[];
         } else if (typeof integration.connectors === 'string') {
           try {
             const parsed = JSON.parse(integration.connectors);
@@ -169,10 +216,10 @@ export async function createIntegration(data: {
     return prisma.integrations.create({
       data: {
         id: integrationId,
-        icon: data.icon || null,
+        icon: data.icon ?? null,
         title: data.title,
         description: data.description,
-        connectors: data.connectors ? JSON.stringify(data.connectors) : null,
+        connectors: data.connectors ? (JSON.stringify(data.connectors) as unknown as import('@prisma/client/runtime/library').InputJsonValue) : undefined,
         locale: data.locale,
         updatedAt: new Date(),
       },
@@ -229,7 +276,7 @@ export async function updateIntegration(
     let connectors: string[] | null = null;
     if (updated.connectors) {
       if (Array.isArray(updated.connectors)) {
-        connectors = updated.connectors;
+        connectors = updated.connectors as string[];
       } else if (typeof updated.connectors === 'string') {
         try {
           const parsed = JSON.parse(updated.connectors);

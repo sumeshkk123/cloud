@@ -38,6 +38,8 @@ export interface HeroSectionProps {
     };
     /** Metrics to display in the right column */
     metrics?: HeroMetric[];
+    /** Optional custom right-column content (overrides metrics rendering when provided) */
+    rightSlot?: React.ReactNode;
     /** Optional className for the section */
     className?: string;
     /** Whether content is centered */
@@ -56,6 +58,7 @@ export function HeroSection({
     primaryCta,
     secondaryCta,
     metrics = [],
+    rightSlot,
     className,
     centered = false,
     disableHighlight = false,
@@ -114,27 +117,32 @@ export function HeroSection({
                         )}
                     </div>
 
-                    {/* Right Column - Metrics */}
-                    {metrics.length > 0 && (
+                    {/* Right Column - Metrics / Custom Slot */}
+                    {(metrics.length > 0 || rightSlot) && (
                         <div className="space-y-6">
-                            {metrics.map((metric) => (
-                                <div
-                                    key={metric.label}
-                                    className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/50 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-primary/40 hover:bg-card hover:shadow-lg"
-                                >
-                                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                                    <div className="relative flex items-start justify-between gap-4">
-                                        <div className="flex-1">
-                                            <dt className="text-xs font-semibold uppercase tracking-wider text-primary/60">{metric.label}</dt>
-                                            <dd className="mt-2 text-3xl font-bold text-foreground">{metric.value}</dd>
-                                            <p className="mt-2 text-sm text-muted-foreground">{metric.detail}</p>
+                            {metrics.length > 0 && (
+                                <div className="space-y-6">
+                                    {metrics.map((metric) => (
+                                        <div
+                                            key={metric.label}
+                                            className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/50 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-primary/40 hover:bg-card hover:shadow-lg"
+                                        >
+                                            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                                            <div className="relative flex items-start justify-between gap-4">
+                                                <div className="flex-1">
+                                                    <dt className="text-xs font-semibold uppercase tracking-wider text-primary/60">{metric.label}</dt>
+                                                    <dd className="mt-2 text-3xl font-bold text-foreground">{metric.value}</dd>
+                                                    <p className="mt-2 text-sm text-muted-foreground">{metric.detail}</p>
+                                                </div>
+                                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
+                                                    <Check className="h-6 w-6" />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
-                                            <Check className="h-6 w-6" />
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
-                            ))}
+                            )}
+                            {rightSlot}
                         </div>
                     )}
                 </div>

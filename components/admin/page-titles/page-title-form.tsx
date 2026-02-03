@@ -333,9 +333,9 @@ export function PageTitleForm({
                 )}
             </div>
 
-            {/* Locale Tabs */}
-            <div className="border-b border-gray-200">
-                <nav className="flex gap-2">
+            {/* Locale Tabs - match contact/form styling (primary, rounded-t-lg, dark mode) */}
+            <div className="border-b border-gray-200 dark:border-gray-700">
+                <nav className="flex flex-wrap gap-2">
                     {locales.map((loc) => {
                         const hasData = savedLocales.has(loc);
                         const isActive = activeLocale === loc;
@@ -347,12 +347,11 @@ export function PageTitleForm({
                                 key={loc}
                                 type="button"
                                 onClick={() => setActiveLocale(loc)}
-                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${isActive
-                                        ? 'border-blue-500 text-blue-600 bg-blue-50'
-                                        : hasContent
-                                            ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50'
-                                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                                    }`}
+                                className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${
+                                    isActive
+                                        ? 'border-primary-500 text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 dark:border-primary-500'
+                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                                } ${hasContent && !isActive ? 'bg-green-50 dark:bg-green-900/10' : ''}`}
                             >
                                 <div className="flex items-center gap-2">
                                     <span>{localeNames[loc] || loc.toUpperCase()}</span>
@@ -366,14 +365,14 @@ export function PageTitleForm({
                 </nav>
             </div>
 
-            {/* Auto Translate Button (only show for non-English tabs when English content exists) */}
-            {activeLocale !== 'en' && (englishData.title?.trim() || englishData.pagePill?.trim() || englishData.sectionSubtitle?.trim()) && (
+            {/* Auto Translate Button - always visible for non-English tabs; disabled when no English content */}
+            {activeLocale !== 'en' && (
                 <div className="flex justify-end">
                     <button
                         type="button"
                         onClick={autoTranslateAll}
-                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors border border-primary-200 dark:border-primary-800 bg-primary-50/50 dark:bg-primary-900/10 disabled:opacity-50 disabled:cursor-not-allowed"
-                        disabled={isTranslating || isSaving || isLoading}
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border transition-colors border-primary-200 dark:border-primary-800 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled={isTranslating || isSaving || isLoading || !(englishData.title?.trim() || englishData.pagePill?.trim() || englishData.sectionSubtitle?.trim())}
                     >
                         {isTranslating ? (
                             <>

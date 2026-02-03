@@ -1,0 +1,44 @@
+{
+  "heroSection": {
+    "badgeText": "Demo guidata gratuita",
+    "fallbackTitle": "Scopri Cloud MLM Software con i tuoi dati, i tuoi piani e i tuoi team.",
+    "fallbackDescription": "Esplora compensi, automazione, analytics e copiloti IA in una sandbox sicura configurata appositamente per il tuo brand di vendita diretta.",
+    "primaryCta": "Prenota la tua demo",
+    "secondaryCta": "Rivedi le funzionalità della piattaforma",
+    "includedValue": "Incluso",
+    "metrics": {
+      "tailoredSandbox": {
+        "label": "Sandbox su misura",
+        "value": "Incluso",
+        "detail": "Con template dei piani e campioni di dati"
+      },
+      "guidedWalkthroughs": {
+        "label": "Walkthrough guidati",
+        "value": "Incluso",
+        "detail": "Moduli compensi, mobile e analytics"
+      },
+      "accessWindow": {
+        "label": "Accesso per 30 giorni",
+        "value": "30 giorni",
+        "detail": "Estensioni opzionali durante la pianificazione"
+      },
+      "securityBriefing": {
+        "label": "Briefing di sicurezza",
+        "value": "Incluso",
+        "detail": "Revisione compliance per legale e IT"
+      }
+    }
+  },
+  "planDemosSection": {
+    "adminViewpoint": "Vista amministratore",
+    "distributorViewpoint": "Vista distributore",
+    "exploreDemo": "Esplora demo",
+    "bookYourDemo": "Prenota la tua demo"
+  },
+  "faqSection": {
+    "badge": "FAQ demo",
+    "heading": "Domande frequenti",
+    "description": "Dettagli pratici che i team chiedono spesso prima di attivare la demo gratuita.",
+    "noFaqsText": "Nessuna FAQ disponibile al momento."
+  }
+}

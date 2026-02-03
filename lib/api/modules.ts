@@ -22,11 +22,11 @@ export async function listModules(locale?: string, showOnHomePage?: boolean): Pr
   if (showOnHomePage !== undefined) {
     whereClause.showOnHomePage = showOnHomePage;
   }
-  
+
   try {
     const modules = await prisma.modules.findMany({
       where: whereClause,
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
       select: {
         id: true,
         slug: true,
@@ -40,13 +40,13 @@ export async function listModules(locale?: string, showOnHomePage?: boolean): Pr
         updatedAt: true,
       },
     });
-    
+
     return modules;
   } catch (error) {
     if (error instanceof Error && error.message.includes('showOnHomePage')) {
       return prisma.modules.findMany({
         where: locale ? { locale } : {},
-        orderBy: { updatedAt: 'desc' },
+        orderBy: { createdAt: 'desc' },
         select: {
           id: true,
           slug: true,
@@ -86,6 +86,60 @@ export async function getModuleById(id: string, locale?: string): Promise<Module
   });
 
   return moduleRecord;
+}
+
+/** Single-query list: all modules (en as primary) with availableLocales. Use for admin list to avoid N+1. */
+export async function listModulesWithLocales(
+  primaryLocale: string = 'en'
+): Promise<(ModuleRecord & { availableLocales: string[] })[]> {
+  const rows = await prisma.modules.findMany({
+    orderBy: { createdAt: 'desc' },
+    select: {
+      id: true,
+      slug: true,
+      title: true,
+      description: true,
+      image: true,
+      hasDetailPage: true,
+      showOnHomePage: true,
+      locale: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+  
+  // Group by image+showOnHomePage to identify translations
+  // But also include a unique identifier to prevent unrelated modules from grouping
+  // If image is null/empty, we can't reliably group, so treat each as separate
+  const groupKey = (r: (typeof rows)[0]) => {
+    // If no image, use id to keep modules separate (can't group without image)
+    if (!r.image || r.image.trim() === '') {
+      return `unique_${r.id}`;
+    }
+    return `${r.image}_${r.showOnHomePage}`;
+  };
+  
+  const byGroup = new Map<string, (typeof rows)[0][]>();
+  for (const row of rows) {
+    const key = groupKey(row);
+    if (!byGroup.has(key)) byGroup.set(key, []);
+    byGroup.get(key)!.push(row);
+  }
+  
+  const result: (ModuleRecord & { availableLocales: string[] })[] = [];
+  for (const [, group] of byGroup) {
+    const locales = [...new Set(group.map((r) => r.locale))].sort();
+    const primary = group.find((r) => r.locale === primaryLocale) ?? group[0];
+    result.push({
+      ...primary,
+      availableLocales: locales,
+    });
+  }
+  result.sort(
+    (a, b) =>
+      (b.createdAt.getTime?.() ?? 0) - (a.createdAt.getTime?.() ?? 0)
+  );
+  return result;
 }
 
 export async function getAllModuleTranslations(id: string): Promise<ModuleRecord[]> {

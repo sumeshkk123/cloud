@@ -136,6 +136,7 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
           phones: [],
           whatsapp: '',
           email: '',
+          flag: '',
           exists: false,
         };
       });

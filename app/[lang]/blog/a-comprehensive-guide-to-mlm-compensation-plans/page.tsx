@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowUpRight,
   BookOpenText,
-  ChartSpline,
+  LineChart,
   Compass,
   GitBranch,
   GraduationCap,
@@ -83,7 +83,7 @@ const HERO_METRICS: Metric[] = [
     label: "Average payout optimisation",
     value: "18%",
     detail: "Typical increase in sustainable distributor earnings after redesign.",
-    icon: ChartSpline
+    icon: LineChart
   },
   {
     label: "Markets supported",

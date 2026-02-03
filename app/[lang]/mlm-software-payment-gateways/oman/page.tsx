@@ -14,7 +14,7 @@ import {
   BadgeCheck,
   Blocks,
   CalendarCheck,
-  ChartArea,
+  LineChart,
   Compass,
   Globe2,
   Layers3,
@@ -81,7 +81,7 @@ const HERO_METRICS: HeroMetric[] = [
     caption: "Predictive alerts",
     description:
       "AI copilots benchmark conversion, chargebacks, and settlement timing for Muscat, Salalah, and cross-border teams so leaders course-correct rapidly.",
-    icon: ChartArea
+    icon: LineChart
   },
   {
     title: "Compliance confidence",

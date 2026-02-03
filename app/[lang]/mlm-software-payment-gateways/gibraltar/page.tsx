@@ -24,11 +24,11 @@ import {
   ShieldCheck,
   Sparkle,
   StackSimple,
-  Telescope,
+  Binoculars,
   Ticket,
   Vault,
   Waves,
-  Yacht
+  Sailboat
 } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-static";
@@ -164,7 +164,7 @@ const GATEWAY_STRATEGIES: GatewayStrategy[] = [
       "E-wallet module streams commissions with maker-checker controls and liquidity guardrails.",
       "Backup manager protects offline capture during harbour activations and conferences."
     ],
-    icon: Yacht
+    icon: Sailboat
   },
   {
     name: "Adyen — performance radar",
@@ -173,7 +173,7 @@ const GATEWAY_STRATEGIES: GatewayStrategy[] = [
       "Analytics spotlight approval rates, decline codes, and interchange variance.",
       "Ticket system links Adyen risk alerts to compliance case owners."
     ],
-    icon: Telescope
+    icon: Binoculars
   },
   {
     name: "2Checkout — digital export runway",

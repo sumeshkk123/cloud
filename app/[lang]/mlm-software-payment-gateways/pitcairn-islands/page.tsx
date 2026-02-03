@@ -26,7 +26,7 @@ import {
   ChartLineUp,
   CurrencyCircleDollar,
   Lightning,
-  Radios,
+  Radio,
   Tree
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -77,7 +77,7 @@ const HERO_CARDS: HeroCard[] = [
     title: "AI for remote operations",
     description:
       "Copilots track connectivity, stock, and settlement timing so leadership sees issues long before they affect distributors.",
-    icon: Radios
+    icon: Radio
   },
   {
     title: "Governance you can trust",
@@ -386,7 +386,7 @@ export default function PitcairnIslandsPaymentGatewaysPage({
               <span>Executive briefs summarising performance and community impact each morning.</span>
             </li>
             <li className="flex items-start gap-2">
-              <Radios className="mt-1 h-4 w-4" aria-hidden />
+              <Radio className="mt-1 h-4 w-4" aria-hidden />
               <span>Connectivity forecasts showing when offline queues require support.</span>
             </li>
             <li className="flex items-start gap-2">

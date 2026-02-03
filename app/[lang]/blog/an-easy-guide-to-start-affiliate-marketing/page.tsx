@@ -16,7 +16,7 @@ import {
   FlagTriangleRight,
   Handshake,
   LineChart,
-  MagnifyingGlass,
+  Search,
   Megaphone,
   ShieldCheck,
   Users
@@ -195,7 +195,7 @@ const CHANNELS: Channel[] = [
       "Rotate incentives carefully to avoid margin erosion.",
       "Coordinate spend with organic pushes so audiences see coherent messaging."
     ],
-    icon: MagnifyingGlass
+    icon: Search
   }
 ];
 

@@ -251,3 +251,181 @@ export const metadata: Metadata = {
   }
 };
 
+function resolveLocale(lang: string): Locale {
+  if (!isSupportedLocale(lang)) {
+    return i18n.defaultLocale as Locale;
+  }
+  return lang as Locale;
+}
+
+type MacaoPageProps = {
+  params: { lang: SupportedLocale };
+};
+
+export default function MacaoPaymentGatewayPage({ params }: MacaoPageProps) {
+  const locale = resolveLocale(params.lang);
+  const contactHref = buildLocalizedPath("/contact", locale);
+  const demoHref = "https://demo.cloudmlmsoftware.com";
+
+  return (
+    <div className="space-y-20 pb-24">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-100 via-white to-emerald-100 py-20">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(14,165,233,0.2),transparent_55%),radial-gradient(circle_at_80%_15%,rgba(16,185,129,0.18),transparent_55%),radial-gradient(circle_at_55%_80%,rgba(251,191,36,0.18),transparent_55%)]" />
+        <div className="container space-y-10">
+          <div className="grid gap-12 lg:grid-cols-[1.15fr,0.85fr] lg:items-start">
+            <div className="space-y-8">
+              <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/40 bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-blue-700">
+                Ways to accept payments · Macao (MO)
+              </span>
+              <div className="space-y-6">
+                <h1 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+                  Macao&apos;s payment gateways orchestrated for tourism and hospitality excellence
+                </h1>
+                <p className="max-w-2xl text-base text-muted-foreground">
+                  We preserve the WordPress heritage—gateway list, module roster, and the &quot;Ways to accept payments&quot; headline—while layering automation, compliance guardrails, and AI telemetry for tourism, hospitality, and entertainment programmes.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <Button asChild size="lg" className="gap-2 bg-blue-600 text-white hover:bg-blue-500">
+                  <Link href={contactHref}>
+                    Connect with Macao leadership
+                    <ArrowUpRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="gap-2 border-blue-500/60 text-blue-700 hover:bg-blue-100">
+                  <Link href={demoHref}>
+                    Preview the Macao demo
+                    <ArrowUpRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+            <div className="grid gap-5">
+              {HIGHLIGHTS.map((highlight) => {
+                const Icon = highlight.icon;
+                return (
+                  <article
+                    key={highlight.heading}
+                    className="rounded-3xl border border-blue-500/20 bg-white/85 p-6 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-lg"
+                  >
+                    <div className="flex items-start gap-4">
+                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/15 text-blue-700">
+                        <Icon className="h-6 w-6" aria-hidden />
+                      </span>
+                      <div className="space-y-2">
+                        <h2 className="text-base font-semibold text-foreground">{highlight.heading}</h2>
+                        <p className="text-sm text-muted-foreground">{highlight.text}</p>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="container space-y-12">
+        <div className="space-y-3 text-center">
+          <h2 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            Gateway plays for Macao&apos;s tourism, hospitality, and entertainment programmes
+          </h2>
+          <p className="mx-auto max-w-3xl text-sm text-muted-foreground">
+            Each connector receives automation, compliance, and AI telemetry so leadership can align commerce, philanthropy, and digital services.
+          </p>
+        </div>
+        <div className="grid gap-8 lg:grid-cols-2">
+          {GATEWAYS.map((gateway) => {
+            const Icon = gateway.icon;
+            return (
+              <article
+                key={gateway.name}
+                className="flex h-full flex-col gap-4 rounded-3xl border border-border/60 bg-background p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/15 text-blue-700">
+                    <Icon className="h-6 w-6" aria-hidden />
+                  </span>
+                  <div className="space-y-1">
+                    <h3 className="text-lg font-semibold text-foreground">{gateway.name}</h3>
+                    <p className="text-sm text-muted-foreground">{gateway.description}</p>
+                  </div>
+                </div>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  {gateway.bullets.map((bullet, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <span className="mt-2 h-2 w-2 rounded-full bg-blue-500" aria-hidden />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="bg-muted/60 py-20">
+        <div className="container space-y-12">
+          <div className="space-y-3 text-center">
+            <h2 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              Modules from the legacy navigation, orchestrated together
+            </h2>
+            <p className="mx-auto max-w-3xl text-sm text-muted-foreground">
+              Multi currency, ticketing, automation, vouchers, wallet, backup, emails, KYC, and multi-lingual touchpoints provide a single governance layer for Macao leadership.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {MODULES.map((module) => {
+              const Icon = module.icon;
+              return (
+                <article
+                  key={module.label}
+                  className="flex h-full flex-col gap-4 rounded-3xl border border-border/60 bg-background p-6 transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/15 text-blue-700">
+                      <Icon className="h-5 w-5" aria-hidden />
+                    </span>
+                    <h3 className="text-base font-semibold text-foreground">{module.label}</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{module.detail}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="container space-y-12">
+        <div className="space-y-3 text-center">
+          <h2 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            Four-stage cadence grounded in the WordPress brief
+          </h2>
+          <p className="mx-auto max-w-xl text-sm text-muted-foreground">
+            Authentic copy, disciplined execution—Macao&apos;s launch follows a clear rhythm with AI insight.
+          </p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-2">
+          {SEQUENCE.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <article
+                key={idx}
+                className="flex gap-4 rounded-3xl border border-border/60 bg-background p-6 transition hover:-translate-y-1 hover:shadow-md"
+              >
+                <span className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-blue-700">
+                  <Icon className="h-6 w-6" aria-hidden />
+                </span>
+                <div className="space-y-2">
+                  <h3 className="text-base font-semibold text-foreground">{item.stage}</h3>
+                  <p className="text-sm text-muted-foreground">{item.copy}</p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </div>
+  );
+}
