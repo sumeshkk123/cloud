@@ -243,9 +243,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Anguilla MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Engineer a compliant, tourism-ready payment ecosystem for Anguilla. Cloud MLM Software orchestrates ECCB banking partners, PSPs, and mobile-first field enablement.";
@@ -268,13 +269,12 @@ export async function generateMetadata({
 }
 
 type AnguillaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function AnguillaPaymentGatewaysPage({
-  params
-}: AnguillaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function AnguillaPaymentGatewaysPage({ params }: AnguillaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

@@ -117,7 +117,7 @@
       },
       "country": {
         "label": "Country",
-        "placeholder": "Choose an option *"
+        "placeholder": "Choose country *"
       },
       "phone": {
         "label": "Phone Number",

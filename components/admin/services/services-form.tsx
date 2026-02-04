@@ -497,13 +497,15 @@ export function ServicesForm({
       serviceHighlights: finalServiceHighlights,
     };
 
-    if (!trimmedTitle || !trimmedDescription || !trimmedIcon ||
+    const trimmedImage = (updatedCurrent.image || '').trim();
+    if (!trimmedTitle || !trimmedDescription || !trimmedIcon || !trimmedImage ||
       !updatedCurrent.keyBenefits || updatedCurrent.keyBenefits.length === 0 ||
       !updatedCurrent.serviceHighlights || updatedCurrent.serviceHighlights.length === 0) {
       const missingFields = [];
       if (!trimmedTitle) missingFields.push('Title');
       if (!trimmedDescription) missingFields.push('Description');
       if (!trimmedIcon) missingFields.push('Icon');
+      if (!trimmedImage) missingFields.push('Image');
       if (!updatedCurrent.keyBenefits || updatedCurrent.keyBenefits.length === 0) missingFields.push('Key Benefits');
       if (!updatedCurrent.serviceHighlights || updatedCurrent.serviceHighlights.length === 0) missingFields.push('Service Highlights');
       showToast(`Please fill in all required fields: ${missingFields.join(', ')}`, 'error');
@@ -528,7 +530,7 @@ export function ServicesForm({
             title: trimmedTitle,
             description: trimmedDescription,
             icon: trimmedIcon,
-            image: updatedCurrent.image || null,
+            image: trimmedImage || null,
             keyBenefits: updatedCurrent.keyBenefits,
             serviceHighlights: updatedCurrent.serviceHighlights,
             showOnHomePage: updatedCurrent.showOnHomePage,
@@ -561,7 +563,7 @@ export function ServicesForm({
           title: trimmedTitle,
           description: trimmedDescription,
           icon: trimmedIcon,
-          image: updatedCurrent.image || null,
+          image: trimmedImage || null,
           keyBenefits: updatedCurrent.keyBenefits,
           serviceHighlights: updatedCurrent.serviceHighlights,
           showOnHomePage: updatedCurrent.showOnHomePage,
@@ -692,7 +694,7 @@ export function ServicesForm({
 
         {/* Image Upload - Common for all languages */}
         <div className="space-y-1.5">
-          <FieldLabel>Image (Common for all languages)</FieldLabel>
+          <FieldLabel required>Image (Common for all languages)</FieldLabel>
           {activeTab !== 'en' ? (
             <div className="relative">
               <ImageUpload

@@ -233,9 +233,10 @@ const FAQ_ITEMS: FAQItem[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Pakistan MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Launch Pakistan with a unified payment stack. Cloud MLM Software orchestrates PayPal, Amazon Pay, Authorize.Net, Stripe, Braintree, Adyen, 2Checkout, Easypaisa, JazzCash, and 1LINK alongside AI automation.";
@@ -258,13 +259,12 @@ export async function generateMetadata({
 }
 
 type PakistanPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function PakistanPaymentGatewaysPage({
-  params
-}: PakistanPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function PakistanPaymentGatewaysPage({ params }: PakistanPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

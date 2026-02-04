@@ -20,34 +20,29 @@ export async function GET(request: Request) {
   }
 
   try {
+    type PlanRow = { id: string; title: string; groupId: string | null };
+    const selectPlanFields = { groupId: true, title: true, id: true };
+
     // Generate slug from sourceSlug if it's a title, or use as-is if it's already a slug
     // Step 1: Find source plan - try to match by title first (in case sourceSlug is a title)
-    let sourcePlan = await prisma.mlm_plans.findFirst({
+    let sourcePlan = (await prisma.mlm_plans.findFirst({
       where: {
         title: {
           contains: sourceSlug,
         },
         locale: sourceLocale,
       },
-      select: {
-        groupId: true,
-        title: true,
-        id: true,
-      },
-    });
+      select: selectPlanFields as Record<string, boolean>,
+    })) as unknown as PlanRow | null;
 
     // If not found by title, try to find by matching a generated slug from title
     if (!sourcePlan) {
-      const allSourcePlans = await prisma.mlm_plans.findMany({
+      const allSourcePlans = (await prisma.mlm_plans.findMany({
         where: {
           locale: sourceLocale,
         },
-        select: {
-          groupId: true,
-          title: true,
-          id: true,
-        },
-      });
+        select: selectPlanFields as Record<string, boolean>,
+      })) as unknown as PlanRow[];
 
       // Try to find a plan whose generated slug matches sourceSlug
       sourcePlan = allSourcePlans.find((plan) => {
@@ -71,19 +66,14 @@ export async function GET(request: Request) {
     const groupKey = sourcePlan.groupId || sourcePlan.id;
 
     // Step 2: Find the plan with the same groupId in target locale
-    // Plans are linked across locales by their shared groupId field
+    // Plans are linked across locales by their shared groupId field (where cast for outdated Prisma client types)
+    const whereByGroupOrId = {
+      OR: [{ groupId: groupKey }, { id: groupKey }],
+      locale: targetLocale,
+    } as { OR: Array<{ groupId?: string; id?: string }>; locale: string };
     const matchingPlan = await prisma.mlm_plans.findFirst({
-      where: {
-        OR: [
-          { groupId: groupKey },
-          { id: groupKey },
-        ],
-        locale: targetLocale,
-      },
-      select: {
-        title: true,
-        id: true,
-      },
+      where: whereByGroupOrId as never,
+      select: { title: true, id: true },
     });
 
     if (matchingPlan) {

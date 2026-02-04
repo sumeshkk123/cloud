@@ -29,9 +29,12 @@ function parseFeatures(v: unknown): string[] | null {
   return null;
 }
 
+/** DB row shape (schema may have more fields than generated client types) */
+type PlanDbRow = MlmPlanRecord;
+
 export async function listMlmPlans(locale?: string, showOnHomePage?: boolean): Promise<MlmPlanRecord[]> {
   try {
-    const plans = await prisma.mlm_plans.findMany({
+    const rows = await prisma.mlm_plans.findMany({
       where: {
         ...(locale ? { locale } : {}),
         ...(showOnHomePage !== undefined ? { showOnHomePage } : {}),
@@ -39,26 +42,28 @@ export async function listMlmPlans(locale?: string, showOnHomePage?: boolean): P
       orderBy: { createdAt: 'desc' },
       take: 1000,
     });
+    const plans = rows as unknown as PlanDbRow[];
     return plans.map((p) => ({
       ...p,
       subtitle: p.subtitle ?? null,
       features: parseFeatures(p.features),
-    })) as MlmPlanRecord[];
+    })) as unknown as MlmPlanRecord[];
   } catch (error) {
     throw error;
   }
 }
 
 export async function getMlmPlanById(id: string, _locale?: string): Promise<MlmPlanRecord | null> {
-  const plan = await prisma.mlm_plans.findFirst({
+  const row = await prisma.mlm_plans.findFirst({
     where: { id },
   });
+  const plan = row as unknown as PlanDbRow | null;
   if (!plan) return null;
   return {
     ...plan,
     subtitle: plan.subtitle ?? null,
     features: parseFeatures(plan.features),
-  } as MlmPlanRecord;
+  } as unknown as MlmPlanRecord;
 }
 
 export async function createMlmPlan(data: {
@@ -73,7 +78,7 @@ export async function createMlmPlan(data: {
 }): Promise<MlmPlanRecord> {
   const id = randomUUID();
   const groupId = data.groupId ?? id; // first plan: groupId = id; translation: groupId = parent's groupId
-  const plan = await prisma.mlm_plans.create({
+  const row = await prisma.mlm_plans.create({
     data: {
       id,
       groupId,
@@ -85,13 +90,14 @@ export async function createMlmPlan(data: {
       showOnHomePage: data.showOnHomePage ?? false,
       features: data.features ?? undefined,
       updatedAt: new Date(),
-    },
+    } as never,
   });
+  const plan = row as unknown as PlanDbRow;
   return {
     ...plan,
     subtitle: plan.subtitle ?? null,
     features: parseFeatures(plan.features),
-  } as MlmPlanRecord;
+  } as unknown as MlmPlanRecord;
 }
 
 export async function updateMlmPlan(
@@ -115,15 +121,16 @@ export async function updateMlmPlan(
   if (data.showOnHomePage !== undefined) updateData.showOnHomePage = data.showOnHomePage;
   if (data.features !== undefined) updateData.features = data.features ? (data.features as unknown) : null;
 
-  const plan = await prisma.mlm_plans.update({
+  const row = await prisma.mlm_plans.update({
     where: { id },
-    data: updateData as any,
+    data: updateData as never,
   });
+  const plan = row as unknown as PlanDbRow;
   return {
     ...plan,
     subtitle: plan.subtitle ?? null,
     features: parseFeatures(plan.features),
-  } as MlmPlanRecord;
+  } as unknown as MlmPlanRecord;
 }
 
 export async function deleteMlmPlan(id: string): Promise<void> {
@@ -135,13 +142,14 @@ export async function listMlmPlansWithLocales(
   primaryLocale: string = 'en'
 ): Promise<(MlmPlanRecord & { availableLocales: string[] })[]> {
   try {
-    const rows = await prisma.mlm_plans.findMany({
+    const rawRows = await prisma.mlm_plans.findMany({
       orderBy: { createdAt: 'desc' },
       take: 1000,
     });
+    const rows = rawRows as unknown as PlanDbRow[];
     if (rows.length === 0) return [];
 
-    const byGroup = new Map<string, typeof rows>();
+    const byGroup = new Map<string, PlanDbRow[]>();
     for (const row of rows) {
       const groupKey = row.groupId && row.groupId.trim() ? row.groupId : row.id;
       if (!byGroup.has(groupKey)) byGroup.set(groupKey, []);
@@ -178,14 +186,17 @@ export async function listMlmPlansWithLocales(
 
 /** Get all locale rows for the same plan (same groupId). */
 export async function getAllMlmPlanTranslations(id: string): Promise<MlmPlanRecord[]> {
-  const original = await prisma.mlm_plans.findUnique({ where: { id } });
+  const originalRow = await prisma.mlm_plans.findUnique({ where: { id } });
+  const original = originalRow as unknown as PlanDbRow | null;
   if (!original) return [];
 
   const groupKey = original.groupId ?? original.id;
-  const rows = await prisma.mlm_plans.findMany({
-    where: { OR: [{ groupId: groupKey }, { id: groupKey }] },
+  const whereByGroup = { OR: [{ groupId: groupKey }, { id: groupKey }] } as never;
+  const rawRows = await prisma.mlm_plans.findMany({
+    where: whereByGroup,
     orderBy: { locale: 'asc' },
   });
+  const rows = rawRows as unknown as PlanDbRow[];
 
   const englishRow = rows.find((r) => r.locale === 'en') ?? rows[0];
   const sharedIcon = englishRow?.icon ?? original.icon;
@@ -197,7 +208,7 @@ export async function getAllMlmPlanTranslations(id: string): Promise<MlmPlanReco
     showOnHomePage: sharedShowOnHomePage,
     subtitle: r.subtitle ?? null,
     features: parseFeatures(r.features),
-  })) as MlmPlanRecord[];
+  })) as unknown as MlmPlanRecord[];
 }
 
 /**
@@ -219,18 +230,13 @@ function generateSlug(title: string): string {
 export async function getPlansForMenu(locale: string): Promise<Array<{ title: string; slug: string }>> {
   try {
     // Get all plans from the requested locale
-    const localePlans = await prisma.mlm_plans.findMany({
-      where: {
-        locale: locale,
-      },
-      select: {
-        title: true,
-        groupId: true,
-      },
-      orderBy: {
-        title: 'asc',
-      },
+    const selectFields = { title: true, groupId: true };
+    const rawPlans = await prisma.mlm_plans.findMany({
+      where: { locale },
+      select: selectFields as Record<string, boolean>,
+      orderBy: { title: 'asc' },
     });
+    const localePlans = rawPlans as unknown as { title: string }[];
 
     // Return plans with generated slugs
     return localePlans.map((plan) => ({

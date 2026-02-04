@@ -193,9 +193,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Barbados MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Design Barbados-ready MLM payment gateways with governance, hospitality-grade experiences, and diaspora expansion. Cloud MLM Software unifies banks, PSPs, and analytics for sustained growth.";
@@ -218,13 +219,12 @@ export async function generateMetadata({
 }
 
 type BarbadosPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function BarbadosPaymentGatewaysPage({
-  params
-}: BarbadosPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function BarbadosPaymentGatewaysPage({ params }: BarbadosPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

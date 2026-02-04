@@ -4,12 +4,24 @@ import { prisma } from '@/lib/db/prisma';
 export interface TestimonialRecord {
   id: string;
   name: string;
+  slug?: string | null;
   role?: string | null;
   content: string;
   image?: string | null;
   locale: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+/** Generate URL slug from name e.g. "Giovanni P." -> "giovanni-p" */
+export function slugify(name: string): string {
+  return name
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '') || 'testimonial';
 }
 
 export async function listTestimonials(locale?: string): Promise<TestimonialRecord[]> {
@@ -42,6 +54,51 @@ export async function listTestimonialsWithLocales(locale = 'en'): Promise<(Testi
     ...t,
     availableLocales: nameToLocales.get(t.name) || [t.locale],
   }));
+}
+
+/** Get testimonial by slug and locale. Falls back to slugify(name) match if slug column is null or missing. */
+export async function getTestimonialBySlug(slug: string, locale: string): Promise<TestimonialRecord | null> {
+  const normalizedSlug = slug.trim().toLowerCase();
+  if (!normalizedSlug) return null;
+
+  try {
+    const testimonial = await (prisma.testimonials as any).findFirst({
+      where: {
+        slug: normalizedSlug,
+        locale,
+      },
+    });
+    if (testimonial) {
+      if (testimonial.image === null && locale !== 'en') {
+        const en = await prisma.testimonials.findFirst({
+          where: { name: testimonial.name, locale: 'en' },
+          select: { image: true },
+        });
+        if (en?.image) return { ...testimonial, image: en.image };
+      }
+      return testimonial;
+    }
+  } catch {
+    // slug column may not exist yet; fall through to name fallback
+  }
+
+  // Fallback: find by slugified name (for rows without slug set or before migration)
+  const all = await prisma.testimonials.findMany({
+    where: { locale },
+    orderBy: { createdAt: 'desc' },
+  });
+  const match = all.find((t) => slugify(t.name) === normalizedSlug);
+  if (match) {
+    if (match.image === null && locale !== 'en') {
+      const en = await prisma.testimonials.findFirst({
+        where: { name: match.name, locale: 'en' },
+        select: { image: true },
+      });
+      if (en?.image) return { ...match, image: en.image };
+    }
+    return match;
+  }
+  return null;
 }
 
 export async function getTestimonialById(id: string, locale?: string): Promise<TestimonialRecord | null> {
@@ -98,15 +155,18 @@ export async function getAllTestimonialTranslations(id: string): Promise<Testimo
 
 export async function createTestimonial(data: {
   name: string;
+  slug?: string | null;
   role?: string | null;
   content: string;
   image?: string | null;
   locale: string;
 }): Promise<TestimonialRecord> {
-  return prisma.testimonials.create({
+  const slug = data.slug?.trim() || slugify(data.name);
+  return (prisma.testimonials as any).create({
     data: {
       id: randomUUID(),
       name: data.name,
+      slug,
       role: data.role || null,
       content: data.content,
       image: data.image || null,
@@ -120,16 +180,19 @@ export async function updateTestimonial(
   id: string,
   data: {
     name: string;
+    slug?: string | null;
     role?: string | null;
     content: string;
     image?: string | null;
     locale: string;
   }
 ): Promise<TestimonialRecord> {
-  return prisma.testimonials.update({
+  const slug = data.slug?.trim() ? data.slug.trim().toLowerCase() : slugify(data.name);
+  return (prisma.testimonials as any).update({
     where: { id },
     data: {
       name: data.name,
+      slug,
       role: data.role || null,
       content: data.content,
       image: data.image || null,

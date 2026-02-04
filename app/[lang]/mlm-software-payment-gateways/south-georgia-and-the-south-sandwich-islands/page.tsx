@@ -294,11 +294,12 @@ export const metadata: Metadata = {
 };
 
 type SouthGeorgiaPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function SouthGeorgiaPaymentGatewayPage({ params }: SouthGeorgiaPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function SouthGeorgiaPaymentGatewayPage({ params }: SouthGeorgiaPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

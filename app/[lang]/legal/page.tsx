@@ -82,8 +82,10 @@ function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
 }
 
-export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+type LegalParams = { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
+export async function generateMetadata({ params }: { params: LegalParams }): Promise<Metadata> {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved.lang);
   const title = "Legal Center | Cloud MLM Software";
   const description =
     "Review policies, terms, and compliance resources for Bpract Software Solutions and Cloud MLM Software.";
@@ -98,11 +100,12 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 }
 
 type LegalPageProps = {
-  params: { lang: SupportedLocale };
+  params: LegalParams;
 };
 
-export default function LegalPage({ params }: LegalPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function LegalPage({ params }: LegalPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved.lang);
   const contactHref = buildLocalizedPath("/contact", locale);
 
   return (

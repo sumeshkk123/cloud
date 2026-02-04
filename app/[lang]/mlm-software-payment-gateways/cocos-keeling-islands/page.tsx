@@ -198,11 +198,12 @@ const FAQS: FAQ[] = [
 ];
 
 type CocosKeelingIslandsPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function CocosKeelingIslandsPaymentGatewayPage({ params }: CocosKeelingIslandsPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function CocosKeelingIslandsPaymentGatewayPage({ params }: CocosKeelingIslandsPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

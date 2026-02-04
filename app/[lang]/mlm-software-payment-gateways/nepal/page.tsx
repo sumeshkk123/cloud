@@ -189,9 +189,10 @@ const MODULE_CARDS: ModuleCard[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Nepal MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Ways to accept payments from MLM Software in People&apos;s Democratic Republic of Nepal – NP with PayPal, Amazon Pay, PayU, Stripe, Authorize.Net, Braintree, Adyen, and 2Checkout orchestrated for compliance.";
@@ -214,11 +215,12 @@ export async function generateMetadata({
 }
 
 type NepalPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function NepalPaymentGatewaysPage({ params }: NepalPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function NepalPaymentGatewaysPage({ params }: NepalPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

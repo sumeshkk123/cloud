@@ -6,7 +6,13 @@ import { Typography } from "@/components/ui/typography";
 import { BulletList } from "@/components/ui/bullet-list";
 import type { Deliverable } from "./free-demo-content";
 
-export function FreeDemoDeliverablesSection({ deliverables }: { deliverables: Deliverable[] }) {
+export function FreeDemoDeliverablesSection({
+  deliverables,
+  includedLabel = "Value",
+}: {
+  deliverables: Deliverable[];
+  includedLabel?: string;
+}) {
   return (
     <Section variant="gradient" padding="xl" className="relative isolate !overflow-visible" containerClassName="space-y-12">
       <SectionTitle
@@ -46,7 +52,7 @@ export function FreeDemoDeliverablesSection({ deliverables }: { deliverables: De
                 <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-start">
                   <div className="space-y-3">
                     <Typography as="p" variant="small" textColor="muted" className="uppercase tracking-wider">
-                      Included
+                      {includedLabel}
                     </Typography>
                     <BulletList items={deliverable.bullets} variant="compact" />
                   </div>

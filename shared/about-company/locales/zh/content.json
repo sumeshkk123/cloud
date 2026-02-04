@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "badgeText": "Cloud MLM Software 领导力",
+    "highlightText": "Cloud MLM Software",
+    "afterText": " 由 Bpract 打造，助力现代直销品牌持续前进。",
+    "description": "从 2015 年至今，我们的团队已交付具备弹性、合规且支持 AI 的平台，帮助直销企业在各大洲启动、取悦经销商，并在不拖慢增长的前提下保持治理。",
+    "primaryCta": "与顾问沟通",
+    "secondaryCta": "体验实时演示",
+    "metrics": [
+      {
+        "label": "成立时间",
+        "value": "2015",
+        "detail": "在 Kozhikode Cyberpark 开创安全的网络营销平台。"
+      },
+      {
+        "label": "全球实施",
+        "value": "300+",
+        "detail": "MLM 项目已部署到各大主要地区。"
+      },
+      {
+        "label": "支持市场",
+        "value": "100+",
+        "detail": "本地化税务、合规、货币与语言覆盖。"
+      },
+      {
+        "label": "活跃模块",
+        "value": "56+",
+        "detail": "涵盖 CRM、支付、AI 与电商的端到端平台功能。"
+      }
+    ]
+  }
+}

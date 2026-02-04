@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "badgeText": "Liderança Cloud MLM Software",
+    "highlightText": "Cloud MLM Software",
+    "afterText": " é desenvolvido pela Bpract para impulsionar marcas modernas de marketing multinível.",
+    "description": "De 2015 até hoje, nossas equipes entregaram plataformas resilientes, conformes e prontas para IA que ajudam empresas de vendas diretas a lançar em todos os continentes, encantar distribuidores e manter governança sem desacelerar o crescimento.",
+    "primaryCta": "Fale com um consultor",
+    "secondaryCta": "Explorar a demo ao vivo",
+    "metrics": [
+      {
+        "label": "Fundado",
+        "value": "2015",
+        "detail": "Pioneiros em plataformas seguras de marketing multinível no Kozhikode Cyberpark."
+      },
+      {
+        "label": "Implementações globais",
+        "value": "300+",
+        "detail": "Programas MLM implantados em todas as principais regiões."
+      },
+      {
+        "label": "Mercados suportados",
+        "value": "100+",
+        "detail": "Cobertura localizada de impostos, conformidade, moeda e idioma."
+      },
+      {
+        "label": "Módulos ativos",
+        "value": "56+",
+        "detail": "Recursos de plataforma de ponta a ponta: CRM, pagamentos, IA e e-commerce."
+      }
+    ]
+  }
+}

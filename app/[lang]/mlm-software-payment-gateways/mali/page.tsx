@@ -249,11 +249,12 @@ export const metadata: Metadata = {
 };
 
 type MaliPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function MaliPaymentGatewayPage({ params }: MaliPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function MaliPaymentGatewayPage({ params }: MaliPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

@@ -192,9 +192,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Bahrain MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Launch compliant, insight-rich MLM payment gateways for Bahrain. Cloud MLM Software unifies banks, BenefitPay, and GCC PSPs with automation, telemetry, and executive-ready analytics.";
@@ -217,13 +218,12 @@ export async function generateMetadata({
 }
 
 type BahrainPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function BahrainPaymentGatewaysPage({
-  params
-}: BahrainPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function BahrainPaymentGatewaysPage({ params }: BahrainPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);

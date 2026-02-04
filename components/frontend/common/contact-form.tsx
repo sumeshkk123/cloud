@@ -63,7 +63,7 @@ const ContactForm = React.forwardRef<HTMLFormElement, ContactFormProps>(
             fields: {
                 name: { label: "Full Name", placeholder: "Full Name *" },
                 email: { label: "Email Address", placeholder: "Email Address *" },
-                country: { label: "Country", placeholder: "Choose an option *" },
+                country: { label: "Country", placeholder: "Choose country *" },
                 phone: { label: "Phone Number", placeholder: "Phone number" },
                 message: { label: "Message", placeholder: "Type message *" }
             },

@@ -59,7 +59,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { name, role, content, image, locale = 'en' } = body || {};
+    const { name, slug, role, content, image, locale = 'en' } = body || {};
 
     if (!name || !content) {
       return NextResponse.json({ error: 'name and content are required.' }, { status: 400 });
@@ -67,6 +67,7 @@ export async function POST(request: Request) {
 
     const testimonial = await createTestimonial({
       name: String(name),
+      slug: slug != null ? String(slug).trim() || null : null,
       role: role ? String(role) : null,
       content: String(content),
       image: image ? String(image) : null,
@@ -90,7 +91,7 @@ export async function PUT(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const body = await request.json();
-    const { name, role, content, image, locale = 'en' } = body || {};
+    const { name, slug, role, content, image, locale = 'en' } = body || {};
 
     if (!id) {
       return NextResponse.json({ error: 'id is required in query params.' }, { status: 400 });
@@ -112,6 +113,7 @@ export async function PUT(request: Request) {
         // Creating a translation - use English image
         const testimonial = await createTestimonial({
           name: String(name),
+          slug: slug != null ? String(slug).trim() || null : null,
           role: role ? String(role) : null,
           content: String(content),
           image: englishMatch.image || String(image || ''),
@@ -136,26 +138,28 @@ export async function PUT(request: Request) {
 
         if (existingTranslation) {
           // Update existing translation
-          const testimonial = await updateTestimonial(existingTranslation.id, {
-            name: String(name),
-            role: role ? String(role) : null,
-            content: String(content),
-            image: englishMatch.image || String(image || ''),
-            locale: targetLocale,
-          });
-
-          return NextResponse.json(testimonial);
-        }
-        // Create new translation
-        const testimonial = await createTestimonial({
+        const testimonial = await updateTestimonial(existingTranslation.id, {
           name: String(name),
+          slug: slug != null ? String(slug).trim() || null : undefined,
           role: role ? String(role) : null,
           content: String(content),
           image: englishMatch.image || String(image || ''),
           locale: targetLocale,
         });
 
-        return NextResponse.json(testimonial);
+          return NextResponse.json(testimonial);
+        }
+        // Create new translation
+        const testimonial = await createTestimonial({
+          name: String(name),
+          slug: slug != null ? String(slug).trim() || null : null,
+          role: role ? String(role) : null,
+          content: String(content),
+          image: englishMatch.image || String(image || ''),
+          locale: targetLocale,
+        });
+
+          return NextResponse.json(testimonial);
       }
     }
 
@@ -173,15 +177,16 @@ export async function PUT(request: Request) {
         await Promise.all(
           allTranslations
             .filter((t) => t.locale !== 'en')
-            .map((t) =>
-              updateTestimonial(t.id, {
-                name: nameToUse, // Update name to match English (for linking)
-                role: t.role || null,
-                content: t.content,
-                image: imageToUse, // Use new English image
-                locale: t.locale,
-              })
-            )
+      .map((t) =>
+        updateTestimonial(t.id, {
+          name: nameToUse,
+          slug: slug != null ? String(slug).trim() || undefined : undefined,
+          role: t.role || null,
+          content: t.content,
+          image: imageToUse,
+          locale: t.locale,
+        })
+      )
         );
       }
     } else {
@@ -195,7 +200,8 @@ export async function PUT(request: Request) {
     }
 
     const testimonial = await updateTestimonial(id, {
-      name: nameToUse, // Use English name for linking
+      name: nameToUse,
+      slug: slug != null ? String(slug).trim() || undefined : undefined,
       role: role ? String(role) : null,
       content: String(content),
       image: imageToUse,

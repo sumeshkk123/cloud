@@ -168,7 +168,7 @@ export function CountrySelect({
   value,
   onChange,
   error,
-  placeholder = "Choose an option",
+  placeholder = "Choose country",
   className,
 }: CountrySelectProps) {
   const countries = Object.keys(COUNTRY_CODES).sort();

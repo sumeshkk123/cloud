@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
+
+export const dynamic = 'force-dynamic';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db/prisma';
 import { checkPermission } from '@/lib/utils/permissions-server';
@@ -72,7 +74,8 @@ export async function GET() {
         fetchBusinessMlmSubmissions(),
       ]);
 
-      const cloud = cloudSubmissions.map((s) => ({ ...s, sourceSite: s.sourceSite ?? null }));
+      type SubmissionWithSource = (typeof cloudSubmissions)[number] & { sourceSite?: string | null };
+      const cloud = cloudSubmissions.map((s) => ({ ...s, sourceSite: (s as SubmissionWithSource).sourceSite ?? null }));
       const merged = [...cloud, ...businessMlmSubmissions] as Array<{ createdAt: Date | string }>;
       merged.sort((a, b) => {
         const da = new Date(a.createdAt).getTime();

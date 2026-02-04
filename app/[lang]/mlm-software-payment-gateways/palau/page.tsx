@@ -228,9 +228,10 @@ const FAQ_ITEMS: FAQItem[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Palau MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Unify Palau’s payment stack with Cloud MLM Software. Orchestrate PayPal, Amazon Pay, Authorize.Net, Stripe, Braintree, Adyen, 2Checkout, and regional banks with AI-driven insights.";
@@ -253,11 +254,12 @@ export async function generateMetadata({
 }
 
 type PalauPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function PalauPaymentGatewaysPage({ params }: PalauPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function PalauPaymentGatewaysPage({ params }: PalauPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

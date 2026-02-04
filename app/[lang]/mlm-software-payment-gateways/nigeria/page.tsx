@@ -186,9 +186,10 @@ const MODULE_PANELS: ModulePanel[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Nigeria MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Ways to accept payments from MLM Software in People&apos;s Democratic Republic of Nigeria – NG, orchestrating PayPal, Amazon Pay, PayU, Stripe, Authorize.Net, Braintree, Adyen, and 2Checkout with AI-driven governance.";
@@ -211,11 +212,12 @@ export async function generateMetadata({
 }
 
 type NigeriaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function NigeriaPaymentGatewaysPage({ params }: NigeriaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function NigeriaPaymentGatewaysPage({ params }: NigeriaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

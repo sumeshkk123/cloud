@@ -40,15 +40,12 @@ export async function POST(request: NextRequest) {
     console.log('Starting plan name updates...\n');
 
     // Get all demo items (English locale)
-    const demoItems = await prisma.demo_items.findMany({
+    type DemoItemRow = { id: string; adminDemoTitle: string | null; title: string | null; icon: string | null };
+    const selectFields = { id: true, adminDemoTitle: true, title: true, icon: true };
+    const demoItems = (await prisma.demo_items.findMany({
       where: { locale: 'en' },
-      select: {
-        id: true,
-        adminDemoTitle: true,
-        title: true,
-        icon: true,
-      },
-    });
+      select: selectFields as Record<string, boolean>,
+    })) as unknown as DemoItemRow[];
 
     console.log(`Found ${demoItems.length} demo items\n`);
 
@@ -61,14 +58,15 @@ export async function POST(request: NextRequest) {
       const mappedTitle = titleMappings[adminTitle];
 
       if (mappedTitle) {
-        // Find all translations by icon
+        // Find all translations by icon (where cast for outdated Prisma client types)
+        const whereByIcon = { icon: item.icon } as { icon: string | null };
         await prisma.demo_items.findMany({
-          where: { icon: item.icon },
+          where: whereByIcon as never,
         });
 
         // Update title for all translations
         const updateResult = await prisma.demo_items.updateMany({
-          where: { icon: item.icon },
+          where: whereByIcon as never,
           data: { title: mappedTitle },
         });
 

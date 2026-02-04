@@ -15,6 +15,7 @@ interface ContentStatsData {
   totalModules: number;
   totalFeatures: number;
   totalPlans?: number;
+  totalDemos?: number;
 }
 
 interface BlogStatsProps {

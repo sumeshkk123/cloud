@@ -206,13 +206,12 @@ const FAQS: FAQ[] = [
 ];
 
 type CentralAfricanRepublicPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function CentralAfricanRepublicPaymentGatewayPage({
-  params
-}: CentralAfricanRepublicPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function CentralAfricanRepublicPaymentGatewayPage({ params }: CentralAfricanRepublicPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

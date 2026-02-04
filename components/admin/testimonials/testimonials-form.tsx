@@ -15,6 +15,7 @@ const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 interface TestimonialTranslation {
     locale: string;
     name: string;
+    slug: string;
     role: string;
     content: string;
     image: string;
@@ -53,6 +54,7 @@ export function TestimonialsForm({
             initial[loc] = {
                 locale: loc,
                 name: '',
+                slug: '',
                 role: '',
                 content: '',
                 image: '',
@@ -95,6 +97,7 @@ export function TestimonialsForm({
                 reset[loc] = {
                     locale: loc,
                     name: '',
+                    slug: '',
                     role: '',
                     content: '',
                     image: '',
@@ -144,6 +147,7 @@ export function TestimonialsForm({
                     loaded[loc] = {
                         locale: loc,
                         name: String(existing.name || ''),
+                        slug: String((existing as any).slug || ''),
                         role: String(existing.role || ''),
                         content: String(existing.content || ''),
                         image: sharedImage || existing.image || '',
@@ -154,6 +158,7 @@ export function TestimonialsForm({
                     loaded[loc] = {
                         locale: loc,
                         name: '',
+                        slug: '',
                         role: '',
                         content: '',
                         image: sharedImage || '',
@@ -169,9 +174,11 @@ export function TestimonialsForm({
             }
 
             const englishName = loaded['en']?.name || '';
-            if (englishName) {
+            const englishSlug = loaded['en']?.slug ?? '';
+            if (englishName || englishSlug) {
                 Object.keys(loaded).forEach((loc) => {
-                    loaded[loc].name = englishName;
+                    if (englishName) loaded[loc].name = englishName;
+                    if (englishSlug) loaded[loc].slug = englishSlug;
                 });
             }
 
@@ -195,7 +202,7 @@ export function TestimonialsForm({
         }
     };
 
-    const updateTranslation = (locale: string, field: 'name' | 'role' | 'content' | 'image', value: string) => {
+    const updateTranslation = (locale: string, field: 'name' | 'slug' | 'role' | 'content' | 'image', value: string) => {
         setTranslations((prev) => {
             const updated = {
                 ...prev,
@@ -330,6 +337,7 @@ export function TestimonialsForm({
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         name: trimmedName,
+                        slug: (translations['en']?.slug || '').trim() || undefined,
                         role: trimmedRole,
                         content: trimmedContent,
                         image: trimmedImage,
@@ -364,6 +372,7 @@ export function TestimonialsForm({
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: trimmedName,
+                    slug: (translations['en']?.slug || '').trim() || undefined,
                     role: trimmedRole,
                     content: trimmedContent,
                     image: trimmedImage,
@@ -403,7 +412,7 @@ export function TestimonialsForm({
         }
     };
 
-    const current = translations[activeTab] || { name: '', role: '', content: '', image: '', exists: false };
+    const current = translations[activeTab] || { name: '', slug: '', role: '', content: '', image: '', exists: false };
 
     return (
         <div className="space-y-5">
@@ -494,6 +503,19 @@ export function TestimonialsForm({
                         className={activeTab !== 'en' ? 'bg-gray-50 cursor-not-allowed' : ''}
                     />
                 </div>
+
+                {activeTab === 'en' && (
+                    <div className="space-y-1.5">
+                        <FieldLabel>URL slug</FieldLabel>
+                        <Input
+                            value={current.slug || ''}
+                            onChange={(e) => updateTranslation('en', 'slug', e.target.value)}
+                            placeholder="e.g. giovanni-p (auto from name if empty)"
+                            disabled={isSaving || isLoading || isTranslating}
+                        />
+                        <p className="text-xs text-gray-500">Used in /testimonials/[slug]. Leave empty to auto-generate from name.</p>
+                    </div>
+                )}
 
                 <div className="space-y-1.5">
                     <FieldLabel required>Role ({localeNames[activeTab as keyof typeof localeNames]})</FieldLabel>

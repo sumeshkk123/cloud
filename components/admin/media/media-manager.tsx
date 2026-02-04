@@ -173,10 +173,12 @@ export function MediaManager() {
   const handleDeleteConfirm = async () => {
     if (!imageToDelete) return;
 
+    const urlToDelete = imageToDelete.url;
+
     try {
       setIsDeleting(true);
       const res = await fetch(
-        `/api/admin/media?url=${encodeURIComponent(imageToDelete.url)}`,
+        `/api/admin/media?url=${encodeURIComponent(urlToDelete)}`,
         { method: 'DELETE' }
       );
 
@@ -188,7 +190,10 @@ export function MediaManager() {
       setSelectedImage(null);
       setImageToDelete(null);
       setDeleteConfirmOpen(false);
-      await loadImages();
+
+      // Optimistic update: remove from list and keep scroll position (no full refetch)
+      setImages((prev) => prev.filter((img) => img.url !== urlToDelete));
+      setTotal((prev) => Math.max(0, prev - 1));
     } catch {
       showToast('Failed to delete image', 'error');
     } finally {

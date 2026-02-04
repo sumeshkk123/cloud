@@ -229,8 +229,10 @@ function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
 }
 
-export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+type LegalAllParams = { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
+export async function generateMetadata({ params }: { params: LegalAllParams }): Promise<Metadata> {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved.lang);
   const title = "Legal Documentation Hub | Cloud MLM Software";
   const description =
     "Access contracts, compliance evidence, and governance kits that help legal, finance, and security teams evaluate Cloud MLM Software.";
@@ -245,11 +247,12 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 }
 
 type LegalAllPageProps = {
-  params: { lang: SupportedLocale };
+  params: LegalAllParams;
 };
 
-export default function LegalAllPage({ params }: LegalAllPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function LegalAllPage({ params }: LegalAllPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved.lang);
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const legalEmail = "mailto:[email protected]";

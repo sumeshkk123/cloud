@@ -234,11 +234,12 @@ export const metadata: Metadata = {
 };
 
 type EcuadorPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function EcuadorPaymentGatewayPage({ params }: EcuadorPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function EcuadorPaymentGatewayPage({ params }: EcuadorPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

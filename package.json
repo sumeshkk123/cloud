@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "NODE_OPTIONS=--max-old-space-size=8192 next build",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 next build",
     "postbuild": "node scripts/ensure-prerender-manifest.js",
     "start": "next start",
     "lint": "next lint",
@@ -97,6 +97,7 @@
     "tailwindcss-animate": "1.0.7"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "20.11.17",
     "@types/react": "18.2.48",

@@ -15,10 +15,10 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { SupportedLocale } from "@/config/site";
 
 function LazyImage(
-  props: React.ComponentProps<typeof Image> & { rootMargin?: string }
+  props: React.ComponentProps<typeof Image> & { rootMargin?: string; eager?: boolean }
 ) {
-  const { rootMargin = "150px", width = 800, height = 500, ...imageProps } = props;
-  const [inView, setInView] = useState(false);
+  const { rootMargin = "150px", eager = false, width = 800, height = 500, ...imageProps } = props;
+  const [inView, setInView] = useState(eager);
   const [loaded, setLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const aspectRatio = typeof width === "number" && typeof height === "number"
@@ -26,6 +26,7 @@ function LazyImage(
     : "800/500";
 
   useEffect(() => {
+    if (eager) return;
     const el = containerRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -36,11 +37,11 @@ function LazyImage(
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [rootMargin]);
+  }, [rootMargin, eager]);
 
   const skeleton = (
     <div
-      className="absolute inset-0 w-full bg-muted animate-pulse rounded-2xl"
+      className="absolute inset-0 z-0 w-full bg-muted animate-pulse rounded-2xl"
       style={{ aspectRatio }}
       aria-hidden
     />
@@ -58,10 +59,11 @@ function LazyImage(
             alt={imageProps.alt ?? ''}
             width={width}
             height={height}
-            loading="lazy"
+            loading={eager ? "eager" : "lazy"}
+            priority={eager}
             sizes={imageProps.sizes ?? "(max-width: 768px) 100vw, 800px"}
             onLoad={() => setLoaded(true)}
-            className={`${imageProps.className ?? ""} ${!loaded ? "opacity-0 transition-opacity duration-300" : "opacity-100"}`}
+            className={`relative z-10 ${imageProps.className ?? ""} ${!loaded ? "opacity-0 transition-opacity duration-300" : "opacity-100"}`}
           />
         </>
       )}
@@ -130,12 +132,13 @@ export function WhyChooseSection({ locale = 'en', data }: { locale?: Locale; dat
             />
           </div>
 
-          {/* Image - lazy load when in viewport */}
+          {/* Image - eager load so it appears quickly with skeleton until loaded */}
           <LazyImage
             src="/images/ai-image2.png"
             alt="AI-Powered MLM Software Team Collaboration - Network Marketing Platform Features"
             width={800}
             height={500}
+            eager
             className="h-auto w-full object-cover rounded-2xl"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
             quality={75}

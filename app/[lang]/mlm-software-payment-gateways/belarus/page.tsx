@@ -193,9 +193,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Belarus MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Deploy compliant MLM payment gateways for Belarus. Cloud MLM Software unifies banks, regional PSPs, and analytics with regulator-grade governance and AI-driven insights.";
@@ -218,13 +219,12 @@ export async function generateMetadata({
 }
 
 type BelarusPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function BelarusPaymentGatewaysPage({
-  params
-}: BelarusPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function BelarusPaymentGatewaysPage({ params }: BelarusPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

@@ -195,9 +195,10 @@ const STAGES: Stage[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Myanmar MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Modernise Myanmar’s MLM payment gateways. Cloud MLM Software orchestrates PayPal, Amazon Pay, PayU, Stripe, Authorize.Net, Braintree, Adyen, and 2Checkout with compliant automation and AI telemetry.";
@@ -220,11 +221,12 @@ export async function generateMetadata({
 }
 
 type MyanmarPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function MyanmarPaymentGatewaysPage({ params }: MyanmarPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function MyanmarPaymentGatewaysPage({ params }: MyanmarPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

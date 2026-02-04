@@ -76,8 +76,9 @@ const CAPABILITIES: Capability[] = [
   }
 ];
 
-export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+export async function generateMetadata({ params }: { params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }> }): Promise<Metadata> {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "MLM Software Payment Gateways";
   const description =
     "Integrate global payment gateways, automate compliance, and deliver real-time payouts with Cloud MLM Software.";
@@ -96,11 +97,12 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 }
 
 type PaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function PaymentGatewaysPage({ params }: PaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function PaymentGatewaysPage({ params }: PaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const servicesHref = buildLocalizedPath("/services", locale);
 

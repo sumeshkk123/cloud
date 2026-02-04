@@ -80,17 +80,13 @@ async function normalizeModulesIcons() {
 async function normalizeDemoItemsIcons() {
   console.log('Normalizing icons in demo_items table...');
   try {
-    const demoItems = await prisma.demo_items.findMany({
-      where: {
-        icon: {
-          not: null,
-        },
-      },
-      select: {
-        id: true,
-        icon: true,
-      },
+    const whereIconNotNull = { icon: { not: null } } as never;
+    const selectFields = { id: true, icon: true };
+    const rawItems = await prisma.demo_items.findMany({
+      where: whereIconNotNull,
+      select: selectFields as Record<string, boolean>,
     });
+    const demoItems = rawItems as unknown as { id: string; icon: string | null }[];
 
     let updated = 0;
     for (const item of demoItems) {
@@ -99,7 +95,7 @@ async function normalizeDemoItemsIcons() {
         if (normalized && normalized !== item.icon) {
           await prisma.demo_items.update({
             where: { id: item.id },
-            data: { icon: normalized },
+            data: { icon: normalized } as never,
           });
           updated++;
           console.log(`  Updated demo_item ${item.id}: "${item.icon}" -> "${normalized}"`);

@@ -177,9 +177,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "American Samoa MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Modernise American Samoa MLM payments. Cloud MLM Software delivers uptime, US regulatory compliance, and offline-ready payouts for island distributors.";
@@ -202,13 +203,12 @@ export async function generateMetadata({
 }
 
 type AmericanSamoaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function AmericanSamoaPaymentGatewaysPage({
-  params
-}: AmericanSamoaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function AmericanSamoaPaymentGatewaysPage({ params }: AmericanSamoaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

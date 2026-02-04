@@ -8,11 +8,10 @@ import { i18n } from "@/i18n-config";
 import { getPageMetadata } from "@/components/frontend/common/page-metadata";
 import { getPageTitle } from "@/lib/api/page-titles";
 import { getMetaDetail } from "@/lib/api/meta-details";
-import { listDemoItems } from "@/lib/api/demo-items";
 import { listDemoFaqs } from "@/lib/api/demo-faq";
 import { getFreeDemoContent } from "@/lib/free-demo";
 import { getHomepageContent } from "@/lib/homepage";
-import type { PlanDemo, Faq } from "@/components/frontend/demos/free-demo/free-demo-content";
+import type { Faq } from "@/components/frontend/demos/free-demo/free-demo-content";
 import { MlmSoftwareDemoList } from "@/components/frontend/home/mlm-software-demo-list";
 import { Section } from "@/components/ui/section";
 import {
@@ -25,11 +24,10 @@ import {
   FreeDemoDeliverablesSection,
   FreeDemoFaqSection,
   FreeDemoFinalCtaSection,
-  FreeDemoFormSection,
   FreeDemoHeroSection,
   FreeDemoInvitesSection,
   FreeDemoLiveExploreSection,
-  FreeDemoPlanDemosSection,
+  FreeDemoList,
   FreeDemoStepsSection,
   FreeDemoTeamSection,
   LIVE_EXPERIENCES,
@@ -67,9 +65,8 @@ export default async function FreeDemoPage({ params }: FreeDemoPageProps) {
   const pageTitleData = await getPageTitle("free-mlm-software-demo", locale);
   const metaDetails = await getMetaDetail("free-mlm-software-demo", locale);
 
-  // Fetch demo items, FAQs, and homepage content (for demo section block)
-  const [demoItems, demoFaqs, homepageContent] = await Promise.all([
-    listDemoItems(locale),
+  // Fetch FAQs and homepage content (demos are loaded by FreeDemoList via useDemoItems)
+  const [demoFaqs, homepageContent] = await Promise.all([
     listDemoFaqs(locale),
     getHomepageContent(locale as import("@/config/site").SupportedLocale).catch(() => null),
   ]);
@@ -77,6 +74,10 @@ export default async function FreeDemoPage({ params }: FreeDemoPageProps) {
     badgeLabel: "Demo experiences",
     heading: "See your compensation plan live inside Cloud MLM Software",
     description: "Share plan rules, product catalogue, and launch regions. We configure a working MLM software demo with payouts, dashboards, and distributor journeys tuned to your market.",
+    primaryCta: { label: "Book your demo", href: contactHref },
+    secondaryCtas: [],
+    touchpoints: [],
+    callouts: [],
   };
 
   // Map database FAQs to Faq[]; fall back to static FAQS if none in DB
@@ -90,35 +91,6 @@ export default async function FreeDemoPage({ params }: FreeDemoPageProps) {
   const faqSection = freeDemoContent.faqSection;
 
   const { planDemosSection } = freeDemoContent;
-  // Transform database demo items to PlanDemo format
-  const planDemos: PlanDemo[] = demoItems.map((item) => {
-    return {
-      title: item.title || item.adminDemoTitle || "Plan Demo", // Use title from DB, fallback to adminDemoTitle
-      summary: item.adminDemoTitle || "Plan demo description", // Using Admin Demo Title as summary
-      image: item.image || "/wp-content/uploads/2024/08/Binary_tree.webp", // Fallback image
-      imageAlt: `${item.adminDemoTitle || "Plan"} visual`,
-      width: 509,
-      height: 348,
-      admin: {
-        title: planDemosSection.adminViewpoint,
-        description: item.adminDemoTitle || "Manage your MLM plan with comprehensive admin controls, real-time tracking, and automated commission calculations.",
-        bullets: Array.isArray(item.adminDemoFeatures)
-          ? item.adminDemoFeatures.map(String)
-          : item.adminDemoFeatures
-            ? [String(item.adminDemoFeatures)]
-            : ["Advanced admin controls", "Real-time tracking", "Comprehensive reporting"],
-      },
-      user: {
-        title: planDemosSection.distributorViewpoint,
-        description: item.distributorsDemoTitle || "Build your team and track your progress with our intuitive distributor dashboard. Monitor earnings and grow your network.",
-        bullets: Array.isArray(item.distributorsDemoFeatures)
-          ? item.distributorsDemoFeatures.map(String)
-          : item.distributorsDemoFeatures
-            ? [String(item.distributorsDemoFeatures)]
-            : ["Team tracking", "Earnings dashboard", "Network growth tools"],
-      },
-    };
-  });
 
   return (
     <div>
@@ -132,11 +104,9 @@ export default async function FreeDemoPage({ params }: FreeDemoPageProps) {
 
       <FreeDemoStepsSection steps={DEMO_STEPS} />
 
-      <FreeDemoPlanDemosSection
-        planDemos={planDemos}
-        exploreDemoLabel={planDemosSection.exploreDemo}
-        bookYourDemoLabel={planDemosSection.bookYourDemo}
-      />
+      <section id="demo-form" aria-label="Plan demos and book your demo">
+        <FreeDemoList locale={locale} planDemosSection={planDemosSection} />
+      </section>
 
       <Section variant="gradient" padding="lg" containerClassName="!pb-4">
         <MlmSoftwareDemoList

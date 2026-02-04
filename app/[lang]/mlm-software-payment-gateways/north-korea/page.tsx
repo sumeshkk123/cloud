@@ -187,9 +187,10 @@ const MODULE_MATRIX: ModuleMatrix[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "North Korea MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Ways to accept payments from MLM Software in People&apos;s Democratic Republic of North Korea – KP, orchestrating PayPal, Amazon Pay, PayU, Stripe, Authorize.Net, Braintree, Adyen, and 2Checkout with governance automation.";
@@ -212,11 +213,12 @@ export async function generateMetadata({
 }
 
 type NorthKoreaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function NorthKoreaPaymentGatewaysPage({ params }: NorthKoreaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function NorthKoreaPaymentGatewaysPage({ params }: NorthKoreaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

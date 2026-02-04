@@ -243,9 +243,10 @@ const FAQ_ITEMS: FAQItem[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Afghanistan MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Design a resilient payout engine for your Afghanistan MLM network. Cloud MLM Software orchestrates banks, PSPs, and mobile wallets with compliance controls built in.";
@@ -268,13 +269,12 @@ export async function generateMetadata({
 }
 
 type AfghanistanPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function AfghanistanPaymentGatewaysPage({
-  params
-}: AfghanistanPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function AfghanistanPaymentGatewaysPage({ params }: AfghanistanPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);

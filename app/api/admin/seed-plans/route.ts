@@ -185,18 +185,19 @@ export async function POST(request: Request) {
           },
         });
 
+        const planPayload = {
+          title: planData.title,
+          subtitle: planData.subtitle,
+          description: planData.description,
+          icon: planData.icon,
+          features: planData.features as any,
+          updatedAt: new Date(),
+        };
         if (existing) {
           // Update existing plan
           await prisma.mlm_plans.update({
             where: { id: existing.id },
-            data: {
-              title: planData.title,
-              subtitle: planData.subtitle,
-              description: planData.description,
-              icon: planData.icon,
-              features: planData.features as any,
-              updatedAt: new Date(),
-            },
+            data: planPayload as unknown as Parameters<typeof prisma.mlm_plans.update>[0]['data'],
           });
           results.updated.push(planData.title);
         } else {
@@ -206,15 +207,10 @@ export async function POST(request: Request) {
             data: {
               id,
               groupId: id,
-              title: planData.title,
-              subtitle: planData.subtitle,
-              description: planData.description,
-              icon: planData.icon,
               locale: 'en',
               showOnHomePage: false,
-              features: planData.features as any,
-              updatedAt: new Date(),
-            },
+              ...planPayload,
+            } as unknown as Parameters<typeof prisma.mlm_plans.create>[0]['data'],
           });
           results.created.push(planData.title);
         }

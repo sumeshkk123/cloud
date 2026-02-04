@@ -4,10 +4,13 @@ import { useState, useEffect } from "react";
 import { TestimonialCard } from "@/components/frontend/common/testimonial-card";
 import type { Locale } from "@/i18n-config";
 import { getTestimonialsContent } from "@/lib/testimonials";
+import { slugify } from "@/lib/api/testimonials";
+import { buildLocalizedPath } from "@/lib/locale-links";
 
 interface Testimonial {
   id: string;
   name: string;
+  slug?: string | null;
   role?: string;
   content: string;
   image?: string;
@@ -84,15 +87,19 @@ export function TestimonialsListSection({ locale }: TestimonialsListSectionProps
   return (
     <section className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-10 py-24">
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-        {testimonials.map((testimonial) => (
-          <TestimonialCard
-            key={testimonial.id}
-            name={testimonial.name}
-            role={testimonial.role || ""}
-            avatar={testimonial.image}
-            quote={testimonial.content}
-          />
-        ))}
+        {testimonials.map((testimonial) => {
+          const slug = testimonial.slug?.trim() || slugify(testimonial.name);
+          return (
+            <TestimonialCard
+              key={testimonial.id}
+              name={testimonial.name}
+              role={testimonial.role || ""}
+              avatar={testimonial.image}
+              quote={testimonial.content}
+              href={buildLocalizedPath(`/testimonials/${slug}`, locale)}
+            />
+          );
+        })}
       </div>
     </section>
   );

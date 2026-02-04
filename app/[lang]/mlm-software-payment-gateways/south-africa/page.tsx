@@ -292,11 +292,12 @@ export const metadata: Metadata = {
 };
 
 type SouthAfricaPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function SouthAfricaPaymentGatewayPage({ params }: SouthAfricaPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function SouthAfricaPaymentGatewayPage({ params }: SouthAfricaPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

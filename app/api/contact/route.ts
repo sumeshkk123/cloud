@@ -4,7 +4,7 @@ import { prisma } from '@/lib/db/prisma';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, country, message, source, locale, sourceSite } = body;
+    const { name, email, phone, country, message, source, locale, sourceSite, notes } = body;
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -32,19 +32,33 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Create submission
-    const submission = await prisma.contact_submissions.create({
-      data: {
-        name: String(name).trim(),
-        email: String(email).trim().toLowerCase(),
-        phone: phone ? String(phone).trim() : null,
-        country: country ? String(country).trim() : null,
-        message: String(message).trim(),
-        source: source ? String(source) : 'contact',
-        sourceSite: sourceSite ? String(sourceSite).trim() || null : null,
-        locale: detectedLocale,
-      },
-    });
+    const baseData = {
+      name: String(name).trim(),
+      email: String(email).trim().toLowerCase(),
+      phone: phone ? String(phone).trim() : null,
+      country: country ? String(country).trim() : null,
+      message: String(message).trim(),
+      source: source ? String(source) : 'contact',
+      locale: detectedLocale,
+    };
+    let submission: { id: string };
+    try {
+      submission = await prisma.contact_submissions.create({
+        data: {
+          ...baseData,
+          sourceSite: sourceSite ? String(sourceSite).trim() || null : null,
+          notes: notes ? String(notes).trim() || null : null,
+        } as Parameters<typeof prisma.contact_submissions.create>[0]['data'],
+      });
+    } catch (err: any) {
+      if (err?.message?.includes('Unknown argument') && (err?.message?.includes('sourceSite') || err?.message?.includes('notes'))) {
+        submission = await prisma.contact_submissions.create({
+          data: baseData as Parameters<typeof prisma.contact_submissions.create>[0]['data'],
+        });
+      } else {
+        throw err;
+      }
+    }
 
     return NextResponse.json(
       { success: true, id: submission.id },

@@ -3,6 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
   transpilePackages: ['sanitize-html'],
+  async redirects() {
+    return [
+      { source: '/:lang/testimonial', destination: '/:lang/testimonials', permanent: true },
+      { source: '/:lang/testimonial/:slug', destination: '/:lang/testimonials/:slug', permanent: true },
+    ];
+  },
   // Enable Turbo mode for faster development
   experimental: {
     turbo: {

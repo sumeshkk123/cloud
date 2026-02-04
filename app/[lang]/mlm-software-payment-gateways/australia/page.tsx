@@ -250,9 +250,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Australia MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Launch an APRA-aligned payment ecosystem for Australia. Cloud MLM Software unites banks, PayID, BNPL, and analytics for high-trust MLM operations.";
@@ -275,13 +276,12 @@ export async function generateMetadata({
 }
 
 type AustraliaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function AustraliaPaymentGatewaysPage({
-  params
-}: AustraliaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function AustraliaPaymentGatewaysPage({ params }: AustraliaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

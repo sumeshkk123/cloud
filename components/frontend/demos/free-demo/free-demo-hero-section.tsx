@@ -28,12 +28,14 @@ export async function FreeDemoHeroSection({
   const metrics: HeroMetric[] = [
     {
       label: t.metrics.tailoredSandbox.label,
-      value: t.metrics.tailoredSandbox.value ?? t.includedValue,
+      // value: t.metrics.tailoredSandbox.value ?? t.includedValue,
+      value: "",
       detail: t.metrics.tailoredSandbox.detail,
     },
     {
       label: t.metrics.guidedWalkthroughs.label,
-      value: t.metrics.guidedWalkthroughs.value ?? t.includedValue,
+      // value: t.metrics.guidedWalkthroughs.value ?? t.includedValue,
+      value: "",
       detail: t.metrics.guidedWalkthroughs.detail,
     },
     {
@@ -43,7 +45,8 @@ export async function FreeDemoHeroSection({
     },
     {
       label: t.metrics.securityBriefing.label,
-      value: t.metrics.securityBriefing.value ?? t.includedValue,
+      // value: t.metrics.securityBriefing.value ?? t.includedValue,
+      value: "",
       detail: t.metrics.securityBriefing.detail,
     },
   ];

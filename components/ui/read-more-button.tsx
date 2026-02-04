@@ -5,52 +5,72 @@ import { cn } from "@/lib/utils";
 
 export interface ReadMoreButtonProps
     extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
-    href: string;
+    href?: string;
     children?: React.ReactNode;
-    variant?: "default" | "highlighted";
+    variant?: "default" | "highlighted" | "primary" | "outline";
 }
 
-const ReadMoreButton = React.forwardRef<HTMLAnchorElement, ReadMoreButtonProps>(
-    ({ className, href, children = "Read More", variant = "default", ...props }, ref) => {
+const ReadMoreButton = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, ReadMoreButtonProps>(
+    ({ className, href, children = "Read More", variant = "default", onClick, ...props }, ref) => {
         const isHighlighted = variant === "highlighted";
-
-        return (
-            <Link
-                href={href}
-                ref={ref}
-                className={cn(
-                    "read-more-button group relative inline-flex items-center gap-2 overflow-hidden text-sm font-medium",
-                    isHighlighted
+        const isPrimary = variant === "primary";
+        const isOutline = variant === "outline";
+        const baseClass = cn(
+            "read-more-button group/btn relative inline-flex items-center gap-2 overflow-hidden text-sm font-medium transition-colors",
+            isPrimary
+                ? "bg-primary text-primary-foreground shadow hover:!text-white"
+                : isOutline
+                    ? "border-2 border-primary bg-transparent font-semibold text-primary shadow hover:bg-primary hover:!text-primary-foreground"
+                    : isHighlighted
                         ? "text-primary-foreground hover:text-primary-foreground/80"
                         : "text-foreground hover:text-primary",
-                    className
-                )}
-                {...props}
-            >
-                {/* Text container with sliding animation */}
+            className
+        );
+        const content = (
+            <>
                 <span className="relative inline-block h-[1.5em] overflow-hidden">
-                    {/* Current text - moves up on hover */}
-                    <span className="read-more-text-current inline-block transition-all duration-700 ease-in-out font-semibold group-hover:-translate-y-full group-hover:opacity-0">
+                    <span className="read-more-text-current inline-block transition-all duration-700 ease-in-out font-semibold group-hover/btn:-translate-y-full group-hover/btn:opacity-0">
                         {children}
                     </span>
-                    {/* New text - appears from below on hover */}
-                    <span className="read-more-text-new absolute left-0 top-0 inline-block w-full translate-y-full opacity-0 transition-all duration-700 ease-in-out font-semibold group-hover:translate-y-0 group-hover:opacity-100">
+                    <span className="read-more-text-new absolute left-0 top-0 inline-block w-full translate-y-full opacity-0 transition-all duration-700 ease-in-out font-semibold group-hover/btn:translate-y-0 group-hover/btn:opacity-100">
                         {children}
                     </span>
                 </span>
-
-                {/* Icon with rotation */}
                 <span
                     className={cn(
-                        "read-more-icon inline-flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-600 group-hover:rotate-45",
-                        isHighlighted
-                            ? "bg-foreground dark:bg-black text-primary dark:text-white"
-                            : "bg-foreground text-background"
+                        "read-more-icon inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300 group-hover/btn:rotate-45 [&_svg]:transition-colors",
+                        isPrimary
+                            ? "bg-primary-foreground/20 text-white group-hover/btn:bg-white group-hover/btn:text-primary"
+                            : isOutline
+                                ? "bg-primary/20 text-primary group-hover/btn:bg-white group-hover/btn:text-primary"
+                                : isHighlighted
+                                    ? "bg-foreground dark:bg-black text-primary dark:text-white group-hover/btn:bg-white group-hover/btn:text-primary"
+                                    : "bg-foreground text-background"
                     )}
                 >
                     <ArrowUpRight className="h-4 w-4" />
                 </span>
-            </Link>
+            </>
+        );
+
+        if (href != null && href !== "") {
+            return (
+                <Link href={href} ref={ref as React.Ref<HTMLAnchorElement>} className={baseClass} {...props}>
+                    {content}
+                </Link>
+            );
+        }
+
+        return (
+            <button
+                type="button"
+                ref={ref as React.Ref<HTMLButtonElement>}
+                className={baseClass}
+                onClick={onClick}
+                {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+            >
+                {content}
+            </button>
         );
     }
 );

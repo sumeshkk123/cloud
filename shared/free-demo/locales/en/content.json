@@ -5,16 +5,16 @@
     "fallbackDescription": "Explore compensation, automation, analytics, and AI copilots in a secure sandbox configured specifically for your direct selling brand.",
     "primaryCta": "Reserve your demo window",
     "secondaryCta": "Review platform features",
-    "includedValue": "Included",
+    "includedValue": "Value",
     "metrics": {
       "tailoredSandbox": {
         "label": "Tailored sandbox",
-        "value": "Included",
+        "value": "Value",
         "detail": "With your plan templates and data samples"
       },
       "guidedWalkthroughs": {
         "label": "Guided walkthroughs",
-        "value": "Included",
+        "value": "Value",
         "detail": "Compensation, mobile, and analytics modules"
       },
       "accessWindow": {
@@ -24,7 +24,7 @@
       },
       "securityBriefing": {
         "label": "Security briefing",
-        "value": "Included",
+        "value": "Value",
         "detail": "Compliance review for legal and IT stakeholders"
       }
     }
@@ -33,7 +33,10 @@
     "adminViewpoint": "Admin viewpoint",
     "distributorViewpoint": "Distributor viewpoint",
     "exploreDemo": "Explore Demo",
-    "bookYourDemo": "Book Your Demo"
+    "bookYourDemo": "Book Your Demo",
+    "formBadge": "BOOK A DEMO",
+    "formHeading": "Request Your Demo.",
+    "formHeadingHighlight": "Demo."
   },
   "faqSection": {
     "badge": "Demo FAQs",

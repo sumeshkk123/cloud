@@ -200,11 +200,12 @@ const FAQS: FAQ[] = [
 ];
 
 type ChilePageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function ChilePaymentGatewayPage({ params }: ChilePageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function ChilePaymentGatewayPage({ params }: ChilePageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

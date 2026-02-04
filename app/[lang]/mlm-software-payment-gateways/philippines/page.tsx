@@ -231,9 +231,10 @@ const FAQ_ITEMS: FAQItem[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Philippines MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Deploy the Philippines’ leading MLM payment stack. Cloud MLM Software unifies PayPal, Amazon Pay, Authorize.Net, Stripe, Braintree, Adyen, 2Checkout, GCash, Maya, Dragonpay, and BancNet with AI automation.";
@@ -256,13 +257,12 @@ export async function generateMetadata({
 }
 
 type PhilippinesPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function PhilippinesPaymentGatewaysPage({
-  params
-}: PhilippinesPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function PhilippinesPaymentGatewaysPage({ params }: PhilippinesPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

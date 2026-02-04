@@ -245,9 +245,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Antigua and Barbuda MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Design an ECCB-aligned payment ecosystem for Antigua and Barbuda. Cloud MLM Software blends banking, PSPs, and tourism-ready automation for your MLM network.";
@@ -270,13 +271,12 @@ export async function generateMetadata({
 }
 
 type AntiguaAndBarbudaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function AntiguaAndBarbudaPaymentGatewaysPage({
-  params
-}: AntiguaAndBarbudaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function AntiguaAndBarbudaPaymentGatewaysPage({ params }: AntiguaAndBarbudaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

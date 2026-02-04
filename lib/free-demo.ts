@@ -21,6 +21,10 @@ export interface FreeDemoContent {
     distributorViewpoint: string;
     exploreDemo: string;
     bookYourDemo: string;
+    /** Form title for the Book Your Demo modal (distinct from contact/home "GET IN TOUCH" / "Drop Us a Line.") */
+    formBadge: string;
+    formHeading: string;
+    formHeadingHighlight: string;
   };
   faqSection: {
     badge: string;

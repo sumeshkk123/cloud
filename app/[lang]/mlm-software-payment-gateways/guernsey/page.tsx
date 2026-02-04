@@ -237,8 +237,9 @@ type PageProps = {
   params: { lang: string };
 };
 
-export default function GuernseyPaymentGatewaysPage({ params }: PageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function GuernseyPaymentGatewaysPage({ params }: PageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale as SupportedLocale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale as SupportedLocale);
   const pricingHref = buildLocalizedPath("/pricing", locale as SupportedLocale);

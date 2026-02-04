@@ -227,9 +227,10 @@ const FAQ_ITEMS: FAQItem[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Uzbekistan MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Launch compliant MLM payment journeys in Uzbekistan with Cloud MLM Software. Orchestrate PayPal, Amazon Pay, PayU, Stripe, Authorize.Net, Braintree, Adyen, and local rails like Uzcard, Humo, Payme, and Click with AI oversight.";
@@ -252,13 +253,12 @@ export async function generateMetadata({
 }
 
 type UzbekistanPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function UzbekistanPaymentGatewaysPage({
-  params
-}: UzbekistanPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function UzbekistanPaymentGatewaysPage({ params }: UzbekistanPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

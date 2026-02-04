@@ -239,9 +239,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Antarctica MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Deploy polar-ready payment gateways for Antarctic expeditions. Cloud MLM Software orchestrates multinational compliance, offline resilience, and mission-grade analytics.";
@@ -264,13 +265,12 @@ export async function generateMetadata({
 }
 
 type AntarcticaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function AntarcticaPaymentGatewaysPage({
-  params
-}: AntarcticaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function AntarcticaPaymentGatewaysPage({ params }: AntarcticaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

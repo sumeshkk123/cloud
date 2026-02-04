@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "badgeText": "Leadership Cloud MLM Software",
+    "highlightText": "Cloud MLM Software",
+    "afterText": " è progettato da Bpract per far crescere i brand moderni del network marketing.",
+    "description": "Dal 2015 a oggi, i nostri team hanno fornito piattaforme resilienti, conformi e pronte per l'IA che aiutano le imprese di vendita diretta a lanciarsi in tutti i continenti, a soddisfare i distributori e a mantenere la governance senza rallentare la crescita.",
+    "primaryCta": "Parla con un consulente",
+    "secondaryCta": "Esplora la demo live",
+    "metrics": [
+      {
+        "label": "Fondato",
+        "value": "2015",
+        "detail": "Pionieri delle piattaforme sicure di network marketing dal Kozhikode Cyberpark."
+      },
+      {
+        "label": "Implementazioni globali",
+        "value": "300+",
+        "detail": "Programmi MLM implementati in ogni regione principale."
+      },
+      {
+        "label": "Mercati supportati",
+        "value": "100+",
+        "detail": "Copertura localizzata di tasse, conformità, valuta e lingua."
+      },
+      {
+        "label": "Moduli attivi",
+        "value": "56+",
+        "detail": "Funzionalità end-to-end: CRM, pagamenti, IA e e-commerce."
+      }
+    ]
+  }
+}

@@ -191,9 +191,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Åland Islands MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Design a maritime-ready payout stack for Åland Islands networks. Cloud MLM Software orchestrates bank, ferry, and cross-border rails with regulator-approved governance.";
@@ -216,13 +217,12 @@ export async function generateMetadata({
 }
 
 type AlandIslandsPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function AlandIslandsPaymentGatewaysPage({
-  params
-}: AlandIslandsPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function AlandIslandsPaymentGatewaysPage({ params }: AlandIslandsPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

@@ -36,9 +36,11 @@ export async function POST(request: NextRequest) {
 
     for (const demo of backupData.demos) {
       try {
-        const existing = await prisma.demo_items.findFirst({
-          where: { icon: demo.icon, locale: 'en' },
-        });
+        const existing = demo.id
+          ? await prisma.demo_items.findUnique({ where: { id: demo.id } }).catch(() => null)
+          : await prisma.demo_items.findFirst({
+              where: { title: demo.title ?? undefined, locale: 'en' },
+            });
 
         const updateData = {
           title: demo.title,
@@ -54,17 +56,18 @@ export async function POST(request: NextRequest) {
         if (existing) {
           await prisma.demo_items.update({
             where: { id: existing.id },
-            data: updateData,
+            data: updateData as Parameters<typeof prisma.demo_items.update>[0]['data'],
           });
           updated++;
         } else {
+          const createData = {
+            id: demo.id || randomUUID(),
+            locale: 'en',
+            description: (demo as { description?: string }).description ?? demo.adminDemoTitle ?? demo.title ?? '',
+            ...updateData,
+          };
           await prisma.demo_items.create({
-            data: {
-              id: demo.id || randomUUID(),
-              icon: demo.icon || '',
-              locale: 'en',
-              ...updateData,
-            },
+            data: createData as unknown as Parameters<typeof prisma.demo_items.create>[0]['data'],
           });
           restored++;
         }

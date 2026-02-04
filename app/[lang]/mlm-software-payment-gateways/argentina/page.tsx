@@ -250,9 +250,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Argentina MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Deploy an Argentina-specific payment stack for your MLM network. Cloud MLM Software aligns BCRA compliance, FX governance, and multi-rail commerce orchestration.";
@@ -275,13 +276,12 @@ export async function generateMetadata({
 }
 
 type ArgentinaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function ArgentinaPaymentGatewaysPage({
-  params
-}: ArgentinaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function ArgentinaPaymentGatewaysPage({ params }: ArgentinaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

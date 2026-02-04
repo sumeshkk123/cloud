@@ -7,12 +7,12 @@ const defaultFreeDemoContent = {
       "Explore compensation, automation, analytics, and AI copilots in a secure sandbox configured specifically for your direct selling brand.",
     primaryCta: "Reserve your demo window",
     secondaryCta: "Review platform features",
-    includedValue: "Included",
+    includedValue: "Value",
     metrics: {
-      tailoredSandbox: { label: "Tailored sandbox", value: "Included", detail: "With your plan templates and data samples" },
-      guidedWalkthroughs: { label: "Guided walkthroughs", value: "Included", detail: "Compensation, mobile, and analytics modules" },
+      tailoredSandbox: { label: "Tailored sandbox", value: "Value", detail: "With your plan templates and data samples" },
+      guidedWalkthroughs: { label: "Guided walkthroughs", value: "Value", detail: "Compensation, mobile, and analytics modules" },
       accessWindow: { label: "30-day access", value: "30 days", detail: "Optional extensions during project planning" },
-      securityBriefing: { label: "Security briefing", value: "Included", detail: "Compliance review for legal and IT stakeholders" },
+      securityBriefing: { label: "Security briefing", value: "Value", detail: "Compliance review for legal and IT stakeholders" },
     },
   },
   planDemosSection: {
@@ -20,6 +20,9 @@ const defaultFreeDemoContent = {
     distributorViewpoint: "Distributor viewpoint",
     exploreDemo: "Explore Demo",
     bookYourDemo: "Book Your Demo",
+    formBadge: "BOOK A DEMO",
+    formHeading: "Request Your Demo.",
+    formHeadingHighlight: "Demo.",
   },
   faqSection: {
     badge: "Demo FAQs",

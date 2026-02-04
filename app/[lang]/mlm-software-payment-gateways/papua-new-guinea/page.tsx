@@ -227,9 +227,10 @@ const FAQ_ITEMS: FAQItem[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Papua New Guinea MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Deploy a resilient payment stack in Papua New Guinea. Cloud MLM Software unifies PayPal, Amazon Pay, Authorize.Net, Stripe, Braintree, Adyen, 2Checkout, BSP, Kina Bank, and Digicel CellMoni with AI oversight.";
@@ -252,13 +253,12 @@ export async function generateMetadata({
 }
 
 type PapuaNewGuineaPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function PapuaNewGuineaPaymentGatewaysPage({
-  params
-}: PapuaNewGuineaPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function PapuaNewGuineaPaymentGatewaysPage({ params }: PapuaNewGuineaPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

@@ -6,7 +6,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const staticPaths = ["", "/products", "/compare-plans", "/about", "/support"];
+  const staticPaths = ["", "/products", "/compare-plans", "/support"];
 
   const entries: MetadataRoute.Sitemap = [];
 

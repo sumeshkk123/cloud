@@ -117,7 +117,7 @@
       },
       "country": {
         "label": "国家",
-        "placeholder": "选择一个选项 *"
+        "placeholder": "选择国家 *"
       },
       "phone": {
         "label": "电话号码",

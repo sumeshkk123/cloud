@@ -250,9 +250,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Austria MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Deploy an FMA-compliant payment ecosystem for Austria. Cloud MLM Software unites banks, SEPA, PSPs, and analytics to elevate your MLM enterprise.";
@@ -275,13 +276,12 @@ export async function generateMetadata({
 }
 
 type AustriaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function AustriaPaymentGatewaysPage({
-  params
-}: AustriaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function AustriaPaymentGatewaysPage({ params }: AustriaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

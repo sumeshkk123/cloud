@@ -249,9 +249,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Angola MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Design a resilient Angola payment gateway network for your MLM enterprise. Cloud MLM Software unifies BNA compliance, FX governance, and field-ready digital payouts.";
@@ -274,13 +275,12 @@ export async function generateMetadata({
 }
 
 type AngolaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function AngolaPaymentGatewaysPage({
-  params
-}: AngolaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function AngolaPaymentGatewaysPage({ params }: AngolaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

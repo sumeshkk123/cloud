@@ -228,9 +228,10 @@ const FAQ_ITEMS: FAQItem[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "U.S. Virgin Islands MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Deliver compliant MLM payment journeys in the U.S. Virgin Islands with Cloud MLM Software. Unite PayPal, Amazon Pay, PayU, Stripe, Authorize.Net, Braintree, Adyen, and local partners under AI supervision.";
@@ -253,13 +254,12 @@ export async function generateMetadata({
 }
 
 type USVirginIslandsPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function USVirginIslandsPaymentGatewaysPage({
-  params
-}: USVirginIslandsPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function USVirginIslandsPaymentGatewaysPage({ params }: USVirginIslandsPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

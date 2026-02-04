@@ -189,9 +189,10 @@ const FAQ_ITEMS: FAQ[] = [
 export async function generateMetadata({
   params
 }: {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 }): Promise<Metadata> {
-  const locale = resolveLocale(params.lang);
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const title = "Bermuda MLM Payment Gateways | Cloud MLM Software";
   const description =
     "Deliver luxury-grade MLM payment gateways in Bermuda. Cloud MLM Software unites banks, PSPs, and concierge analytics with regulator-ready governance.";
@@ -214,13 +215,12 @@ export async function generateMetadata({
 }
 
 type BermudaPaymentGatewaysPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function BermudaPaymentGatewaysPage({
-  params
-}: BermudaPaymentGatewaysPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function BermudaPaymentGatewaysPage({ params }: BermudaPaymentGatewaysPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);

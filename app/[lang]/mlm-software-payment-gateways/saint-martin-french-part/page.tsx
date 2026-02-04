@@ -236,11 +236,12 @@ export const metadata: Metadata = {
 };
 
 type SaintMartinPageProps = {
-  params: { lang: SupportedLocale };
+  params: { lang: SupportedLocale } | Promise<{ lang: SupportedLocale }>;
 };
 
-export default function SaintMartinFrenchPartPaymentGatewayPage({ params }: SaintMartinPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function SaintMartinFrenchPartPaymentGatewayPage({ params }: SaintMartinPageProps) {
+  const resolved = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolved?.lang ?? "en");
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);
