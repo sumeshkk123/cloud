@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { Plus, X, Send } from 'lucide-react';
+import Link from 'next/link';
+import { Plus, X, Send, Eye, Pencil } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/adminUi/button';
 import { Table } from '@/components/ui/adminUi/table';
@@ -12,7 +13,7 @@ import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal
 import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { toAbsoluteUrl } from '@/lib/media';
 
-interface BlogRow {
+export interface BlogRow {
   id: string;
   title: string;
   slug: string;
@@ -26,14 +27,81 @@ interface BlogRow {
 
 const ITEMS_PER_PAGE = 20;
 const LOCALES = ['en', 'es', 'it', 'de', 'pt', 'zh'];
+const DEFAULT_LOCALE = 'en';
 
-export function BlogTable() {
+/** Normalize raw API response (per-locale rows) into one row per post (BlogRow[]). */
+function normalizeApiPosts(data: any[]): BlogRow[] {
+  const idMap = new Map<string, BlogRow>();
+  for (const item of data) {
+    const id = String(item.id || '');
+    if (!id) continue;
+
+    let row = idMap.get(id);
+    if (!row) {
+      row = {
+        id,
+        title: '',
+        slug: item.slug || '',
+        published: Boolean(item.published),
+        date: item.date ? new Date(item.date).toISOString().slice(0, 10) : '',
+        locale: item.locale || 'en',
+        availableLocales: [],
+        image: item.image ?? undefined,
+        updatedAt: item.updatedAt,
+      };
+      idMap.set(id, row);
+    }
+
+    if (item.locale && !row.availableLocales.includes(item.locale)) {
+      row.availableLocales.push(item.locale);
+    }
+    if (item.locale === 'en' || !row.title) {
+      row.title = item.title || '';
+      row.slug = item.slug || row.slug;
+      row.published = Boolean(item.published);
+      row.date = item.date ? new Date(item.date).toISOString().slice(0, 10) : row.date;
+    }
+    if (item.image != null && item.image !== '') {
+      row.image = item.image;
+    }
+    if (item.updatedAt && (!row.updatedAt || new Date(item.updatedAt) > new Date(row.updatedAt as string))) {
+      row.updatedAt = item.updatedAt;
+    }
+  }
+
+  return Array.from(idMap.values()).sort((a, b) => {
+    const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+    const bTime = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+    return bTime - aTime;
+  });
+}
+
+interface BlogTableProps {
+  /** When provided, use this data instead of fetching (e.g. dashboard passing shared data). */
+  initialData?: any[];
+  /** When set, show only this many rows and hide pagination (e.g. dashboard limit 10). */
+  limit?: number;
+  /** When true, hide the toolbar (Draft filter + Add button). Used when embedded in dashboard. */
+  hideToolbar?: boolean;
+  /** When true, use minimal actions (View + Edit only, no Delete/Publish). Used when embedded in dashboard. */
+  compactActions?: boolean;
+  /** When true, table has no inner card styling (transparent). For use inside another card. */
+  embedded?: boolean;
+}
+
+export function BlogTable({
+  initialData,
+  limit,
+  hideToolbar = false,
+  compactActions = false,
+  embedded = false,
+}: BlogTableProps = {}) {
   const router = useRouter();
   const { showToast, ToastComponent } = useToast();
   const [posts, setPosts] = useState<BlogRow[]>([]);
   const [showDraftOnly, setShowDraftOnly] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(!initialData);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [postToDelete, setPostToDelete] = useState<BlogRow | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -60,51 +128,7 @@ export function BlogTable() {
         return;
       }
 
-      const idMap = new Map<string, BlogRow>();
-      for (const item of data) {
-        const id = String(item.id || '');
-        if (!id) continue;
-
-        let row = idMap.get(id);
-        if (!row) {
-          row = {
-            id,
-            title: '',
-            slug: item.slug || '',
-            published: Boolean(item.published),
-            date: item.date ? new Date(item.date).toISOString().slice(0, 10) : '',
-            locale: item.locale || 'en',
-            availableLocales: [],
-            image: item.image ?? undefined,
-            updatedAt: item.updatedAt,
-          };
-          idMap.set(id, row);
-        }
-
-        if (item.locale && !row.availableLocales.includes(item.locale)) {
-          row.availableLocales.push(item.locale);
-        }
-        if (item.locale === 'en' || !row.title) {
-          row.title = item.title || '';
-          row.slug = item.slug || row.slug;
-          row.published = Boolean(item.published);
-          row.date = item.date ? new Date(item.date).toISOString().slice(0, 10) : row.date;
-        }
-        if (item.image != null && item.image !== '') {
-          row.image = item.image;
-        }
-        if (item.updatedAt && (!row.updatedAt || new Date(item.updatedAt) > new Date(row.updatedAt as string))) {
-          row.updatedAt = item.updatedAt;
-        }
-      }
-
-      const items = Array.from(idMap.values()).sort((a, b) => {
-        const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
-        const bTime = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
-        return bTime - aTime;
-      });
-
-      setPosts(items);
+      setPosts(normalizeApiPosts(data));
     } catch (error) {
       showToast('Failed to load blog posts. Please try again.', 'error');
       setPosts([]);
@@ -115,8 +139,13 @@ export function BlogTable() {
   };
 
   useEffect(() => {
+    if (initialData != null && Array.isArray(initialData)) {
+      setPosts(normalizeApiPosts(initialData));
+      setIsLoading(false);
+      return;
+    }
     loadPosts();
-  }, []);
+  }, [initialData]);
 
   const filtered = useMemo(() => {
     if (showDraftOnly) return posts.filter((p) => !p.published);
@@ -124,11 +153,13 @@ export function BlogTable() {
   }, [posts, showDraftOnly]);
 
   const totalItems = filtered.length;
-  const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+  const pageSize = limit ?? ITEMS_PER_PAGE;
+  const totalPages = limit ? 1 : Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
   const paginated = useMemo(() => {
+    if (limit) return filtered.slice(0, limit);
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
     return filtered.slice(start, start + ITEMS_PER_PAGE);
-  }, [filtered, currentPage]);
+  }, [filtered, currentPage, limit]);
 
   const handlePublish = async (row: BlogRow) => {
     const locales = row.availableLocales?.length ? row.availableLocales : ['en'];
@@ -186,37 +217,40 @@ export function BlogTable() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-end w-full md:-mt-16 md:mb-8 md:justify-end">
-        <div className="flex items-center gap-1">
-          <Button
-            type="button"
-            variant={showDraftOnly ? 'primary' : 'ghost'}
-            size="md"
-            rounded="default"
-            className="whitespace-nowrap px-4"
-            rightIcon={showDraftOnly ? <X className="h-4 w-4" /> : undefined}
-            onClick={() => {
-              setShowDraftOnly((prev) => !prev);
-              setCurrentPage(1);
-            }}
-          >
-            Draft
-          </Button>
-          <Button
-            type="button"
-            variant="primary"
-            size="md"
-            rounded="default"
-            leftIcon={<Plus className="h-4 w-4" />}
-            className="whitespace-nowrap"
-            onClick={() => router.push('/admin/blog/new')}
-          >
-            Add Blog Post
-          </Button>
+      {!hideToolbar && (
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-end w-full md:-mt-16 md:mb-8 md:justify-end">
+          <div className="flex items-center gap-1">
+            <Button
+              type="button"
+              variant={showDraftOnly ? 'primary' : 'ghost'}
+              size="md"
+              rounded="default"
+              className="whitespace-nowrap px-4"
+              rightIcon={showDraftOnly ? <X className="h-4 w-4" /> : undefined}
+              onClick={() => {
+                setShowDraftOnly((prev) => !prev);
+                setCurrentPage(1);
+              }}
+            >
+              Draft
+            </Button>
+            <Button
+              type="button"
+              variant="primary"
+              size="md"
+              rounded="default"
+              leftIcon={<Plus className="h-4 w-4" />}
+              className="whitespace-nowrap"
+              onClick={() => router.push('/admin/blog/new')}
+            >
+              Add Blog Post
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
 
       <Table
+        className={embedded ? 'bg-transparent shadow-none p-0 dark:bg-transparent' : ''}
         columns={columns}
         data={paginated}
         isLoading={isLoading}
@@ -279,6 +313,30 @@ export function BlogTable() {
             );
           }
           if (column.key === 'actions') {
+            if (compactActions) {
+              return (
+                <span className="inline-flex items-center gap-3">
+                  {row.published && (
+                    <Link
+                      href={`/${DEFAULT_LOCALE}/blog/${displaySlug(row.slug)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-primary-600 dark:text-primary-400 hover:underline text-sm font-medium"
+                    >
+                      <Eye className="h-3.5 w-3.5" />
+                      View
+                    </Link>
+                  )}
+                  <Link
+                    href={`/admin/blog/${row.id}`}
+                    className="inline-flex items-center gap-1 text-primary-600 dark:text-primary-400 hover:underline text-sm font-medium"
+                  >
+                    <Pencil className="h-3.5 w-3.5" />
+                    Edit
+                  </Link>
+                </span>
+              );
+            }
             const isPublishing = publishingId === row.id;
             const customActions = !row.published
               ? [
@@ -307,13 +365,15 @@ export function BlogTable() {
         }}
       />
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        itemsPerPage={ITEMS_PER_PAGE}
-        totalItems={totalItems}
-        onPageChange={setCurrentPage}
-      />
+      {!limit && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          itemsPerPage={ITEMS_PER_PAGE}
+          totalItems={totalItems}
+          onPageChange={setCurrentPage}
+        />
+      )}
 
       <DeleteConfirmModal
         isOpen={deleteConfirmOpen}

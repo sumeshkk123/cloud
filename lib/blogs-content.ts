@@ -49,6 +49,7 @@ export interface BlogsArticleListContent {
   previousPageLabel: string;
   nextPageLabel: string;
   paginationAriaLabel: string;
+  showingResultsLabel: string;
 }
 
 export interface BlogsAuthorBioContent {
@@ -192,7 +193,8 @@ export function getBlogsArticleListContent(locale: Locale): BlogsArticleListCont
     pageOf: localized.pageOf ?? defaultContent.articleList.pageOf,
     previousPageLabel: localized.previousPageLabel ?? defaultContent.articleList.previousPageLabel,
     nextPageLabel: localized.nextPageLabel ?? defaultContent.articleList.nextPageLabel,
-    paginationAriaLabel: localized.paginationAriaLabel ?? defaultContent.articleList.paginationAriaLabel
+    paginationAriaLabel: localized.paginationAriaLabel ?? defaultContent.articleList.paginationAriaLabel,
+    showingResultsLabel: localized.showingResultsLabel ?? defaultContent.articleList.showingResultsLabel
   };
 
   articleListCache.set(locale, merged);

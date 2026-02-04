@@ -1,7 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { BlogPosts } from '@/components/admin/dashboard/blog-posts';
+import { Plus } from 'lucide-react';
+import { BlogTable } from '@/components/admin/blog/blog-table';
 import { StatsCards } from '@/components/admin/dashboard/stats-cards';
 import { BlogStats } from '@/components/admin/dashboard/blog-stats';
 import { DashboardContactSubmissions } from '@/components/admin/dashboard/contact-submissions';
@@ -13,8 +15,9 @@ import type { ContactSubmission } from '@/components/admin/dashboard/contact-sub
 
 export default function AdminPage() {
   const { data: session } = useSession();
-  const [contentStats, setContentStats] = useState({ totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0 });
+  const [contentStats, setContentStats] = useState({ totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0, totalDemos: 0 });
   const [blogStats, setBlogStats] = useState({ totalPosts: 0, publishedPosts: 0, draftPosts: 0, last30DaysPosts: 0 });
+  const [blogPosts, setBlogPosts] = useState<any[]>([]);
   const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,17 +54,18 @@ export default function AdminPage() {
       fetch('/api/admin/stats').then(async (res) => {
         if (!res.ok) {
           const errorData = await res.json().catch(() => ({}));
-          return errorData.totalServices !== undefined ? errorData : { totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0 };
+          return errorData.totalServices !== undefined ? errorData : { totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0, totalDemos: 0 };
         }
         try {
           const data = await res.json();
           return data;
         } catch (e) {
-          return { totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0 };
+          return { totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0, totalDemos: 0 };
         }
       }).catch((err) => {
-        return { totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0 };
+        return { totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0, totalDemos: 0 };
       }),
+      // Same blog_posts table as public /blogs (lib/api/blog)
       fetch('/api/admin/blog').then(async (res) => {
         if (!res.ok) {
           return [];
@@ -77,7 +81,7 @@ export default function AdminPage() {
       fetchSubmissions(),
     ])
       .then(([statsData, blogPostsData]) => {
-        setContentStats(statsData || { totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0 });
+        setContentStats(statsData || { totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0, totalDemos: 0 });
 
         // Calculate blog stats
         const posts = Array.isArray(blogPostsData) ? blogPostsData : [];
@@ -99,12 +103,14 @@ export default function AdminPage() {
           draftPosts,
           last30DaysPosts,
         });
+        setBlogPosts(posts);
 
         setLoading(false);
       })
       .catch(() => {
-        setContentStats({ totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0 });
+        setContentStats({ totalServices: 0, totalModules: 0, totalPlans: 0, totalFeatures: 0, totalDemos: 0 });
         setBlogStats({ totalPosts: 0, publishedPosts: 0, draftPosts: 0, last30DaysPosts: 0 });
+        setBlogPosts([]);
         setLoading(false);
       });
   }, [fetchSubmissions]);
@@ -152,7 +158,50 @@ export default function AdminPage() {
               contentStats={contentStats}
             />
 
-            <BlogPosts />
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm overflow-hidden">
+              <PageTitle variant="table" title="Blog Posts">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Link
+                    href="/admin/blog/new"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary-600 text-white px-4 py-2 text-sm font-semibold shadow hover:bg-primary-700 transition"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Add Blog Post
+                  </Link>
+                  <Link
+                    href="/admin/blog"
+                    className="inline-flex items-center gap-2 rounded-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+                  >
+                    View All
+                  </Link>
+                </div>
+              </PageTitle>
+              <div className="p-6">
+                <BlogTable
+                  initialData={blogPosts}
+                  limit={10}
+                  hideToolbar
+                  compactActions
+                  embedded
+                />
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm overflow-hidden">
+              <PageTitle variant="table" title="Demos">
+                <Link
+                  href="/admin/demos"
+                  className="inline-flex items-center gap-2 rounded-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+                >
+                  View All
+                </Link>
+              </PageTitle>
+              <div className="p-6">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Manage MLM plan demos and demo FAQs. Total demos: <span className="font-semibold text-gray-900 dark:text-white">{contentStats.totalDemos ?? 0}</span>.
+                </p>
+              </div>
+            </div>
           </PermissionGuard>
         )}
       </div>

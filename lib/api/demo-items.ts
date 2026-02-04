@@ -16,6 +16,20 @@ export interface DemoItemRecord {
   updatedAt: Date;
 }
 
+function safeJsonParse<T>(value: unknown): T | null {
+  if (value == null) return null;
+  if (typeof value === 'object' && !Array.isArray(value)) return value as T;
+  if (Array.isArray(value)) return value as T;
+  if (typeof value === 'string') {
+    try {
+      return JSON.parse(value) as T;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
 export async function listDemoItems(locale?: string): Promise<DemoItemRecord[]> {
   try {
     const items = await prisma.demo_items.findMany({
@@ -23,28 +37,31 @@ export async function listDemoItems(locale?: string): Promise<DemoItemRecord[]> 
       orderBy: { createdAt: 'desc' },
     });
 
-    // Parse JSON fields
-    return items.map(item => ({
-      id: item.id,
-      icon: item.icon,
-      image: item.image,
-      title: item.title || null,
-      adminDemoTitle: item.adminDemoTitle,
-      adminDemoFeatures: item.adminDemoFeatures ? (typeof item.adminDemoFeatures === 'string' ? JSON.parse(item.adminDemoFeatures) : item.adminDemoFeatures) : null,
-      distributorsDemoTitle: item.distributorsDemoTitle,
-      distributorsDemoFeatures: item.distributorsDemoFeatures ? (typeof item.distributorsDemoFeatures === 'string' ? JSON.parse(item.distributorsDemoFeatures) : item.distributorsDemoFeatures) : null,
-      locale: item.locale,
-      showOnHomePage: item.showOnHomePage ?? false,
-      createdAt: item.createdAt,
-      updatedAt: item.updatedAt,
-    })) as DemoItemRecord[];
+    return items.map(item => {
+      const adminFeatures = item.adminDemoFeatures != null
+        ? safeJsonParse<string[]>(item.adminDemoFeatures as unknown)
+        : null;
+      const distributorFeatures = item.distributorsDemoFeatures != null
+        ? safeJsonParse<string[]>(item.distributorsDemoFeatures as unknown)
+        : null;
+      return {
+        id: item.id,
+        icon: item.icon ?? '',
+        image: item.image ?? '',
+        title: item.title || null,
+        adminDemoTitle: item.adminDemoTitle ?? '',
+        adminDemoFeatures: adminFeatures,
+        distributorsDemoTitle: item.distributorsDemoTitle ?? '',
+        distributorsDemoFeatures: distributorFeatures,
+        locale: item.locale,
+        showOnHomePage: item.showOnHomePage ?? false,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+      } as DemoItemRecord;
+    });
   } catch (error: any) {
-    if (error?.code === 'P2021' || error?.message?.includes('does not exist')) {
-      console.error('[listDemoItems] Table does not exist:', error);
-      return [];
-    }
-    console.error('[listDemoItems] Error:', error);
-    throw error;
+    console.error('[listDemoItems] Error (returning []):', error?.message || error);
+    return [];
   }
 }
 

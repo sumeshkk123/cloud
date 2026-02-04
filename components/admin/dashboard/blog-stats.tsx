@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FileText, CheckCircle2, Clock3, BarChart3, Wrench, Grid3x3, Network, Sparkles } from 'lucide-react';
+import { FileText, CheckCircle2, Clock3, BarChart3, Wrench, Grid3x3, Network, Sparkles, Rocket } from 'lucide-react';
 
 interface BlogStatsData {
   totalPosts: number;
@@ -78,6 +78,12 @@ export function BlogStats({ blogStats, contentStats }: BlogStatsProps) {
       value: contentStats.totalPlans || 0,
       icon: <Network className="h-5 w-5 text-gray-600" />,
       href: '/admin/mlm-plans',
+    },
+    {
+      label: 'Total Demos',
+      value: contentStats.totalDemos ?? 0,
+      icon: <Rocket className="h-5 w-5 text-gray-600" />,
+      href: '/admin/demos',
     },
   ];
 

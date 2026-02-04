@@ -5,7 +5,7 @@ import { AIO_SIGNALS } from "./blogs-data";
 
 export function BlogsAioSignalsSection() {
   return (
-    <Section id="aio-signals" variant="muted" padding="xl">
+    <Section id="aio-signals" variant="gradient" padding="xl">
       <div className="space-y-10 container">
         <SectionTitle
           badge="AI & SEO"

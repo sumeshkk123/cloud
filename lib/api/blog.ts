@@ -1,3 +1,10 @@
+/**
+ * Blog API: single source for the blog_posts table.
+ * Used by:
+ * - Public /blogs page (getPublishedBlogPostsSearch)
+ * - Admin dashboard (GET /api/admin/blog → getAllBlogPosts)
+ * - Blog detail page (getPublishedBlogPostBySlug)
+ */
 import { prisma } from '@/lib/db/prisma';
 import { randomUUID } from 'crypto';
 import sanitizeHtml from 'sanitize-html';
@@ -60,6 +67,37 @@ export function getBlogContentHtml(content: string | null | undefined): string {
     html = trimmed;
   }
   return sanitizeHtml(html, BLOG_SANITIZE_OPTIONS);
+}
+
+/** Strip HTML tags and return plain text (for excerpts). */
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Get a short plain-text excerpt from blog content (first block, stripped of HTML).
+ * Used when post.description is empty (e.g. for banner or listing).
+ */
+export function getBlogExcerpt(content: string | null | undefined, maxLength = 200): string {
+  if (!content || typeof content !== 'string') return '';
+  const trimmed = content.trim();
+  if (!trimmed) return '';
+  let firstBlock = '';
+  try {
+    const parsed = JSON.parse(trimmed) as unknown;
+    if (Array.isArray(parsed) && typeof parsed[0] === 'string') {
+      firstBlock = parsed[0];
+    } else if (typeof parsed === 'string') {
+      firstBlock = parsed;
+    } else {
+      firstBlock = trimmed;
+    }
+  } catch {
+    firstBlock = trimmed;
+  }
+  const text = stripHtml(firstBlock);
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trim() + '…';
 }
 
 export async function getAllBlogPosts(): Promise<BlogPostRecord[]> {

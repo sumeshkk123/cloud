@@ -37,11 +37,11 @@ export function AuthorBioSection({
     <Section
       id="about-the-author"
       variant="primary"
-      padding="lg"
-      className={cn("blogdetails page", className)}
+      padding="md"
+      className={cn("blogdetails page !pt-0", className)}
     >
       <div className="container">
-        <h2 className="mb-4 text-xl font-bold text-slate-800 dark:text-slate-100">
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">
           {heading}
         </h2>
         <div

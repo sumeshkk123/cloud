@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { SupportedLocale } from "@/config/site";
+import { siteBaseConfig } from "@/config/site";
 import { isSupportedLocale } from "@/lib/i18n-utils";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
@@ -26,20 +27,43 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const resolved = await Promise.resolve(params);
   const locale = resolveLocale(resolved.lang);
-  const title = "MLM Blogs for Network Marketers";
+  const title = "MLM Blogs for Network Marketers | Cloud MLM Software";
   const description =
     "Explore Cloud MLM Software articles covering technology, compliance, and growth strategies for modern network marketing leaders.";
+  const canonicalPath = buildLocalizedPath("/blogs", locale);
+  const pageUrl = `${siteBaseConfig.url.replace(/\/$/, "")}${canonicalPath}`;
+  const ogImage = `${siteBaseConfig.url.replace(/\/$/, "")}${siteBaseConfig.ogImage}`;
 
   return {
     title,
     description,
+    keywords: ["MLM blog", "network marketing articles", "MLM software", "compliance", "growth strategies"],
     alternates: {
-      canonical: buildLocalizedPath("/blogs", locale)
+      canonical: canonicalPath
     },
     openGraph: {
       title,
-      description
-    }
+      description,
+      url: pageUrl,
+      siteName: "Cloud MLM Software",
+      type: "website",
+      locale: locale === "en" ? "en_US" : locale,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "Cloud MLM Software - MLM Blogs"
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage]
+    },
+    robots: { index: true, follow: true }
   };
 }
 

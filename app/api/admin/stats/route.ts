@@ -10,8 +10,8 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get counts for services, MLM plans, modules, and features
-    const [servicesCount, mlmPlansCount, modulesCount, featuresCount] = await Promise.all([
+    // Get counts for services, MLM plans, modules, features, and demos
+    const [servicesCount, mlmPlansCount, modulesCount, featuresCount, demosCount] = await Promise.all([
       prisma.services.count().catch((err) => {
         console.error('Error counting services:', err);
         return 0;
@@ -28,6 +28,10 @@ export async function GET() {
         console.error('Error counting features:', err);
         return 0;
       }),
+      prisma.demo_items.count().catch((err) => {
+        console.error('Error counting demo_items:', err);
+        return 0;
+      }),
     ]);
 
     const stats = {
@@ -35,6 +39,7 @@ export async function GET() {
       totalModules: modulesCount || 0,
       totalFeatures: featuresCount || 0,
       totalPlans: mlmPlansCount || 0,
+      totalDemos: demosCount || 0,
     };
 
     return NextResponse.json(stats);
@@ -45,6 +50,7 @@ export async function GET() {
       totalModules: 0,
       totalFeatures: 0,
       totalPlans: 0,
+      totalDemos: 0,
     });
   }
 }

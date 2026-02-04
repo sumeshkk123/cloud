@@ -11,7 +11,10 @@ import { getMetaDetail } from "@/lib/api/meta-details";
 import { listDemoItems } from "@/lib/api/demo-items";
 import { listDemoFaqs } from "@/lib/api/demo-faq";
 import { getFreeDemoContent } from "@/lib/free-demo";
+import { getHomepageContent } from "@/lib/homepage";
 import type { PlanDemo, Faq } from "@/components/frontend/demos/free-demo/free-demo-content";
+import { MlmSoftwareDemoList } from "@/components/frontend/home/mlm-software-demo-list";
+import { Section } from "@/components/ui/section";
 import {
   DEMO_AGENDA,
   DEMO_INVITES,
@@ -64,11 +67,17 @@ export default async function FreeDemoPage({ params }: FreeDemoPageProps) {
   const pageTitleData = await getPageTitle("free-mlm-software-demo", locale);
   const metaDetails = await getMetaDetail("free-mlm-software-demo", locale);
 
-  // Fetch demo items and FAQs from database
-  const [demoItems, demoFaqs] = await Promise.all([
+  // Fetch demo items, FAQs, and homepage content (for demo section block)
+  const [demoItems, demoFaqs, homepageContent] = await Promise.all([
     listDemoItems(locale),
     listDemoFaqs(locale),
+    getHomepageContent(locale as import("@/config/site").SupportedLocale).catch(() => null),
   ]);
+  const demoSectionData = homepageContent?.demoSection ?? {
+    badgeLabel: "Demo experiences",
+    heading: "See your compensation plan live inside Cloud MLM Software",
+    description: "Share plan rules, product catalogue, and launch regions. We configure a working MLM software demo with payouts, dashboards, and distributor journeys tuned to your market.",
+  };
 
   // Map database FAQs to Faq[]; fall back to static FAQS if none in DB
   const faqs: Faq[] =
@@ -128,6 +137,14 @@ export default async function FreeDemoPage({ params }: FreeDemoPageProps) {
         exploreDemoLabel={planDemosSection.exploreDemo}
         bookYourDemoLabel={planDemosSection.bookYourDemo}
       />
+
+      <Section variant="gradient" padding="lg" containerClassName="!pb-4">
+        <MlmSoftwareDemoList
+          locale={locale}
+          data={demoSectionData}
+          youtubeUrl="https://youtu.be/naWFi4PCojA?t=1"
+        />
+      </Section>
 
       <FreeDemoAgendaSection agenda={DEMO_AGENDA} />
 

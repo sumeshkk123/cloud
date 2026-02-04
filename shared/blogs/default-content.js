@@ -72,7 +72,8 @@ export default {
     pageOf: "Page {current} of {total}",
     previousPageLabel: "Previous page",
     nextPageLabel: "Next page",
-    paginationAriaLabel: "Blog pagination"
+    paginationAriaLabel: "Blog pagination",
+    showingResultsLabel: "Showing {start} to {end} of {total} results"
   },
   authorBio: {
     heading: "About The Author",

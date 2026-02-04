@@ -32,6 +32,7 @@ import { getPublishedBlogPostsForHome } from "@/lib/api/blog";
 import { mergeNavItems, mergeHeaderCta, mergeLanguageOptions } from "@/lib/layout-utils";
 import { NAV_ITEMS, HEADER_CTA, LANGUAGE_OPTIONS } from "@/app/[lang]/layout";
 import { listServices } from "@/lib/api/services";
+import { listDemoItems } from "@/lib/api/demo-items";
 import defaultContentModule from "@/shared/homepage/default-content.js";
 import type { HomepageBlogPost } from "@/types/homepage";
 
@@ -161,6 +162,25 @@ async function getCachedBlogPostsForHome(locale: string) {
   )();
 }
 
+async function getCachedDemoItems(locale: string) {
+  return unstable_cache(
+    async () => {
+      try {
+        let items = await listDemoItems(locale);
+        if (items.length === 0 && locale !== "en") {
+          items = await listDemoItems("en");
+        }
+        return items;
+      } catch (error) {
+        console.error('[HomePage] Error fetching demo items:', error);
+        return [];
+      }
+    },
+    ['home-demo-items', locale],
+    { revalidate: 60, tags: ['demo-items', `demo-items-${locale}`] }
+  )();
+}
+
 export default async function HomePage({ params }: HomePageProps) {
   try {
     // Handle both Promise and direct params (Next.js 15 compatibility)
@@ -168,12 +188,13 @@ export default async function HomePage({ params }: HomePageProps) {
     const locale = resolveLocale(resolvedParams.lang);
 
     // Fetch all data in parallel for maximum performance
-    const [content, globalSettings, pageTitleData, homeServices, homeBlogPosts] = await Promise.all([
+    const [content, globalSettings, pageTitleData, homeServices, homeBlogPosts, homeDemoItems] = await Promise.all([
       getCachedHomepageContent(locale as SupportedLocale),
       getCachedGlobalSettings(locale as SupportedLocale),
       getCachedPageTitle("home", locale),
       getCachedServices(locale),
       getCachedBlogPostsForHome(locale),
+      getCachedDemoItems(locale),
     ]);
 
     const siteName = globalSettings?.siteName ?? SITE_NAME;
@@ -193,7 +214,7 @@ export default async function HomePage({ params }: HomePageProps) {
         />
         <MomentumStatsSection data={content?.momentumStats || {}} trustBadges={content?.trustBadges || []} />
         <WhyChooseSection locale={locale} data={content?.whyChoose || {}} />
-        <MlmSoftwareDemo locale={locale} data={{ ...content?.demoSection, ...content?.featureSection }} />
+        <MlmSoftwareDemo locale={locale} data={{ ...content?.demoSection, ...content?.featureSection }} demoItems={homeDemoItems} />
         <AiToolsSection data={content?.aiHighlights || {}} />
         <MlmSoftwarePlans locale={locale} data={content?.planShowcase || {}} industryTags={content?.industrySection?.focusTags} />
         <MlmSoftwareModules />
@@ -231,6 +252,6 @@ function resolveBlogPostsForSection(
   contentPosts?: HomepageBlogPost[] | null
 ): HomepageBlogPost[] {
   if (homePosts?.length > 0) return homePosts;
-  if (contentPosts?.length > 0) return contentPosts;
+  if (contentPosts && contentPosts.length > 0) return contentPosts;
   return defaultBlogPosts;
 }

@@ -66,7 +66,8 @@
     "pageOf": "Seite {current} von {total}",
     "previousPageLabel": "Vorherige Seite",
     "nextPageLabel": "Nächste Seite",
-    "paginationAriaLabel": "Blog-Paginierung"
+    "paginationAriaLabel": "Blog-Paginierung",
+    "showingResultsLabel": "Anzeige {start} bis {end} von {total} Ergebnissen"
   },
   "authorBio": {
     "heading": "Über den Autor",

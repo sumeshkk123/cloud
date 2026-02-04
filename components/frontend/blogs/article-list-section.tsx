@@ -3,15 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Search, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, X } from "lucide-react";
 import type { HomepageBlogPost } from "@/types/homepage";
 import type { BlogsArticleListContent } from "@/lib/blogs-content";
 import { Section } from "@/components/ui/section";
 import { CompactArticleCard } from "@/components/frontend/common/article-cards";
 import { BlogListSkeleton } from "@/components/frontend/blogs/blog-list-skeleton";
+import { BlogPagination } from "@/components/frontend/blogs/blog-pagination";
 import { Typography } from "@/components/ui/typography";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 const POSTS_PER_PAGE = 12;
 const SEARCH_DEBOUNCE_MS = 300;
@@ -176,36 +175,19 @@ export function ArticleListSection({
               ))}
             </div>
 
-            {/* Pagination */}
+            {/* Pagination - same design as businessmlmsoftware-com-next blog page */}
             {totalPages > 1 && (
-              <nav
-                className="flex flex-wrap items-center justify-center gap-2 pt-4"
-                aria-label={t.paginationAriaLabel}
-              >
-                <Button
-                  variant="outline"
-                  size="sm"
-                  asChild
-                  className={cn(currentPage <= 1 && "pointer-events-none opacity-50")}
-                >
-                  <Link href={hrefForPage(currentPage - 1)} aria-label={t.previousPageLabel}>
-                    <ChevronLeft className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <span className="flex items-center gap-1 px-2 text-sm text-muted-foreground">
-                  {t.pageOf.replace("{current}", String(currentPage)).replace("{total}", String(totalPages))}
-                </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  asChild
-                  className={cn(currentPage >= totalPages && "pointer-events-none opacity-50")}
-                >
-                  <Link href={hrefForPage(currentPage + 1)} aria-label={t.nextPageLabel}>
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </nav>
+              <div className="mt-8">
+                <BlogPagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  itemsPerPage={POSTS_PER_PAGE}
+                  totalItems={total}
+                  getHrefForPage={hrefForPage}
+                  showingResultsLabel={t.showingResultsLabel}
+                  className="bg-card dark:bg-card/80 border-border/60 dark:border-border/50"
+                />
+              </div>
             )}
           </>
         ) : (

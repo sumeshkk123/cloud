@@ -141,7 +141,7 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
 
   return (
     <aside
-      className={`fixed lg:static left-0 top-0 h-screen bg-white flex flex-col transition-all duration-300 z-50 overflow-visible flex-shrink-0 ${isSidebarOpen ? 'w-64' : 'w-16'
+      className={`fixed lg:static left-0 top-0 h-screen bg-white flex flex-col transition-all duration-300 z-50 overflow-visible flex-shrink-0 ${isSidebarOpen ? 'w-72' : 'w-16'
         } ${isSidebarOpen ? 'lg:translate-x-0' : 'translate-x-0'}`}
     >
       {/* Logo/Branding */}
