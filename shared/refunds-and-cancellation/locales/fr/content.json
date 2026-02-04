@@ -1,0 +1,29 @@
+{
+  "title": "Politique de Remboursement",
+  "intro": {
+    "heading": "Nous nous efforçons de fournir à nos clients un logiciel de la plus haute qualité ainsi que les meilleurs services de support technique, commercial et informationnel.",
+    "paragraph1": "Pour aider à garantir que nos produits logiciels sont exactement ce dont vous avez besoin, un compte gratuit est disponible sur notre site Web. Des informations complètes sur les produits et services sont également fournies. Pour vous aider à prendre la bonne décision, vous pouvez également contacter notre équipe de support.",
+    "paragraph2": "Nous comprenons cependant que des circonstances exceptionnelles peuvent survenir en raison de la nature des produits que nous fournissons, veuillez donc vous familiariser avec notre Politique de Remboursement avant de commander notre logiciel pour éviter l'insatisfaction après l'achat."
+  },
+  "guarantee": {
+    "heading": "Garantie de Remboursement Basée sur l'Honneur",
+    "paragraph": "Étant donné que tous nos produits sont des biens intangibles irrévocables (logiciels numériques), ils sont accompagnés d'une Garantie de Remboursement Basée sur l'Honneur d'une semaine après le lancement. Basée sur l'honneur signifie que nous serons heureux de retourner votre investissement à condition que:",
+    "conditions": [
+      "Nous soyons sûrs que le produit fonctionne mal (c'est-à-dire qu'il ne fonctionne pas selon les fonctionnalités déclarées sur la page d'accueil du produit ou d'autres documents officiels du produit) sur l'ordinateur/appareil mobile du client;",
+      "Nous recevions une assistance pour découvrir les détails du problème du côté du client;",
+      "Nous ne parvenions pas à résoudre la déficience dans un délai raisonnable.",
+      "Le remboursement sera émis au client en totalité sans compensations ni remboursements supplémentaires."
+    ]
+  },
+  "procedure": {
+    "heading": "Procédure de Retour de Produit:",
+    "subheading": "Les demandes de remboursement doivent être:",
+    "requirements": [
+      "Effectuées dans les sept (7) jours suivant la date de lancement.",
+      "Envoyées par e-mail à notre Équipe du Service Client.",
+      "Contenir l'adresse e-mail avec laquelle vous vous êtes inscrit à notre service et les raisons détaillées et fondées pour lesquelles vous demandez un remboursement."
+    ],
+    "note": "Lors de l'envoi d'une demande de remboursement, veuillez permettre à notre Équipe du Service Client jusqu'à un (1) jour ouvrable pour vous répondre sur le problème.",
+    "followUp": "Vous devriez vous attendre à un e-mail de info@cloudmlmsoftware.com, soyez prêt à fournir à nos agents de support des informations supplémentaires et à suivre toutes les recommandations."
+  }
+}

@@ -42,7 +42,11 @@ export async function getPageMetadata(
         
         if (!isBuildTime) {
             try {
-                const meta = await getMetaDetail(page, locale);
+                let meta = await getMetaDetail(page, locale);
+                // Fallback: try alternate page key for about-company (e.g. if saved as "About company" in admin)
+                if (!meta && page === 'about-company') {
+                    meta = await getMetaDetail('About company', locale);
+                }
                 if (meta) {
                     title = meta.title || title;
                     description = meta.description || description;

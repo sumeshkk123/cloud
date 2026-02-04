@@ -1,0 +1,29 @@
+{
+  "title": "Rückerstattungsrichtlinie",
+  "intro": {
+    "heading": "Wir bemühen uns, unseren Kunden Software von höchster Qualität zusammen mit den besten technischen, vertrieblichen und informationsbezogenen Support-Dienstleistungen anzubieten.",
+    "paragraph1": "Um sicherzustellen, dass unsere Softwareprodukte genau das sind, was Sie brauchen, ist auf unserer Website ein kostenloses Konto verfügbar. Umfassende Produkt- und Serviceinformationen werden ebenfalls bereitgestellt. Um Ihnen bei der richtigen Entscheidung zu helfen, können Sie auch unser Support-Team kontaktieren.",
+    "paragraph2": "Wir verstehen jedoch, dass aufgrund der Art der von uns bereitgestellten Produkte außergewöhnliche Umstände auftreten können. Bitte machen Sie sich daher vor der Bestellung unserer Software mit unserer Rückerstattungsrichtlinie vertraut, um Unzufriedenheit nach dem Kauf zu vermeiden."
+  },
+  "guarantee": {
+    "heading": "Ehrenbasierte Geld-zurück-Garantie",
+    "paragraph": "Da alle unsere Produkte immaterielle unwiderrufliche Güter (digitale Software) sind, werden sie mit einer 1-wöchigen ehrenbasierten Geld-zurück-Garantie nach dem Start geliefert. Ehrenbasiert bedeutet, dass wir gerne Ihre Investition zurückerstatten, vorausgesetzt:",
+    "conditions": [
+      "Wir sind sicher, dass das Produkt nicht ordnungsgemäß funktioniert (d.h. es funktioniert nicht gemäß den auf der Produkthomepage oder anderen offiziellen Produktdokumenten deklarierten Funktionen) auf dem Computer/Mobilgerät des Kunden;",
+      "Wir Unterstützung beim Herausfinden der Details des Problems seitens des Kunden erhalten;",
+      "Wir es nicht schaffen, den Mangel innerhalb einer angemessenen Zeit zu beheben.",
+      "Die Rückerstattung wird dem Kunden vollständig ohne Entschädigungen oder zusätzliche Erstattungen ausgestellt."
+    ]
+  },
+  "procedure": {
+    "heading": "Produktrückgabeverfahren:",
+    "subheading": "Rückerstattungsanträge müssen:",
+    "requirements": [
+      "Innerhalb von sieben (7) Tagen nach dem Startdatum gestellt werden.",
+      "Per E-Mail an unser Kundenservice-Team gesendet werden.",
+      "Die E-Mail-Adresse enthalten, mit der Sie sich für unseren Service angemeldet haben, und die detaillierten und begründeten Gründe, warum Sie eine Rückerstattung beantragen."
+    ],
+    "note": "Nach dem Senden einer Rückerstattungsanfrage erlauben Sie bitte unserem Kundenservice-Team bis zu einem (1) Werktag, um auf das Problem zurückzukommen.",
+    "followUp": "Sie sollten eine E-Mail von info@cloudmlmsoftware.com erwarten, seien Sie bereit, unseren Support-Mitarbeitern zusätzliche Informationen zur Verfügung zu stellen und allen Empfehlungen zu folgen."
+  }
+}

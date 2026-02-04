@@ -1,40 +1,27 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { GradientCtaSection } from "@/components/frontend/common/gradient-cta-section";
+import { getAboutCompanyContent } from "@/lib/about-company";
+import type { Locale } from "@/i18n-config";
 
 interface AboutCompanyCtaSectionProps {
+  locale: Locale;
   contactHref: string;
   demoHref: string;
 }
 
-export function AboutCompanyCtaSection({ contactHref, demoHref }: AboutCompanyCtaSectionProps) {
+export function AboutCompanyCtaSection({ locale, contactHref, demoHref }: AboutCompanyCtaSectionProps) {
+  const content = getAboutCompanyContent(locale).cta;
+  const [a, b, c] = content.trustIndicators;
   return (
-    <section className="container rounded-3xl border border-border/60 bg-gradient-to-br from-primary/15 via-background to-emerald-200/20 p-10 shadow-sm dark:from-primary/20 dark:to-emerald-500/10">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        <div className="space-y-3">
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Ready to architect your next phase?
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Book a strategy session to explore roadmaps, migration options, and co-innovation opportunities with the
-            team behind Cloud MLM Software.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <Button asChild size="lg">
-            <Link href={contactHref}>
-              Start the conversation
-              <ArrowUpRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg">
-            <Link href={demoHref} target="_blank" rel="noopener noreferrer">
-              View the interactive demo
-              <ArrowUpRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </Button>
-        </div>
-      </div>
-    </section>
+    <GradientCtaSection
+      title={content.title}
+      description={content.description}
+      primaryButton={{ text: content.primaryButtonText, href: contactHref }}
+      secondaryButton={{
+        text: content.secondaryButtonText,
+        href: demoHref,
+        openInNewTab: true,
+      }}
+      trustIndicators={[a ?? "", b ?? "", c ?? ""]}
+    />
   );
 }

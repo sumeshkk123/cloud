@@ -1,0 +1,24 @@
+{
+  "valueProofs": {
+    "badge": "Wertversprechen",
+    "heading": "Was jede Zusammenarbeit beinhaltet",
+    "description": "Jede Cloud MLM Software-Zusammenarbeit umfasst beschaffungsfertige Liefergegenstände, globale Bereitschaftsvalidierung und Beraterpartnerschaft.",
+    "items": [
+      {
+        "title": "Beschaffungsfertige Liefergegenstände",
+        "detail": "Positionspreise, Akzeptanzkriterien und rechtsfertige Dokumentation, verpackt für Genehmigungen.",
+        "iconKey": "fileCheck"
+      },
+      {
+        "title": "Globale Bereitschaft",
+        "detail": "Multi-Markt-, Währungs- und Steuerszenarien, die validiert werden, bevor Sie sich mit einer Unterschrift verpflichten.",
+        "iconKey": "globe"
+      },
+      {
+        "title": "Beraterpartnerschaft",
+        "detail": "Vergütungswissenschaftler und Automatisierungsingenieure gestalten jede Schätzung gemeinsam mit Ihrem Team.",
+        "iconKey": "handshake"
+      }
+    ]
+  }
+}

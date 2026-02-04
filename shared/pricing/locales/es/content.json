@@ -1,0 +1,24 @@
+{
+  "valueProofs": {
+    "badge": "Propuesta de valor",
+    "heading": "Lo que incluye cada compromiso",
+    "description": "Cada compromiso de Cloud MLM Software incluye entregables listos para adquisiciones, validación de preparación global y asociación con asesores.",
+    "items": [
+      {
+        "title": "Entregables listos para adquisiciones",
+        "detail": "Precios por línea de artículo, criterios de aceptación y documentación lista para uso legal empaquetada para aprobaciones.",
+        "iconKey": "fileCheck"
+      },
+      {
+        "title": "Preparación global",
+        "detail": "Escenarios multi-mercado, de moneda e impuestos validados antes de que comprometa una firma.",
+        "iconKey": "globe"
+      },
+      {
+        "title": "Asociación con asesores",
+        "detail": "Científicos de compensación e ingenieros de automatización dan forma a cada estimación junto con su equipo.",
+        "iconKey": "handshake"
+      }
+    ]
+  }
+}

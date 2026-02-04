@@ -60,4 +60,56 @@
 
 ---
 
+## Icon transitions (home page standard)
+
+**Always use the same icon hover transition as the home page across the whole project.** Check and obey this in every component that shows an icon inside a card or clickable area. Icon transition should be like home page.
+
+### Standard pattern
+
+1. **Parent** must have `group` so the icon responds to hover.
+2. **Icon wrapper** (the circle/box around the icon):
+   - `inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground`
+   - Optional: use `rounded-2xl` instead of `rounded-full` where the design uses rounded squares.
+3. **Icon** (the Lucide/Remix component):
+   - `h-6 w-6 transition-transform duration-300 group-hover:scale-110 group-hover:[transform:rotateY(180deg)]`
+   - So on hover: icon scales up slightly and flips on the Y axis (3D flip).
+
+### Reference components
+
+- `components/frontend/common/feature-card.tsx` (canonical)
+- Home hero stats: `components/frontend/home/homepage-hero-section.tsx` (icon flip: `group-hover:scale-x-[-1]` variant)
+- Home modules: `components/frontend/home/mlm-software-modules.tsx` (rotateY(180deg))
+
+When adding or editing any section that displays icons in cards (e.g. about-company, modules, features, services), always apply this icon transition pattern unless the design explicitly requires a different effect.
+
+---
+
+## Section pills / badges
+
+Use the **Badge** component (`@/components/ui/badge`) for section labels (e.g. "Our mission", "Core modules"), same as home page. Use `<Badge variant="default">Label</Badge>` or SectionTitle’s `badge` prop. Do not invent custom pill markup.
+
+---
+
+## Conciseness
+
+- Prefer fewer tokens: short rules, minimal comments, reuse existing components.
+- In rules: state what to do in one line where possible; avoid long prose.
+
+---
+
+## i18n / translatable content
+
+- **Use translation key for all content.** Do not hardcode user-facing copy. Use translation keys or locale-driven content (e.g. `getAboutCompanyContent(locale)`, `content.json`, or a `t(key)` layer) so copy can be translated later.
+- Add new strings to the appropriate content module (e.g. `shared/<feature>/default-content.js` and `locales/<locale>/content.json`) and reference them by key in components. Components receive `locale` or pre-resolved content as props where needed.
+- Apply this across all projects: user-visible text should be key-based or come from locale content, not plain literals in JSX.
+
+---
+
+## Section layout
+
+- **Always put the container inside the section.** Structure: `<Section>…<div className="container …">…</div></Section>`. Do not rely on Section alone for max-width; use a container (or equivalent) as the direct child for content.
+- **Section padding should be `"lg"`.** Use `<Section padding="lg">` unless the design explicitly requires a different value (e.g. `xl`).
+
+---
+
 **REMEMBER: When in doubt, ASK FIRST. It's better to ask for permission than to delete something important.**

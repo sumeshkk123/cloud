@@ -1,0 +1,29 @@
+{
+  "title": "Politica di Rimborso",
+  "intro": {
+    "heading": "Ci sforziamo di fornire ai nostri clienti software della massima qualità insieme ai migliori servizi di supporto tecnico, commerciale e informativo.",
+    "paragraph1": "Per aiutare a garantire che i nostri prodotti software siano esattamente ciò di cui hai bisogno, è disponibile un account gratuito sul nostro sito web. Vengono fornite anche informazioni complete su prodotti e servizi. Per aiutarti a prendere la decisione giusta, puoi anche contattare il nostro team di supporto.",
+    "paragraph2": "Comprendiamo tuttavia che possano verificarsi circostanze eccezionali a causa della natura dei prodotti che forniamo, quindi, per favore, familiarizza con la nostra Politica di Rimborso prima di ordinare il nostro software per evitare insoddisfazione dopo l'acquisto."
+  },
+  "guarantee": {
+    "heading": "Garanzia di Rimborso Basata sull'Onore",
+    "paragraph": "Poiché tutti i nostri prodotti sono beni intangibili irrevocabili (software digitale), sono accompagnati da una Garanzia di Rimborso Basata sull'Onore di 1 settimana dopo il lancio. Basata sull'onore significa che saremo lieti di restituire il tuo investimento a condizione che:",
+    "conditions": [
+      "Siamo sicuri che il prodotto non funzioni correttamente (cioè non funziona secondo le funzionalità dichiarate nella homepage del prodotto o altri documenti ufficiali del prodotto) sul computer/dispositivo mobile del cliente;",
+      "Riceviamo assistenza per scoprire i dettagli del problema da parte del cliente;",
+      "Non riusciamo a risolvere la carenza entro un tempo ragionevole.",
+      "Il rimborso sarà emesso al cliente per intero senza compensazioni o rimborsi aggiuntivi."
+    ]
+  },
+  "procedure": {
+    "heading": "Procedura di Restituzione del Prodotto:",
+    "subheading": "Le richieste di rimborso devono essere:",
+    "requirements": [
+      "Effettuate entro sette (7) giorni dalla data di lancio.",
+      "Inviate via e-mail al nostro Team del Servizio Clienti.",
+      "Contenere l'indirizzo e-mail con cui ti sei registrato al nostro servizio e i motivi dettagliati e fondati per cui richiedi un rimborso."
+    ],
+    "note": "Dopo aver inviato una richiesta di rimborso, si prega di consentire al nostro Team del Servizio Clienti fino a un (1) giorno lavorativo per risponderti sul problema.",
+    "followUp": "Dovresti aspettarti un'email da info@cloudmlmsoftware.com, sii pronto a fornire ai nostri agenti di supporto informazioni aggiuntive e seguire tutte le raccomandazioni."
+  }
+}

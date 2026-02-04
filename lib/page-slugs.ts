@@ -4,6 +4,7 @@
  */
 export const pageSlugMap: Record<string, Record<string, string>> = {
   en: {
+    'about-company': 'about-company',
     'faqs': 'faqs',
     'faq': 'faqs', // Legacy support
     'testimonials': 'testimonials',
@@ -19,10 +20,16 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'free-mlm-software-demo': 'free-mlm-software-demo',
     'pricing': 'pricing',
     'blog': 'blog',
+    'press-release': 'press-release',
+    'privacy': 'privacy',
+    'refunds-and-cancellation': 'refunds-and-cancellation',
+    'legal': 'legal',
     'resources': 'resources',
     'support': 'support',
   },
   es: {
+    'sobre-la-empresa': 'about-company',
+    'about-company': 'about-company', // Fallback to English slug
     'preguntas-frecuentes': 'faqs',
     'faqs': 'faqs', // Fallback to English slug
     'testimonios': 'testimonials',
@@ -50,12 +57,22 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'precios': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'comunicado-de-prensa': 'press-release',
+    'press-release': 'press-release', // Fallback to English slug
+    'politica-de-privacidad': 'privacy',
+    'privacy': 'privacy', // Fallback to English slug
+    'politica-de-reembolso': 'refunds-and-cancellation',
+    'refunds-and-cancellation': 'refunds-and-cancellation', // Fallback to English slug
+    'terminos-y-condiciones': 'legal',
+    'legal': 'legal', // Fallback to English slug
     'recursos': 'resources',
     'resources': 'resources',
     'soporte': 'support',
     'support': 'support',
   },
   fr: {
+    'a-propos-de-l-entreprise': 'about-company',
+    'about-company': 'about-company', // Fallback to English slug
     'foire-aux-questions': 'faqs',
     'faqs': 'faqs', // Fallback to English slug
     'temoignages': 'testimonials',
@@ -80,11 +97,21 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'tarifs': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'communique-de-presse': 'press-release',
+    'press-release': 'press-release', // Fallback to English slug
+    'politique-de-confidentialite': 'privacy',
+    'privacy': 'privacy', // Fallback to English slug
+    'politique-de-remboursement': 'refunds-and-cancellation',
+    'refunds-and-cancellation': 'refunds-and-cancellation', // Fallback to English slug
+    'conditions-generales': 'legal',
+    'legal': 'legal', // Fallback to English slug
     'ressources': 'resources',
     'resources': 'resources',
     'support': 'support',
   },
   it: {
+    'chi-siamo': 'about-company',
+    'about-company': 'about-company', // Fallback to English slug
     'domande-frequenti': 'faqs',
     'faqs': 'faqs', // Fallback to English slug
     'testimonianze': 'testimonials',
@@ -112,12 +139,22 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'prezzi': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'comunicato-stampa': 'press-release',
+    'press-release': 'press-release', // Fallback to English slug
+    'informativa-sulla-privacy': 'privacy',
+    'privacy': 'privacy', // Fallback to English slug
+    'politica-di-rimborso': 'refunds-and-cancellation',
+    'refunds-and-cancellation': 'refunds-and-cancellation', // Fallback to English slug
+    'termini-e-condizioni': 'legal',
+    'legal': 'legal', // Fallback to English slug
     'risorse': 'resources',
     'resources': 'resources',
     'supporto': 'support',
     'support': 'support',
   },
   de: {
+    'ueber-uns': 'about-company',
+    'about-company': 'about-company', // Fallback to English slug
     'haeufig-gestellte-fragen': 'faqs',
     'faqs': 'faqs', // Fallback to English slug
     'referenzen': 'testimonials',
@@ -144,11 +181,21 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'preise': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'pressemitteilung': 'press-release',
+    'press-release': 'press-release', // Fallback to English slug
+    'datenschutz': 'privacy',
+    'privacy': 'privacy', // Fallback to English slug
+    'rueckerstattungsrichtlinie': 'refunds-and-cancellation',
+    'refunds-and-cancellation': 'refunds-and-cancellation', // Fallback to English slug
+    'allgemeine-geschaeftsbedingungen': 'legal',
+    'legal': 'legal', // Fallback to English slug
     'ressourcen': 'resources',
     'resources': 'resources',
     'support': 'support',
   },
   pt: {
+    'sobre-a-empresa': 'about-company',
+    'about-company': 'about-company', // Fallback to English slug
     'perguntas-frequentes': 'faqs',
     'faqs': 'faqs', // Fallback to English slug
     'depoimentos': 'testimonials',
@@ -176,12 +223,20 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'precos': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'comunicado-imprensa': 'press-release',
+    'press-release': 'press-release', // Fallback to English slug
+    'politica-de-reembolso': 'refunds-and-cancellation',
+    'refunds-and-cancellation': 'refunds-and-cancellation', // Fallback to English slug
+    'termos-e-condicoes': 'legal',
+    'legal': 'legal', // Fallback to English slug
     'materiais': 'resources',
     'resources': 'resources',
     'suporte': 'support',
     'support': 'support',
   },
   zh: {
+    'guanyu-gongsi': 'about-company',
+    'about-company': 'about-company', // Fallback to English slug
     'chang-jian-wen-ti': 'faqs',
     'faqs': 'faqs', // Fallback to English slug
     'tuijian': 'testimonials',
@@ -210,6 +265,14 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'pricing': 'pricing',
     'bo-ke': 'blog',
     'blog': 'blog',
+    'xin-wen-gao': 'press-release',
+    'press-release': 'press-release', // Fallback to English slug
+    'yin-si-zheng-ce': 'privacy',
+    'privacy': 'privacy', // Fallback to English slug
+    'tui-kuan-zheng-ce': 'refunds-and-cancellation',
+    'refunds-and-cancellation': 'refunds-and-cancellation', // Fallback to English slug
+    'tiao-kuan-he-tiao-jian': 'legal',
+    'legal': 'legal', // Fallback to English slug
     'zi-yuan': 'resources',
     'resources': 'resources',
     'zhi-chi': 'support',
@@ -221,6 +284,15 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
  * Reverse mapping: page identifier to locale-specific slugs
  */
 export const pageToSlugMap: Record<string, Record<string, string>> = {
+  'about-company': {
+    en: 'about-company',
+    es: 'sobre-la-empresa',
+    fr: 'a-propos-de-l-entreprise',
+    it: 'chi-siamo',
+    de: 'ueber-uns',
+    pt: 'sobre-a-empresa',
+    zh: 'guanyu-gongsi',
+  },
   'faqs': {
     en: 'faqs',
     es: 'preguntas-frecuentes',
@@ -364,6 +436,42 @@ export const pageToSlugMap: Record<string, Record<string, string>> = {
     de: 'support',
     pt: 'suporte',
     zh: 'zhi-chi',
+  },
+  'press-release': {
+    en: 'press-release',
+    es: 'comunicado-de-prensa',
+    fr: 'communique-de-presse',
+    it: 'comunicato-stampa',
+    de: 'pressemitteilung',
+    pt: 'comunicado-imprensa',
+    zh: 'xin-wen-gao',
+  },
+  'privacy': {
+    en: 'privacy',
+    es: 'politica-de-privacidad',
+    fr: 'politique-de-confidentialite',
+    it: 'informativa-sulla-privacy',
+    de: 'datenschutz',
+    pt: 'politica-de-privacidade',
+    zh: 'yin-si-zheng-ce',
+  },
+  'refunds-and-cancellation': {
+    en: 'refunds-and-cancellation',
+    es: 'politica-de-reembolso',
+    fr: 'politique-de-remboursement',
+    it: 'politica-di-rimborso',
+    de: 'rueckerstattungsrichtlinie',
+    pt: 'politica-de-reembolso',
+    zh: 'tui-kuan-zheng-ce',
+  },
+  'legal': {
+    en: 'legal',
+    es: 'terminos-y-condiciones',
+    fr: 'conditions-generales',
+    it: 'termini-e-condizioni',
+    de: 'allgemeine-geschaeftsbedingungen',
+    pt: 'termos-e-condicoes',
+    zh: 'tiao-kuan-he-tiao-jian',
   },
 };
 

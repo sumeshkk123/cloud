@@ -1,0 +1,24 @@
+{
+  "valueProofs": {
+    "badge": "Value proposition",
+    "heading": "What every engagement includes",
+    "description": "Every Cloud MLM Software engagement ships with procurement-ready deliverables, global readiness validation, and advisor partnership.",
+    "items": [
+      {
+        "title": "Procurement-ready deliverables",
+        "detail": "Line-item pricing, acceptance criteria, and legal-ready documentation packaged for approvals.",
+        "iconKey": "fileCheck"
+      },
+      {
+        "title": "Global readiness",
+        "detail": "Multi-market, currency, and tax scenarios validated before you commit a signature.",
+        "iconKey": "globe"
+      },
+      {
+        "title": "Advisor partnership",
+        "detail": "Compensation scientists and automation engineers shape every estimate alongside your team.",
+        "iconKey": "handshake"
+      }
+    ]
+  }
+}

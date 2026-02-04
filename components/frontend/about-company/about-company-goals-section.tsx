@@ -1,66 +1,57 @@
-import { Target } from "lucide-react";
+import { Target, Sparkles, ShieldCheck, Globe, type LucideIcon } from "lucide-react";
+import { Section } from "@/components/ui/section";
+import { SectionTitle } from "@/components/ui/section-title";
+import { Typography } from "@/components/ui/typography";
+import { BulletList } from "@/components/ui/bullet-list";
+import { Card, CardContent, CardHeader, CardIcon, CardTitle } from "@/components/ui/card";
+import { getAboutCompanyContent } from "@/lib/about-company";
+import type { Locale } from "@/i18n-config";
 
-type Goal = { order: string; title: string; description: string };
+const GOAL_ICONS: LucideIcon[] = [Target, Sparkles, ShieldCheck, Globe];
 
-const STRATEGIC_GOALS: Goal[] = [
-  {
-    order: "01",
-    title: "Deliver measurable outcomes",
-    description:
-      "Design compensation, onboarding, and retention flows that improve distributor productivity and customer lifetime value."
-  },
-  {
-    order: "02",
-    title: "Advance Cloud MLM Software",
-    description:
-      "Continuously invest in product engineering, automation, and UX so upgrades feel effortless for every client."
-  },
-  {
-    order: "03",
-    title: "Champion regulated growth",
-    description:
-      "Embed compliance, audit trails, and tax localisation to keep expansion programmes fully governed."
-  },
-  {
-    order: "04",
-    title: "Scale global partnerships",
-    description:
-      "Expand our ecosystem of payments, logistics, and cloud partners to accelerate multi-country rollouts."
-  }
-];
+interface AboutCompanyGoalsSectionProps {
+  locale: Locale;
+}
 
-export function AboutCompanyGoalsSection() {
+export function AboutCompanyGoalsSection({ locale }: AboutCompanyGoalsSectionProps) {
+  const content = getAboutCompanyContent(locale).goals;
   return (
-    <section className="container space-y-10">
-      <div className="max-w-3xl space-y-4">
-        <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Strategic goals that guide every engagement
-        </h2>
-        <p className="text-sm text-muted-foreground">
-          These priorities ensure each implementation of Cloud MLM Software remains aligned to stakeholder vision and
-          ready for future expansion.
-        </p>
+    <Section variant="muted" padding="lg">
+      <div className="space-y-10">
+        <SectionTitle
+          badge={content.badge}
+          heading={content.heading}
+          description={content.description}
+          maxWidth="3xl"
+        />
+        <div className="grid gap-6 sm:grid-cols-2">
+          {content.goals.map((goal, index) => {
+            const Icon = GOAL_ICONS[index] ?? Target;
+            return (
+              <Card key={goal.order} className="flex h-full flex-col">
+                <CardHeader className="flex flex-row items-center gap-4 space-y-0">
+                  <CardIcon icon={Icon} aria-hidden />
+                  <CardTitle className="min-w-0 flex-1 font-bold leading-tight">
+                    {goal.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex-1 pt-0">
+                  <Typography as="p" variant="p" textColor="muted" className="mb-6 leading-relaxed">
+                    {goal.description}
+                  </Typography>
+                  <Typography as="p" variant="small" className="mb-3 uppercase tracking-wider text-muted-foreground">
+                    {content.whatYouGetLabel}
+                  </Typography>
+                  <BulletList
+                    items={goal.points}
+                    className="[&_.rounded-full]:!bg-primary/10 [&_.rounded-full]:!text-primary [&_span:last-child]:text-muted-foreground"
+                  />
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
       </div>
-      <div className="grid gap-6 md:grid-cols-2">
-        {STRATEGIC_GOALS.map((goal) => (
-          <article
-            key={goal.order}
-            className="relative overflow-hidden rounded-3xl border border-border/60 bg-background p-6 shadow-sm"
-          >
-            <span className="absolute -top-10 -right-4 text-7xl font-bold text-primary/10" aria-hidden>
-              {goal.order}
-            </span>
-            <div className="space-y-3">
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                <Target className="h-4 w-4" aria-hidden />
-                Goal {goal.order}
-              </span>
-              <h3 className="text-xl font-semibold text-foreground">{goal.title}</h3>
-              <p className="text-sm text-muted-foreground">{goal.description}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
+    </Section>
   );
 }

@@ -14,7 +14,7 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "db:backup": "bash ./scripts/backup-database.sh",
+    "db:backup": "tsx scripts/backup-database.ts",
     "create-admin-user": "tsx scripts/create-admin-user.ts",
     "verify-user": "tsx scripts/verify-user.ts",
     "translate-features": "tsx scripts/translate-features.ts",

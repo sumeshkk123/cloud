@@ -1,0 +1,24 @@
+{
+  "valueProofs": {
+    "badge": "Proposta di valore",
+    "heading": "Cosa include ogni impegno",
+    "description": "Ogni impegno Cloud MLM Software include deliverable pronti per gli acquisti, validazione della preparazione globale e partnership con consulenti.",
+    "items": [
+      {
+        "title": "Deliverable pronti per gli acquisti",
+        "detail": "Prezzi per voce di riga, criteri di accettazione e documentazione pronta per uso legale confezionata per le approvazioni.",
+        "iconKey": "fileCheck"
+      },
+      {
+        "title": "Preparazione globale",
+        "detail": "Scenari multi-mercato, di valuta e fiscali convalidati prima di impegnarsi con una firma.",
+        "iconKey": "globe"
+      },
+      {
+        "title": "Partnership con consulenti",
+        "detail": "Scienziati della compensazione e ingegneri dell'automazione modellano ogni stima insieme al tuo team.",
+        "iconKey": "handshake"
+      }
+    ]
+  }
+}

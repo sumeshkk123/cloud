@@ -49,7 +49,9 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     title: "Company",
     links: [
       { title: "Blog", href: "/blog/" },
-      { title: "Careers", href: "/careers/" },
+      { title: "Press Releases", href: "/press-release/" },
+      { title: "Changelog", href: "/changelog/" },
+      { title: "Sitemap", href: "/sitemap.xml" },
       { title: "Contact", href: "/contact/" }
     ]
   },

@@ -1,88 +1,88 @@
-import type { ComponentType } from "react";
-import { Handshake, Rocket, ShieldCheck } from "lucide-react";
+import { Handshake, Rocket, ShieldCheck, type LucideIcon } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { Typography } from "@/components/ui/typography";
 import { BulletList } from "@/components/ui/bullet-list";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardIcon, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { getAboutCompanyContent } from "@/lib/about-company";
+import type { Locale } from "@/i18n-config";
 
-type Pillar = { title: string; description: string; icon: ComponentType<{ className?: string }> };
+const ICON_MAP: Record<string, LucideIcon> = {
+  shieldCheck: ShieldCheck,
+  handshake: Handshake,
+  rocket: Rocket,
+};
 
-const VALUE_PILLARS: Pillar[] = [
-  {
-    title: "Enterprise reliability",
-    description:
-      "High-availability architecture, dedicated security reviews, and 24/7 monitoring keep global compensation cycles uninterrupted.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Analyst-led onboarding",
-    description:
-      "Business analysts translate plan ideas into compliant workflows, dashboards, and marketing automations tailored to every launch.",
-    icon: Handshake,
-  },
-  {
-    title: "Innovation with purpose",
-    description:
-      "AI copilots, predictive analytics, and integration accelerators are introduced where they unlock measurable growth.",
-    icon: Rocket,
-  },
-];
+interface AboutCompanyMissionSectionProps {
+  locale: Locale;
+}
 
-const PARTNER_POINTS = [
-  "Dedicated pods for discovery, implementation, and optimisation.",
-  "Transparent roadmaps, weekly governance calls, and executive reporting.",
-  "Security, privacy, and accessibility assessments embedded in every milestone.",
-  "Long-term partnership models with co-innovation and success credits.",
-];
-
-export function AboutCompanyMissionSection() {
+export function AboutCompanyMissionSection({ locale }: AboutCompanyMissionSectionProps) {
+  const content = getAboutCompanyContent(locale).mission;
   return (
-    <Section variant="default" padding="xl" className="bg-gradient-to-b from-background to-muted/10">
-      <div className="space-y-12">
-        <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-          <div className="space-y-4">
-            <Typography as="h2" variant="h2">
-              Built for lasting impact
+    <Section
+      variant="primary"
+      padding="xl"
+      className="relative isolate overflow-hidden bg-gradient-to-b from-background via-sky-50/30 to-muted/20 dark:via-sky-950/20 dark:to-muted/10"
+    >
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute left-0 top-1/4 h-[480px] w-[480px] rounded-full bg-primary/8 blur-3xl" />
+        <div className="absolute right-0 bottom-1/4 h-[400px] w-[400px] rounded-full bg-emerald-500/10 blur-3xl" />
+      </div>
+
+      <div className="space-y-16 container">
+        <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:items-start">
+          <div className="space-y-6">
+            <Badge variant="default">{content.badge}</Badge>
+            <Typography as="h2" variant="h2" className="max-w-2xl">
+              {content.heading}
             </Typography>
-            <Typography as="p" variant="p" textColor="muted">
-              Cloud MLM Software is a flagship Bpract product crafted for enterprise network marketing, direct selling,
-              and affiliate organisations. Our mission is to provide the systems, services, and partnerships leaders
-              need to execute ambitious growth strategies without compromising compliance or culture.
-            </Typography>
-            <Typography as="p" variant="p" textColor="muted">
-              We combine proprietary technology with a multidisciplinary team covering compensation architecture,
-              full-stack engineering, AI, UX, operations, and success management. Every engagement is guided by insight
-              from hundreds of implementations, industry research, and real-time analytics so decision-makers stay ahead.
-            </Typography>
+            <div className="space-y-5 border-l-2 border-primary/20 pl-6">
+              {content.paragraphs.map((p, i) => (
+                <Typography key={i} as="p" variant="p" textColor="muted" className="leading-relaxed">
+                  {p}
+                </Typography>
+              ))}
+            </div>
           </div>
-          <div className="rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-transparent to-emerald-200/20 p-6 shadow-sm dark:from-primary/15 dark:to-emerald-500/10">
-            <Typography as="h3" variant="h4" className="mb-1">
-              What our partners rely on
-            </Typography>
-            <Typography as="p" variant="small" textColor="muted" className="mb-4 uppercase tracking-wider">
-              Included
-            </Typography>
-            <BulletList items={PARTNER_POINTS} />
+
+          <div
+            className={cn(
+              "relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/10 via-white to-emerald-100/50 p-8 shadow-lg shadow-primary/5",
+              "dark:from-primary/15 dark:via-slate-900/80 dark:to-emerald-500/10 dark:shadow-none dark:ring-1 dark:ring-primary/20"
+            )}
+          >
+            <div className="absolute right-0 top-0 h-32 w-32 translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-2xl" />
+            <div className="relative space-y-5">
+              <div>
+                <Typography as="p" variant="small" textColor="muted" className="mb-2 uppercase tracking-wider">
+                  {content.partnerCard.badge}
+                </Typography>
+                <Typography as="h3" variant="h4">
+                  {content.partnerCard.heading}
+                </Typography>
+              </div>
+              <BulletList items={content.partnerCard.points} className="space-y-4" />
+            </div>
           </div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {VALUE_PILLARS.map((pillar) => {
-            const Icon = pillar.icon;
+          {content.valuePillars.map((pillar) => {
+            const Icon = ICON_MAP[pillar.iconKey] ?? ShieldCheck;
             return (
-              <article
-                key={pillar.title}
-                className="flex h-full flex-col gap-4 rounded-3xl border border-border/60 bg-background p-6 shadow-sm"
-              >
-                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                  <Icon className="h-6 w-6" aria-hidden />
-                </span>
-                <Typography as="h3" variant="h4">
-                  {pillar.title}
-                </Typography>
-                <Typography as="p" variant="small" textColor="muted">
-                  {pillar.description}
-                </Typography>
-              </article>
+              <Card key={pillar.title} className="flex h-full flex-col">
+                <CardHeader className="space-y-4">
+                  <CardIcon icon={Icon} aria-hidden />
+                  <CardTitle>{pillar.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-1 pt-0">
+                  <Typography as="p" variant="small" textColor="muted" className="leading-relaxed">
+                    {pillar.description}
+                  </Typography>
+                </CardContent>
+              </Card>
             );
           })}
         </div>

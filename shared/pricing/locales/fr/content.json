@@ -1,0 +1,24 @@
+{
+  "valueProofs": {
+    "badge": "Proposition de valeur",
+    "heading": "Ce que chaque engagement comprend",
+    "description": "Chaque engagement Cloud MLM Software comprend des livrables prêts pour les achats, une validation de préparation mondiale et un partenariat avec des conseillers.",
+    "items": [
+      {
+        "title": "Livrables prêts pour les achats",
+        "detail": "Tarification par ligne d'article, critères d'acceptation et documentation prête pour usage légal emballée pour les approbations.",
+        "iconKey": "fileCheck"
+      },
+      {
+        "title": "Préparation mondiale",
+        "detail": "Scénarios multi-marchés, de devise et fiscaux validés avant que vous ne vous engagiez par une signature.",
+        "iconKey": "globe"
+      },
+      {
+        "title": "Partenariat avec des conseillers",
+        "detail": "Des scientifiques de la rémunération et des ingénieurs en automatisation façonnent chaque estimation aux côtés de votre équipe.",
+        "iconKey": "handshake"
+      }
+    ]
+  }
+}

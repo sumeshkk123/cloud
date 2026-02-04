@@ -1,0 +1,29 @@
+{
+  "title": "Política de Reembolso",
+  "intro": {
+    "heading": "Nos esforzamos por proporcionar a nuestros clientes software de la más alta calidad junto con los mejores servicios de soporte técnico, comercial e informativo.",
+    "paragraph1": "Para ayudar a garantizar que nuestros productos de software sean exactamente lo que necesita, hay una cuenta gratuita disponible en nuestro sitio web. También se proporciona información completa sobre productos y servicios. Para ayudarle a tomar la decisión correcta, también puede contactar con nuestro equipo de soporte.",
+    "paragraph2": "Sin embargo, entendemos que pueden ocurrir circunstancias excepcionales debido a la naturaleza de los productos que proporcionamos, por lo que, por favor, familiarícese con nuestra Política de Reembolso antes de ordenar nuestro software para evitar insatisfacción después de la compra."
+  },
+  "guarantee": {
+    "heading": "Garantía de Reembolso Basada en Honor",
+    "paragraph": "Dado que todos nuestros productos son bienes intangibles irrevocables (software digital), vienen con una Garantía de Reembolso Basada en Honor de 1 semana después del lanzamiento. Basada en honor significa que estaremos encantados de devolver su inversión siempre que:",
+    "conditions": [
+      "Estemos seguros de que el producto está funcionando mal (es decir, no funciona según las características declaradas en la página de inicio del producto u otros documentos oficiales del producto) en la computadora/dispositivo móvil del cliente;",
+      "Recibamos asistencia para descubrir los detalles del problema por parte del cliente;",
+      "No logremos abordar la deficiencia dentro de un tiempo razonable.",
+      "El reembolso se emitirá al cliente en su totalidad sin compensaciones ni reembolsos adicionales."
+    ]
+  },
+  "procedure": {
+    "heading": "Procedimiento de Devolución de Producto:",
+    "subheading": "Las solicitudes de reembolso deben ser:",
+    "requirements": [
+      "Realizadas dentro de siete (7) días de la fecha de lanzamiento.",
+      "Enviadas por correo electrónico a nuestro Equipo de Atención al Cliente.",
+      "Contener la dirección de correo electrónico con la que se registró en nuestro servicio y las razones detalladas y fundamentadas por las que solicita un reembolso."
+    ],
+    "note": "Al enviar una solicitud de reembolso, por favor permita a nuestro Equipo de Atención al Cliente hasta un (1) día hábil para responderle sobre el problema.",
+    "followUp": "Debe esperar un correo electrónico de info@cloudmlmsoftware.com, esté preparado para proporcionar a nuestros agentes de soporte información adicional y seguir todas las recomendaciones."
+  }
+}

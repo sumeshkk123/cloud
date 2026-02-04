@@ -5,6 +5,7 @@ import { isSupportedLocale } from "@/lib/i18n-utils";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
+import { getPageMetadata } from "@/components/frontend/common/page-metadata";
 import {
   AboutCompanyHeroSection,
   AboutCompanyMissionSection,
@@ -16,34 +17,26 @@ import {
   AboutCompanyCtaSection
 } from "@/components/frontend/about-company";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 }): Promise<Metadata> {
   const resolvedParams = params instanceof Promise ? await params : params;
-  const locale = resolveLocale(resolvedParams.lang);
-  const title = "About Cloud MLM Software & Bpract";
-  const description =
-    "Discover how Bpract Software Solutions architects Cloud MLM Software with enterprise reliability, AI-driven optimisation, and outcome-focused delivery.";
-
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: buildLocalizedPath("/about-company", locale)
-    },
-    openGraph: {
-      title,
-      description
-    }
-  };
+  const { getPageKeywords } = await import("@/lib/seo-keywords");
+  return getPageMetadata(resolvedParams, "/about-company", {
+    page: "about-company",
+    fallbackTitle: "About Cloud MLM Software & Bpract",
+    fallbackDescription:
+      "Discover how Bpract Software Solutions architects Cloud MLM Software with enterprise reliability, AI-driven optimisation, and outcome-focused delivery.",
+    fallbackKeywords: `${getPageKeywords("about-company", resolvedParams.lang)}, about Bpract, Cloud MLM Software company, enterprise MLM, MLM platform provider`,
+  });
 }
 
 type AboutCompanyPageProps = {
@@ -58,26 +51,26 @@ export default async function AboutCompanyPage({ params }: AboutCompanyPageProps
   const servicesHref = buildLocalizedPath("/services", locale);
 
   return (
-    <div className="space-y-24 pb-24">
+    <div>
       <AboutCompanyHeroSection
         locale={locale}
         contactHref={contactHref}
         demoHref={demoHref}
       />
 
-      <AboutCompanyMissionSection />
+      <AboutCompanyMissionSection locale={locale} />
 
-      <AboutCompanyGoalsSection />
+      <AboutCompanyGoalsSection locale={locale} />
 
-      <AboutCompanyOfferingsSection contactHref={contactHref} servicesHref={servicesHref} />
+      <AboutCompanyOfferingsSection locale={locale} contactHref={contactHref} servicesHref={servicesHref} />
 
-      <AboutCompanyAiSection />
+      <AboutCompanyAiSection locale={locale} />
 
-      <AboutCompanyCollaborationSection />
+      <AboutCompanyCollaborationSection locale={locale} />
 
-      <AboutCompanyTrustSection />
+      <AboutCompanyTrustSection locale={locale} />
 
-      <AboutCompanyCtaSection contactHref={contactHref} demoHref={demoHref} />
+      <AboutCompanyCtaSection locale={locale} contactHref={contactHref} demoHref={demoHref} />
     </div>
   );
 }

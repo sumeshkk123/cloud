@@ -6,12 +6,13 @@ export interface PageOption {
 
 export const pageOptions: PageOption[] = [
     { value: 'home', label: 'Home' },
-    { value: 'about', label: 'About' },
+    { value: 'about-company', label: 'About Company' },
     { value: 'features', label: 'Features' },
     { value: 'faq', label: 'FAQ' },
     { value: 'contact', label: 'Contact' },
     { value: 'free-mlm-software-demo', label: 'Demo' },
     { value: 'blog', label: 'Blog' },
+    { value: 'press-release', label: 'Press Release' },
     { value: 'pricing', label: 'Pricing' },
     { value: 'testimonials', label: 'Testimonials' },
     { value: 'mlm-software-modules', label: 'Modules' },
@@ -26,12 +27,13 @@ export const pageOptions: PageOption[] = [
 // Page display names for tables
 export const pageDisplayNames: Record<string, string> = {
     'home': 'Home',
-    'about': 'About',
+    'about-company': 'About Company',
     'features': 'Features',
     'faq': 'FAQ',
     'contact': 'Contact',
     'free-mlm-software-demo': 'Demo',
     'blog': 'Blog',
+    'press-release': 'Press Release',
     'pricing': 'Pricing',
     'testimonials': 'Testimonials',
     'mlm-software-modules': 'Modules',

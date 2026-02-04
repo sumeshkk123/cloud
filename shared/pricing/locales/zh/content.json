@@ -1,0 +1,24 @@
+{
+  "valueProofs": {
+    "badge": "价值主张",
+    "heading": "每次合作包含的内容",
+    "description": "每次Cloud MLM Software合作都包含采购就绪的交付物、全球准备状态验证和顾问合作伙伴关系。",
+    "items": [
+      {
+        "title": "采购就绪的交付物",
+        "detail": "逐项定价、验收标准和法律就绪文档，打包以供审批。",
+        "iconKey": "fileCheck"
+      },
+      {
+        "title": "全球准备状态",
+        "detail": "在您签署之前验证的多市场、货币和税务场景。",
+        "iconKey": "globe"
+      },
+      {
+        "title": "顾问合作伙伴关系",
+        "detail": "薪酬科学家和自动化工程师与您的团队一起塑造每次估算。",
+        "iconKey": "handshake"
+      }
+    ]
+  }
+}
