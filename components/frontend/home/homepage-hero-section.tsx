@@ -168,44 +168,39 @@ export function HomePageHeroSection({
             )}
           </div>
           <div className="relative mx-auto w-full max-w-xl lg:ml-auto">
-            <div className="relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-border/30 bg-card text-foreground pb-4">
-              <div className="flex items-center justify-between gap-4 px-6 pt-6 pb-2">
-                <Badge variant="default">
-                  Platform snapshot
-                </Badge>
-                <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                  Real-time sync
-                </span>
-              </div>
-              <div className="px-6">
-                <Typography as="h2" variant="h2" className="">Launch boldly, scale globally</Typography>
-                <Typography variant="p" className="mt-2 text-muted-foreground">
+            <div className="relative flex flex-col gap-4 overflow-hidden rounded-3xl isolate overflow-hidden border-b border-border/60 bg-[#071537] pt-9">
+            <div className="absolute inset-0 -z-20">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10" />
+            </div>
+              <div className="px-9">
+              <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl animate-pulse"></div>
+                <Typography as="h2" variant="h2" className="relative mb-4 text-white">
+                      Launch boldly, scale globally
+                </Typography>
+                <Typography variant="p" className="mt-2 text-white">
                   Blueprint payouts, onboard teams, and secure operations without slowing growth.
                 </Typography>
               </div>
               {data?.features && Array.isArray(data.features) && data.features.length > 0 && (
-                <div className="px-6">
-                  <BulletList items={data.features} />
+                <div className="px-9">
+                  <BulletList items={data.features} className="text-white [&_span]:text-white/90" />
                 </div>
               )}
               <div className="relative px-6 py-4">
-                <div className="relative overflow-hidden rounded-3xl border border-border/30 bg-muted/40 shadow-xl">
+                <div className="relative overflow-hidden ">
                   <SmartImage
                     src="/wp-content/uploads/2024/06/cloudDashboardDemo.webp"
                     alt="Cloud MLM Software Dashboard - Network Marketing Management Platform with Real-time Analytics"
                     width={600}
                     height={360}
-                    className="w-full rounded-2xl border border-border/50 object-cover"
+                    className="w-full object-cover"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                   />
                   <div className="absolute bottom-4 left-4 rounded-2xl border border-border/50 bg-card/90 px-4 py-3 text-left shadow-sm">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.4em] text-muted-foreground">AI signals</p>
                     <p className="text-sm font-semibold text-muted-foreground">Comp plan health: 98%</p>
-                  </div>
-                  <div className="absolute top-4 right-4 rounded-full bg-emerald-400 px-3 py-1 text-[11px] font-semibold text-emerald-950 shadow">
-                    +4.6% growth
                   </div>
                 </div>
               </div>
