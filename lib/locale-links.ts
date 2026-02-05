@@ -1,6 +1,11 @@
 import { siteBaseConfig, supportedLocales, type SupportedLocale } from "@/config/site";
 import { i18n } from "@/i18n-config";
-import { getSlugFromPage, getPageFromSlug } from "@/lib/page-slugs";
+import {
+  getSlugFromPage,
+  getPageFromSlug,
+  getPricingSubpageKeyFromSlug,
+  getSlugForPricingSubpage,
+} from "@/lib/page-slugs";
 
 const ORIGIN = siteBaseConfig.url.replace(/\/$/, "");
 
@@ -83,12 +88,23 @@ export function buildLocalizedPath(path: string, locale: SupportedLocale): strin
     // If we found a page identifier, get the translated slug for the target locale
     if (pageId) {
       const translatedSlug = getSlugFromPage(pageId, locale);
-      
+
       if (translatedSlug) {
-        // Use translated slug
-        const remainingPath = pathSegments.slice(1).join("/");
+        let remainingPath = pathSegments.slice(1).join("/");
+        // Translate pricing sub-page second segment (e.g. cloud-mlm-software-basic -> software-mlm-basico-nube for es)
+        if (pageId === "pricing" && pathSegments.length >= 2) {
+          const secondSegment = pathSegments[1];
+          const subpageKey = getPricingSubpageKeyFromSlug(secondSegment);
+          if (subpageKey) {
+            const translatedSecond = getSlugForPricingSubpage(subpageKey, locale);
+            if (translatedSecond) {
+              const rest = pathSegments.slice(2);
+              remainingPath = rest.length ? `${translatedSecond}/${rest.join("/")}` : translatedSecond;
+            }
+          }
+        }
         const fullPath = `/${translatedSlug}${remainingPath ? `/${remainingPath}` : ""}`;
-        
+
         if (locale === (i18n.defaultLocale as SupportedLocale)) {
           return `${fullPath}${search}${hash}`;
         }

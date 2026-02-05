@@ -4,21 +4,20 @@
     "heading": "Cosa include ogni impegno",
     "description": "Ogni impegno Cloud MLM Software include deliverable pronti per gli acquisti, validazione della preparazione globale e partnership con consulenti.",
     "items": [
-      {
-        "title": "Deliverable pronti per gli acquisti",
-        "detail": "Prezzi per voce di riga, criteri di accettazione e documentazione pronta per uso legale confezionata per le approvazioni.",
-        "iconKey": "fileCheck"
-      },
-      {
-        "title": "Preparazione globale",
-        "detail": "Scenari multi-mercato, di valuta e fiscali convalidati prima di impegnarsi con una firma.",
-        "iconKey": "globe"
-      },
-      {
-        "title": "Partnership con consulenti",
-        "detail": "Scienziati della compensazione e ingegneri dell'automazione modellano ogni stima insieme al tuo team.",
-        "iconKey": "handshake"
-      }
+      {"title": "Deliverable pronti per gli acquisti", "detail": "Prezzi per voce di riga, criteri di accettazione e documentazione pronta per uso legale confezionata per le approvazioni.", "iconKey": "fileCheck"},
+      {"title": "Preparazione globale", "detail": "Scenari multi-mercato, di valuta e fiscali convalidati prima di impegnarsi con una firma.", "iconKey": "globe"},
+      {"title": "Partnership con consulenti", "detail": "Scienziati della compensazione e ingegneri dell'automazione modellano ogni stima insieme al tuo team.", "iconKey": "handshake"}
+    ]
+  },
+  "faq": {
+    "badge": "FAQ",
+    "heading": "Domande frequenti",
+    "description": "Risposte chiare alle domande che i team acquisti, finanza e legale pongono più spesso.",
+    "items": [
+      {"question": "La licenza è un abbonamento ricorrente?", "answer": "Il pricing Cloud MLM Software è una licenza una tantum. La piattaforma è di vostra proprietà. Servizi gestiti opzionali, infrastruttura o pacchetti concierge estesi possono essere rinnovati annualmente se necessario."},
+      {"question": "Possiamo scaglionare mercati e lanci prodotti?", "answer": "Sì. Ogni impegno include una roadmap di lancio a fasi con modellazione degli scenari per sbloccare mercati, prodotti o segmenti quando la leadership è pronta."},
+      {"question": "Quanto velocemente riceviamo un brief di investimento?", "answer": "Dopo aver condiviso uno scenario dell'estimator, un consulente pricing prepara un brief pronto per gli acquisti con milestone, cadenza di pagamento e assunzioni entro un giorno lavorativo."},
+      {"question": "Vi integrate con i nostri sistemi esistenti?", "answer": "Le integrazioni sono centrali. Offriamo acceleratori per commerce, pagamenti, fiscalità, ERP e CRM e progettiamo middleware su misura per le esigenze dati enterprise."}
     ]
   }
 }

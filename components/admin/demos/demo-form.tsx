@@ -16,7 +16,7 @@ import { Loader } from '@/components/ui/adminUi/loader';
 import { Button } from '@/components/ui/adminUi/button';
 import { ImageUpload } from '@/components/ui/adminUi/image-upload';
 import { Toggle } from '@/components/ui/adminUi/toggle';
-import { X, Plus } from 'lucide-react';
+import { X, Plus, Languages, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // Register FontAwesome icons
@@ -137,6 +137,7 @@ export const DemoForm = forwardRef<DemoFormRef, DemoFormProps>(({
   const [savedLocales, setSavedLocales] = useState<string[]>([]);
   const [newAdminFeature, setNewAdminFeature] = useState<Record<string, string>>({});
   const [newDistributorFeature, setNewDistributorFeature] = useState<Record<string, string>>({});
+  const [isTranslating, setIsTranslating] = useState(false);
 
   useEffect(() => {
     onSavingChange?.(isSaving);
@@ -370,6 +371,128 @@ export const DemoForm = forwardRef<DemoFormRef, DemoFormProps>(({
     updateTranslation(locale, 'distributorsDemoFeatures', current.distributorsDemoFeatures.filter((_, i) => i !== index));
   };
 
+  const autoTranslate = async () => {
+    if (activeTab === 'en') {
+      showToast('Cannot auto-translate English. Please select another language.', 'error');
+      return;
+    }
+
+    const english = translations['en'];
+    if (!english) {
+      showToast('Please fill in the English version first.', 'error');
+      return;
+    }
+
+    const hasContent =
+      english.title?.trim() ||
+      english.adminDemoTitle?.trim() ||
+      english.distributorsDemoTitle?.trim() ||
+      (english.adminDemoFeatures?.length ?? 0) > 0 ||
+      (english.distributorsDemoFeatures?.length ?? 0) > 0;
+    if (!hasContent) {
+      showToast('Please fill in the English version first.', 'error');
+      return;
+    }
+
+    try {
+      setIsTranslating(true);
+      let successCount = 0;
+      let errorCount = 0;
+
+      const translateField = async (text: string): Promise<string | null> => {
+        if (!text?.trim()) return null;
+        const res = await fetch('/api/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text: text.trim(),
+            sourceLocale: 'en',
+            targetLocale: activeTab,
+          }),
+        });
+        const data = await res.json();
+        if (res.ok && data.translatedText) return data.translatedText;
+        return null;
+      };
+
+      if (english.title?.trim()) {
+        const translated = await translateField(english.title);
+        if (translated) {
+          updateTranslation(activeTab, 'title', translated);
+          successCount++;
+        } else {
+          errorCount++;
+        }
+      }
+
+      if (english.adminDemoTitle?.trim()) {
+        const translated = await translateField(english.adminDemoTitle);
+        if (translated) {
+          updateTranslation(activeTab, 'adminDemoTitle', translated);
+          successCount++;
+        } else {
+          errorCount++;
+        }
+      }
+
+      const translatedAdminFeatures: string[] = [];
+      for (const feature of english.adminDemoFeatures ?? []) {
+        if (!feature?.trim()) continue;
+        const translated = await translateField(feature);
+        if (translated) {
+          translatedAdminFeatures.push(translated);
+          successCount++;
+        } else {
+          errorCount++;
+        }
+      }
+      if (translatedAdminFeatures.length > 0) {
+        updateTranslation(activeTab, 'adminDemoFeatures', translatedAdminFeatures);
+      }
+
+      if (english.distributorsDemoTitle?.trim()) {
+        const translated = await translateField(english.distributorsDemoTitle);
+        if (translated) {
+          updateTranslation(activeTab, 'distributorsDemoTitle', translated);
+          successCount++;
+        } else {
+          errorCount++;
+        }
+      }
+
+      const translatedDistributorFeatures: string[] = [];
+      for (const feature of english.distributorsDemoFeatures ?? []) {
+        if (!feature?.trim()) continue;
+        const translated = await translateField(feature);
+        if (translated) {
+          translatedDistributorFeatures.push(translated);
+          successCount++;
+        } else {
+          errorCount++;
+        }
+      }
+      if (translatedDistributorFeatures.length > 0) {
+        updateTranslation(activeTab, 'distributorsDemoFeatures', translatedDistributorFeatures);
+      }
+
+      if (errorCount > 0 && successCount === 0) {
+        showToast(
+          'Translation failed. The translation service may be unavailable. Please try again later or translate manually.',
+          'error'
+        );
+      } else if (errorCount > 0) {
+        showToast(`Partially translated. ${successCount} field(s) translated, ${errorCount} failed.`, 'warning');
+      } else if (successCount > 0) {
+        showToast(`Auto-translated ${successCount} field(s) successfully.`, 'success');
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Translation failed.';
+      showToast(`Translation error: ${message}. Please try again or translate manually.`, 'error');
+    } finally {
+      setIsTranslating(false);
+    }
+  };
+
   const handleSaveCurrentTab = React.useCallback(async () => {
     const current = translations[activeTab];
 
@@ -579,6 +702,30 @@ export const DemoForm = forwardRef<DemoFormRef, DemoFormProps>(({
           })}
         </nav>
       </div>
+
+      {/* Auto Translate Button (only show for non-English tabs) */}
+      {activeTab !== 'en' && (translations['en']?.adminDemoTitle || translations['en']?.distributorsDemoTitle || translations['en']?.title) && (
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={autoTranslate}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors border border-primary-200 dark:border-primary-800 bg-primary-50/50 dark:bg-primary-900/10"
+            disabled={isTranslating || isSaving || isLoading}
+          >
+            {isTranslating ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Translating...
+              </>
+            ) : (
+              <>
+                <Languages className="h-4 w-4" />
+                Auto Translate
+              </>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Icon Field */}
       <div className="space-y-1.5">

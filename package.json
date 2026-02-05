@@ -19,6 +19,8 @@
     "verify-user": "tsx scripts/verify-user.ts",
     "translate-features": "tsx scripts/translate-features.ts",
     "translate-feature-slugs": "tsx scripts/translate-feature-slugs.ts",
+    "translate-page-title-auto-responder": "tsx scripts/translate-page-title-auto-responder.ts",
+    "translate-page-title-cloud-mlm-software-basic": "tsx scripts/translate-page-title-cloud-mlm-software-basic.ts",
     "add-testimonials": "tsx scripts/add-testimonials.ts",
     "seed-demo-faqs": "tsx scripts/seed-demo-faqs.ts",
     "seed-demo-items": "tsx scripts/seed-demo-items.ts",

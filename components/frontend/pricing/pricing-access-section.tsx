@@ -13,6 +13,7 @@ import {
   X
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
+import { SectionTitle } from "@/components/ui/section-title";
 import { cn } from "@/lib/utils";
 // Assuming you have a formatCurrency utility
 // import { formatCurrency } from "path/to/your/formatCurrency-utility"; 
@@ -678,20 +679,19 @@ Best regards,
             <path d="M360 200l20 20-20 20-20-20z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" opacity="0.8" />
           </svg>
         </div>
-        <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl space-y-4 text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-sky-400/40 bg-white/70 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-sky-600 shadow-sm dark:border-sky-500/40 dark:bg-slate-900/80 dark:text-sky-200">
-              Secured access workspace
-            </span>
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-              Unlock the full pricing catalogue
-            </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300">
-              {showVerifiedView
-                ? "Build a tailored investment scenario by selecting the plans and add-ons below. Download the generated PDF to share with finance, leadership, or prospective investors."
-                : "Submit your details to receive a one-time password via email. Once verified, you can review the latest module pricing and export-ready data curated for enterprise evaluations."}
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+        <div className="relative mx-auto flex w-full container flex-col gap-12 px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6">
+            <SectionTitle
+              badge="Secured access workspace"
+              heading="Unlock the full pricing catalogue"
+              description={
+                showVerifiedView
+                  ? "Build a tailored investment scenario by selecting the plans and add-ons below. Download the generated PDF to share with finance, leadership, or prospective investors."
+                  : "Submit your details to receive a one-time password via email. Once verified, you can review the latest module pricing and export-ready data curated for enterprise evaluations."
+              }
+              maxWidth="3xl"
+            />
+            <div className="flex flex-wrap justify-center gap-4 text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
               <span className="inline-flex items-center gap-2">
                 <LockSimple className="h-4 w-4 text-sky-500 dark:text-sky-300" aria-hidden /> OTP gated access
               </span>
@@ -739,7 +739,7 @@ Best regards,
                         <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">Select MLM plans</h3>
                         <p className="text-xs text-slate-500 dark:text-slate-400">Choose up to two core programmes.</p>
                       </div>
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Catalogue</span>
+                      <span className="text-[11px] font-semibold uppercase text-slate-400 dark:text-slate-500">Catalogue</span>
                     </header>
                     <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200/60 bg-white/60 dark:border-slate-800/60 dark:bg-slate-900/40">
                       <div className="flex max-h-[540px] flex-col gap-3 overflow-y-auto p-2 pr-3">
@@ -760,7 +760,7 @@ Best regards,
                               <div className="flex items-start justify-between gap-3">
                                 <div className="space-y-1">
                                   <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-50">{plan.name}</h4>
-                                  <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{plan.category}</p>
+                                  <p className="text-[11px] uppercase text-slate-500 dark:text-slate-400">{plan.category}</p>
                                 </div>
                                 <p className="text-right text-lg font-semibold text-slate-900 dark:text-slate-100">${plan.price.toLocaleString()}</p>
                               </div>
@@ -802,7 +802,7 @@ Best regards,
                     <div className="mt-4 space-y-6 max-h-[540px] overflow-y-auto pr-3">
                       {Object.entries(groupedAddOns).map(([category, items]) => (
                         <div key={category} className="space-y-3">
-                          <h4 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">{category}</h4>
+                          <h4 className="text-[11px] font-semibold uppercase text-slate-400 dark:text-slate-500">{category}</h4>
                           <div className="space-y-3">
                             {items.map((addon) => {
                               const isSelected = selectedAddOns.includes(addon.name);
@@ -819,7 +819,7 @@ Best regards,
                                   <div className="flex items-start justify-between gap-3">
                                     <div className="space-y-1">
                                       <h5 className="text-sm font-semibold text-slate-900 dark:text-slate-50">{addon.name}</h5>
-                                      <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{addon.category}</p>
+                                      <p className="text-[11px] uppercase text-slate-500 dark:text-slate-400">{addon.category}</p>
                                     </div>
                                     <p className="text-right text-lg font-semibold text-slate-900 dark:text-slate-100">${addon.price.toLocaleString()}</p>
                                   </div>
@@ -864,7 +864,7 @@ Best regards,
                         <button
                           type="button"
                           onClick={resetSelections}
-                          className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
+                          className="text-[11px] font-semibold uppercase text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
                         >
                           Reset
                         </button>
@@ -883,14 +883,14 @@ Best regards,
                               <div className="flex items-start justify-between gap-3">
                                 <div>
                                   <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">{plan.name}</p>
-                                  <p className="text-[11px] uppercase tracking-wide text-sky-600 dark:text-sky-300">Core plan</p>
+                                  <p className="text-[11px] uppercase text-sky-600 dark:text-sky-300">Core plan</p>
                                 </div>
                                 <div className="text-right">
                                   <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">${plan.price.toLocaleString()}</p>
                                   <button
                                     type="button"
                                     onClick={() => handlePlanToggle(plan)}
-                                    className="text-[11px] font-semibold uppercase tracking-[0.3em] text-rose-600 hover:text-rose-500 dark:text-rose-300"
+                                    className="text-[11px] font-semibold uppercase text-rose-600 hover:text-rose-500 dark:text-rose-300"
                                   >
                                     Remove
                                   </button>
@@ -903,14 +903,14 @@ Best regards,
                               <div className="flex items-start justify-between gap-3">
                                 <div>
                                   <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">{addon.name}</p>
-                                  <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{addon.category}</p>
+                                  <p className="text-[11px] uppercase text-slate-500 dark:text-slate-400">{addon.category}</p>
                                 </div>
                                 <div className="text-right">
                                   <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">${addon.price.toLocaleString()}</p>
                                   <button
                                     type="button"
                                     onClick={() => handleAddonToggle(addon)}
-                                    className="text-[11px] font-semibold uppercase tracking-[0.3em] text-rose-600 hover:text-rose-500 dark:text-rose-300"
+                                    className="text-[11px] font-semibold uppercase text-rose-600 hover:text-rose-500 dark:text-rose-300"
                                   >
                                     Remove
                                   </button>
@@ -1061,7 +1061,7 @@ Best regards,
                       required
                       value={otp}
                       onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ""))}
-                      className="w-full rounded-xl border border-slate-300 px-3 py-2 text-center text-lg tracking-[0.4em] text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-950 dark:text-sky-100"
+                      className="w-full rounded-xl border border-slate-300 px-3 py-2 text-center text-lg text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-950 dark:text-sky-100"
                     />
                     <div className="flex gap-3">
                       <Button type="submit" className="flex-1" size="lg" disabled={otp.length !== 6 || isLoading}>
@@ -1088,8 +1088,8 @@ Best regards,
                 {showVerifiedView ? (
                   <div className="relative space-y-5 text-slate-600 dark:text-slate-300">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Pricing preview</span>
-                      <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500 shadow-sm dark:border-slate-600 dark:bg-slate-900/70 dark:text-slate-300">
+                      <span className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">Pricing preview</span>
+                      <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase text-slate-500 shadow-sm dark:border-slate-600 dark:bg-slate-900/70 dark:text-slate-300">
                         <LockSimple className="h-3.5 w-3.5" weight="bold" aria-hidden /> Locked
                       </span>
                     </div>
@@ -1147,12 +1147,12 @@ Best regards,
                     </div>
                     <div className="pointer-events-none blur-sm opacity-90 transition-all duration-300">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
+                        <span className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
                           <svg width="100" height="12" viewBox="0 0 100 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="animate-pulse">
                             <rect x="0" y="0" rx="2" ry="2" width="100" height="12" fill="currentColor" />
                           </svg>
                         </span>
-                        <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500 shadow-sm dark:border-slate-600 dark:bg-slate-900/70 dark:text-slate-300">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase text-slate-500 shadow-sm dark:border-slate-600 dark:bg-slate-900/70 dark:text-slate-300">
                           <LockSimple className="h-3.5 w-3.5" weight="bold" aria-hidden /> Locked
                         </span>
                       </div>

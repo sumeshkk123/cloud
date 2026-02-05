@@ -4,21 +4,20 @@
     "heading": "Lo que incluye cada compromiso",
     "description": "Cada compromiso de Cloud MLM Software incluye entregables listos para adquisiciones, validación de preparación global y asociación con asesores.",
     "items": [
-      {
-        "title": "Entregables listos para adquisiciones",
-        "detail": "Precios por línea de artículo, criterios de aceptación y documentación lista para uso legal empaquetada para aprobaciones.",
-        "iconKey": "fileCheck"
-      },
-      {
-        "title": "Preparación global",
-        "detail": "Escenarios multi-mercado, de moneda e impuestos validados antes de que comprometa una firma.",
-        "iconKey": "globe"
-      },
-      {
-        "title": "Asociación con asesores",
-        "detail": "Científicos de compensación e ingenieros de automatización dan forma a cada estimación junto con su equipo.",
-        "iconKey": "handshake"
-      }
+      {"title": "Entregables listos para adquisiciones", "detail": "Precios por línea de artículo, criterios de aceptación y documentación lista para uso legal empaquetada para aprobaciones.", "iconKey": "fileCheck"},
+      {"title": "Preparación global", "detail": "Escenarios multi-mercado, de moneda e impuestos validados antes de que comprometa una firma.", "iconKey": "globe"},
+      {"title": "Asociación con asesores", "detail": "Científicos de compensación e ingenieros de automatización dan forma a cada estimación junto con su equipo.", "iconKey": "handshake"}
+    ]
+  },
+  "faq": {
+    "badge": "FAQ",
+    "heading": "Preguntas frecuentes",
+    "description": "Respuestas directas a las preguntas que los equipos de adquisiciones, finanzas y legal suelen hacer.",
+    "items": [
+      {"question": "¿La licencia es una suscripción recurrente?", "answer": "El precio de Cloud MLM Software es una licencia única. Usted es propietario de la plataforma. Los servicios gestionados opcionales, la infraestructura o los paquetes de atención extendidos pueden renovarse anualmente según sea necesario."},
+      {"question": "¿Podemos escalonar mercados y lanzamientos de productos?", "answer": "Sí. Cada compromiso incluye una hoja de ruta de lanzamiento por fases con modelado de escenarios para que pueda abrir mercados, productos o segmentos cuando su dirección esté lista."},
+      {"question": "¿Con qué rapidez recibimos un resumen de inversión?", "answer": "Después de compartir un escenario del estimador, un asesor de precios prepara un resumen listo para adquisiciones con hitos, cadencia de pago y supuestos en un día laborable."},
+      {"question": "¿Se integra con nuestros sistemas existentes?", "answer": "Las integraciones son fundamentales. Ofrecemos aceleradores para comercio, pagos, impuestos, ERP y CRM, y diseñamos middleware a medida para requisitos de datos empresariales."}
     ]
   }
 }

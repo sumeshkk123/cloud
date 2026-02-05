@@ -20,7 +20,7 @@ export function PricingValueProofsSection({ locale }: PricingValueProofsSectionP
   const content = getPricingContent(locale).valueProofs;
 
   return (
-    <Section variant="gradient" padding="lg">
+    <Section variant="primary" padding="lg">
       <div className="container space-y-10">
         <SectionTitle
           badge={content.badge}

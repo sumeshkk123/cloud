@@ -476,6 +476,75 @@ export const pageToSlugMap: Record<string, Record<string, string>> = {
 };
 
 /**
+ * Pricing sub-page slugs (second segment under /pricing/)
+ * Page key -> locale -> slug
+ */
+export const pricingSubpageToSlugMap: Record<string, Record<string, string>> = {
+  "auto-responder-module": {
+    en: "auto-responder-module",
+    es: "modulo-respuesta-automatica",
+    it: "modulo-risposta-automatica",
+    de: "auto-responder-modul",
+    pt: "modulo-resposta-automatica",
+    zh: "zi-dong-hui-fu-mo-kuai",
+  },
+  "cloud-mlm-software-basic": {
+    en: "cloud-mlm-software-basic",
+    es: "software-mlm-basico-nube",
+    it: "software-mlm-base-cloud",
+    de: "cloud-mlm-software-basis",
+    pt: "software-mlm-basico-nuvem",
+    zh: "yun-mlm-ruan-jian-ji-chu",
+  },
+  "drupal-cms-website": {
+    en: "drupal-cms-website",
+    es: "sitio-web-cms-drupal",
+    it: "sito-web-cms-drupal",
+    de: "drupal-cms-webseite",
+    pt: "site-cms-drupal",
+    zh: "drupal-cms-wang-zhan",
+  },
+  "email": {
+    en: "email",
+    es: "correo-automatizacion",
+    fr: "email-automatisation",
+    it: "email-automazione",
+    de: "e-mail-automatisierung",
+    pt: "email-automacao",
+    zh: "you-jian-zi-dong-hua",
+  },
+};
+
+/** Locale -> slug (second segment) -> page key. Used to resolve URL to page. */
+const pricingSubpageSlugToPageMap: Record<string, Record<string, string>> = (() => {
+  const out: Record<string, Record<string, string>> = {};
+  for (const [page, slugs] of Object.entries(pricingSubpageToSlugMap)) {
+    for (const [loc, slug] of Object.entries(slugs)) {
+      if (!out[loc]) out[loc] = {};
+      out[loc][slug] = page;
+    }
+  }
+  return out;
+})();
+
+export function getPricingSubpageFromSlug(slug: string, locale: string): string | null {
+  return pricingSubpageSlugToPageMap[locale]?.[slug] ?? pricingSubpageSlugToPageMap["en"]?.[slug] ?? null;
+}
+
+/** Resolve any locale's slug to page key (for buildLocalizedPath when path is /pricing/xxx). */
+export function getPricingSubpageKeyFromSlug(segment: string): string | null {
+  for (const loc of Object.keys(pricingSubpageSlugToPageMap)) {
+    const page = pricingSubpageSlugToPageMap[loc]?.[segment];
+    if (page) return page;
+  }
+  return null;
+}
+
+export function getSlugForPricingSubpage(page: string, locale: string): string | null {
+  return pricingSubpageToSlugMap[page]?.[locale] ?? pricingSubpageToSlugMap[page]?.["en"] ?? null;
+}
+
+/**
  * Get page identifier from locale-specific slug
  */
 export function getPageFromSlug(slug: string, locale: string): string | null {

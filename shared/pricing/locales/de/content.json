@@ -4,21 +4,20 @@
     "heading": "Was jede Zusammenarbeit beinhaltet",
     "description": "Jede Cloud MLM Software-Zusammenarbeit umfasst beschaffungsfertige Liefergegenstände, globale Bereitschaftsvalidierung und Beraterpartnerschaft.",
     "items": [
-      {
-        "title": "Beschaffungsfertige Liefergegenstände",
-        "detail": "Positionspreise, Akzeptanzkriterien und rechtsfertige Dokumentation, verpackt für Genehmigungen.",
-        "iconKey": "fileCheck"
-      },
-      {
-        "title": "Globale Bereitschaft",
-        "detail": "Multi-Markt-, Währungs- und Steuerszenarien, die validiert werden, bevor Sie sich mit einer Unterschrift verpflichten.",
-        "iconKey": "globe"
-      },
-      {
-        "title": "Beraterpartnerschaft",
-        "detail": "Vergütungswissenschaftler und Automatisierungsingenieure gestalten jede Schätzung gemeinsam mit Ihrem Team.",
-        "iconKey": "handshake"
-      }
+      {"title": "Beschaffungsfertige Liefergegenstände", "detail": "Positionspreise, Akzeptanzkriterien und rechtsfertige Dokumentation, verpackt für Genehmigungen.", "iconKey": "fileCheck"},
+      {"title": "Globale Bereitschaft", "detail": "Multi-Markt-, Währungs- und Steuerszenarien, die validiert werden, bevor Sie sich mit einer Unterschrift verpflichten.", "iconKey": "globe"},
+      {"title": "Beraterpartnerschaft", "detail": "Vergütungswissenschaftler und Automatisierungsingenieure gestalten jede Schätzung gemeinsam mit Ihrem Team.", "iconKey": "handshake"}
+    ]
+  },
+  "faq": {
+    "badge": "FAQ",
+    "heading": "Häufig gestellte Fragen",
+    "description": "Klare Antworten auf die Fragen, die Beschaffungs-, Finanz- und Rechtsteams am häufigsten stellen.",
+    "items": [
+      {"question": "Ist die Lizenz ein Abonnement?", "answer": "Cloud MLM Software-Preise sind eine Einmallizenz. Sie besitzen die Plattform. Optionale Managed Services, Infrastruktur oder erweiterte Concierge-Pakete können bei Bedarf jährlich verlängert werden."},
+      {"question": "Können wir Märkte und Produkteinführungen staffeln?", "answer": "Ja. Jede Zusammenarbeit umfasst eine Phasen-Roadmap mit Szenarienmodellierung, sodass Sie Märkte, Produkte oder Segmente freischalten können, wenn Ihre Führung bereit ist."},
+      {"question": "Wie schnell erhalten wir ein Investitionspapier?", "answer": "Nachdem Sie ein Schätzerszenario teilen, erstellt ein Preisberater innerhalb eines Werktages ein beschaffungsfertiges Papier mit Meilensteinen, Zahlungsrhythmus und Annahmen."},
+      {"question": "Integrieren Sie sich in unsere bestehenden Systeme?", "answer": "Integrationen sind zentral. Wir bieten Beschleuniger für Handel, Zahlungen, Steuern, ERP und CRM und entwerfen maßgeschneiderte Middleware für Unternehmensdatenanforderungen."}
     ]
   }
 }

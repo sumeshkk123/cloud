@@ -1,18 +1,32 @@
 import { FileCheck, Globe, Handshake } from "lucide-react";
 import { HeroSection } from "@/components/frontend/common/hero-section";
 import { Typography } from "@/components/ui/typography";
+import { getPageTitle } from "@/lib/api/page-titles";
+import type { Locale } from "@/i18n-config";
 import { HERO_METRICS, VALUE_PROOFS } from "./constants";
 
+const FALLBACK_BADGE = "Pricing navigator";
+const FALLBACK_HIGHLIGHT = "Engineer a transparent Cloud MLM investment.";
+const FALLBACK_DESCRIPTION = "Align stakeholders with a transparent investment roadmap, delivery squad, and milestone governance.";
+
 interface PricingHeroSectionProps {
+  locale: Locale;
   contactHref: string;
+  pageTitleData?: Awaited<ReturnType<typeof getPageTitle>> | null;
 }
 
-export function PricingHeroSection({ contactHref }: PricingHeroSectionProps) {
+export async function PricingHeroSection({
+  locale,
+  contactHref,
+  pageTitleData: propPageTitleData,
+}: PricingHeroSectionProps) {
+  const pageTitleData = propPageTitleData ?? (await getPageTitle("pricing", locale));
+
   return (
     <HeroSection
-      badgeText="Pricing navigator"
-      highlightText="Engineer a transparent Cloud MLM investment."
-      description="Align stakeholders with a transparent investment roadmap, delivery squad, and milestone governance."
+      badgeText={pageTitleData?.pagePill ?? FALLBACK_BADGE}
+      highlightText={pageTitleData?.title ?? FALLBACK_HIGHLIGHT}
+      description={pageTitleData?.sectionSubtitle ?? FALLBACK_DESCRIPTION}
       primaryCta={{
         label: "Open pricing estimator",
         href: "#pricing-builder",

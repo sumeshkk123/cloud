@@ -325,7 +325,7 @@ Best regards,
       <div className="space-y-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="space-y-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
+            <p className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
               Scenario name
             </p>
             <div className="flex items-center gap-2">
@@ -355,7 +355,7 @@ Best regards,
             <section className="space-y-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
+                  <p className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
                     Base programme
                   </p>
                   <p className="text-sm text-slate-600 dark:text-slate-300">
@@ -376,7 +376,7 @@ Best regards,
                         "border-sky-400 bg-sky-50/60 shadow-lg dark:border-sky-500/70 dark:bg-sky-500/10"
                     )}
                   >
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500">
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
                       <Target className="h-3.5 w-3.5" aria-hidden /> {plan.highlight}
                     </span>
                     <span className="text-lg font-semibold text-slate-900 dark:text-white">{plan.label}</span>
@@ -392,7 +392,7 @@ Best regards,
             <section className="space-y-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
+                  <p className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
                     Support & integration posture
                   </p>
                   <p className="text-sm text-slate-600 dark:text-slate-300">
@@ -449,7 +449,7 @@ Best regards,
             <section className="space-y-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
               <div className="grid gap-3 md:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+                  <label className="flex items-center justify-between text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
                     Markets
                     <span className="text-slate-900 dark:text-slate-100">{markets}</span>
                   </label>
@@ -466,7 +466,7 @@ Best regards,
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <label className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+                  <label className="flex items-center justify-between text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
                     Custom workflows
                     <span className="text-slate-900 dark:text-slate-100">{automationJourneys}</span>
                   </label>
@@ -485,7 +485,7 @@ Best regards,
               </div>
 
               <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
+                <p className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
                   Field team size
                 </p>
                 <div className="grid gap-3 sm:grid-cols-3">
@@ -511,7 +511,7 @@ Best regards,
               </div>
 
               <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
+                <p className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
                   Optional Accelerators
                 </p>
                 <div className="space-y-2">
@@ -545,7 +545,7 @@ Best regards,
 
               <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-900/60">
                 <div className="space-y-1">
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
+                  <p className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
                     Legacy Data Migration
                   </p>
                   <p className="text-xs text-slate-600 dark:text-slate-300">
@@ -556,7 +556,7 @@ Best regards,
                   type="button"
                   onClick={() => setIncludeDataMigration((value) => !value)}
                   className={cn(
-                    "rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] transition",
+                    "rounded-full border px-3 py-1 text-xs font-semibold uppercase transition",
                     includeDataMigration
                       ? "border-emerald-400 bg-emerald-50 text-emerald-600 dark:border-emerald-500/70 dark:bg-emerald-500/10 dark:text-emerald-200"
                       : "border-slate-300 bg-white text-slate-500 hover:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
@@ -571,7 +571,7 @@ Best regards,
           <div className="space-y-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-xl shadow-sky-100 dark:border-slate-800 dark:bg-slate-900 lg:sticky lg:top-24 lg:h-fit">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4 dark:border-slate-800">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
+                <p className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
                   Investment total
                 </p>
                 <h3 className="text-3xl font-semibold text-slate-900 dark:text-white">{formatCurrency(totals.total)}</h3>
@@ -580,7 +580,7 @@ Best regards,
                 </p>
               </div>
               <div className="rounded-2xl bg-slate-50 px-4 py-2 text-right text-xs text-slate-600 dark:bg-slate-900/60 dark:text-slate-300">
-                <p className="font-semibold uppercase tracking-[0.3em]">Monthly equivalent</p>
+                <p className="font-semibold uppercase ">Monthly equivalent</p>
                 <p className="text-base font-semibold text-slate-900 dark:text-white">{formatCurrency(totals.monthly)}</p>
               </div>
             </div>
@@ -623,7 +623,7 @@ Best regards,
             </dl>
 
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
-              <p className="font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+              <p className="font-semibold uppercase text-slate-500 dark:text-slate-400">
                 Scenario notes
               </p>
               <p className="mt-2">

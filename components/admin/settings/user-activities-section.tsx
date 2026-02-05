@@ -37,7 +37,7 @@ export function UserActivitiesSection() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterUserId, setFilterUserId] = useState<string | null>(
-    searchParams.get('userId')
+    () => searchParams?.get('userId') ?? null
   );
 
   const userRole = (session?.user as any)?.role || 'user';

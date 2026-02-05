@@ -6,18 +6,22 @@ import { Typography } from "@/components/ui/typography";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardIcon, CardTitle } from "@/components/ui/card";
 import { TIMELINE_STEPS } from "./constants";
+import type { PricingContent } from "@/lib/pricing-content";
 
 interface PricingTimelineSectionProps {
+  heading: string;
+  description: string;
   contactHref: string;
+  cta: PricingContent["timeline"]["cta"];
 }
 
-export function PricingTimelineSection({ contactHref }: PricingTimelineSectionProps) {
+export function PricingTimelineSection({ heading, description, contactHref, cta }: PricingTimelineSectionProps) {
   return (
-    <Section variant="muted" padding="lg" id="speak-to-us">
+    <Section variant="gradient" padding="lg" id="speak-to-us">
       <div className="container space-y-12">
         <SectionTitle
-          heading="Implementation blueprint"
-          description="A proven delivery cadence keeps stakeholders informed while the rollout pod executes across compensation, integrations, and compliance."
+          heading={heading}
+          description={description}
           maxWidth="3xl"
         />
         <div className="grid gap-6 md:grid-cols-4">
@@ -33,7 +37,7 @@ export function PricingTimelineSection({ contactHref }: PricingTimelineSectionPr
                   <Typography as="p" variant="small" textColor="muted">
                     {step.detail}
                   </Typography>
-                  <Typography as="p" variant="small" textColor="muted" className="uppercase tracking-[0.3em]">
+                  <Typography as="p" variant="small" textColor="muted" className="uppercase">
                     {step.duration}
                   </Typography>
                 </CardContent>
@@ -41,24 +45,35 @@ export function PricingTimelineSection({ contactHref }: PricingTimelineSectionPr
             );
           })}
         </div>
-        <Card className="border-primary/30 bg-card shadow-xl">
-          <div className="flex flex-wrap items-center justify-between gap-6 p-8">
-            <div className="space-y-3">
-              <Typography as="h3" variant="h3" className="font-semibold">
-                Ready for a guided pricing briefing?
-              </Typography>
-              <Typography as="p" variant="small" textColor="muted">
-                Share priorities, target launch dates, and critical integrations. Receive an aligned investment roadmap and milestone-based payment structure.
-              </Typography>
-            </div>
-            <Button asChild size="lg">
-              <Link href={contactHref}>
-                Speak with our team
-                <ArrowUpRight className="ml-2 h-4 w-4" aria-hidden />
+
+        {/* CTA block with gradient background (same style as GradientCtaSection) */}
+        <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-primary via-blue-500 via-purple-500 to-pink-500 p-8 text-left transition-all duration-300 hover:shadow-2xl sm:p-12">
+          <div className="pointer-events-none absolute inset-0 opacity-20">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_110%)]" />
+          </div>
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-white/20 blur-3xl animate-pulse" />
+            <div className="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-white/20 blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+          </div>
+          <div className="relative z-10 max-w-2xl">
+            <Typography variant="h2" as="h3" className="mb-4 text-2xl font-bold tracking-tight text-white drop-shadow-lg sm:text-4xl">
+              {cta.heading}
+            </Typography>
+            <Typography variant="p" className="mb-8 text-base leading-relaxed text-white/95">
+              {cta.description}
+            </Typography>
+            <Button
+              asChild
+              size="lg"
+              className="rounded-xl bg-white px-8 py-6 text-base font-semibold text-primary shadow-xl transition-all hover:scale-105 hover:shadow-2xl hover:bg-white/95"
+            >
+              <Link href={contactHref} className="inline-flex items-center gap-2">
+                {cta.buttonText}
+                <ArrowUpRight className="h-4 w-4" aria-hidden />
               </Link>
             </Button>
           </div>
-        </Card>
+        </div>
       </div>
     </Section>
   );

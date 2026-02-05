@@ -50,12 +50,14 @@ export interface PricingContent {
       heading: string;
       description: string;
       buttonText: string;
+      trustIndicators: [string, string, string];
     };
   };
   faq: {
     badge: string;
     heading: string;
     description: string;
+    items: Array<{ question: string; answer: string }>;
   };
 }
 
@@ -88,7 +90,11 @@ export function getPricingContent(locale: Locale): PricingContent {
     plans: { ...defaultContent.plans, ...localizedContent.plans },
     matrix: { ...defaultContent.matrix, ...localizedContent.matrix },
     estimator: { ...defaultContent.estimator, ...localizedContent.estimator },
-    timeline: { ...defaultContent.timeline, ...localizedContent.timeline },
+    timeline: {
+      ...defaultContent.timeline,
+      ...localizedContent.timeline,
+      cta: { ...defaultContent.timeline.cta, ...localizedContent.timeline?.cta },
+    },
     faq: { ...defaultContent.faq, ...localizedContent.faq },
   };
 

@@ -4,21 +4,20 @@
     "heading": "O que cada compromisso inclui",
     "description": "Cada compromisso Cloud MLM Software inclui entregas prontas para aquisição, validação de preparação global e parceria com consultores.",
     "items": [
-      {
-        "title": "Entregas prontas para aquisição",
-        "detail": "Preços por item de linha, critérios de aceitação e documentação pronta para uso legal empacotada para aprovações.",
-        "iconKey": "fileCheck"
-      },
-      {
-        "title": "Preparação global",
-        "detail": "Cenários multi-mercado, de moeda e fiscais validados antes de você se comprometer com uma assinatura.",
-        "iconKey": "globe"
-      },
-      {
-        "title": "Parceria com consultores",
-        "detail": "Cientistas de compensação e engenheiros de automação moldam cada estimativa junto com sua equipe.",
-        "iconKey": "handshake"
-      }
+      {"title": "Entregas prontas para aquisição", "detail": "Preços por item de linha, critérios de aceitação e documentação pronta para uso legal empacotada para aprovações.", "iconKey": "fileCheck"},
+      {"title": "Preparação global", "detail": "Cenários multi-mercado, de moeda e fiscais validados antes de você se comprometer com uma assinatura.", "iconKey": "globe"},
+      {"title": "Parceria com consultores", "detail": "Cientistas de compensação e engenheiros de automação moldam cada estimativa junto com sua equipe.", "iconKey": "handshake"}
+    ]
+  },
+  "faq": {
+    "badge": "FAQ",
+    "heading": "Perguntas frequentes",
+    "description": "Respostas diretas às perguntas que as equipas de aquisições, finanças e jurídico fazem com mais frequência.",
+    "items": [
+      {"question": "A licença é uma subscrição recorrente?", "answer": "O preço do Cloud MLM Software é uma licença única. A plataforma é sua. Serviços geridos opcionais, infraestrutura ou pacotes de concierge alargados podem ser renovados anualmente conforme necessário."},
+      {"question": "Podemos escalonar mercados e lançamentos de produtos?", "answer": "Sim. Cada compromisso inclui uma rota de lançamento por fases com modelação de cenários para desbloquear mercados, produtos ou segmentos quando a liderança estiver pronta."},
+      {"question": "Com que rapidez recebemos um resumo de investimento?", "answer": "Depois de partilhar um cenário do estimador, um consultor de preços prepara um resumo pronto para aquisições com marcos, cadência de pagamento e premissas num dia útil."},
+      {"question": "Integram-se com os nossos sistemas existentes?", "answer": "As integrações são centrais. Trazemos aceleradores para comércio, pagamentos, impostos, ERP e CRM e desenhamos middleware sob medida para necessidades de dados empresariais."}
     ]
   }
 }

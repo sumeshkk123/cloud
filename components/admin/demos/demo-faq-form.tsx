@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/adminUi/button';
 import { localeNames } from '@/i18n-config';
 import { useToast } from '@/components/ui/toast';
 import { Loader } from '@/components/ui/adminUi/loader';
+import { Languages, Loader2 } from 'lucide-react';
 
 const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
@@ -60,6 +61,7 @@ export function DemoFaqForm({
     const [isLoading, setIsLoading] = useState(false);
     const [currentFaqId, setCurrentFaqId] = useState<string | null>(faqId || null);
     const [savedLocales, setSavedLocales] = useState<string[]>([]);
+    const [isTranslating, setIsTranslating] = useState(false);
 
     useEffect(() => {
         onSavingChange?.(isSaving);
@@ -161,6 +163,75 @@ export function DemoFaqForm({
                 [field]: value,
             },
         }));
+    };
+
+    const autoTranslate = async () => {
+        if (activeTab === 'en') {
+            showToast('Cannot auto-translate English. Please select another language.', 'error');
+            return;
+        }
+
+        const english = translations['en'];
+        if (!english?.question?.trim() || !english?.answer?.trim()) {
+            showToast('Please fill in the English question and answer first.', 'error');
+            return;
+        }
+
+        try {
+            setIsTranslating(true);
+            let successCount = 0;
+            let errorCount = 0;
+
+            const questionRes = await fetch('/api/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    text: english.question.trim(),
+                    sourceLocale: 'en',
+                    targetLocale: activeTab,
+                }),
+            });
+            const questionData = await questionRes.json();
+            if (questionRes.ok && questionData.translatedText) {
+                updateTranslation(activeTab, 'question', questionData.translatedText);
+                successCount++;
+            } else {
+                errorCount++;
+            }
+
+            const answerRes = await fetch('/api/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    text: english.answer.trim(),
+                    sourceLocale: 'en',
+                    targetLocale: activeTab,
+                }),
+            });
+            const answerData = await answerRes.json();
+            if (answerRes.ok && answerData.translatedText) {
+                updateTranslation(activeTab, 'answer', answerData.translatedText);
+                successCount++;
+            } else {
+                errorCount++;
+            }
+
+            if (errorCount > 0 && successCount === 0) {
+                showToast(
+                    'Translation failed. The translation service may be unavailable. Please try again later or translate manually.',
+                    'error'
+                );
+            } else if (errorCount > 0) {
+                showToast(`Partially translated. ${successCount} field(s) translated, ${errorCount} failed.`, 'warning');
+            } else if (successCount > 0) {
+                showToast(`Auto-translated ${successCount} field(s) successfully.`, 'success');
+            }
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'Translation failed.';
+            showToast(`Translation error: ${message}. Please try again or translate manually.`, 'error');
+        } finally {
+            setIsTranslating(false);
+        }
     };
 
     const handleSaveCurrentTab = async () => {
@@ -272,6 +343,30 @@ export function DemoFaqForm({
                     })}
                 </nav>
             </div>
+
+            {/* Auto Translate Button (only show for non-English tabs) */}
+            {activeTab !== 'en' && translations['en']?.question && translations['en']?.answer && (
+                <div className="flex justify-end">
+                    <button
+                        type="button"
+                        onClick={autoTranslate}
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors border border-primary-200 dark:border-primary-800 bg-primary-50/50 dark:bg-primary-900/10"
+                        disabled={isTranslating || isSaving}
+                    >
+                        {isTranslating ? (
+                            <>
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                Translating...
+                            </>
+                        ) : (
+                            <>
+                                <Languages className="h-4 w-4" />
+                                Auto Translate
+                            </>
+                        )}
+                    </button>
+                </div>
+            )}
 
             {/* Form Fields */}
             <div className="space-y-4">

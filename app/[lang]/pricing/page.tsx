@@ -15,8 +15,10 @@ import {
   PricingFaqSection,
 } from "@/components/frontend/pricing";
 import PricingAccessSection from "@/components/frontend/pricing/pricing-access-section";
+import { getPageTitle } from "@/lib/api/page-titles";
+import { getPricingContent } from "@/lib/pricing-content";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
@@ -28,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 }): Promise<Metadata> {
   const { getPageMetadata } = await import("@/components/frontend/common/page-metadata");
-  
+
   return getPageMetadata(
     params,
     "/pricing",
@@ -42,24 +44,37 @@ export async function generateMetadata({
 }
 
 type PricingPageProps = {
-  params: { lang: SupportedLocale };
+  params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 };
 
-export default function PricingPage({ params }: PricingPageProps) {
-  const locale = resolveLocale(params.lang);
+export default async function PricingPage({ params }: PricingPageProps) {
+  const resolvedParams = params instanceof Promise ? await params : params;
+  const locale = resolveLocale(resolvedParams.lang);
   const contactHref = buildLocalizedPath("/contact", locale);
   const estimatorPortalHref = buildLocalizedPath("/free-mlm-software-demo", locale);
 
+  const pageTitleData = await getPageTitle("pricing", locale);
+  const pricingContent = getPricingContent(locale);
+
   return (
-    <div className="space-y-0">
-      <PricingHeroSection contactHref={contactHref} />
-      <PricingAccessSection />
+    <div>
+      <PricingHeroSection locale={locale} contactHref={contactHref} pageTitleData={pageTitleData} />
       <PricingValueProofsSection locale={locale} />
-      <PricingPlansSection />
+      <PricingAccessSection />
+      <PricingPlansSection
+        heading={pricingContent.plans.heading}
+        description={pricingContent.plans.description}
+        outcomeLabel={pricingContent.plans.outcomeLabel}
+      />
       <PricingMatrixSection />
       <PricingEstimatorSection contactHref={contactHref} demoHref={estimatorPortalHref} />
-      <PricingTimelineSection contactHref={contactHref} />
-      <PricingFaqSection />
+      <PricingTimelineSection
+        heading={pricingContent.timeline.heading}
+        description={pricingContent.timeline.description}
+        contactHref={contactHref}
+        cta={pricingContent.timeline.cta}
+      />
+      <PricingFaqSection content={pricingContent.faq} ctaHref={contactHref} />
     </div>
   );
 }

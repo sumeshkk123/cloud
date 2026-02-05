@@ -113,8 +113,8 @@ export function DemoTable() {
         setIsLoading(true);
       }
       const timestamp = Date.now();
-      // Use simple list (no withTranslations) - listDemoItems returns items by locale
-      const res = await fetch(`/api/admin/demo-items?locale=en&_t=${timestamp}`, {
+      // Use withTranslations so we get availableLocales for the Languages column (all translated locales get active bg)
+      const res = await fetch(`/api/admin/demo-items?locale=en&withTranslations=true&_t=${timestamp}`, {
         cache: 'no-store',
         credentials: 'include',
         headers: {
