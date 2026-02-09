@@ -6,6 +6,7 @@ import { ContactRegionCard } from "@/components/frontend/common/contact-region-c
 import { Typography } from "@/components/ui/typography";
 import { getContactContent } from "@/lib/contact";
 import { Section } from '@/components/ui/section';
+import { getCountryIsoCode } from "@/components/ui/country-select";
 
 interface ContactAddress {
   id: string;
@@ -22,8 +23,6 @@ interface ContactAddress {
 interface ContactAddressSectionProps {
   locale: Locale;
 }
-
-// Removed getFlagCodeFromCountry - flags should only come from database
 
 export function ContactAddressSection({ locale }: ContactAddressSectionProps) {
   const [addresses, setAddresses] = useState<ContactAddress[]>([]);
@@ -103,7 +102,7 @@ export function ContactAddressSection({ locale }: ContactAddressSectionProps) {
                 phones={address.phones}
                 email={address.email}
                 whatsapp={address.whatsapp || undefined}
-                flag={address.flag || undefined}
+                flagIso={address.country ? getCountryIsoCode(address.country) ?? undefined : undefined}
               />
             );
           })}

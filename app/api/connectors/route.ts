@@ -9,9 +9,10 @@ export const dynamic = 'force-dynamic';
  */
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const locale = searchParams.get('locale') || 'en';
-    const bySlider = searchParams.get('bySlider') === 'true';
+    const url = request?.url ? new URL(request.url) : null;
+    const searchParams = url?.searchParams ?? null;
+    const locale = searchParams?.get?.('locale') || 'en';
+    const bySlider = searchParams?.get?.('bySlider') === 'true';
 
     if (bySlider) {
       const sliders = await listConnectorsBySlider(locale);

@@ -9,10 +9,11 @@ import { Button } from '@/components/ui/adminUi/button';
 import { useToast } from '@/components/ui/toast';
 import { Loader } from '@/components/ui/adminUi/loader';
 import { localeNames } from '@/i18n-config';
+import { supportedLocales } from '@/config/site';
 import { Languages, Loader2 } from 'lucide-react';
 import { pageOptions } from '@/components/admin/common/page-options';
 
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
+const locales = supportedLocales;
 
 interface PageTitleFormProps {
     page?: string | null;
@@ -354,7 +355,7 @@ export function PageTitleForm({
                                 } ${hasContent && !isActive ? 'bg-green-50 dark:bg-green-900/10' : ''}`}
                             >
                                 <div className="flex items-center gap-2">
-                                    <span>{localeNames[loc] || loc.toUpperCase()}</span>
+                                    <span>{localeNames[loc as keyof typeof localeNames] ?? loc}</span>
                                     {hasContent && (
                                         <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />
                                     )}

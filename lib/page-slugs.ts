@@ -26,6 +26,9 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'legal': 'legal',
     'resources': 'resources',
     'support': 'support',
+    'network-marketing-software': 'network-marketing-software',
+    'direct-selling-software': 'direct-selling-software',
+    'crm-mlm-software': 'crm-mlm-software',
   },
   es: {
     'sobre-la-empresa': 'about-company',
@@ -69,6 +72,12 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'resources': 'resources',
     'soporte': 'support',
     'support': 'support',
+    'software-marketing-red': 'network-marketing-software',
+    'network-marketing-software': 'network-marketing-software',
+    'software-venta-directa': 'direct-selling-software',
+    'direct-selling-software': 'direct-selling-software',
+    'software-crm-mlm': 'crm-mlm-software',
+    'crm-mlm-software': 'crm-mlm-software',
   },
   fr: {
     'a-propos-de-l-entreprise': 'about-company',
@@ -108,6 +117,12 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'ressources': 'resources',
     'resources': 'resources',
     'support': 'support',
+    'logiciel-marketing-reseau': 'network-marketing-software',
+    'network-marketing-software': 'network-marketing-software',
+    'logiciel-vente-directe': 'direct-selling-software',
+    'direct-selling-software': 'direct-selling-software',
+    'logiciel-crm-mlm': 'crm-mlm-software',
+    'crm-mlm-software': 'crm-mlm-software',
   },
   it: {
     'chi-siamo': 'about-company',
@@ -151,6 +166,12 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'resources': 'resources',
     'supporto': 'support',
     'support': 'support',
+    'software-network-marketing': 'network-marketing-software',
+    'network-marketing-software': 'network-marketing-software',
+    'software-vendita-diretta': 'direct-selling-software',
+    'direct-selling-software': 'direct-selling-software',
+    'software-crm-mlm': 'crm-mlm-software',
+    'crm-mlm-software': 'crm-mlm-software',
   },
   de: {
     'ueber-uns': 'about-company',
@@ -192,6 +213,11 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'ressourcen': 'resources',
     'resources': 'resources',
     'support': 'support',
+    'netzwerk-marketing-software': 'network-marketing-software',
+    'network-marketing-software': 'network-marketing-software',
+    'direktvertrieb-software': 'direct-selling-software',
+    'direct-selling-software': 'direct-selling-software',
+    'crm-mlm-software': 'crm-mlm-software',
   },
   pt: {
     'sobre-a-empresa': 'about-company',
@@ -233,6 +259,12 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'resources': 'resources',
     'suporte': 'support',
     'support': 'support',
+    'software-marketing-rede': 'network-marketing-software',
+    'network-marketing-software': 'network-marketing-software',
+    'software-venda-direta': 'direct-selling-software',
+    'direct-selling-software': 'direct-selling-software',
+    'software-crm-mlm': 'crm-mlm-software',
+    'crm-mlm-software': 'crm-mlm-software',
   },
   zh: {
     'guanyu-gongsi': 'about-company',
@@ -277,6 +309,12 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'resources': 'resources',
     'zhi-chi': 'support',
     'support': 'support',
+    'wang-luo-ying-xiao-ruan-jian': 'network-marketing-software',
+    'network-marketing-software': 'network-marketing-software',
+    'zhi-xiao-ruan-jian': 'direct-selling-software',
+    'direct-selling-software': 'direct-selling-software',
+    'crm-mlm-ruan-jian': 'crm-mlm-software',
+    'crm-mlm-software': 'crm-mlm-software',
   },
 };
 
@@ -473,7 +511,78 @@ export const pageToSlugMap: Record<string, Record<string, string>> = {
     pt: 'termos-e-condicoes',
     zh: 'tiao-kuan-he-tiao-jian',
   },
+  'network-marketing-software': {
+    en: 'network-marketing-software',
+    es: 'software-marketing-red',
+    fr: 'logiciel-marketing-reseau',
+    it: 'software-network-marketing',
+    de: 'netzwerk-marketing-software',
+    pt: 'software-marketing-rede',
+    zh: 'wang-luo-ying-xiao-ruan-jian',
+  },
+  'direct-selling-software': {
+    en: 'direct-selling-software',
+    es: 'software-venta-directa',
+    fr: 'logiciel-vente-directe',
+    it: 'software-vendita-diretta',
+    de: 'direktvertrieb-software',
+    pt: 'software-venda-direta',
+    zh: 'zhi-xiao-ruan-jian',
+  },
+  'crm-mlm-software': {
+    en: 'crm-mlm-software',
+    es: 'software-crm-mlm',
+    fr: 'logiciel-crm-mlm',
+    it: 'software-crm-mlm',
+    de: 'crm-mlm-software',
+    pt: 'software-crm-mlm',
+    zh: 'crm-mlm-ruan-jian',
+  },
 };
+
+/**
+ * Module sub-page slugs (top-level [slug] under [lang], e.g. /emails, /ticket-system).
+ * Canonical page id -> locale -> slug. Used so /es/correos-electronicos rewrites to /es/emails and buildLocalizedPath(/emails) returns locale-specific slug.
+ */
+export const modulesSubpageToSlugMap: Record<string, Record<string, string>> = {
+  emails: { en: 'emails', es: 'correos-electronicos', fr: 'emails-automatisation', it: 'email', de: 'e-mails', pt: 'emails', zh: 'dian-zi-you-jian' },
+  compensation: { en: 'compensation', es: 'compensacion', fr: 'compensation', it: 'compensi', de: 'vergütung', pt: 'compensacao', zh: 'bu-chang' },
+  ecommerce: { en: 'ecommerce', es: 'ecommerce', fr: 'e-commerce', it: 'e-commerce', de: 'e-commerce', pt: 'ecommerce', zh: 'dian-shang' },
+  'marketing-automation': { en: 'marketing-automation', es: 'automatizacion-marketing', fr: 'automatisation-marketing', it: 'automazione-marketing', de: 'marketing-automatisierung', pt: 'automacao-marketing', zh: 'ying-xiao-zi-dong-hua' },
+  compliance: { en: 'compliance', es: 'cumplimiento', fr: 'conformite', it: 'conformita', de: 'compliance', pt: 'conformidade', zh: 'he-gui' },
+  analytics: { en: 'analytics', es: 'analiticas', fr: 'analytiques', it: 'analytics', de: 'analysen', pt: 'analytics', zh: 'fen-xi' },
+  genealogy: { en: 'genealogy', es: 'genealogia', fr: 'genealogie', it: 'genealogia', de: 'genealogie', pt: 'genealogia', zh: 'wang-luo-shu' },
+  'customer-engagement': { en: 'customer-engagement', es: 'compromiso-cliente', fr: 'engagement-client', it: 'coinvolgimento-clienti', de: 'kundenbindung', pt: 'engajamento-cliente', zh: 'ke-hu-can-yu' },
+  'mass-email-sending-module': { en: 'mass-email-sending-module', es: 'modulo-envio-masivo-email', fr: 'module-envoi-email-masse', it: 'modulo-invio-email-massa', de: 'modul-massene-mail', pt: 'modulo-envio-email-massa', zh: 'qun-fa-you-jian-mo-kuai' },
+  'e-voucher': { en: 'e-voucher', es: 'e-vale', fr: 'e-bon', it: 'e-voucher', de: 'e-gutschein', pt: 'e-voucher', zh: 'dian-zi-dai-jin-quan' },
+  'e-wallet': { en: 'e-wallet', es: 'e-wallet', fr: 'porte-monnaie-electronique', it: 'e-wallet', de: 'e-wallet', pt: 'carteira-eletronica', zh: 'dian-zi-qian-bao' },
+  'ticket-system': { en: 'ticket-system', es: 'sistema-tickets', fr: 'systeme-tickets', it: 'sistema-ticket', de: 'ticket-system', pt: 'sistema-tickets', zh: 'gong-dan-xi-tong' },
+  'auto-responder': { en: 'auto-responder', es: 'respuesta-automatica', fr: 'reponse-automatique', it: 'risposta-automatica', de: 'auto-responder', pt: 'resposta-automatica', zh: 'zi-dong-hui-fu' },
+  'multi-currency-module': {
+    en: 'multi-currency-module',
+    es: 'modulo-multidivisa',
+    fr: 'module-multi-devises',
+    it: 'multi-modulo-di-valuta',
+    de: 'mehrwahrungsmodul',
+    pt: 'modulo-de-multiplas-moedas',
+    zh: 'duo-bi-zhong-mo-kuai',
+  },
+  'multi-lingual-system': { en: 'multi-lingual-system', es: 'sistema-multilingue', fr: 'systeme-multilingue', it: 'sistema-multilingue', de: 'mehrsprachiges-system', pt: 'sistema-multilinguagem', zh: 'duo-yu-xi-tong' },
+  'kyc-documentation': { en: 'kyc-documentation', es: 'documentacion-kyc', fr: 'documentation-kyc', it: 'documentazione-kyc', de: 'kyc-dokumentation', pt: 'documentacao-kyc', zh: 'kyc-wen-dang' },
+  'backup-manager': { en: 'backup-manager', es: 'gestor-copias-seguridad', fr: 'gestionnaire-sauvegarde', it: 'gestore-backup', de: 'backup-manager', pt: 'gerenciador-backup', zh: 'bei-fen-guan-li' },
+  'email-module': { en: 'email-module', es: 'modulo-email', fr: 'module-email', it: 'modulo-email', de: 'e-mail-modul', pt: 'modulo-email', zh: 'you-jian-mo-kuai' },
+};
+
+// Merge module sub-page slugs into pageSlugMap and pageToSlugMap so middleware and buildLocalizedPath handle translated slugs
+(function mergeModulesSubpageSlugs() {
+  for (const [pageId, slugs] of Object.entries(modulesSubpageToSlugMap)) {
+    (pageToSlugMap as Record<string, Record<string, string>>)[pageId] = slugs;
+    for (const [loc, slug] of Object.entries(slugs)) {
+      if (!pageSlugMap[loc]) (pageSlugMap as Record<string, Record<string, string>>)[loc] = {};
+      (pageSlugMap as Record<string, Record<string, string>>)[loc][slug] = pageId;
+    }
+  }
+})();
 
 /**
  * Pricing sub-page slugs (second segment under /pricing/)
@@ -483,6 +592,7 @@ export const pricingSubpageToSlugMap: Record<string, Record<string, string>> = {
   "auto-responder-module": {
     en: "auto-responder-module",
     es: "modulo-respuesta-automatica",
+    fr: "module-reponse-automatique",
     it: "modulo-risposta-automatica",
     de: "auto-responder-modul",
     pt: "modulo-resposta-automatica",
@@ -491,6 +601,7 @@ export const pricingSubpageToSlugMap: Record<string, Record<string, string>> = {
   "cloud-mlm-software-basic": {
     en: "cloud-mlm-software-basic",
     es: "software-mlm-basico-nube",
+    fr: "logiciel-mlm-cloud-de-base",
     it: "software-mlm-base-cloud",
     de: "cloud-mlm-software-basis",
     pt: "software-mlm-basico-nuvem",
@@ -499,6 +610,7 @@ export const pricingSubpageToSlugMap: Record<string, Record<string, string>> = {
   "drupal-cms-website": {
     en: "drupal-cms-website",
     es: "sitio-web-cms-drupal",
+    fr: "site-web-cms-drupal",
     it: "sito-web-cms-drupal",
     de: "drupal-cms-webseite",
     pt: "site-cms-drupal",
@@ -512,6 +624,105 @@ export const pricingSubpageToSlugMap: Record<string, Record<string, string>> = {
     de: "e-mail-automatisierung",
     pt: "email-automacao",
     zh: "you-jian-zi-dong-hua",
+  },
+  "lcp-page-development": {
+    en: "lcp-page-development",
+    es: "desarrollo-pagina-lcp",
+    fr: "developpement-page-lcp",
+    it: "sviluppo-pagina-lcp",
+    de: "lcp-seiten-entwicklung",
+    pt: "desenvolvimento-pagina-lcp",
+    zh: "lcp-ye-mian-kai-fa",
+  },
+  "magento-integration": {
+    en: "magento-integration",
+    es: "integracion-magento",
+    fr: "integration-magento",
+    it: "integrazione-magento",
+    de: "magento-integration",
+    pt: "integracao-magento",
+    zh: "magento-ji-cheng",
+  },
+  "multi-currency-system": {
+    en: "multi-currency-system",
+    es: "sistema-multimoneda",
+    fr: "systeme-multidevises",
+    it: "sistema-multivaluta",
+    de: "multi-wahrungssystem",
+    pt: "sistema-multimoeda",
+    zh: "duo-bi-zhi-xi-tong",
+  },
+  "multilingual-system": {
+    en: "multilingual-system",
+    es: "sistema-multilingue",
+    fr: "systeme-multilingue",
+    it: "sistema-multilingue",
+    de: "mehrsprachiges-system",
+    pt: "sistema-multilinguagem",
+    zh: "duo-yu-xi-tong",
+  },
+  "native-android-app-with-mlm-software": {
+    en: "native-android-app-with-mlm-software",
+    es: "app-android-nativa-mlm",
+    fr: "app-android-native-mlm",
+    it: "app-android-nativa-mlm",
+    de: "native-android-app-mlm",
+    pt: "app-android-nativa-mlm",
+    zh: "yuan-sheng-android-mlm-ying-yong",
+  },
+  "opencart-integration": {
+    en: "opencart-integration",
+    es: "integracion-opencart",
+    fr: "integration-opencart",
+    it: "integrazione-opencart",
+    de: "opencart-integration",
+    pt: "integracao-opencart",
+    zh: "opencart-ji-cheng",
+  },
+  "payment-gateway-integration": {
+    en: "payment-gateway-integration",
+    es: "integracion-pasarela-pago",
+    fr: "integration-passerelle-paiement",
+    it: "integrazione-gateway-pagamento",
+    de: "zahlungsgateway-integration",
+    pt: "integracao-gateway-pagamento",
+    zh: "zhi-fu-wang-guan-ji-cheng",
+  },
+  "privileged-user-system-module": {
+    en: "privileged-user-system-module",
+    es: "modulo-sistema-usuario-privilegiado",
+    fr: "module-systeme-utilisateur-privilegie",
+    it: "modulo-sistema-utente-privilegiato",
+    de: "privilegiertes-benutzersystem-modul",
+    pt: "modulo-sistema-usuario-privilegiado",
+    zh: "te-quan-yong-hu-xi-tong-mo-kuai",
+  },
+  "replicating-website-for-mlm-business": {
+    en: "replicating-website-for-mlm-business",
+    es: "replicacion-sitio-web-negocio-mlm",
+    fr: "replication-site-web-affaire-mlm",
+    it: "replica-sito-web-business-mlm",
+    de: "replizierende-website-mlm-geschaeft",
+    pt: "replicacao-site-negocio-mlm",
+    zh: "fu-zhi-wang-zhan-mlm-ye-wu",
+  },
+  "support-ticket-system-module-for-mlm-software": {
+    en: "support-ticket-system-module-for-mlm-software",
+    es: "modulo-sistema-tickets-soporte-software-mlm",
+    fr: "module-systeme-tickets-support-logiciel-mlm",
+    it: "modulo-sistema-ticket-supporto-software-mlm",
+    de: "support-ticket-system-modul-mlm-software",
+    pt: "modulo-sistema-tickets-suporte-software-mlm",
+    zh: "ke-fu-gong-dan-xi-tong-mo-kuai-mlm-ruan-jian",
+  },
+  "wordpress-cms-website": {
+    en: "wordpress-cms-website",
+    es: "sitio-web-cms-wordpress",
+    fr: "site-web-cms-wordpress",
+    it: "sito-web-cms-wordpress",
+    de: "wordpress-cms-webseite",
+    pt: "site-cms-wordpress",
+    zh: "wordpress-cms-wang-zhan",
   },
 };
 

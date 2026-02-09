@@ -21,11 +21,12 @@ export function ModulesPrimarySection({ locale }: ModulesPrimarySectionProps) {
     const t = getModulesContent(locale).primarySection;
 
     return (
-        <Section variant="primary" padding="xl" className="relative isolate !overflow-visible">
+        <Section variant="primary" padding="lg" className="relative isolate !overflow-visible">
             {/* Floating orbs */}
-            <div className="absolute left-1/4 top-1/4 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-pulse -z-10" />
-            <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl animate-pulse -z-10" style={{ animationDelay: '1s' }} />
-
+            <div className="pointer-events-none absolute inset-0 -z-10">
+                <div className="absolute left-0 top-1/4 h-[480px] w-[480px] rounded-full bg-primary/8 blur-3xl" />
+                <div className="absolute right-0 bottom-1/4 h-[400px] w-[400px] rounded-full bg-emerald-500/10 blur-3xl" />
+            </div>
             <div className="relative container z-10 space-y-16">
                 {/* Header */}
                 <SectionTitle

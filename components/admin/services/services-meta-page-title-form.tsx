@@ -10,7 +10,8 @@ import { localeNames } from '@/i18n-config';
 import { Languages, Loader2 } from 'lucide-react';
 import { Loader } from '@/components/ui/adminUi/loader';
 
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
+import { supportedLocales } from '@/config/site';
+const locales = supportedLocales;
 
 interface MetaFormData {
     title: string;
@@ -384,7 +385,7 @@ export function ServicesMetaPageTitleForm({
                                 }`}
                             >
                                 <div className="flex items-center gap-2">
-                                    <span>{localeNames[locale]}</span>
+                                    <span>{localeNames[locale as keyof typeof localeNames] ?? locale}</span>
                                     {exists && <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />}
                                 </div>
                             </button>

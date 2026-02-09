@@ -12,7 +12,8 @@ import { useToast } from '@/components/ui/toast';
 import { Loader } from '@/components/ui/adminUi/loader';
 import { Languages, Loader2 } from 'lucide-react';
 
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
+import { supportedLocales } from '@/config/site';
+const locales = supportedLocales;
 
 interface ModuleTranslation {
     locale: string;
@@ -501,7 +502,7 @@ export function ModulesForm({
                                     }`}
                             >
                                 <div className="flex items-center gap-2">
-                                    <span>{localeNames[locale]}</span>
+                                    <span>{localeNames[locale as keyof typeof localeNames] ?? locale}</span>
                                     {exists && <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />}
                                 </div>
                             </button>

@@ -376,7 +376,7 @@ export function DemoTable() {
           setIsFormLoading(false);
         }}
         title={editingDemoId ? 'Edit Demo' : 'New Demo'}
-        size="3xl"
+        size="4xl"
         isLoading={isFormLoading}
         footer={
           <div className="flex justify-end items-center gap-2">

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 import { i18n } from "@/i18n-config";
-import { getPageFromSlug } from "@/lib/page-slugs";
+import { getPageFromSlug, getSlugFromPage } from "@/lib/page-slugs";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -23,12 +23,21 @@ export function middleware(request: NextRequest) {
   const hasLocale = segments.length > 0 && i18n.locales.includes(segments[0] as any);
   
   if (hasLocale) {
-    // Check if the slug after locale needs translation
     if (segments.length > 1) {
       const locale = segments[0];
       const slug = segments[1];
+      // Redirect canonical (default-locale) slug to locale-specific slug (e.g. /es/emails → /es/correos-electronicos)
+      const pageIdFromDefault = getPageFromSlug(slug, i18n.defaultLocale);
+      if (pageIdFromDefault && locale !== i18n.defaultLocale) {
+        const preferredSlug = getSlugFromPage(pageIdFromDefault, locale);
+        if (preferredSlug && preferredSlug !== slug) {
+          const redirectUrl = request.nextUrl.clone();
+          const remainingPath = segments.slice(2).join("/");
+          redirectUrl.pathname = `/${locale}/${preferredSlug}${remainingPath ? `/${remainingPath}` : ""}`;
+          return NextResponse.redirect(redirectUrl);
+        }
+      }
       const pageId = getPageFromSlug(slug, locale);
-      
       // If slug is translated and maps to a page, rewrite to the page identifier
       if (pageId && pageId !== slug) {
         const rewriteUrl = request.nextUrl.clone();

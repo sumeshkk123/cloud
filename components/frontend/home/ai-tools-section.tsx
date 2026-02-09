@@ -2,7 +2,8 @@ import type { HomepageContent } from "@/types/homepage";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Card, CardContent } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
-import { Sparkles, TrendingUp, Shield, Zap } from "lucide-react";
+import { BulletList } from "@/components/ui/bullet-list";
+import { Sparkles, TrendingUp } from "lucide-react";
 import { Section } from "@/components/ui/section";
 
 export function AiToolsSection({ data }: { data: HomepageContent["aiHighlights"] }) {
@@ -42,40 +43,14 @@ export function AiToolsSection({ data }: { data: HomepageContent["aiHighlights"]
                       AI playbook
                     </Typography>
                   </div>
-                  <ol className="space-y-4">
-                    <li className="flex gap-3">
-                      <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                        1
-                      </span>
-                      <Typography variant="p" className="text-sm text-muted-foreground">
-                        Draft search-friendly product, plan, and compliance copy in minutes.
-                      </Typography>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                        2
-                      </span>
-                      <Typography variant="p" className="text-sm text-muted-foreground">
-                        Predict churn, rank momentum, and field incentives with machine learning signals.
-                      </Typography>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                        3
-                      </span>
-                      <Typography variant="p" className="text-sm text-muted-foreground">
-                        Trigger AI-assisted workflows for onboarding, escalations, and payouts.
-                      </Typography>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                        4
-                      </span>
-                      <Typography variant="p" className="text-sm text-muted-foreground">
-                        Trigger AI-assisted workflows for onboarding, escalations, and payouts.
-                      </Typography>
-                    </li>
-                  </ol>
+                  <BulletList
+                    items={[
+                      "Draft search-friendly product, plan, and compliance copy in minutes.",
+                      "Predict churn, rank momentum, and field incentives with machine learning signals.",
+                      "Trigger AI-assisted workflows for onboarding, escalations, and payouts.",
+                    ]}
+                    className="space-y-4"
+                  />
                 </CardContent>
               </Card>
 

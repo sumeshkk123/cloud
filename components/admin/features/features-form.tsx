@@ -8,13 +8,11 @@ import { IconPicker } from '@/components/ui/adminUi/icon-picker';
 import { Toggle } from '@/components/ui/adminUi/toggle';
 import { Button } from '@/components/ui/adminUi/button';
 import { Select } from '@/components/ui/adminUi/select';
-import { localeNames } from '@/i18n-config';
+import { i18n, localeNames } from '@/i18n-config';
 import { useToast } from '@/components/ui/toast';
 import { Loader } from '@/components/ui/adminUi/loader';
 import { Languages, Loader2, X, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
 // Predefined feature categories - can be replaced with database categories later
 const FEATURE_CATEGORIES = [
@@ -70,7 +68,7 @@ export function FeaturesForm({
     const [activeTab, setActiveTab] = useState<string>('en');
     const [translations, setTranslations] = useState<Record<string, FeatureTranslation>>(() => {
         const initial: Record<string, FeatureTranslation> = {};
-        locales.forEach((loc) => {
+        i18n.locales.forEach((loc) => {
             initial[loc] = {
                 locale: loc,
                 title: '',
@@ -110,7 +108,7 @@ export function FeaturesForm({
             setIsLoading(false);
             onLoadingChange?.(false);
             const reset: Record<string, FeatureTranslation> = {};
-            locales.forEach((loc) => {
+            i18n.locales.forEach((loc) => {
                 reset[loc] = {
                     locale: loc,
                     title: '',
@@ -169,7 +167,7 @@ export function FeaturesForm({
             const loaded: Record<string, FeatureTranslation> = {};
             const existingLocales: string[] = [];
 
-            locales.forEach((loc) => {
+            i18n.locales.forEach((loc) => {
                 const existing = existingTranslations.find((t: any) => t.locale === loc);
                 if (existing) {
                     loaded[loc] = {
@@ -509,11 +507,12 @@ export function FeaturesForm({
             {/* Language Tabs */}
             <div className="border-b border-gray-200">
                 <nav className="flex gap-2">
-                    {locales.map((locale) => {
+                    {i18n.locales.map((locale) => {
                         const trans = translations[locale];
                         const isActive = activeTab === locale;
                         const hasContent = trans && (trans.title?.trim() || trans.description?.trim() || trans.icon?.trim());
                         const exists = trans?.exists || false;
+                        const tabLabel = localeNames[locale as keyof typeof localeNames] ?? locale;
 
                         return (
                             <button
@@ -528,7 +527,7 @@ export function FeaturesForm({
                                     }`}
                             >
                                 <div className="flex items-center gap-2">
-                                    <span>{localeNames[locale]}</span>
+                                    <span>{tabLabel}</span>
                                     {exists && <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />}
                                 </div>
                             </button>
@@ -571,7 +570,7 @@ export function FeaturesForm({
                         value={current.icon || ''}
                         onChange={(icon) => {
                             // Update icon for all locales (shared field)
-                            locales.forEach((loc) => {
+                            i18n.locales.forEach((loc) => {
                                 updateTranslation(loc, 'icon', icon);
                             });
                         }}

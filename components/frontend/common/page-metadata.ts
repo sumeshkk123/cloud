@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getMetaDetail } from "@/lib/api/meta-details";
+import { getPageTitle } from "@/lib/api/page-titles";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import { siteBaseConfig } from "@/config/site";
 import type { SupportedLocale } from "@/config/site";
@@ -12,6 +13,26 @@ interface PageMetadataConfig {
     slug?: string; // Optional slug for dynamic pages (e.g., blog posts, product pages)
 }
 
+function buildFallbackMetadata(config: PageMetadataConfig): Metadata {
+    const { fallbackTitle, fallbackDescription, fallbackKeywords } = config;
+    const baseUrl = siteBaseConfig.url.replace(/\/$/, '');
+    return {
+        title: fallbackTitle,
+        description: fallbackDescription,
+        keywords: fallbackKeywords,
+        openGraph: {
+            title: fallbackTitle,
+            description: fallbackDescription,
+            type: 'website',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: fallbackTitle,
+            description: fallbackDescription,
+        },
+    };
+}
+
 /**
  * Generates metadata with canonical URLs and meta tags from database
  * 
@@ -21,14 +42,18 @@ interface PageMetadataConfig {
  * @returns Metadata object with title, description, keywords, and canonical URL
  */
 export async function getPageMetadata(
-    params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale },
+    params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } | null | undefined,
     path: string,
     config: PageMetadataConfig
 ): Promise<Metadata> {
     try {
         // Handle both Promise and direct params (Next.js 15 compatibility)
-        const resolvedParams = params instanceof Promise ? await params : params;
-        const locale = resolvedParams.lang;
+        const resolvedParams =
+            params == null ? undefined : (params instanceof Promise ? await params : params);
+        const locale = resolvedParams?.lang;
+        if (locale == null) {
+            return buildFallbackMetadata(config);
+        }
 
         const { page, fallbackTitle, fallbackDescription, fallbackKeywords, slug } = config;
 
@@ -47,10 +72,25 @@ export async function getPageMetadata(
                 if (!meta && page === 'about-company') {
                     meta = await getMetaDetail('About company', locale);
                 }
+                // Fallback: module pages may be stored with or without prefix (e.g. "emails" vs "mlm-software-modules-emails")
+                if (!meta && page.startsWith('mlm-software-modules-')) {
+                    const shortKey = page.replace(/^mlm-software-modules-/, '');
+                    meta = await getMetaDetail(shortKey, locale);
+                }
                 if (meta) {
                     title = meta.title || title;
                     description = meta.description || description;
                     keywords = meta.keywords || keywords;
+                }
+                // When meta_details has no row or missing title/description, fall back to page_titles
+                let pageTitleRecord = await getPageTitle(page, locale);
+                if (!pageTitleRecord && page.startsWith('mlm-software-modules-')) {
+                    const shortKey = page.replace(/^mlm-software-modules-/, '');
+                    pageTitleRecord = await getPageTitle(shortKey, locale);
+                }
+                if (pageTitleRecord) {
+                    if (!meta?.title) title = pageTitleRecord.title;
+                    if (!meta?.description && pageTitleRecord.sectionSubtitle) description = pageTitleRecord.sectionSubtitle;
                 }
             } catch (error) {
                 // Continue with fallback values if database query fails
@@ -93,30 +133,28 @@ export async function getPageMetadata(
         const { fallbackTitle, fallbackDescription, fallbackKeywords } = config;
         
         // Resolve params for fallback
-        const resolvedParams = params instanceof Promise ? await params : params;
-        const locale = resolvedParams.lang;
-        
-        // Generate basic canonical URL
-        const canonicalPath = config.slug ? `${path}/${config.slug}` : path;
-        const canonicalUrl = buildLocalizedPath(canonicalPath, locale);
-        const baseUrl = siteBaseConfig.url.replace(/\/$/, '');
-        const absoluteCanonicalUrl = canonicalUrl.startsWith('http') 
-            ? canonicalUrl 
-            : `${baseUrl}${canonicalUrl}`;
-        
-        return {
-            title: fallbackTitle,
-            description: fallbackDescription,
-            keywords: fallbackKeywords,
-            alternates: {
-                canonical: absoluteCanonicalUrl,
-            },
-            openGraph: {
+        const resolvedParams = params != null && (params instanceof Promise ? await params : params);
+        const locale = resolvedParams?.lang;
+        if (locale != null) {
+            const canonicalPath = config.slug ? `${path}/${config.slug}` : path;
+            const canonicalUrl = buildLocalizedPath(canonicalPath, locale);
+            const baseUrl = siteBaseConfig.url.replace(/\/$/, '');
+            const absoluteCanonicalUrl = canonicalUrl.startsWith('http')
+                ? canonicalUrl
+                : `${baseUrl}${canonicalUrl}`;
+            return {
                 title: fallbackTitle,
                 description: fallbackDescription,
-                type: 'website',
-                url: absoluteCanonicalUrl,
-            },
-        };
+                keywords: fallbackKeywords,
+                alternates: { canonical: absoluteCanonicalUrl },
+                openGraph: {
+                    title: fallbackTitle,
+                    description: fallbackDescription,
+                    type: 'website',
+                    url: absoluteCanonicalUrl,
+                },
+            };
+        }
+        return buildFallbackMetadata(config);
     }
 }

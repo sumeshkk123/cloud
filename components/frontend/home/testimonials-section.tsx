@@ -205,7 +205,7 @@ export function TestimonialsSection({ data, locale }: TestimonialsSectionProps) 
             <div
               ref={scrollContainerRef}
               onScroll={handleScroll}
-              className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4 px-4"
+              className="flex items-center gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4 px-4"
               style={{
                 scrollSnapType: 'x mandatory',
                 scrollPaddingLeft: '1rem',

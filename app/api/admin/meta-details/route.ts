@@ -46,32 +46,48 @@ export async function GET(request: NextRequest) {
   }
 }
 
+async function upsertMetaDetailHandler(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const body = await request.json();
+  const { page, locale = 'en', title, description, keywords } = body || {};
+
+  if (!page || title == null) {
+    return NextResponse.json(
+      { error: 'page and title are required' },
+      { status: 400 }
+    );
+  }
+
+  const meta = await upsertMetaDetail({
+    page,
+    locale,
+    title: String(title).trim(),
+    description: description != null ? String(description).trim() : '',
+    keywords: keywords != null ? String(keywords).trim() : '',
+  });
+
+  return NextResponse.json(meta);
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    return await upsertMetaDetailHandler(request);
+  } catch (error) {
+    console.error('[API] Error saving meta detail (POST):', error);
+    return NextResponse.json(
+      { error: 'Failed to save meta detail' },
+      { status: 500 }
+    );
+  }
+}
+
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const body = await request.json();
-    const { page, locale = 'en', title, description, keywords } = body || {};
-
-    if (!page || !title || !description || !keywords) {
-      return NextResponse.json(
-        { error: 'page, title, description, and keywords are required' },
-        { status: 400 }
-      );
-    }
-
-    const meta = await upsertMetaDetail({
-      page,
-      locale,
-      title: title.trim(),
-      description: description.trim(),
-      keywords: keywords.trim(),
-    });
-
-    return NextResponse.json(meta);
+    return await upsertMetaDetailHandler(request);
   } catch (error) {
     console.error('[API] Error saving meta detail:', error);
     return NextResponse.json(

@@ -18,7 +18,7 @@ const ReadMoreButton = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, R
         const baseClass = cn(
             "read-more-button group/btn relative inline-flex items-center gap-2 overflow-hidden text-sm font-medium transition-colors",
             isPrimary
-                ? "bg-primary text-primary-foreground shadow hover:!text-white"
+                ? "bg-primary text-primary-foreground shadow hover:!text-primary"
                 : isOutline
                     ? "border-2 border-primary bg-transparent font-semibold text-primary shadow hover:bg-primary hover:!text-primary-foreground"
                     : isHighlighted
@@ -44,7 +44,7 @@ const ReadMoreButton = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, R
                             : isOutline
                                 ? "bg-primary/20 text-primary group-hover/btn:bg-white group-hover/btn:text-primary"
                                 : isHighlighted
-                                    ? "bg-foreground dark:bg-black text-primary dark:text-white group-hover/btn:bg-white group-hover/btn:text-primary"
+                                    ? "bg-foreground dark:bg-black text-primary dark:text-white group-hover/btn:bg-primary group-hover/btn:text-primary"
                                     : "bg-foreground text-background"
                     )}
                 >

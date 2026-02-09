@@ -12,6 +12,7 @@ import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { ModulesForm } from './modules-form';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
+import { i18n } from '@/i18n-config';
 
 interface ModuleRow {
   id: string;
@@ -223,7 +224,7 @@ export function ModulesTable() {
             return (
               <LanguageBadges
                 availableLocales={locales}
-                allLocales={['en', 'es', 'it', 'de', 'pt', 'zh']}
+                allLocales={[...i18n.locales]}
                 layout="grid"
               />
             );
@@ -275,7 +276,7 @@ export function ModulesTable() {
           setIsFormLoading(false);
         }}
         title={editingId ? 'Edit Module' : 'New Module'}
-        size="3xl"
+        size="4xl"
       >
         <ModulesForm
           moduleId={editingId}

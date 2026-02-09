@@ -7,10 +7,11 @@ import { FieldLabel } from '@/components/ui/adminUi/field-label';
 import { Select } from '@/components/ui/adminUi/select';
 import { useToast } from '@/components/ui/toast';
 import { localeNames } from '@/i18n-config';
+import { supportedLocales } from '@/config/site';
 import { Languages, Loader2 } from 'lucide-react';
 import { Loader } from '@/components/ui/adminUi/loader';
 
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
+const locales = supportedLocales;
 
 interface MetaFormData {
     title: string;
@@ -383,7 +384,7 @@ export function ModulesMetaPageTitleForm({
                                 }`}
                             >
                                 <div className="flex items-center gap-2">
-                                    <span>{localeNames[locale]}</span>
+                                    <span>{localeNames[locale as keyof typeof localeNames] ?? locale}</span>
                                     {exists && <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />}
                                 </div>
                             </button>
@@ -463,23 +464,23 @@ export function ModulesMetaPageTitleForm({
                 
                 <div className="space-y-4">
                     <div>
-                        <FieldLabel htmlFor="page-title">Page Title</FieldLabel>
-                        <Input
-                            id="page-title"
-                            value={currentPageTitle.title}
-                            onChange={(e) => updatePageTitleField(activeLocale, 'title', e.target.value)}
-                            placeholder="Enter page title"
-                            disabled={isSaving || isLoading || isTranslating}
-                        />
-                    </div>
-
-                    <div>
                         <FieldLabel htmlFor="page-pill">Page Pill</FieldLabel>
                         <Input
                             id="page-pill"
                             value={currentPageTitle.pagePill}
                             onChange={(e) => updatePageTitleField(activeLocale, 'pagePill', e.target.value)}
                             placeholder="Enter page pill"
+                            disabled={isSaving || isLoading || isTranslating}
+                        />
+                    </div>
+
+                    <div>
+                        <FieldLabel htmlFor="page-title">Page Title</FieldLabel>
+                        <Input
+                            id="page-title"
+                            value={currentPageTitle.title}
+                            onChange={(e) => updatePageTitleField(activeLocale, 'title', e.target.value)}
+                            placeholder="Enter page title"
                             disabled={isSaving || isLoading || isTranslating}
                         />
                     </div>

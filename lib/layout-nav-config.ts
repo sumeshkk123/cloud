@@ -230,6 +230,7 @@ export const HEADER_CTA: CmsLink = { title: "Pricing", href: "/pricing/" };
 const languageNames: Record<SupportedLocale, string> = {
   en: "English",
   es: "Español",
+  fr: "Français",
   it: "Italiano",
   de: "Deutsch",
   pt: "Português",
@@ -238,6 +239,6 @@ const languageNames: Record<SupportedLocale, string> = {
 
 export const LANGUAGE_OPTIONS = supportedLocales.map((locale) => ({
   locale,
-  label: languageNames[locale] || locale.toUpperCase(),
+  label: `${locale} ${languageNames[locale] || locale.toUpperCase()}`,
   href: `${siteBaseConfig.url}${buildLocalizedPath("/", locale)}`
 }));

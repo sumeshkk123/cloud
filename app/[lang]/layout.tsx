@@ -97,8 +97,9 @@ const FOOTER_BOTTOM_LINKS: FooterBottomLink[] = [
   { title: "Legal", href: "/legal" }
 ];
 
-export async function generateMetadata({ params }: { params: LocaleLayoutParams | Promise<LocaleLayoutParams> }): Promise<Metadata> {
-  const resolved = params instanceof Promise ? await params : params;
+export async function generateMetadata(props: { params?: LocaleLayoutParams | Promise<LocaleLayoutParams> }): Promise<Metadata> {
+  const params = props?.params;
+  const resolved = params != null ? (params instanceof Promise ? await params : params) : null;
   const locale = resolveLocale(resolved?.lang ?? i18n.defaultLocale);
   return {
     alternates: {
@@ -107,8 +108,9 @@ export async function generateMetadata({ params }: { params: LocaleLayoutParams 
   };
 }
 
-export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
-  const resolved = params instanceof Promise ? await params : params;
+export default async function LocaleLayout(props: LocaleLayoutProps) {
+  const { children, params } = props ?? {};
+  const resolved = params != null ? (params instanceof Promise ? await params : params) : null;
   const locale = resolveLocale(resolved?.lang ?? i18n.defaultLocale);
   let globalSettings: GlobalSettings | null = null;
 

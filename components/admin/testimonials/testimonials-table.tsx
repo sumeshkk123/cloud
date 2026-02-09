@@ -12,6 +12,7 @@ import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { TestimonialsForm } from './testimonials-form';
 import { localeNames } from '@/i18n-config';
+import { supportedLocales } from '@/config/site';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
 
 interface TestimonialRow {
@@ -198,7 +199,7 @@ export function TestimonialsTable() {
             return (
               <LanguageBadges
                 availableLocales={locales}
-                allLocales={['en', 'es', 'it', 'de', 'pt', 'zh']}
+                allLocales={[...supportedLocales]}
                 layout="grid"
               />
             );

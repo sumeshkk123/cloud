@@ -8,10 +8,8 @@ import { Select } from '@/components/ui/adminUi/select';
 import { Button } from '@/components/ui/adminUi/button';
 import { useToast } from '@/components/ui/toast';
 import { Loader } from '@/components/ui/adminUi/loader';
-import { localeNames } from '@/i18n-config';
+import { i18n, localeNames } from '@/i18n-config';
 import { Languages, Loader2 } from 'lucide-react';
-
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
 interface FaqFormState {
     question: string;
@@ -46,7 +44,7 @@ export function FaqForm({ faqId, onClose, onSave, onToastChange, onLoadingChange
     const [activeTab, setActiveTab] = useState<string>('en');
     const [translations, setTranslations] = useState<Record<string, FaqTranslation>>(() => {
         const initial: Record<string, FaqTranslation> = {};
-        locales.forEach((loc) => {
+        i18n.locales.forEach((loc) => {
             initial[loc] = {
                 locale: loc,
                 question: '',
@@ -114,7 +112,7 @@ export function FaqForm({ faqId, onClose, onSave, onToastChange, onLoadingChange
             loadAllTranslations();
         } else {
             const reset: Record<string, FaqTranslation> = {};
-            locales.forEach((loc) => {
+            i18n.locales.forEach((loc) => {
                 reset[loc] = {
                     locale: loc,
                     question: loc === 'en' ? '' : '',
@@ -161,7 +159,7 @@ export function FaqForm({ faqId, onClose, onSave, onToastChange, onLoadingChange
             const loaded: Record<string, FaqTranslation> = {};
             const existingLocales: string[] = [];
 
-            locales.forEach((loc) => {
+            i18n.locales.forEach((loc) => {
                 const existing = existingTranslations.find((t: any) => t.locale === loc);
                 if (existing) {
                     loaded[loc] = {
@@ -390,7 +388,7 @@ export function FaqForm({ faqId, onClose, onSave, onToastChange, onLoadingChange
         <div className="space-y-5">
             <div className="border-b border-gray-200">
                 <div className="flex flex-wrap gap-2">
-                    {locales.map((locale) => {
+                    {i18n.locales.map((locale) => {
                         const trans = translations[locale];
                         const isActive = activeTab === locale;
                         const hasContent = trans && (trans.question || trans.answer);

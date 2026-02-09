@@ -5,12 +5,10 @@ import { Input } from '@/components/ui/adminUi/input';
 import { Textarea } from '@/components/ui/adminUi/textarea';
 import { FieldLabel } from '@/components/ui/adminUi/field-label';
 import { Button } from '@/components/ui/adminUi/button';
-import { localeNames } from '@/i18n-config';
+import { i18n, localeNames } from '@/i18n-config';
 import { useToast } from '@/components/ui/toast';
 import { Loader } from '@/components/ui/adminUi/loader';
 import { Languages, Loader2 } from 'lucide-react';
-
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
 interface FeatureFaqTranslation {
     locale: string;
@@ -47,7 +45,7 @@ export function FeaturesFaqForm({
     const [activeTab, setActiveTab] = useState<string>('en');
     const [translations, setTranslations] = useState<Record<string, FeatureFaqTranslation>>(() => {
         const initial: Record<string, FeatureFaqTranslation> = {};
-        locales.forEach((loc) => {
+        i18n.locales.forEach((loc) => {
             initial[loc] = {
                 locale: loc,
                 question: '',
@@ -82,7 +80,7 @@ export function FeaturesFaqForm({
             setIsLoading(false);
             onLoadingChange?.(false);
             const reset: Record<string, FeatureFaqTranslation> = {};
-            locales.forEach((loc) => {
+            i18n.locales.forEach((loc) => {
                 reset[loc] = {
                     locale: loc,
                     question: '',
@@ -118,7 +116,7 @@ export function FeaturesFaqForm({
             const loaded: Record<string, FeatureFaqTranslation> = {};
             const existingLocales: string[] = [];
 
-            locales.forEach((loc) => {
+            i18n.locales.forEach((loc) => {
                 const existing = existingTranslations.find((t: any) => t.locale === loc);
                 if (existing) {
                     loaded[loc] = {
@@ -325,7 +323,7 @@ export function FeaturesFaqForm({
             {/* Language Tabs */}
             <div className="border-b border-gray-200">
                 <nav className="flex gap-2">
-                    {locales.map((locale) => {
+                    {i18n.locales.map((locale) => {
                         const trans = translations[locale];
                         const isActive = activeTab === locale;
                         const hasContent = trans && (trans.question?.trim() || trans.answer?.trim());

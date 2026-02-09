@@ -41,16 +41,18 @@ const defaultBlogPosts: HomepageBlogPost[] = defaultContent?.blogPosts?.posts ??
 // Revalidate every 60 seconds (1 minute) for ISR
 export const revalidate = 60;
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } }): Promise<Metadata> {
-  const resolvedParams = params instanceof Promise ? await params : params;
-  const locale = resolveLocale(resolvedParams.lang);
+export async function generateMetadata(props: { params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } }): Promise<Metadata> {
+  const params = props?.params;
+  const resolvedParams =
+    params != null ? (params instanceof Promise ? await params : params) : null;
+  const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
 
   const { getPageMetadata } = await import("@/components/frontend/common/page-metadata");
 
   const { getHomepageKeywords } = await import("@/lib/seo-keywords");
 
   return getPageMetadata(
-    params,
+    params ?? null,
     "/",
     {
       page: "home",
@@ -62,7 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Sup
 }
 
 type HomePageProps = {
-  params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+  params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 };
 
 const SITE_NAME = "Cloud MLM Software";
@@ -161,11 +163,12 @@ async function getCachedBlogPostsForHome(locale: string) {
   )();
 }
 
-export default async function HomePage({ params }: HomePageProps) {
+export default async function HomePage(props: HomePageProps) {
   try {
-    // Handle both Promise and direct params (Next.js 15 compatibility)
-    const resolvedParams = params instanceof Promise ? await params : params;
-    const locale = resolveLocale(resolvedParams.lang);
+    const params = props?.params;
+    const resolvedParams =
+      params != null ? (params instanceof Promise ? await params : params) : null;
+    const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
 
     // Fetch all data in parallel for maximum performance
     const [content, globalSettings, pageTitleData, homeServices, homeBlogPosts] = await Promise.all([

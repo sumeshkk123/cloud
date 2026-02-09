@@ -124,6 +124,7 @@ export function ChangelogTable() {
   const localeDisplayNames: Record<string, string> = {
     en: 'EN',
     es: 'ES',
+    fr: 'FR',
     it: 'IT',
     de: 'DE',
     pt: 'PT',
@@ -177,9 +178,9 @@ export function ChangelogTable() {
                           ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
                           : 'bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-600'
                       }`}
-                      title={exists ? `${localeDisplayNames[loc]} - Available` : `${localeDisplayNames[loc]} - Missing`}
+                      title={exists ? `${localeDisplayNames[loc] ?? loc.toUpperCase()} - Available` : `${localeDisplayNames[loc] ?? loc.toUpperCase()} - Missing`}
                     >
-                      {localeDisplayNames[loc]}
+                      {localeDisplayNames[loc] ?? loc.toUpperCase()}
                     </span>
                   );
                 })}

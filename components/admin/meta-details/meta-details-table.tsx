@@ -12,6 +12,7 @@ import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal
 import { MetaDetailsForm } from './meta-details-form';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { pageDisplayNames } from '@/components/admin/common/page-options';
+import { supportedLocales } from '@/config/site';
 
 interface MetaDetailsRow {
     page: string;
@@ -67,19 +68,19 @@ export function MetaDetailsTable() {
 
             // Optimized: Process data more efficiently
             const pageMap = new Map<string, MetaDetailsRow>();
-            const pageUpdatedAtMap = new Map<string, number>();
+            const pageCreatedAtMap = new Map<string, number>();
 
             // Single pass through data
             for (const item of data) {
                 const pageKey = String(item.page || '');
                 if (!pageKey) continue;
 
-                // Track latest updatedAt timestamp (use number for faster comparison)
-                if (item.updatedAt) {
-                    const itemTime = new Date(item.updatedAt).getTime();
-                    const currentLatest = pageUpdatedAtMap.get(pageKey) || 0;
-                    if (itemTime > currentLatest) {
-                        pageUpdatedAtMap.set(pageKey, itemTime);
+                // Track earliest createdAt per page (when the page was first added) for stable sort
+                if (item.createdAt) {
+                    const itemTime = new Date(item.createdAt).getTime();
+                    const currentEarliest = pageCreatedAtMap.get(pageKey);
+                    if (currentEarliest === undefined || itemTime < currentEarliest) {
+                        pageCreatedAtMap.set(pageKey, itemTime);
                     }
                 }
 
@@ -114,19 +115,11 @@ export function MetaDetailsTable() {
                 }
             }
 
-            // Convert to array and sort (optimized)
+            // Convert to array and sort by createdAt (newest-created first; edits don't change position)
             const items: MetaDetailsRow[] = Array.from(pageMap.values());
-            for (const item of items) {
-                const timestamp = pageUpdatedAtMap.get(item.page);
-                if (timestamp) {
-                    item.updatedAt = new Date(timestamp);
-                }
-            }
-
-            // Sort by updatedAt (descending - most recent first)
             items.sort((a, b) => {
-                const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
-                const bTime = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+                const aTime = pageCreatedAtMap.get(a.page) ?? 0;
+                const bTime = pageCreatedAtMap.get(b.page) ?? 0;
                 return bTime - aTime;
             });
 
@@ -224,7 +217,7 @@ export function MetaDetailsTable() {
                         return (
                             <LanguageBadges
                                 availableLocales={locales}
-                                allLocales={['en', 'es', 'it', 'de', 'pt', 'zh']}
+                                allLocales={[...supportedLocales]}
                                 layout="grid"
                             />
                         );

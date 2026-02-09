@@ -12,6 +12,7 @@ import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { ModulesMetaPageTitleForm } from './modules-meta-page-title-form';
 import { PageTitle } from '@/components/ui/adminUi/page-title';
+import { MODULES_SUBPAGE_SLUGS, getModulesSubpageMeta } from '@/lib/modules-subpage-slugs';
 
 interface CombinedRow {
     page: string;
@@ -44,7 +45,7 @@ export function ModulesMetaPageTitleTab() {
   const [editingLocale, setEditingLocale] = useState<string>('en');
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [pageToDelete, setPageToDelete] = useState<string | null>(null);
-  const [localeToDelete, setLocaleToDelete] = useState<string>('en');
+  const [localesToDelete, setLocalesToDelete] = useState<string[]>([]);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
@@ -63,92 +64,74 @@ export function ModulesMetaPageTitleTab() {
 
   const loadAllData = async () => {
     if (modulePages.length === 0) return;
-    
+
     try {
       setIsLoading(true);
       const allData: CombinedRow[] = [];
-      
-      // Load data for all module pages (excluding main module page)
+
+      // Load data for all module pages (excluding main module page) — one row per page, English for display (like /admin/page-titles)
       for (const pageOption of modulePages) {
         const page = pageOption.value;
-        
-        // Skip the main module page - only show inner pages
-        if (page === MODULE_PAGE_PREFIX) {
-          continue;
-        }
-        
-        const metaRes = await fetch(`/api/admin/meta-details?page=${encodeURIComponent(page)}`, {
+
+        if (page === MODULE_PAGE_PREFIX) continue;
+
+        const metaRes = await fetch(`/api/admin/meta-details?page=${encodeURIComponent(page)}&all=true`, {
           cache: 'no-store',
         });
         const metaData = metaRes.ok ? await metaRes.json() : [];
-        
+
         const pageTitleRes = await fetch(`/api/admin/page-titles?page=${encodeURIComponent(page)}`, {
           cache: 'no-store',
         });
-        const pageTitleData = pageTitleRes.ok ? await pageTitleRes.json() : [];
-        
-        const combinedMap = new Map<string, CombinedRow>();
+        const pageTitleDataRaw = pageTitleRes.ok ? await pageTitleRes.json() : [];
+        const pageTitleData = Array.isArray(pageTitleDataRaw)
+          ? pageTitleDataRaw
+          : pageTitleDataRaw?.page
+            ? [pageTitleDataRaw]
+            : [];
+
         const locales = new Set<string>();
-        
+        let metaEn: { title?: string; description?: string; keywords?: string } = {};
+        let pageTitleEn: { title?: string; pagePill?: string; sectionSubtitle?: string } = {};
+
         if (Array.isArray(metaData)) {
           metaData.forEach((item: any) => {
-            if (item.page === page) {
-              const locale = item.locale || 'en';
-              locales.add(locale);
-              if (!combinedMap.has(locale)) {
-                combinedMap.set(locale, {
-                  page,
-                  locale,
-                  metaTitle: '',
-                  metaDescription: '',
-                  metaKeywords: '',
-                  pageTitle: '',
-                  pagePill: '',
-                  sectionSubtitle: '',
-                  availableLocales: [],
-                });
-              }
-              const row = combinedMap.get(locale)!;
-              row.metaTitle = item.title || '';
-              row.metaDescription = item.description || '';
-              row.metaKeywords = item.keywords || '';
+            if (item.page !== page) return;
+            const locale = item.locale || 'en';
+            locales.add(locale);
+            if (locale === 'en') {
+              metaEn = { title: item.title || '', description: item.description || '', keywords: item.keywords || '' };
             }
           });
         }
-        
-        if (Array.isArray(pageTitleData)) {
-          pageTitleData.forEach((item: any) => {
-            if (item.page === page) {
-              const locale = item.locale || 'en';
-              locales.add(locale);
-              if (!combinedMap.has(locale)) {
-                combinedMap.set(locale, {
-                  page,
-                  locale,
-                  metaTitle: '',
-                  metaDescription: '',
-                  metaKeywords: '',
-                  pageTitle: '',
-                  pagePill: '',
-                  sectionSubtitle: '',
-                  availableLocales: [],
-                });
-              }
-              const row = combinedMap.get(locale)!;
-              row.pageTitle = item.title || '';
-              row.pagePill = item.pagePill || '';
-              row.sectionSubtitle = item.sectionSubtitle || '';
-            }
-          });
-        }
-        
-        const allLocales = Array.from(locales);
-        combinedMap.forEach((row) => {
-          row.availableLocales = allLocales;
-          allData.push(row);
+
+        pageTitleData.forEach((item: any) => {
+          if (!item || item.page !== page) return;
+          const locale = item.locale || 'en';
+          locales.add(locale);
+          if (locale === 'en') {
+            pageTitleEn = {
+              title: item.title || '',
+              pagePill: item.pagePill ?? '',
+              sectionSubtitle: item.sectionSubtitle ?? '',
+            };
+          }
         });
+
+        const singleRow: CombinedRow = {
+          page,
+          locale: 'en',
+          metaTitle: metaEn.title ?? '',
+          metaDescription: metaEn.description ?? '',
+          metaKeywords: metaEn.keywords ?? '',
+          pageTitle: pageTitleEn.title ?? '',
+          pagePill: pageTitleEn.pagePill ?? '',
+          sectionSubtitle: pageTitleEn.sectionSubtitle ?? '',
+          availableLocales: Array.from(locales),
+        };
+        allData.push(singleRow);
       }
-      
+
       setTableData(allData);
     } catch (error) {
       console.error('Error loading data:', error);
@@ -160,26 +143,15 @@ export function ModulesMetaPageTitleTab() {
 
   const loadModulePages = async () => {
     try {
-      const res = await fetch('/api/admin/modules?locale=en', {
-        cache: 'no-store',
-      });
-      
-      const allPages: Array<{ value: string; label: string }> = [];
-      
-      if (res.ok) {
-        const modules = await res.json();
-        const dbPages = modules
-          .filter((m: any) => m.hasDetailPage && m.slug)
-          .map((m: any) => ({
-            value: `${MODULE_PAGE_PREFIX}/${m.slug}`,
-            label: m.title || m.slug,
-          }));
-        
-        allPages.push(...dbPages);
-      }
-      
-      // Don't add main module page - only show inner pages
-      // Sort alphabetically by label
+      // Build select options from all 18 module sub-pages (page id = mlm-software-modules-<slug>)
+      const allPages: Array<{ value: string; label: string }> = (MODULES_SUBPAGE_SLUGS as readonly string[]).map(
+        (slug) => {
+          const value = `${MODULE_PAGE_PREFIX}-${slug}`;
+          const meta = getModulesSubpageMeta(slug);
+          const label = meta?.fallbackTitle ?? slug.replace(/-/g, ' ');
+          return { value, label };
+        }
+      );
       allPages.sort((a, b) => a.label.localeCompare(b.label));
       setModulePages(allPages);
     } catch (error) {
@@ -190,32 +162,34 @@ export function ModulesMetaPageTitleTab() {
 
   const handleFormSave = async () => {
     setRefreshKey((prev) => prev + 1);
-    setIsFormOpen(false);
-    setEditingPage(null);
-    setEditingLocale('en');
-    setFormToast(null);
+    showToast('Saved successfully.', 'success');
+    // Keep modal open; user closes manually via Cancel or X (like other admin page modals)
   };
 
   const handleDelete = async () => {
     if (!pageToDelete) return;
-    
+
     try {
       setIsDeleting(true);
-      
-      // Delete meta details
-      await fetch(`/api/admin/meta-details?page=${encodeURIComponent(pageToDelete)}&locale=${localeToDelete}`, {
+
+      // Delete all page titles for this page (all locales) — same as /admin/page-titles
+      await fetch(`/api/admin/page-titles?page=${encodeURIComponent(pageToDelete)}`, {
         method: 'DELETE',
+        credentials: 'include',
       });
-      
-      // Delete page titles
-      await fetch(`/api/admin/page-titles?page=${encodeURIComponent(pageToDelete)}&locale=${localeToDelete}`, {
-        method: 'DELETE',
-      });
-      
+
+      // Delete meta details for each locale (API is per locale)
+      for (const locale of localesToDelete) {
+        await fetch(
+          `/api/admin/meta-details?page=${encodeURIComponent(pageToDelete)}&locale=${encodeURIComponent(locale)}`,
+          { method: 'DELETE', credentials: 'include' }
+        );
+      }
+
       showToast('Deleted successfully.', 'success');
       setDeleteConfirmOpen(false);
       setPageToDelete(null);
-      setLocaleToDelete('en');
+      setLocalesToDelete([]);
       setRefreshKey((prev) => prev + 1);
     } catch (error) {
       console.error('Error deleting:', error);
@@ -226,15 +200,11 @@ export function ModulesMetaPageTitleTab() {
   };
 
   const columns = [
-    { key: 'page', label: 'Page' },
-    { key: 'locale', label: 'Locale' },
+    { key: 'page', label: 'Page', className: 'text-black' },
     { key: 'metaTitle', label: 'Meta Title' },
     { key: 'metaDescription', label: 'Meta Description' },
-    { key: 'metaKeywords', label: 'Meta Keywords' },
-    { key: 'divider', label: '' },
-    { key: 'pageTitle', label: 'Page Title' },
     { key: 'pagePill', label: 'Page Pill' },
-    { key: 'sectionSubtitle', label: 'Section Subtitle' },
+    { key: 'pageTitle', label: 'Page Title' },
     { key: 'languages', label: 'Languages' },
     { key: 'actions', label: 'Actions' },
   ];
@@ -286,29 +256,29 @@ export function ModulesMetaPageTitleTab() {
             columns={columns}
             data={paginatedData}
             renderCell={(column, row) => {
-              if (column.key === 'divider') {
-                return <div className="w-px bg-gray-200" />;
+              if (column.key === 'page') {
+                const label = modulePages.find((p) => p.value === row.page)?.label ?? row.page;
+                return <span className="font-medium text-gray-900">{label}</span>;
               }
               if (column.key === 'languages') {
-                return <LanguageBadges availableLocales={row.availableLocales || []} />;
+                return <LanguageBadges availableLocales={row.availableLocales || []} layout="grid" />;
               }
               if (column.key === 'actions') {
                 const actionMenu = (
                   <ActionMenu
                     onEdit={() => {
                       setEditingPage(row.page);
-                      setEditingLocale(row.locale);
+                      setEditingLocale('en');
                       setIsFormOpen(true);
                       setFormToast(null);
                     }}
                     onDelete={() => {
                       setPageToDelete(row.page);
-                      setLocaleToDelete(row.locale);
+                      setLocalesToDelete(row.availableLocales ?? ['en']);
                       setDeleteConfirmOpen(true);
                     }}
                   />
                 );
-                // ActionMenu can return null if no items, but we always provide onEdit and onDelete
                 return actionMenu ?? <div />;
               }
               const value = row[column.key as keyof CombinedRow];
@@ -385,12 +355,12 @@ export function ModulesMetaPageTitleTab() {
         onClose={() => {
           setDeleteConfirmOpen(false);
           setPageToDelete(null);
-          setLocaleToDelete('en');
+          setLocalesToDelete([]);
         }}
         onConfirm={handleDelete}
         isLoading={isDeleting}
         title="Delete Meta Details & Page Title"
-        message={`Are you sure you want to delete meta details and page title for page "${pageToDelete}" (${localeToDelete})?`}
+        message={`Are you sure you want to delete all translations for "${modulePages.find((p) => p.value === pageToDelete)?.label ?? pageToDelete}"? This will delete meta details and page titles for all languages. This action cannot be reversed.`}
       />
     </div>
   );

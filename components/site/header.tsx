@@ -578,8 +578,13 @@ const FALLBACK_NAV_ITEMS: NavItem[] = [
 const FALLBACK_SITE_NAME = "Cloud MLM Software";
 const FALLBACK_HEADER_CTA: CmsLink | null = null;
 const FALLBACK_LANGUAGE_OPTIONS: LanguageOption[] = [
-  { locale: "en", label: "English", href: buildLocalizedPath("/", "en") },
-  { locale: "es", label: "Espanol", href: buildLocalizedPath("/", "es") }
+  { locale: "en", label: "en English", href: buildLocalizedPath("/", "en") },
+  { locale: "es", label: "es Español", href: buildLocalizedPath("/", "es") },
+  { locale: "fr", label: "fr Français", href: buildLocalizedPath("/", "fr") },
+  { locale: "it", label: "it Italiano", href: buildLocalizedPath("/", "it") },
+  { locale: "de", label: "de Deutsch", href: buildLocalizedPath("/", "de") },
+  { locale: "pt", label: "pt Português", href: buildLocalizedPath("/", "pt") },
+  { locale: "zh", label: "zh 中文", href: buildLocalizedPath("/", "zh") },
 ];
 
 type SiteHeaderProps = {

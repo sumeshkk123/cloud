@@ -1,10 +1,8 @@
-import Link from "next/link";
+
 import type { Locale } from "@/i18n-config";
 import type { HomepageContent } from "@/types/homepage";
 import type { LucideIcon } from "lucide-react";
-import { resolveIcon } from "./utils";
-import { localizedHref } from "./utils";
-import { Users, Compass, Play, CircleDollarSign, Rocket, CheckCircle, Sparkles, CalendarCheck } from "lucide-react";
+import { Users, Compass, Play, CircleDollarSign, Rocket } from "lucide-react";
 import { InfoCtaBox } from "@/components/ui/info-cta-box";
 import { Play as PlayIcon } from "lucide-react";
 import { SectionTitle } from "@/components/ui/section-title";
@@ -69,15 +67,16 @@ export function MlmSoftwareDemoList({ locale, data, youtubeUrl = "https://youtu.
             <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
                 <div className="space-y-8">
                     <SectionTitle
-                        badge={data?.badgeLabel ?? "Cloud MLM software demo"}
+                        // badge={data?.badgeLabel ?? "Cloud MLM software demo"}
                         heading={data?.heading ?? "See your compensation plan live inside Cloud MLM Software"}
+                        headingAs="h4"
+                        headingClassName="text-lg font-semibold leading-tight tracking-tight sm:text-xl lg:text-2xl"
                         description={data?.description ?? "Share plan rules, product catalogue, and launch regions. We configure a working MLM software demo with payouts, dashboards, and distributor journeys tuned to your market."}
                         centered={false}
-
                     />
                     <div className="rounded-2xl border border-border/40 bg-primary px-6 py-5 dark:bg-primary/15">
                         <Typography
-                            as="h3"
+                            as="h5"
                             variant="small"
                             textColor="white"
                             className="font-semibold uppercase mb-3"

@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 import { authOptions } from '@/lib/auth';
 
-const BLOG_LOCALES = ['en', 'es', 'it', 'de', 'pt', 'zh'];
+const BLOG_LOCALES = ['en', 'es', 'fr', 'it', 'de', 'pt', 'zh'];
 
 /** POST: revalidate cache tags (e.g. after publishing a blog post). Auth required. */
 export async function POST(request: NextRequest) {

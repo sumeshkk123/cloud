@@ -56,7 +56,8 @@ function mapRawRowToItem(
  */
 export async function GET(request: NextRequest) {
   try {
-    const locale = request.nextUrl.searchParams.get('locale') || 'en';
+    const url = request?.url ? new URL(request.url) : null;
+    const locale = url?.searchParams?.get?.('locale') || 'en';
     let items = await listDemoItems(locale);
 
     // If Prisma returns empty but DB has data, try raw query (same as admin route)

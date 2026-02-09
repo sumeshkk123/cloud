@@ -11,6 +11,7 @@ import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { IntegrationForm } from './integration-form';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
+import { i18n } from '@/i18n-config';
 import { resolveIcon } from '@/components/frontend/home/utils';
 
 interface IntegrationRow {
@@ -231,7 +232,7 @@ export function IntegrationTable() {
                 }
                 if (column.key === 'languages') {
                   const availableLocales = row.availableLocales || ['en'];
-                  const allLocales = ['en', 'es', 'it', 'de', 'pt', 'zh'];
+                  const allLocales = [...i18n.locales];
                   return (
                     <LanguageBadges
                       availableLocales={availableLocales}

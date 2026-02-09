@@ -89,7 +89,8 @@
     "badge": "In evidenza",
     "heading": "Moduli in azione",
     "description": "Sovrapponi capacità avanzate per risolvere scenari ad alto impatto per lanci, espansioni e accelerazione dei ricavi.",
-    "noModulesText": "Nessun modulo disponibile ancora."
+    "noModulesText": "Nessun modulo disponibile ancora.",
+    "exploreMore": "Scopri di più"
   },
   "homeSection": {
     "sandboxText": "Ambienti sandbox guidati pronti in",

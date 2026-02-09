@@ -89,7 +89,8 @@
     "badge": "Spotlight",
     "heading": "Module in Aktion",
     "description": "Schichten Sie erweiterte Funktionen, um Szenarien mit hoher Wirkung für Starts, Expansionen und Umsatzbeschleunigung zu lösen.",
-    "noModulesText": "Noch keine Module verfügbar."
+    "noModulesText": "Noch keine Module verfügbar.",
+    "exploreMore": "Mehr erfahren"
   },
   "homeSection": {
     "sandboxText": "Geführte Sandbox-Umgebungen bereit in",

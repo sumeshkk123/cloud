@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     let detectedLocale = locale || 'en';
     if (acceptLanguage && !locale) {
       const preferredLang = acceptLanguage.split(',')[0]?.split('-')[0]?.toLowerCase();
-      if (preferredLang && ['en', 'es', 'it', 'de', 'pt', 'zh'].includes(preferredLang)) {
+      if (preferredLang && ['en', 'es', 'fr', 'it', 'de', 'pt', 'zh'].includes(preferredLang)) {
         detectedLocale = preferredLang;
       }
     }

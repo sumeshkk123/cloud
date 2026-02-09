@@ -14,8 +14,9 @@ import { Button } from '@/components/ui/adminUi/button';
 import { ImageUpload } from '@/components/ui/adminUi/image-upload';
 import { X, Plus, Languages, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { supportedLocales } from '@/config/site';
 
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
+const locales = supportedLocales;
 
 type FormState = {
   title: string;
@@ -631,7 +632,7 @@ export function ServicesForm({
                   } ${hasContent && !isActive ? 'bg-green-50 dark:bg-green-900/10' : ''}`}
               >
                 <div className="flex items-center gap-2">
-                  <span>{localeNames[locale]}</span>
+                  <span>{localeNames[locale as keyof typeof localeNames] ?? locale}</span>
                   {exists && <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />}
                   {hasContent && !exists && (
                     <span className="w-2 h-2 bg-yellow-500 rounded-full" title="Unsaved changes" />

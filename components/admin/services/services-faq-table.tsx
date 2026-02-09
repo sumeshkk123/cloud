@@ -10,7 +10,7 @@ import { Modal } from '@/components/ui/adminUi/modal';
 import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal';
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { ServicesFaqForm } from './services-faq-form';
-import { localeNames } from '@/i18n-config';
+import { i18n, localeNames } from '@/i18n-config';
 
 interface ServiceFaqRow {
     id: string;
@@ -186,7 +186,7 @@ export function ServicesFaqTable() {
                                 }
                                 if (column.key === 'languages') {
                                     const availableLocales = row.availableLocales || ['en'];
-                                    const allLocales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
+                                    const allLocales = i18n.locales;
                                     return (
                                         <div className="grid grid-cols-3 gap-1 w-48">
                                             {allLocales.map((loc) => {

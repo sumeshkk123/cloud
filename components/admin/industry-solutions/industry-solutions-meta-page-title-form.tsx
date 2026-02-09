@@ -6,11 +6,9 @@ import { Textarea } from '@/components/ui/adminUi/textarea';
 import { FieldLabel } from '@/components/ui/adminUi/field-label';
 import { Select } from '@/components/ui/adminUi/select';
 import { useToast } from '@/components/ui/toast';
-import { localeNames } from '@/i18n-config';
+import { i18n, localeNames } from '@/i18n-config';
 import { Languages, Loader2 } from 'lucide-react';
 import { Loader } from '@/components/ui/adminUi/loader';
-
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
 interface MetaFormData {
     title: string;
@@ -62,7 +60,7 @@ export function IndustrySolutionsMetaPageTitleForm({
     });
     const [pageTitleFormData, setPageTitleFormData] = useState<Record<string, PageTitleFormData>>(() => {
         const initial: Record<string, PageTitleFormData> = {};
-        locales.forEach((loc) => {
+        i18n.locales.forEach((loc) => {
             initial[loc] = {
                 title: '',
                 pagePill: '',
@@ -109,7 +107,7 @@ export function IndustrySolutionsMetaPageTitleForm({
                 }).then(res => res.ok ? res.json() : null)
             );
 
-            const pageTitlePromises = locales.map(locale =>
+            const pageTitlePromises = i18n.locales.map(locale =>
                 fetch(`/api/admin/page-titles?page=${encodeURIComponent(formPage)}&locale=${locale}`, {
                     cache: 'no-store',
                 }).then(res => res.ok ? res.json() : null)
@@ -125,7 +123,7 @@ export function IndustrySolutionsMetaPageTitleForm({
             const metaSaved = new Set<string>();
             const pageTitleSaved = new Set<string>();
 
-            locales.forEach((locale, index) => {
+            i18n.locales.forEach((locale, index) => {
                 const metaResult = metaResults[index];
                 const pageTitleResult = pageTitleResults[index];
 
@@ -268,7 +266,7 @@ export function IndustrySolutionsMetaPageTitleForm({
         try {
             setIsSaving(true);
 
-            for (const locale of locales) {
+            for (const locale of i18n.locales) {
                 const meta = metaFormData[locale];
                 const pageTitle = pageTitleFormData[locale];
 
@@ -361,7 +359,7 @@ export function IndustrySolutionsMetaPageTitleForm({
 
             <div className="border-b border-gray-200 dark:border-gray-700">
                 <nav className="flex gap-2">
-                    {locales.map((locale) => {
+                    {i18n.locales.map((locale) => {
                         const isActive = activeLocale === locale;
                         const localeMeta = metaFormData[locale];
                         const localePageTitle = pageTitleFormData[locale];

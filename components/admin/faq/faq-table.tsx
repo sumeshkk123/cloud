@@ -11,6 +11,7 @@ import { FaqForm } from '@/components/admin/faq/faq-form';
 import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal';
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
+import { i18n } from '@/i18n-config';
 
 interface FaqRow {
     id: string;
@@ -159,6 +160,7 @@ export function FaqTable() {
     const localeNames: Record<string, string> = {
         en: 'EN',
         es: 'ES',
+        fr: 'FR',
         it: 'IT',
         de: 'DE',
         pt: 'PT',
@@ -212,7 +214,7 @@ export function FaqTable() {
                         return (
                             <LanguageBadges
                                 availableLocales={locales}
-                                allLocales={['en', 'es', 'it', 'de', 'pt', 'zh']}
+                                allLocales={[...i18n.locales]}
                                 layout="grid"
                             />
                         );

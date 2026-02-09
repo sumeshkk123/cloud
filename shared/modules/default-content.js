@@ -89,7 +89,8 @@ export default {
     badge: "Spotlight",
     heading: "Modules in action",
     description: "Layer advanced capabilities to solve high-impact scenarios for launches, expansions, and revenue acceleration.",
-    noModulesText: "No modules available yet."
+    noModulesText: "No modules available yet.",
+    exploreMore: "Explore more"
   },
   homeSection: {
     sandboxText: "Guided sandbox environments ready in",

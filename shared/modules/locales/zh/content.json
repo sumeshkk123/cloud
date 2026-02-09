@@ -89,7 +89,8 @@
     "badge": "聚焦",
     "heading": "模块实战",
     "description": "叠加高级功能，解决发布、扩展和收入加速的高影响场景。",
-    "noModulesText": "暂无可用模块。"
+    "noModulesText": "暂无可用模块。",
+    "exploreMore": "探索更多"
   },
   "homeSection": {
     "sandboxText": "引导式沙盒环境可在",

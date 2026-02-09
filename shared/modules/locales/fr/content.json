@@ -89,7 +89,8 @@
     "badge": "Mise en avant",
     "heading": "Modules en action",
     "description": "Superposez des capacités avancées pour résoudre des scénarios à fort impact pour les lancements, expansions et accélération des revenus.",
-    "noModulesText": "Aucun module disponible pour le moment."
+    "noModulesText": "Aucun module disponible pour le moment.",
+    "exploreMore": "Explorer plus"
   },
   "homeSection": {
     "sandboxText": "Environnements sandbox guidés prêts en",

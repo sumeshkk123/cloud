@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
-  transpilePackages: ['sanitize-html'],
+  transpilePackages: ['sanitize-html', '@remixicon/react'],
+  serverExternalPackages: ['@phosphor-icons/react'],
   async redirects() {
     return [
       { source: '/:lang/testimonial', destination: '/:lang/testimonials', permanent: true },

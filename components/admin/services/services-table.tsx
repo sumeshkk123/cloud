@@ -16,6 +16,7 @@ import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { ServicesForm } from './services-form';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
+import { supportedLocales } from '@/config/site';
 
 // Register FontAwesome icons
 library.add(fas);
@@ -173,8 +174,29 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
     { key: 'actions', label: 'Actions', className: 'w-20 text-right' },
   ];
 
+  const handleNew = () => {
+    setEditingId(null);
+    setIsFormOpen(true);
+  };
+
   return (
     <div className="space-y-4">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-end w-full md:-mt-16 md:mb-8 md:justify-end">
+        <div className="flex items-center gap-1">
+          <Button
+            type="button"
+            variant="primary"
+            size="md"
+            rounded="default"
+            leftIcon={<Plus className="h-4 w-4" />}
+            className="whitespace-nowrap"
+            onClick={handleNew}
+          >
+            New Service
+          </Button>
+        </div>
+      </div>
+
       <Table
         columns={columns}
         data={paginated}
@@ -236,7 +258,7 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
             return (
               <LanguageBadges
                 availableLocales={locales}
-                allLocales={['en', 'es', 'it', 'de', 'pt', 'zh']}
+                allLocales={[...supportedLocales]}
                 layout="grid"
               />
             );

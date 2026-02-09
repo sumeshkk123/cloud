@@ -14,8 +14,9 @@ export async function GET(request: NextRequest) {
 
     const userId = (session.user as any).id;
     const userRole = (session.user as any).role;
-    const searchParams = request.nextUrl.searchParams;
-    const targetUserId = searchParams.get('userId');
+    const url = request?.url ? new URL(request.url) : null;
+    const searchParams = url?.searchParams ?? null;
+    const targetUserId = searchParams?.get?.('userId') ?? undefined;
 
     let whereClause: any = {};
 

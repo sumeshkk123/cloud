@@ -140,8 +140,37 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
   };
 
   return (
+    <>
+      <style>{`
+        .admin-sidebar-nav-scroll {
+          scrollbar-width: none;
+        }
+        .admin-sidebar-nav-scroll::-webkit-scrollbar {
+          width: 0;
+          background: transparent;
+        }
+        .admin-sidebar-group:hover .admin-sidebar-nav-scroll,
+        .admin-sidebar-group:focus-within .admin-sidebar-nav-scroll {
+          scrollbar-width: thin;
+        }
+        .admin-sidebar-group:hover .admin-sidebar-nav-scroll::-webkit-scrollbar,
+        .admin-sidebar-group:focus-within .admin-sidebar-nav-scroll::-webkit-scrollbar {
+          width: 6px;
+        }
+        .admin-sidebar-group:hover .admin-sidebar-nav-scroll::-webkit-scrollbar-track,
+        .admin-sidebar-group:focus-within .admin-sidebar-nav-scroll::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .admin-sidebar-group:hover .admin-sidebar-nav-scroll::-webkit-scrollbar-thumb {
+          background: #d1d5db;
+          border-radius: 3px;
+        }
+        .admin-sidebar-group:hover .admin-sidebar-nav-scroll::-webkit-scrollbar-thumb:hover {
+          background: #9ca3af;
+        }
+      `}</style>
     <aside
-      className={`fixed lg:static left-0 top-0 h-screen bg-white flex flex-col transition-all duration-300 z-50 overflow-visible flex-shrink-0 ${isSidebarOpen ? 'w-72' : 'w-16'
+      className={`admin-sidebar-group group fixed lg:static left-0 top-0 h-screen bg-white flex flex-col transition-all duration-300 z-50 overflow-visible flex-shrink-0 ${isSidebarOpen ? 'w-72' : 'w-16'
         } ${isSidebarOpen ? 'lg:translate-x-0' : 'translate-x-0'}`}
     >
       {/* Logo/Branding */}
@@ -176,8 +205,8 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
         )}
       </div>
 
-      {/* Navigation */}
-      <div className="flex-1 overflow-y-auto overflow-x-visible py-6">
+      {/* Navigation - scrollbar shows only on sidebar hover */}
+      <div className="admin-sidebar-nav-scroll flex-1 overflow-y-auto overflow-x-visible py-6 min-h-0">
         {/* MENU Section */}
         <div className={`${isSidebarOpen ? 'px-6' : 'px-3'} mb-6`}>
           <nav className="space-y-1">
@@ -576,5 +605,6 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
         </div>
       </div>
     </aside>
+    </>
   );
 }

@@ -89,7 +89,8 @@
     "badge": "Destaque",
     "heading": "Módulos em ação",
     "description": "Sobreponha capacidades avançadas para resolver cenários de alto impacto para lançamentos, expansões e aceleração de receita.",
-    "noModulesText": "Ainda não há módulos disponíveis."
+    "noModulesText": "Ainda não há módulos disponíveis.",
+    "exploreMore": "Explorar mais"
   },
   "homeSection": {
     "sandboxText": "Ambientes de sandbox guiados prontos em",

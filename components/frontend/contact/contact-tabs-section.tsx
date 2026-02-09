@@ -9,6 +9,7 @@ import { SectionTitle } from "@/components/ui/section-title";
 import { FaqCard } from "@/components/frontend/common/faq-card";
 import { getContactContent } from "@/lib/contact";
 import { cn } from "@/lib/utils";
+import { getCountryIsoCode } from "@/components/ui/country-select";
 
 interface ContactAddress {
   id: string;
@@ -27,8 +28,6 @@ interface ContactTabsSectionProps {
 }
 
 type TabType = 'address' | 'faq';
-
-// Removed getFlagCodeFromCountry - flags should only come from database
 
 export function ContactTabsSection({ locale }: ContactTabsSectionProps) {
   const [activeTab, setActiveTab] = useState<TabType>('address');
@@ -158,7 +157,7 @@ export function ContactTabsSection({ locale }: ContactTabsSectionProps) {
                         phones={address.phones}
                         email={address.email}
                         whatsapp={address.whatsapp || undefined}
-                        flag={address.flag || undefined}
+                        flagIso={address.country ? getCountryIsoCode(address.country) ?? undefined : undefined}
                       />
                     );
                   })}

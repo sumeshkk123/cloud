@@ -40,6 +40,31 @@ export async function getPageTitle(
   }
 }
 
+export async function getPageTitlesByPage(page: string): Promise<PageTitleRecord[]> {
+  try {
+    const results = await prisma.page_titles.findMany({
+      where: { page },
+      select: {
+        page: true,
+        locale: true,
+        title: true,
+        pagePill: true,
+        sectionSubtitle: true,
+      },
+      orderBy: { locale: 'asc' },
+    });
+
+    return results.map((result) => ({
+      ...result,
+      pagePill: result.pagePill ?? undefined,
+      sectionSubtitle: result.sectionSubtitle ?? undefined,
+    }));
+  } catch (error) {
+    console.error(`[getPageTitlesByPage] Error fetching page titles for ${page}:`, error);
+    return [];
+  }
+}
+
 export async function getPageTitlesByLocale(
   locale: string
 ): Promise<PageTitleRecord[]> {
@@ -76,9 +101,10 @@ export async function getAllPageTitles(): Promise<any[]> {
         title: true,
         pagePill: true,
         sectionSubtitle: true,
+        createdAt: true,
         updatedAt: true,
       },
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
     });
 
     return results.map((result) => ({

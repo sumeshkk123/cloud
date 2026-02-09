@@ -6,12 +6,10 @@ import { Textarea } from '@/components/ui/adminUi/textarea';
 import { FieldLabel } from '@/components/ui/adminUi/field-label';
 import { IconPicker } from '@/components/ui/adminUi/icon-picker';
 import { Toggle } from '@/components/ui/adminUi/toggle';
-import { localeNames } from '@/i18n-config';
+import { i18n, localeNames } from '@/i18n-config';
 import { useToast } from '@/components/ui/toast';
 import { Loader } from '@/components/ui/adminUi/loader';
 import { Languages, Loader2 } from 'lucide-react';
-
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
 type FormState = {
   title: string;
@@ -57,7 +55,7 @@ export function IndustrySolutionsForm({
   const [activeTab, setActiveTab] = useState<string>('en');
   const [translations, setTranslations] = useState<Record<string, IndustrySolutionTranslation>>(() => {
     const initial: Record<string, IndustrySolutionTranslation> = {};
-    locales.forEach((loc) => {
+    i18n.locales.forEach((loc) => {
       initial[loc] = {
         locale: loc,
         title: '',
@@ -102,7 +100,7 @@ export function IndustrySolutionsForm({
       }
     } else {
       const reset: Record<string, IndustrySolutionTranslation> = {};
-      locales.forEach((loc) => {
+      i18n.locales.forEach((loc) => {
         reset[loc] = {
           locale: loc,
           title: '',
@@ -150,7 +148,7 @@ export function IndustrySolutionsForm({
         sharedShowOnHomePage = englishVersion.showOnHomePage ?? false;
       }
 
-      locales.forEach((loc) => {
+      i18n.locales.forEach((loc) => {
         const existing = existingTranslations.find((t: any) => t.locale === loc);
         if (existing) {
           loaded[loc] = {
@@ -413,7 +411,7 @@ export function IndustrySolutionsForm({
       {/* Language Tabs */}
       <div className="border-b border-gray-200 dark:border-gray-700">
         <div className="flex flex-wrap gap-2">
-          {locales.map((locale) => {
+          {i18n.locales.map((locale) => {
             const trans = translations[locale];
             const isActive = activeTab === locale;
             const hasContent = trans && (trans.title || trans.description);

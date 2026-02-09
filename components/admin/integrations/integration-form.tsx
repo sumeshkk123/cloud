@@ -6,12 +6,10 @@ import { Textarea } from '@/components/ui/adminUi/textarea';
 import { FieldLabel } from '@/components/ui/adminUi/field-label';
 import { IconPicker } from '@/components/ui/adminUi/icon-picker';
 import { Button } from '@/components/ui/adminUi/button';
-import { localeNames } from '@/i18n-config';
+import { i18n, localeNames } from '@/i18n-config';
 import { useToast } from '@/components/ui/toast';
 import { Loader } from '@/components/ui/adminUi/loader';
 import { Languages, Loader2 } from 'lucide-react';
-
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
 interface IntegrationTranslation {
   locale: string;
@@ -49,7 +47,7 @@ export function IntegrationForm({
   const [activeTab, setActiveTab] = useState<string>('en');
   const [translations, setTranslations] = useState<Record<string, IntegrationTranslation>>(() => {
     const initial: Record<string, IntegrationTranslation> = {};
-    locales.forEach((loc) => {
+    i18n.locales.forEach((loc) => {
       initial[loc] = {
         locale: loc,
         icon: '',
@@ -83,7 +81,7 @@ export function IntegrationForm({
       loadAllTranslations();
     } else {
       const reset: Record<string, IntegrationTranslation> = {};
-      locales.forEach((loc) => {
+      i18n.locales.forEach((loc) => {
         reset[loc] = {
           locale: loc,
           icon: '',
@@ -128,7 +126,7 @@ export function IntegrationForm({
         sharedIcon = englishVersion.icon || '';
       }
 
-      locales.forEach((loc) => {
+      i18n.locales.forEach((loc) => {
         const existing = existingTranslations.find((t: any) => t.locale === loc);
         if (existing) {
           loaded[loc] = {
@@ -375,7 +373,7 @@ export function IntegrationForm({
       {/* Language Tabs */}
       <div className="border-b border-gray-200">
         <nav className="flex gap-2">
-          {locales.map((locale) => {
+          {i18n.locales.map((locale) => {
             const trans = translations[locale];
             const isActive = activeTab === locale;
             const hasContent = trans && (trans.title?.trim() || trans.description?.trim() || trans.icon?.trim());
@@ -394,7 +392,7 @@ export function IntegrationForm({
                   }`}
               >
                 <div className="flex items-center gap-2">
-                  <span>{localeNames[locale]}</span>
+                  <span>{localeNames[locale as keyof typeof localeNames] ?? locale}</span>
                   {exists && <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />}
                 </div>
               </button>

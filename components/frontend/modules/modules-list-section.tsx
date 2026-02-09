@@ -2,16 +2,19 @@
 
 import { useState, useEffect } from "react";
 import { Package } from "lucide-react";
-import { ModuleCard } from "@/components/frontend/common/module-card";
+import { ReadMoreButton } from "@/components/ui/read-more-button";
 import { SectionTitle } from "@/components/ui/section-title";
 import { resolveIcon } from "@/components/frontend/home/utils";
 import type { Locale } from "@/i18n-config";
 import { Section } from "@/components/ui/section";
 import { getModulesContent } from "@/lib/modules";
+import { getModuleSlugFromTitleOrId, isModulesSubpageSlug } from "@/lib/modules-subpage-slugs";
+import { buildLocalizedPath } from "@/lib/locale-links";
 import { Typography } from "@/components/ui/typography";
 
 interface Module {
     id: string;
+    slug?: string | null;
     title: string;
     description: string;
     image?: string | null;
@@ -58,6 +61,10 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10" />
             </div>
+            <div className="pointer-events-none absolute inset-0 -z-10">
+                <div className="absolute left-0 top-1/4 h-[480px] w-[480px] rounded-full bg-primary/8 blur-3xl" />
+                <div className="absolute right-0 bottom-1/4 h-[400px] w-[400px] rounded-full bg-emerald-500/10 blur-3xl" />
+            </div>
             <SectionTitle
                 badge={listSection.badge}
                 heading={listSection.heading}
@@ -79,18 +86,36 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
                         ))}
                     </div>
                 ) : modules.length > 0 ? (
-                    <div className="grid  gap-3 md:grid-cols-3">
+                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         {modules.map((module) => {
                             const Icon = resolveIcon(module.image, Package);
+                            const subSlug =
+                                module.slug && isModulesSubpageSlug(module.slug)
+                                    ? module.slug
+                                    : getModuleSlugFromTitleOrId(module.title, module.id);
+                            const href = subSlug
+                                ? buildLocalizedPath(`/${subSlug}`, locale)
+                                : buildLocalizedPath("/mlm-software-modules", locale);
                             return (
-                                <ModuleCard
+                                <div
                                     key={module.id}
-                                    icon={Icon}
-                                    title={module.title}
-                                    description={module.description}
-                                    readMoreHref="/mlm-software-modules/"
-                                    variant="default"
-                                />
+                                    className="group flex flex-col gap-4 rounded-2xl border border-border/40 bg-card/80 p-6 transition-all duration-300 hover:border-primary/30 hover:bg-card hover:shadow-md"
+                                >
+                                    <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                                        <Icon className="h-6 w-6 transition-transform duration-300 group-hover:scale-110 group-hover:[transform:rotateY(180deg)]" aria-hidden />
+                                    </span>
+                                    <div className="flex-1 space-y-2">
+                                        <Typography as="h3" variant="h5" className="font-semibold text-foreground">
+                                            {module.title}
+                                        </Typography>
+                                        <Typography as="p" variant="small" textColor="muted" className="leading-relaxed line-clamp-3">
+                                            {module.description}
+                                        </Typography>
+                                    </div>
+                                    <ReadMoreButton href={href} variant="default">
+                                        {listSection.exploreMore}
+                                    </ReadMoreButton>
+                                </div>
                             );
                         })}
                     </div>

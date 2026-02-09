@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Star, Quote, ArrowUpRight } from "lucide-react";
+import { Star, MessageCircle, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SmartImage } from "@/components/ui/smart-image";
 
@@ -66,50 +66,24 @@ const TestimonialCard = ({
       style={props.style}
       {...props}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <SmartImage
-            src={avatar && avatar.trim() ? avatar : undefined}
-            fallback="/images/default.webp"
-            alt={name || "Testimonial"}
-            width={56}
-            height={56}
-            className="h-14 w-14 rounded-2xl object-cover"
-          />
-          <div>
-            <p className={cn(
-              "text-sm font-semibold",
-              isHighlighted ? "text-primary-foreground" : "text-foreground"
-            )}>
-              {name}
-            </p>
-            <p className={cn(
-              "text-xs",
-              isHighlighted ? "text-primary-foreground/80" : "text-muted-foreground"
-            )}>
-              {role}
-              {company ? `, ${company}` : null}
-            </p>
-          </div>
-        </div>
-        <div className="text-right">
-          {rating !== undefined && renderStars(rating)}
-          {platform ? (
-            href ? (
-              <Link href={href} className={cn("inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary/80", rating !== undefined && "mt-1")}>
-                {platform}
-              </Link>
-            ) : (
-              <span className={cn("inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground", rating !== undefined && "mt-1")}>{platform}</span>
-            )
-          ) : null}
-        </div>
+      <div className="text-right">
+        {rating !== undefined && renderStars(rating)}
+        {platform ? (
+          href ? (
+            <Link href={href} className={cn("inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary/80", rating !== undefined && "mt-1")}>
+              {platform}
+            </Link>
+          ) : (
+            <span className={cn("inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground", rating !== undefined && "mt-1")}>{platform}</span>
+          )
+        ) : null}
       </div>
       <p className={cn(
         "mt-4 flex items-start gap-2 text-sm leading-6",
-        isHighlighted ? "text-primary-foreground/90" : "text-muted-foreground"
+        isHighlighted ? "text-primary-foreground/90" : "text-muted-foreground",
+        (rating !== undefined || platform) && "mt-4"
       )}>
-        <Quote className="mt-1 h-5 w-5 flex-none text-primary/60" />
+        <MessageCircle className="mt-1 h-5 w-5 flex-none text-primary/60" />
         <span>{quote}</span>
       </p>
       {href ? (
@@ -120,6 +94,31 @@ const TestimonialCard = ({
           Read more <ArrowUpRight className="h-3.5 w-3.5" />
         </Link>
       ) : null}
+      <div className="mt-6 flex items-center gap-3 pt-4 border-t border-border/40">
+        <SmartImage
+          src={avatar && avatar.trim() ? avatar : undefined}
+          fallback="/images/default.webp"
+          alt={name || "Testimonial"}
+          width={56}
+          height={56}
+          className="h-14 w-14 rounded-2xl object-cover shrink-0"
+        />
+        <div>
+          <p className={cn(
+            "text-sm font-semibold",
+            isHighlighted ? "text-primary-foreground" : "text-foreground"
+          )}>
+            {name}
+          </p>
+          <p className={cn(
+            "text-xs",
+            isHighlighted ? "text-primary-foreground/80" : "text-muted-foreground"
+          )}>
+            {role}
+            {company ? `, ${company}` : null}
+          </p>
+        </div>
+      </div>
     </article>
   );
 };

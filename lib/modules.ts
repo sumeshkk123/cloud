@@ -53,6 +53,7 @@ export interface ModulesContent {
     heading: string;
     description: string;
     noModulesText: string;
+    exploreMore: string;
   };
   homeSection: {
     sandboxText: string;

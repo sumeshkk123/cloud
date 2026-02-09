@@ -26,7 +26,8 @@ export interface BlogRow {
 }
 
 const ITEMS_PER_PAGE = 20;
-const LOCALES = ['en', 'es', 'it', 'de', 'pt', 'zh'];
+import { supportedLocales } from '@/config/site';
+const LOCALES = supportedLocales;
 const DEFAULT_LOCALE = 'en';
 
 /** Normalize raw API response (per-locale rows) into one row per post (BlogRow[]). */

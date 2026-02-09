@@ -10,10 +10,8 @@ import { FieldLabel } from '@/components/ui/adminUi/field-label';
 import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal';
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { Plus, Languages, Loader2 } from 'lucide-react';
-import { localeNames } from '@/i18n-config';
+import { i18n, localeNames } from '@/i18n-config';
 import { IconPicker } from '@/components/ui/adminUi/icon-picker';
-
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
 interface FaqCategory {
     id: string;
@@ -44,13 +42,13 @@ export function FaqCategoriesTab() {
     const [activeTab, setActiveTab] = useState<string>('en');
     const [translations, setTranslations] = useState<Record<string, CategoryTranslation>>(() => {
         const initial: Record<string, CategoryTranslation> = {};
-        locales.forEach((loc) => {
-            initial[loc] = {
-                locale: loc,
-                name: '',
-                exists: false,
-            };
-        });
+        i18n.locales.forEach((loc) => {
+                initial[loc] = {
+                    locale: loc,
+                    name: '',
+                    exists: false,
+                };
+            });
         return initial;
     });
     const [isSaving, setIsSaving] = useState(false);
@@ -67,7 +65,7 @@ export function FaqCategoriesTab() {
             loadAllTranslations();
         } else {
             const reset: Record<string, CategoryTranslation> = {};
-            locales.forEach((loc) => {
+            i18n.locales.forEach((loc) => {
                 reset[loc] = {
                     locale: loc,
                     name: '',
@@ -125,7 +123,7 @@ export function FaqCategoriesTab() {
                 const allTranslations: FaqCategory[] = await response.json();
                 const translationMap: Record<string, CategoryTranslation> = {};
 
-                locales.forEach((loc) => {
+                i18n.locales.forEach((loc) => {
                     const translation = allTranslations.find((t) => t.locale === loc);
                     translationMap[loc] = {
                         locale: loc,
@@ -158,7 +156,7 @@ export function FaqCategoriesTab() {
         setCurrentCategoryId(null);
         setCategoryIcon('');
         const reset: Record<string, CategoryTranslation> = {};
-        locales.forEach((loc) => {
+        i18n.locales.forEach((loc) => {
             reset[loc] = {
                 locale: loc,
                 name: '',
@@ -339,10 +337,10 @@ export function FaqCategoriesTab() {
                     }
                     if (column.key === 'locale') {
                         const availableLocales = row.availableLocales || [row.locale];
-                        const allLocales: Array<'en' | 'es' | 'it' | 'de' | 'pt' | 'zh'> = ['en', 'es', 'it', 'de', 'pt', 'zh'];
-                        const localeCodes: Record<'en' | 'es' | 'it' | 'de' | 'pt' | 'zh', string> = {
+                        const localeCodes: Record<string, string> = {
                             en: 'EN',
                             es: 'ES',
+                            fr: 'FR',
                             it: 'IT',
                             de: 'DE',
                             pt: 'PT',
@@ -350,7 +348,7 @@ export function FaqCategoriesTab() {
                         };
                         return (
                             <div className="flex flex-wrap gap-1">
-                                {allLocales.map((loc) => {
+                                {i18n.locales.map((loc) => {
                                     const exists = availableLocales.includes(loc);
                                     return (
                                         <span
@@ -359,9 +357,9 @@ export function FaqCategoriesTab() {
                                                 ? 'bg-green-100 text-green-800'
                                                 : 'bg-gray-100 text-gray-400'
                                                 }`}
-                                            title={exists ? `${localeNames[loc]} - Available` : `${localeNames[loc]} - Missing`}
+                                            title={exists ? `${localeNames[loc] ?? loc} - Available` : `${localeNames[loc] ?? loc} - Missing`}
                                         >
-                                            {localeCodes[loc] || loc.toUpperCase()}
+                                            {localeCodes[loc] ?? loc.toUpperCase()}
                                         </span>
                                     );
                                 })}
@@ -420,7 +418,7 @@ export function FaqCategoriesTab() {
                     {/* Language Tabs */}
                     <div className="border-b border-gray-200">
                         <div className="flex flex-wrap gap-2">
-                            {locales.map((locale) => {
+                            {i18n.locales.map((locale) => {
                                 const trans = translations[locale];
                                 const isActive = activeTab === locale;
                                 const hasContent = trans && trans.name;

@@ -136,8 +136,23 @@ export const COUNTRY_CODES: Record<string, Country> = {
   "Haiti": { name: "Haiti", code: "+509", flag: "🇭🇹" },
 };
 
+/** ISO 3166-1 alpha-2 (2-letter) codes for flag image URLs (e.g. flagcdn.com) */
+export const COUNTRY_ISO: Record<string, string> = {
+  "United States": "us", "United Kingdom": "gb", "Canada": "ca", "Australia": "au", "Germany": "de", "France": "fr", "Italy": "it", "Spain": "es", "Netherlands": "nl", "Belgium": "be", "Switzerland": "ch", "Austria": "at", "Sweden": "se", "Norway": "no", "Denmark": "dk", "Finland": "fi", "Poland": "pl", "Portugal": "pt", "Greece": "gr", "Ireland": "ie", "India": "in", "China": "cn", "Japan": "jp", "South Korea": "kr", "Singapore": "sg", "Malaysia": "my", "Thailand": "th", "Indonesia": "id", "Philippines": "ph", "Vietnam": "vn", "Taiwan": "tw", "Hong Kong": "hk", "New Zealand": "nz", "Brazil": "br", "Mexico": "mx", "Argentina": "ar", "Chile": "cl", "Colombia": "co", "Peru": "pe", "Venezuela": "ve", "South Africa": "za", "Egypt": "eg", "Nigeria": "ng", "Kenya": "ke", "United Arab Emirates": "ae", "Saudi Arabia": "sa", "Israel": "il", "Turkey": "tr", "Russia": "ru", "Ukraine": "ua", "Czech Republic": "cz", "Hungary": "hu", "Romania": "ro", "Bulgaria": "bg", "Croatia": "hr", "Serbia": "rs", "Slovakia": "sk", "Slovenia": "si", "Estonia": "ee", "Latvia": "lv", "Lithuania": "lt", "Luxembourg": "lu", "Iceland": "is", "Malta": "mt", "Cyprus": "cy", "Bangladesh": "bd", "Pakistan": "pk", "Sri Lanka": "lk", "Nepal": "np", "Myanmar": "mm", "Cambodia": "kh", "Laos": "la", "Mongolia": "mn", "Kazakhstan": "kz", "Uzbekistan": "uz", "Afghanistan": "af", "Iraq": "iq", "Iran": "ir", "Jordan": "jo", "Lebanon": "lb", "Qatar": "qa", "Kuwait": "kw", "Oman": "om", "Bahrain": "bh", "Yemen": "ye", "Morocco": "ma", "Algeria": "dz", "Tunisia": "tn", "Libya": "ly", "Sudan": "sd", "Ethiopia": "et", "Tanzania": "tz", "Uganda": "ug", "Ghana": "gh", "Ivory Coast": "ci", "Senegal": "sn", "Cameroon": "cm", "Angola": "ao", "Mozambique": "mz", "Madagascar": "mg", "Zimbabwe": "zw", "Zambia": "zm", "Botswana": "bw", "Namibia": "na", "Mauritius": "mu", "Seychelles": "sc", "Ecuador": "ec", "Uruguay": "uy", "Paraguay": "py", "Bolivia": "bo", "Guatemala": "gt", "Costa Rica": "cr", "Panama": "pa", "Dominican Republic": "do", "Cuba": "cu", "Jamaica": "jm", "Trinidad and Tobago": "tt", "Barbados": "bb", "Bahamas": "bs", "Belize": "bz", "Honduras": "hn", "El Salvador": "sv", "Nicaragua": "ni", "Haiti": "ht",
+};
+
 export function getCountryCode(countryName: string): string {
   return COUNTRY_CODES[countryName]?.code || "";
+}
+
+/** Get ISO 2-letter code for flag image URL (e.g. flagcdn.com/w40/lt.png). Returns null if not found. */
+export function getCountryIsoCode(countryName: string): string | null {
+  if (!countryName) return null;
+  const exact = COUNTRY_ISO[countryName];
+  if (exact) return exact;
+  const lower = countryName.toLowerCase();
+  const key = Object.keys(COUNTRY_ISO).find((k) => k.toLowerCase() === lower || lower.includes(k.toLowerCase()) || k.toLowerCase().includes(lower));
+  return key ? COUNTRY_ISO[key] : null;
 }
 
 // Helper to get flag emoji from country name (case-insensitive, partial match)

@@ -11,6 +11,7 @@ import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { StoriesForm } from './stories-form';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
+import { supportedLocales } from '@/config/site';
 
 interface StoryRow {
   id: string;
@@ -158,7 +159,7 @@ export function StoriesTable() {
             return (
               <LanguageBadges
                 availableLocales={locales}
-                allLocales={['en', 'es', 'it', 'de', 'pt', 'zh']}
+                allLocales={[...supportedLocales]}
                 layout="grid"
               />
             );

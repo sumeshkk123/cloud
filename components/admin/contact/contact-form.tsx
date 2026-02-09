@@ -8,11 +8,10 @@ import { FieldLabel } from '@/components/ui/adminUi/field-label';
 import { useToast } from '@/components/ui/toast';
 import { X, Plus, Languages, Loader2 } from 'lucide-react';
 import { Loader } from '@/components/ui/adminUi/loader';
-import { localeNames } from '@/i18n-config';
-import { COUNTRY_CODES } from '@/components/ui/country-select';
+import { i18n, localeNames } from '@/i18n-config';
+import { COUNTRY_CODES, getCountryIsoCode } from '@/components/ui/country-select';
 import { cn } from '@/lib/utils';
 
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
 // Helper function to get flag emoji from country name (for display purposes)
 function getCountryFlag(countryName: string): string {
@@ -81,7 +80,7 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
   const [activeTab, setActiveTab] = useState<string>('en');
   const [translations, setTranslations] = useState<Record<string, ContactTranslation>>(() => {
     const initial: Record<string, ContactTranslation> = {};
-    locales.forEach((loc) => {
+    i18n.locales.forEach((loc) => {
       initial[loc] = {
         locale: loc,
         country: '',
@@ -127,7 +126,7 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
       }
     } else {
       const reset: Record<string, ContactTranslation> = {};
-      locales.forEach((loc) => {
+      i18n.locales.forEach((loc) => {
         reset[loc] = {
           locale: loc,
           country: '',
@@ -208,7 +207,7 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
         }
       }
 
-      locales.forEach((loc) => {
+      i18n.locales.forEach((loc) => {
         const existing = existingTranslations.find((t: any) => t.locale === loc);
         if (existing) {
           // For English, use the country as-is (it's the key from COUNTRY_CODES)
@@ -534,10 +533,11 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
     // Email, phones, and whatsapp are shared (use English as source)
     const trimmedEmail = (english.email || '').trim() || (current.email || '').trim();
     const trimmedWhatsapp = (english.whatsapp || '').trim() || (current.whatsapp || '').trim();
-    // Flag is based on English country selection, use current flag or get from English country
+    // Flag is based on English country selection: prefer emoji from country name (never persist 2-letter code like LT)
     const formFlag = (current.flag || '').trim();
     const englishCountry = (english.country || '').trim();
-    const trimmedFlag = formFlag || (englishCountry ? getCountryFlag(englishCountry) || '' : '');
+    const flagFromCountry = englishCountry ? getCountryFlag(englishCountry) || '' : '';
+    const trimmedFlag = flagFromCountry || (formFlag && (formFlag.length !== 2 || !/^[A-Za-z]{2}$/.test(formFlag)) ? formFlag : '');
     
     console.log('[ContactForm] Saving with flag:', { formFlag, trimmedFlag, trimmedCountry, currentFlag: current.flag });
     const englishPhones = english.phones || current.phones || [];
@@ -684,13 +684,24 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
   };
 
   const current = translations[activeTab] || { country: '', place: '', address: '', phones: [], whatsapp: '', email: '', flag: '', exists: false };
+  const english = translations['en'] || {};
+  // Show flag emoji on the right. Use dropdown value when on English tab; otherwise English country name. Fallback to stored emoji (never 2-letter code).
+  const countryForFlag = (activeTab === 'en' ? current.country : (english.country ?? current.country)) || '';
+  const flagIso = getCountryIsoCode(countryForFlag);
+  const displayFlagEmoji = (() => {
+    const fromCountry = getCountryFlag(countryForFlag);
+    if (fromCountry) return fromCountry;
+    const stored = (current.flag || '').trim();
+    if (stored && (stored.length !== 2 || !/^[A-Za-z]{2}$/.test(stored))) return stored;
+    return '';
+  })();
 
   return (
     <div className="space-y-5">
       {/* Language Tabs */}
       <div className="border-b border-gray-200 dark:border-gray-700">
         <div className="flex flex-wrap gap-2">
-          {locales.map((locale) => {
+          {i18n.locales.map((locale) => {
             const trans = translations[locale];
             const isActive = activeTab === locale;
             const hasContent = trans && (trans.address || trans.country || trans.email);
@@ -796,10 +807,21 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
                 />
               </div>
             )}
-            {/* Flag Display */}
-            <div className="flex items-center justify-center w-12 h-12 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-              {current.flag ? (
-                <span className="text-2xl">{current.flag}</span>
+            {/* Flag Display — use image so it always shows (emoji often doesn't render on Windows) */}
+            <div
+              className="flex items-center justify-center w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shrink-0 overflow-hidden"
+              title={countryForFlag ? `Flag: ${countryForFlag}` : 'Country flag'}
+            >
+              {flagIso ? (
+                <img
+                  src={`/api/contact/flag/${flagIso}`}
+                  alt=""
+                  className="w-full h-full object-cover"
+                  width={40}
+                  height={30}
+                />
+              ) : displayFlagEmoji ? (
+                <span className="text-2xl leading-none" aria-hidden role="img">{displayFlagEmoji}</span>
               ) : (
                 <span className="text-gray-400 dark:text-gray-500 text-sm">—</span>
               )}

@@ -78,7 +78,7 @@ export function HeroSection({
             <div className="absolute left-1/4 top-1/4 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-pulse" />
             <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
-            <div className="container relative py-32">
+            <div className="container relative py-24">
                 <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
                     {/* Left Column - Content */}
                     <div className={cn("space-y-8", !centered && "text-left")}>

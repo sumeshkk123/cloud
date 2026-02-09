@@ -1,8 +1,8 @@
 import { Handshake, Rocket, ShieldCheck, type LucideIcon } from "lucide-react";
 import { Section } from "@/components/ui/section";
+import { SectionTitle } from "@/components/ui/section-title";
 import { Typography } from "@/components/ui/typography";
 import { BulletList } from "@/components/ui/bullet-list";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardIcon, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { getAboutCompanyContent } from "@/lib/about-company";
@@ -23,7 +23,7 @@ export function AboutCompanyMissionSection({ locale }: AboutCompanyMissionSectio
   return (
     <Section
       variant="primary"
-      padding="xl"
+      padding="lg"
       className="relative isolate overflow-hidden bg-gradient-to-b from-background via-sky-50/30 to-muted/20 dark:via-sky-950/20 dark:to-muted/10"
     >
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -34,10 +34,12 @@ export function AboutCompanyMissionSection({ locale }: AboutCompanyMissionSectio
       <div className="space-y-16 container">
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:items-start">
           <div className="space-y-6">
-            <Badge variant="default">{content.badge}</Badge>
-            <Typography as="h2" variant="h2" className="max-w-2xl">
-              {content.heading}
-            </Typography>
+            <SectionTitle
+              badge={content.badge}
+              heading={content.heading}
+              centered={false}
+              maxWidth="2xl"
+            />
             <div className="space-y-5 border-l-2 border-primary/20 pl-6">
               {content.paragraphs.map((p, i) => (
                 <Typography key={i} as="p" variant="p" textColor="muted" className="leading-relaxed">

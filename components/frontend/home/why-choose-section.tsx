@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import type { HomepageContent } from "@/types/homepage";
 import { resolveIcon } from "./utils";
@@ -13,63 +13,6 @@ import type { Locale } from "@/i18n-config";
 import { Section } from "@/components/ui/section";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { SupportedLocale } from "@/config/site";
-
-function LazyImage(
-  props: React.ComponentProps<typeof Image> & { rootMargin?: string; eager?: boolean }
-) {
-  const { rootMargin = "150px", eager = false, width = 800, height = 500, ...imageProps } = props;
-  const [inView, setInView] = useState(eager);
-  const [loaded, setLoaded] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const aspectRatio = typeof width === "number" && typeof height === "number"
-    ? `${width}/${height}`
-    : "800/500";
-
-  useEffect(() => {
-    if (eager) return;
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) setInView(true);
-      },
-      { rootMargin, threshold: 0.01 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [rootMargin, eager]);
-
-  const skeleton = (
-    <div
-      className="absolute inset-0 z-0 w-full bg-muted animate-pulse rounded-2xl"
-      style={{ aspectRatio }}
-      aria-hidden
-    />
-  );
-
-  return (
-    <div ref={containerRef} className="relative overflow-hidden rounded-2xl" style={{ aspectRatio }}>
-      {!inView ? (
-        skeleton
-      ) : (
-        <>
-          {!loaded && skeleton}
-          <Image
-            {...imageProps}
-            alt={imageProps.alt ?? ''}
-            width={width}
-            height={height}
-            loading={eager ? "eager" : "lazy"}
-            priority={eager}
-            sizes={imageProps.sizes ?? "(max-width: 768px) 100vw, 800px"}
-            onLoad={() => setLoaded(true)}
-            className={`relative z-10 ${imageProps.className ?? ""} ${!loaded ? "opacity-0 transition-opacity duration-300" : "opacity-100"}`}
-          />
-        </>
-      )}
-    </div>
-  );
-}
 
 interface AICopilot {
   id: string;
@@ -122,7 +65,7 @@ export function WhyChooseSection({ locale = 'en', data }: { locale?: Locale; dat
 
         <div className="space-y-4">
           {/* Header Section */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             <SectionTitle
               badge={data?.badge}
               heading={data?.heading}
@@ -132,17 +75,18 @@ export function WhyChooseSection({ locale = 'en', data }: { locale?: Locale; dat
             />
           </div>
 
-          {/* Image - eager load so it appears quickly with skeleton until loaded */}
-          <LazyImage
-            src="/images/ai-image2.png"
-            alt="AI-Powered MLM Software Team Collaboration - Network Marketing Platform Features"
-            width={800}
-            height={500}
-            eager
-            className="h-auto w-full object-cover rounded-2xl"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
-            quality={75}
-          />
+          {/* Static image */}
+          <div className="relative overflow-hidden rounded-2xl">
+            <Image
+              src="/images/ai-image2.png"
+              alt="AI-Powered MLM Software Team Collaboration - Network Marketing Platform Features"
+              width={800}
+              height={500}
+              className="h-auto w-full object-cover rounded-2xl"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
+              quality={75}
+            />
+          </div>
 
           {/* CTA Card */}
           <div className="rounded-3xl border border-primary/30 bg-primary/95 dark:bg-[hsl(221.2,83.2%,53.3%)]/95 p-8 shadow-lg">

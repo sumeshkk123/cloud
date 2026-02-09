@@ -16,10 +16,11 @@ type LanguageSwitcherProps = {
   options: LanguageOption[];
 };
 
-// Flag emoji mapping for each locale (must match SupportedLocale: en, es, it, de, pt, zh)
+// Flag emoji mapping for each locale (must match SupportedLocale: en, es, fr, it, de, pt, zh)
 const LOCALE_FLAGS: Record<SupportedLocale, string> = {
   en: "🇬🇧",
   es: "🇪🇸",
+  fr: "🇫🇷",
   it: "🇮🇹",
   de: "🇩🇪",
   pt: "🇵🇹",

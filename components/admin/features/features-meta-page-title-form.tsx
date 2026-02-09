@@ -7,11 +7,10 @@ import { FieldLabel } from '@/components/ui/adminUi/field-label';
 import { Select } from '@/components/ui/adminUi/select';
 import { Button } from '@/components/ui/adminUi/button';
 import { useToast } from '@/components/ui/toast';
-import { localeNames } from '@/i18n-config';
+import { i18n, localeNames } from '@/i18n-config';
 import { Languages, Loader2 } from 'lucide-react';
 import { Loader } from '@/components/ui/adminUi/loader';
 
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
 
 interface MetaFormData {
     title: string;
@@ -52,7 +51,7 @@ export function FeaturesMetaPageTitleForm({
     const isEditing = !!initialPage;
     const [metaFormData, setMetaFormData] = useState<Record<string, MetaFormData>>(() => {
         const initial: Record<string, MetaFormData> = {};
-        locales.forEach((loc) => {
+        i18n.locales.forEach((loc) => {
             initial[loc] = {
                 title: '',
                 description: '',
@@ -63,7 +62,7 @@ export function FeaturesMetaPageTitleForm({
     });
     const [pageTitleFormData, setPageTitleFormData] = useState<Record<string, PageTitleFormData>>(() => {
         const initial: Record<string, PageTitleFormData> = {};
-        locales.forEach((loc) => {
+        i18n.locales.forEach((loc) => {
             initial[loc] = {
                 title: '',
                 pagePill: '',
@@ -105,14 +104,14 @@ export function FeaturesMetaPageTitleForm({
             setIsLoading(true);
             
             // Load meta details for all locales
-            const metaPromises = locales.map(locale =>
+            const metaPromises = i18n.locales.map(locale =>
                 fetch(`/api/admin/meta-details?page=${encodeURIComponent(formPage)}&locale=${locale}`, {
                     cache: 'no-store',
                 }).then(res => res.ok ? res.json() : null)
             );
 
             // Load page titles for all locales
-            const pageTitlePromises = locales.map(locale =>
+            const pageTitlePromises = i18n.locales.map(locale =>
                 fetch(`/api/admin/page-titles?page=${encodeURIComponent(formPage)}&locale=${locale}`, {
                     cache: 'no-store',
                 }).then(res => res.ok ? res.json() : null)
@@ -128,7 +127,7 @@ export function FeaturesMetaPageTitleForm({
             const metaSaved = new Set<string>();
             const pageTitleSaved = new Set<string>();
 
-            locales.forEach((locale, index) => {
+            i18n.locales.forEach((locale, index) => {
                 const metaResult = metaResults[index];
                 const pageTitleResult = pageTitleResults[index];
 
@@ -464,7 +463,7 @@ export function FeaturesMetaPageTitleForm({
             {/* Language Tabs */}
             <div className="border-b border-gray-200 dark:border-gray-700">
                 <nav className="flex gap-2">
-                    {locales.map((locale) => {
+                    {i18n.locales.map((locale) => {
                         const isActive = activeLocale === locale;
                         const localeMeta = metaFormData[locale];
                         const localePageTitle = pageTitleFormData[locale];

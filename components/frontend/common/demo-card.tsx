@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Typography } from "@/components/ui/typography";
 import { Card, CardIcon } from "@/components/ui/card";
-import { CheckCircle2 } from "lucide-react";
+import { BulletList } from "@/components/ui/bullet-list";
 
 export interface DemoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   icon: React.ComponentType<{ className?: string }>;
@@ -70,25 +70,13 @@ const DemoCard = React.forwardRef<HTMLDivElement, DemoCardProps>(
           )}
 
           {points && points.length > 0 && (
-            <ul className="mt-2 space-y-2">
-              {points.map((point, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <CheckCircle2
-                    className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary"
-                    aria-hidden
-                  />
-                  <Typography
-                    variant="small"
-                    className={cn(
-                      "text-muted-foreground",
-                      isHighlighted && "text-primary-foreground/90"
-                    )}
-                  >
-                    {point}
-                  </Typography>
-                </li>
-              ))}
-            </ul>
+            <BulletList
+              items={points}
+              className={cn(
+                "mt-2 space-y-2",
+                isHighlighted && "[&_li_span:last-child]:!text-primary-foreground/90"
+              )}
+            />
           )}
         </div>
       </Card>

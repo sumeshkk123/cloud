@@ -17,6 +17,7 @@ import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { IndustrySolutionsForm } from './industry-solutions-form';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
+import { i18n } from '@/i18n-config';
 
 // Register FontAwesome icons
 library.add(fas);
@@ -233,7 +234,7 @@ export function IndustrySolutionsTable() {
             return (
               <LanguageBadges
                 availableLocales={locales}
-                allLocales={['en', 'es', 'it', 'de', 'pt', 'zh']}
+                allLocales={[...i18n.locales]}
                 layout="flex"
               />
             );

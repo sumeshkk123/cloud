@@ -13,7 +13,8 @@ import { Button } from '@/components/ui/adminUi/button';
 import { X, Plus, Loader2, Languages } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const locales = ['en', 'es', 'it', 'de', 'pt', 'zh'] as const;
+import { supportedLocales } from '@/config/site';
+const locales = supportedLocales;
 
 type FormState = {
   title: string;
@@ -541,6 +542,7 @@ export function PlansForm({
             const isActive = activeTab === locale;
             const hasContent = trans && (trans.title || trans.description);
             const exists = trans?.exists || false;
+            const tabLabel = localeNames[locale as keyof typeof localeNames] ?? locale;
 
             return (
               <button
@@ -556,7 +558,7 @@ export function PlansForm({
                 )}
               >
                 <div className="flex items-center gap-2">
-                  <span>{localeNames[locale]}</span>
+                  <span>{tabLabel}</span>
                   {exists && <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />}
                   {hasContent && !exists && (
                     <span className="w-2 h-2 bg-yellow-500 rounded-full" title="Unsaved changes" />

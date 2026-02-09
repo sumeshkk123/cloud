@@ -1,5 +1,5 @@
 import React from 'react';
-import { localeNames } from '@/i18n-config';
+import { localeNames, i18n } from '@/i18n-config';
 
 export interface LanguageBadgesProps {
   availableLocales: string[];
@@ -10,7 +10,7 @@ export interface LanguageBadgesProps {
 
 export function LanguageBadges({
   availableLocales,
-  allLocales = ['en', 'es', 'it', 'de', 'pt', 'zh'],
+  allLocales = [...i18n.locales],
   layout = 'flex',
   className = '',
 }: LanguageBadgesProps) {

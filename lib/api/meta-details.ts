@@ -7,6 +7,7 @@ export interface MetaDetailRecord {
   title: string;
   description: string;
   keywords: string;
+  createdAt?: Date | string;
   updatedAt?: Date | string;
 }
 
@@ -25,6 +26,7 @@ export async function getMetaDetail(
         title: true,
         description: true,
         keywords: true,
+        createdAt: true,
         updatedAt: true,
       },
     });
@@ -46,9 +48,10 @@ export async function getMetaDetailsByLocale(
         title: true,
         description: true,
         keywords: true,
+        createdAt: true,
         updatedAt: true,
       },
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
     });
   } catch (error) {
     console.error(`[getMetaDetailsByLocale] Error fetching meta details for locale ${locale}:`, error);
@@ -65,9 +68,10 @@ export async function getAllMetaDetails(): Promise<MetaDetailRecord[]> {
         title: true,
         description: true,
         keywords: true,
+        createdAt: true,
         updatedAt: true,
       },
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
     });
   } catch (error) {
     console.error('[getAllMetaDetails] Error fetching all meta details:', error);
@@ -101,6 +105,7 @@ export async function upsertMetaDetail(payload: MetaDetailRecord) {
         title: true,
         description: true,
         keywords: true,
+        createdAt: true,
         updatedAt: true,
       },
     });
@@ -121,6 +126,7 @@ export async function upsertMetaDetail(payload: MetaDetailRecord) {
         title: true,
         description: true,
         keywords: true,
+        createdAt: true,
         updatedAt: true,
       },
     });

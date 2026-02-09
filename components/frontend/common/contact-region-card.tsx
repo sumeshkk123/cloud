@@ -25,7 +25,10 @@ export interface ContactRegionCardProps extends React.HTMLAttributes<HTMLElement
     phones: string[];
     email: string;
     whatsapp?: string;
-    flag?: string; // Flag emoji from COUNTRY_CODES
+    /** When set, show flag image from /api/contact/flag/[iso] (preferred over flag text/emoji). */
+    flagIso?: string;
+    /** Fallback: flag emoji or text when flagIso is not set. */
+    flag?: string;
 }
 
 const ContactRegionCard = React.forwardRef<HTMLElement, ContactRegionCardProps>(
@@ -38,6 +41,7 @@ const ContactRegionCard = React.forwardRef<HTMLElement, ContactRegionCardProps>(
             phones,
             email,
             whatsapp,
+            flagIso,
             flag,
             ...props
         },
@@ -60,7 +64,7 @@ const ContactRegionCard = React.forwardRef<HTMLElement, ContactRegionCardProps>(
                     {/* Header with flag and region */}
                     <div className="flex items-start gap-4">
                         <div className="relative">
-                            <FlagBadge flag={flag} />
+                            <FlagBadge flagIso={flagIso} flag={flag} />
                             <div className="absolute -inset-1 rounded-full bg-primary/20 blur opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                         </div>
                         <div className="flex-1 space-y-1">
@@ -163,14 +167,23 @@ const ContactRegionCard = React.forwardRef<HTMLElement, ContactRegionCardProps>(
 ContactRegionCard.displayName = "ContactRegionCard";
 
 type FlagBadgeProps = {
-    flag?: string; // Flag emoji
+    flagIso?: string;
+    flag?: string;
 };
 
-function FlagBadge({ flag }: FlagBadgeProps) {
+function FlagBadge({ flagIso, flag }: FlagBadgeProps) {
     return (
         <div className="relative">
             <span className="inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border-2 border-border/60 bg-card shadow-lg shadow-[0_8px_20px_-8px_rgba(15,23,42,0.3)] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                {flag ? (
+                {flagIso ? (
+                    <img
+                        src={`/api/contact/flag/${flagIso}`}
+                        alt=""
+                        className="w-full h-full object-cover"
+                        width={56}
+                        height={56}
+                    />
+                ) : flag ? (
                     <span className="text-3xl">{flag}</span>
                 ) : (
                     <span className="text-gray-400 dark:text-gray-500 text-sm">—</span>
