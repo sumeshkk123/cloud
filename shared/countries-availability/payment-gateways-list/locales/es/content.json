@@ -1,16 +1,1 @@
-{
-  "countriesSection": {
-    "sectionTitle": "Pasarelas de pago para software MLM por país o región",
-    "sectionDescription": "Conozca las pasarelas de pago de software MLM en cada país o región",
-    "badge": "Por región",
-    "countriesCountLabel": "países"
-  },
-  "continentNames": {
-    "africa": "África",
-    "asia": "Asia",
-    "europe": "Europa",
-    "north-america": "América del Norte",
-    "oceania": "Oceanía",
-    "south-america": "América del Sur"
-  }
-}
+{"hero":{"badgeText":"Infraestructura de pagos para MLM","highlightText":"Acepte pagos en cualquier lugar y abone los ingresos de los distribuidores sin fricciones.","description":"Cloud MLM Software conecta las pasarelas de pago y opciones de desembolso que su negocio necesita para expandirse con seguridad en todas las regiones, satisfaciendo a clientes y distribuidores.","primaryCtaLabel":"Reservar su demo","secondaryCtaLabel":"Ver demo gratuita","highlights":[{"title":"Biblioteca global de pasarelas","description":"Conecte más de 60 proveedores de pago (tarjetas, monederos, transferencias y métodos alternativos) adaptados a cada mercado."},{"title":"Automatización de riesgo y cumplimiento","description":"Gestione KYC, AML y mitigación de contracargos con umbrales y alertas configurables."},{"title":"Pagos en tiempo real","description":"Orqueste liquidaciones instantáneas, programadas o repartidas via e-wallet, deposito directo o tarjetas de comisión."}]},"countriesSection":{"sectionTitle":"Pasarelas de pago para software MLM por pais o region","sectionDescription":"Conozca las pasarelas de pago de software MLM en cada pais o region","badge":"Por region","countriesCountLabel":"paises"},"continentNames":{"africa":"Africa","asia":"Asia","europe":"Europa","north-america":"America del Norte","oceania":"Oceania","south-america":"America del Sur"},"cta":{"title":"Necesita una evaluacion de madurez de pagos?","description":"Indiquenos las pasarelas y sistemas de pago que utiliza hoy y los paises que tiene como objetivo. Recomendaremos la arquitectura optima y los pasos de migracion.","primaryButtonText":"Solicitar demo","secondaryButtonText":"Contactarnos","subheading":"Desde: Pagina de pasarelas de pago","trustIndicators":["Respuesta rapida","Revision experta","Sin compromiso"]}}
