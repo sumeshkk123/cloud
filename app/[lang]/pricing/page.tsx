@@ -24,12 +24,11 @@ function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
 }
 
-export async function generateMetadata({
-  params
-}: {
-  params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+export async function generateMetadata(props: {
+  params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 }): Promise<Metadata> {
   const { getPageMetadata } = await import("@/components/frontend/common/page-metadata");
+  const params = props?.params ?? null;
 
   return getPageMetadata(
     params,
@@ -44,12 +43,13 @@ export async function generateMetadata({
 }
 
 type PricingPageProps = {
-  params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+  params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 };
 
-export default async function PricingPage({ params }: PricingPageProps) {
-  const resolvedParams = params instanceof Promise ? await params : params;
-  const locale = resolveLocale(resolvedParams.lang);
+export default async function PricingPage(props: PricingPageProps) {
+  const params = props?.params;
+  const resolvedParams = params != null ? (params instanceof Promise ? await params : params) : null;
+  const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
   const contactHref = buildLocalizedPath("/contact", locale);
   const estimatorPortalHref = buildLocalizedPath("/free-mlm-software-demo", locale);
 

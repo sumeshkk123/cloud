@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n-config";
 import { SectionTitle } from "@/components/ui/section-title";
 import { ReadMoreButton } from "@/components/ui/read-more-button";
 import { ContactRegionCard } from "@/components/frontend/common/contact-region-card";
+import { getCountryIsoCode } from "@/components/ui/country-select";
 import { Section } from "@/components/ui/section";
 import { Typography } from "@/components/ui/typography";
 import { buildLocalizedPath } from "@/lib/locale-links";
@@ -143,7 +144,8 @@ export function ContactRegionsSection({
                   phones={address.phones}
                   email={address.email}
                   whatsapp={address.whatsapp || undefined}
-                  flag={address.flag || undefined}
+                  flagIso={address.country ? getCountryIsoCode(address.country) ?? undefined : undefined}
+                  flag={address.flag ?? undefined}
                 />
               );
             })}

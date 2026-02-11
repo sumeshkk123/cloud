@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "badgeText": "Infrastruttura di pagamento per MLM",
+    "highlightText": "Accetta pagamenti ovunque e paga i guadagni dei distributori senza attriti.",
+    "description": "Cloud MLM Software collega le gateway di pagamento e le opzioni di erogazione di cui la tua azienda ha bisogno per espandersi in sicurezza in tutte le regioni, soddisfacendo clienti e distributori.",
+    "primaryCtaLabel": "Prenota la tua demo",
+    "secondaryCtaLabel": "Guarda la demo gratuita",
+    "highlights": [
+      {
+        "title": "Libreria globale di gateway",
+        "description": "Collega oltre 60 fornitori di pagamento (carte, portafogli, bonifici e metodi alternativi) adattati a ogni mercato."
+      },
+      {
+        "title": "Automazione rischio e conformità",
+        "description": "Gestisci KYC, AML e mitigazione dei chargeback con soglie e alert configurabili."
+      },
+      {
+        "title": "Pagamenti in tempo reale",
+        "description": "Orchestrazione di liquidazioni istantanee, programmate o ripartite tramite e-wallet, accredito diretto o carte commissioni."
+      }
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "Gateway di pagamento per software MLM per paese o regione",
+    "sectionDescription": "Scopri i gateway di pagamento del software MLM in ogni paese o regione",
+    "badge": "Per regione",
+    "countriesCountLabel": "paesi"
+  },
+  "continentNames": {
+    "africa": "Africa",
+    "asia": "Asia",
+    "europe": "Europa",
+    "north-america": "America del Nord",
+    "oceania": "Oceania",
+    "south-america": "America del Sud"
+  },
+  "cta": {
+    "title": "Serve una valutazione della maturità dei pagamenti?",
+    "description": "Indicateci le gateway e i sistemi di erogazione che usate oggi e i paesi che targetizzate. Consiglieremo l'architettura ottimale e i passi di migrazione.",
+    "primaryButtonText": "Richiedi demo",
+    "secondaryButtonText": "Contattaci",
+    "subheading": "Da: Pagina gateway di pagamento",
+    "trustIndicators": ["Risposta rapida", "Revisione esperta", "Nessun impegno"]
+  }
+}

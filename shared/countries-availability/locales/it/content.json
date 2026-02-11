@@ -1,0 +1,37 @@
+{
+  "intro": {
+    "badge": "Perché sceglierci",
+    "heading": "Soluzioni software MLM su misura per {{countryName}}",
+    "paragraph1": "Conosciamo il panorama del business MLM in {{countryName}} e forniamo soluzioni su misura con Cloud MLM Software.",
+    "paragraph2": "Dall'allineamento normativo ai metodi di pagamento locali e al supporto linguistico, la nostra piattaforma è progettata per aiutarti a lanciare e far crescere la tua attività di vendita diretta in {{countryName}}."
+  },
+  "hero": {
+    "badge": "Disponibilità software MLM",
+    "title": "Software MLM per {{countryName}}",
+    "description": "Cloud MLM Software supporta vendita diretta e network marketing conformi in {{countryName}}. Configura compensi, localizzazione e pagamenti per il tuo mercato {{countryName}}.",
+    "primaryCtaLabel": "Prezzi",
+    "secondaryCtaLabel": "Prova la demo gratuita",
+    "reserveDemoCtaLabel": "Prenota la tua demo",
+    "trustPills": ["120+ paesi", "Conforme e sicuro", "Supporto 24/7"],
+    "metrics": [
+      { "label": "Moduli configurabili", "value": "56+", "detail": "Aggiungi o rimuovi moduli in base al tuo mercato e alle esigenze di conformità." },
+      { "label": "Mercati serviti", "value": "120+", "detail": "Inclusi {{countryName}} e le regioni di tutto il mondo." },
+      { "label": "Supporto", "value": "24/7", "detail": "Supporto dedicato e guida alla localizzazione quando ne hai bisogno." }
+    ]
+  },
+  "cta": {
+    "title": "Pronto a far crescere il tuo business MLM in {{countryName}}?",
+    "description": "Raccontaci i tuoi obiettivi e i sistemi attuali. Prepareremo una panoramica di preparazione con note normative, opzioni di integrazione e tempistiche per il tuo mercato.",
+    "primaryButtonText": "Richiedi ora",
+    "secondaryButtonText": "Contattaci",
+    "subheading": "Da: Disponibilità software MLM ({{countryName}})",
+    "trustIndicators": ["Panoramica di preparazione", "Follow-up in un giorno lavorativo", "Note normative e di integrazione"]
+  },
+  "applyPlan": {
+    "badge": "Piani MLM",
+    "heading": "Applica il tuo piano nel software MLM",
+    "description": "Sfrutta tutto il potenziale di Cloud MLM Software per potenziare la tua strategia di marketing multiniveau in {{countryName}}. La nostra piattaforma è progettata per semplificare le operazioni MLM, aumentare l'engagement e le vendite nella tua rete. Con Cloud MLM Software hai accesso a una suite completa di strumenti per la gestione della rete di distribuzione, il monitoraggio delle performance in tempo reale e reportistica avanzata. Prendi decisioni strategiche basate su dati concreti per ottimizzare i processi e massimizzare la redditività. Ideale per aziende MLM orientate alla crescita, il nostro software ti permette di restare avanti nel competitivo mercato di {{countryName}}.",
+    "imageAlt": "Dashboard Cloud MLM Software - Applica il tuo piano MLM con monitoraggio e report in tempo reale",
+    "linkText": "Scopri di più sui piani MLM"
+  }
+}

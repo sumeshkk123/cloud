@@ -172,16 +172,19 @@ type FlagBadgeProps = {
 };
 
 function FlagBadge({ flagIso, flag }: FlagBadgeProps) {
+    const [imgError, setImgError] = React.useState(false);
+    const showImage = flagIso && !imgError;
     return (
         <div className="relative">
             <span className="inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border-2 border-border/60 bg-card shadow-lg shadow-[0_8px_20px_-8px_rgba(15,23,42,0.3)] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                {flagIso ? (
+                {showImage ? (
                     <img
                         src={`/api/contact/flag/${flagIso}`}
                         alt=""
                         className="w-full h-full object-cover"
                         width={56}
                         height={56}
+                        onError={() => setImgError(true)}
                     />
                 ) : flag ? (
                     <span className="text-3xl">{flag}</span>

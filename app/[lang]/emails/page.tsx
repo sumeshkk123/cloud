@@ -31,6 +31,7 @@ export default async function EmailsPage({ params }: EmailsPageProps) {
       pageTitleData={pageTitleData}
       contactHref={contactHref}
       secondaryHref={secondaryHref}
+      locale={locale}
     />
   );
 }

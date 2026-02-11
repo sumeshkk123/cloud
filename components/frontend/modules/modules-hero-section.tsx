@@ -1,32 +1,29 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+"use client";
+
 import { HeroSection, type HeroMetric } from "@/components/frontend/common/hero-section";
 import type { Locale } from "@/i18n-config";
-import { getPageTitle } from "@/lib/api/page-titles";
 import { getModulesContent } from "@/lib/modules";
-import { getPageMetadata } from "@/components/frontend/common/page-metadata";
-import type { Metadata } from "next";
-import type { SupportedLocale } from "@/config/site";
+import { Sparkles } from "lucide-react";
+import type { PageTitleRecord } from "@/lib/api/page-titles";
 
 interface ModulesHeroSectionProps {
     locale: Locale;
     contactHref: string;
     pricingHref: string;
     demoHref: string;
-    pageTitleData?: Awaited<ReturnType<typeof getPageTitle>> | null;
+    pageTitleData?: PageTitleRecord | null;
+    /** When set, primary CTA runs this instead of linking (e.g. open project brief modal) */
+    onPrimaryCtaClick?: () => void;
 }
 
-export async function ModulesHeroSection({
+export function ModulesHeroSection({
     locale,
     contactHref,
     pricingHref,
     demoHref,
-    pageTitleData: propPageTitleData
+    pageTitleData,
+    onPrimaryCtaClick
 }: ModulesHeroSectionProps) {
-    // Fetch page title data if not provided
-    const pageTitleData = propPageTitleData ?? await getPageTitle("mlm-software-modules", locale);
-
     const t = getModulesContent(locale).hero;
 
     // Parse title to extract highlight text
@@ -88,10 +85,11 @@ export async function ModulesHeroSection({
             highlightText={titleParts.highlightText}
             afterText={titleParts.afterText}
             description={pageTitleData?.sectionSubtitle || t.description}
-            primaryCta={{
-                label: t.primaryCta,
-                href: contactHref,
-            }}
+            primaryCta={
+                onPrimaryCtaClick
+                    ? { label: t.primaryCta, onClick: onPrimaryCtaClick }
+                    : { label: t.primaryCta, href: contactHref }
+            }
             secondaryCta={{
                 label: t.secondaryCta,
                 href: pricingHref,

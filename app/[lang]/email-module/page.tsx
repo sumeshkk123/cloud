@@ -24,6 +24,7 @@ export default async function Page(props: { params?: Promise<{ lang: SupportedLo
       pageTitleData={pageTitleData}
       contactHref={buildLocalizedPath("/contact", locale)}
       secondaryHref={DEMO_URL}
+      locale={locale}
     />
   );
 }

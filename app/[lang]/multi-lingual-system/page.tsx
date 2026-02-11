@@ -33,6 +33,7 @@ export default async function MultiLingualSystemPage(props: MultiLingualSystemPa
       pageTitleData={pageTitleData}
       contactHref={contactHref}
       secondaryHref={secondaryHref}
+      locale={locale}
     />
   );
 }

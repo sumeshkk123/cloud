@@ -12,7 +12,7 @@ import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { ModulesMetaPageTitleForm } from './modules-meta-page-title-form';
 import { PageTitle } from '@/components/ui/adminUi/page-title';
-import { MODULES_SUBPAGE_SLUGS, getModulesSubpageMeta } from '@/lib/modules-subpage-slugs';
+import { MODULES_SUBPAGE_SLUGS, getModulesSubpageMeta, getModuleSlugFromTitleOrId, isModulesSubpageSlug } from '@/lib/modules-subpage-slugs';
 
 interface CombinedRow {
     page: string;
@@ -47,6 +47,7 @@ export function ModulesMetaPageTitleTab() {
   const [pageToDelete, setPageToDelete] = useState<string | null>(null);
   const [localesToDelete, setLocalesToDelete] = useState<string[]>([]);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [missingSlugOnFrontend, setMissingSlugOnFrontend] = useState<string | null>(null);
 
   useEffect(() => {
     loadModulePages();
@@ -133,6 +134,23 @@ export function ModulesMetaPageTitleTab() {
       }
 
       setTableData(allData);
+
+      // Detect which admin module page has no matching module on /mlm-software-modules (API returns DB modules only)
+      try {
+        const modulesRes = await fetch('/api/modules?locale=en', { cache: 'no-store' });
+        const modulesList: Array<{ id: string; title: string; slug?: string | null }> = modulesRes.ok ? await modulesRes.json() : [];
+        const frontendSlugs = new Set<string>();
+        for (const m of modulesList) {
+          const slug = m.slug && isModulesSubpageSlug(m.slug) ? m.slug : getModuleSlugFromTitleOrId(m.title, m.id);
+          if (slug) frontendSlugs.add(slug);
+        }
+        const excludedSlugs = new Set(['emails']);
+        const adminSlugs = (MODULES_SUBPAGE_SLUGS as readonly string[]).filter((s) => !excludedSlugs.has(s));
+        const missing = adminSlugs.find((s) => !frontendSlugs.has(s)) ?? null;
+        setMissingSlugOnFrontend(missing);
+      } catch {
+        setMissingSlugOnFrontend(null);
+      }
     } catch (error) {
       console.error('Error loading data:', error);
       setTableData([]);
@@ -143,15 +161,16 @@ export function ModulesMetaPageTitleTab() {
 
   const loadModulePages = async () => {
     try {
-      // Build select options from all 18 module sub-pages (page id = mlm-software-modules-<slug>)
-      const allPages: Array<{ value: string; label: string }> = (MODULES_SUBPAGE_SLUGS as readonly string[]).map(
-        (slug) => {
+      // Build select options from module sub-pages (page id = mlm-software-modules-<slug>). Exclude "emails" (Email & Communications Module).
+      const excludedSlugs = new Set(['emails']);
+      const allPages: Array<{ value: string; label: string }> = (MODULES_SUBPAGE_SLUGS as readonly string[])
+        .filter((slug) => !excludedSlugs.has(slug))
+        .map((slug) => {
           const value = `${MODULE_PAGE_PREFIX}-${slug}`;
           const meta = getModulesSubpageMeta(slug);
           const label = meta?.fallbackTitle ?? slug.replace(/-/g, ' ');
           return { value, label };
-        }
-      );
+        });
       allPages.sort((a, b) => a.label.localeCompare(b.label));
       setModulePages(allPages);
     } catch (error) {
@@ -245,6 +264,12 @@ export function ModulesMetaPageTitleTab() {
 
       {ToastComponent}
       {formToast}
+
+      {missingSlugOnFrontend && (
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          <strong>Missing on /mlm-software-modules:</strong> The module page &quot;{missingSlugOnFrontend.replace(/-/g, ' ')}&quot; is in this table but has no matching module in the database, so it does not appear on the frontend. Add a module with this slug (or matching title) in <a href="/admin/modules" className="underline font-medium">Modules</a> to show it on the mlm-software-modules page.
+        </div>
+      )}
 
       {isLoading ? (
         <div className="flex justify-center items-center py-12">

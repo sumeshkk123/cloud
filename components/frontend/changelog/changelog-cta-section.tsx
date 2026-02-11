@@ -15,6 +15,7 @@ export function ChangelogCtaSection({ contactHref, locale }: ChangelogCtaSection
       title={cta.title}
       description={cta.description}
       primaryButton={{ text: cta.primaryCta, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       secondaryButton={{ text: cta.secondaryCta, href: contactHref }}
       trustIndicators={["Quick response", "Expert team", "Proven updates"]}
     />

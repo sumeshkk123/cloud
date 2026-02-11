@@ -83,6 +83,7 @@ export function FreeDemoFinalCtaSection({ locale, contactHref }: { locale: Local
       title={t.title}
       description={t.description}
       primaryButton={{ text: t.primaryButton, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       trustIndicators={[t.trustIndicators.quickSetup, t.trustIndicators.guidedSession, t.trustIndicators.decisionReady]}
     />
   );

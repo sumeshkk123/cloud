@@ -221,17 +221,14 @@ export function ModulesMetaPageTitleForm({
 
             const translateText = async (text: string): Promise<string> => {
                 if (!text.trim()) return '';
-                const response = await fetch('https://api.mymemory.translated.net/get', {
-                    method: 'GET',
+                const res = await fetch('/api/translate', {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text, targetLocale: activeLocale, sourceLocale: 'en' }),
                 });
-                const params = new URLSearchParams({
-                    q: text,
-                    langpair: `en|${activeLocale}`,
-                });
-                const res = await fetch(`https://api.mymemory.translated.net/get?${params}`);
                 const data = await res.json();
-                return data.responseData?.translatedText || text;
+                if (!res.ok) throw new Error(data.error || data.message || 'Translation failed');
+                return data.translatedText ?? text;
             };
 
             const [translatedMetaTitle, translatedMetaDesc, translatedKeywords, translatedPageTitle, translatedPill, translatedSubtitle] = await Promise.all([
@@ -253,7 +250,8 @@ export function ModulesMetaPageTitleForm({
             showToast('Translation completed.', 'success');
         } catch (error) {
             console.error('Translation error:', error);
-            showToast('Translation failed. Please translate manually.', 'error');
+            const msg = error instanceof Error ? error.message : 'Translation failed. Please translate manually.';
+            showToast(msg, 'error');
         } finally {
             setIsTranslating(false);
         }

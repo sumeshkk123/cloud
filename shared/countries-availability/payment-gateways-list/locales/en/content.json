@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "badgeText": "Payment infrastructure for MLM",
+    "highlightText": "Accept payments anywhere and pay distributor earnings without friction.",
+    "description": "Cloud MLM Software connects the payment gateways and payout options your business needs to expand safely across regions while delighting customers and distributors.",
+    "primaryCtaLabel": "Reserve your demo",
+    "secondaryCtaLabel": "View free demo",
+    "highlights": [
+      {
+        "title": "Global gateway library",
+        "description": "Connect 60+ payment providers across cards, wallets, bank transfers, and alternative methods tailored to each market."
+      },
+      {
+        "title": "Risk & compliance automation",
+        "description": "Handle KYC, AML, and chargeback mitigation with configurable thresholds and alerts."
+      },
+      {
+        "title": "Real-time payouts",
+        "description": "Orchestrate instant, scheduled, or split settlements via e-wallet, direct deposit, or commission cards."
+      }
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "Payment gateways for MLM Software by Country or Region",
+    "sectionDescription": "Learn more about MLM Software payment gateways in each country or region",
+    "badge": "By region",
+    "countriesCountLabel": "countries"
+  },
+  "continentNames": {
+    "africa": "Africa",
+    "asia": "Asia",
+    "europe": "Europe",
+    "north-america": "North America",
+    "oceania": "Oceania",
+    "south-america": "South America"
+  },
+  "cta": {
+    "title": "Need a payment readiness assessment?",
+    "description": "Tell us the gateways and payout systems you use today plus the countries you're targeting. We'll recommend the optimal architecture and migration steps.",
+    "primaryButtonText": "Request a demo",
+    "secondaryButtonText": "Contact us",
+    "subheading": "From: Payment gateways page",
+    "trustIndicators": ["Fast response", "Expert review", "No commitment"]
+  }
+}

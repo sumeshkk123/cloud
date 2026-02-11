@@ -9,6 +9,7 @@ type MultiCurrencyClientProps = {
   pageTitleData: PageTitleRecord | null;
   contactHref: string;
   secondaryHref: string;
+  locale?: string;
 };
 
 function mergeContentWithPageTitle(
@@ -31,6 +32,7 @@ export function MultiCurrencyClient({
   pageTitleData,
   contactHref,
   secondaryHref,
+  locale = "en",
 }: MultiCurrencyClientProps) {
   const content = mergeContentWithPageTitle(multiCurrencyContent, pageTitleData);
   return (
@@ -38,6 +40,8 @@ export function MultiCurrencyClient({
       content={content}
       contactHref={contactHref}
       demoHref={secondaryHref}
+      moduleSlug="multi-currency-module"
+      locale={locale}
     />
   );
 }

@@ -8,8 +8,8 @@ export default function ServicesMetaPageTitlePage() {
     <div className="space-y-4">
       {/* Page Title */}
       <PageTitle
-        title="Service Meta and Page Title"
-        description="Manage meta details and page titles for service pages."
+        title="Service Meta Details"
+        description="Manage meta details (title, description, keywords) for service pages."
       />
 
       {/* Content */}

@@ -1,4 +1,5 @@
 export { ContactHeroSection } from "./contact-hero-section";
+export { ContactHeroWithProjectBriefModal } from "./contact-hero-with-project-brief-modal";
 export { ContactAddressSection } from "./contact-address-section";
 export { ContactExpertiseSection } from "./contact-expertise-section";
 export { ContactRegionsSection } from "./contact-regions-section";

@@ -11,7 +11,7 @@ import { ContactForm } from '@/components/admin/contact/contact-form';
 import { DeleteConfirmModal } from '@/components/ui/adminUi/delete-confirm-modal';
 import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
-import { COUNTRY_CODES } from '@/components/ui/country-select';
+import { COUNTRY_CODES, getCountryIsoCode } from '@/components/ui/country-select';
 
 // Helper function to get flag emoji from country name
 function getCountryFlag(countryName: string): string {
@@ -64,6 +64,7 @@ export function ContactTable() {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [contactToDelete, setContactToDelete] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [flagImgErrors, setFlagImgErrors] = useState<Record<string, boolean>>({});
 
   const loadContacts = async () => {
     try {
@@ -180,10 +181,30 @@ export function ContactTable() {
         emptyMessage={isLoading ? 'Loading contact addresses...' : 'No contact addresses available yet.'}
         renderCell={(column, row) => {
           if (column.key === 'country') {
-            const flag = getCountryFlag(row.country);
+            const flagIso = getCountryIsoCode(row.country);
+            const flagEmoji = getCountryFlag(row.country);
+            const imgFailed = flagImgErrors[row.id];
             return (
               <div className="flex items-center gap-2">
-                {flag && <span className="text-lg">{flag}</span>}
+                <div
+                  className="flex items-center justify-center w-8 h-6 min-w-[2rem] min-h-[1.5rem] rounded border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shrink-0 overflow-hidden"
+                  title={row.country ? `Flag: ${row.country}` : 'Country flag'}
+                >
+                  {flagIso && !imgFailed ? (
+                    <img
+                      src={`/api/contact/flag/${flagIso}`}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      width={32}
+                      height={24}
+                      onError={() => setFlagImgErrors((prev) => ({ ...prev, [row.id]: true }))}
+                    />
+                  ) : flagEmoji ? (
+                    <span className="text-base leading-none" aria-hidden role="img">{flagEmoji}</span>
+                  ) : (
+                    <span className="text-gray-400 dark:text-gray-500 text-xs">—</span>
+                  )}
+                </div>
                 <span className="font-medium text-gray-900 dark:text-white">{row.country}</span>
               </div>
             );

@@ -13,14 +13,16 @@ interface ModuleCtaProps {
   cta: ModuleFeatureCta;
   contactHref: string;
   demoHref?: string;
+  locale?: string;
 }
 
-export function ModuleCta({ cta, contactHref, demoHref }: ModuleCtaProps) {
+export function ModuleCta({ cta, contactHref, demoHref, locale = "en" }: ModuleCtaProps) {
   return (
     <GradientCtaSection
       title={cta.heading}
       description={cta.description}
       primaryButton={{ text: cta.buttonText, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       secondaryButton={
         cta.secondaryCta && demoHref
           ? { text: cta.secondaryCta, href: demoHref, openInNewTab: true }

@@ -16,21 +16,23 @@ function resolveLocale(lang: string): Locale {
 }
 
 type KycDocumentationPageProps = {
-  params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+  params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 };
 
-export default async function KycDocumentationPage({ params }: KycDocumentationPageProps) {
-  const resolvedParams = params != null ? (params instanceof Promise ? await params : params) : { lang: i18n.defaultLocale as SupportedLocale };
+export default async function KycDocumentationPage(props: KycDocumentationPageProps) {
+  const params = props?.params;
+  const resolvedParams =
+    params != null ? (params instanceof Promise ? await params : params) : null;
   const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
   const pageTitleData = await getPageTitle(PAGE_KEY, locale);
   const contactHref = buildLocalizedPath("/contact", locale);
-  const secondaryHref = DEMO_URL;
 
   return (
     <KycDocumentationClient
       pageTitleData={pageTitleData}
       contactHref={contactHref}
-      secondaryHref={secondaryHref}
+      secondaryHref={DEMO_URL}
+      locale={locale}
     />
   );
 }

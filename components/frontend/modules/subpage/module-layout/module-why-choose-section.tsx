@@ -5,12 +5,16 @@ import { Section } from "@/components/ui/section";
 import { SectionTitle } from "@/components/ui/section-title";
 import type { ModuleWhyChooseSection } from "./types";
 
+/** Fixed image for "Why choose" section — do not change. See .cursor/rules/module-why-choose-image.mdc */
+const WHY_CHOOSE_IMAGE_SRC = "/images/atursondrIntro.webp";
+
 interface ModuleWhyChooseSectionProps {
   content: ModuleWhyChooseSection;
 }
 
 export function ModuleWhyChooseSection({ content }: ModuleWhyChooseSectionProps) {
-  const { imageSrc, imageAlt, badge, heading, description, items } = content;
+  const { badge, heading, description, items } = content;
+  const imageSrc = content.imageSrc ?? WHY_CHOOSE_IMAGE_SRC;
 
   return (
     <Section variant="gradient" padding="lg">
@@ -24,19 +28,17 @@ export function ModuleWhyChooseSection({ content }: ModuleWhyChooseSectionProps)
         />
         <div className="overflow-hidden">
           <div className="grid min-h-[380px] md:grid-cols-[1fr_1.15fr] gap-6">
-            {/* Left: image or placeholder */}
+            {/* Left: default atursondrIntro.webp; override via content.imageSrc (e.g. ticket-system Types uses moduleautoresponder4.svg) */}
             <div className="relative flex aspect-[4/5] w-full min-h-[320px] items-end justify-center overflow-hidden rounded-3xl border border-gray-200 bg-primary/10 shadow-sm dark:border-border dark:bg-card md:aspect-auto md:min-h-[420px]">
-              {imageSrc && (
-                <Image
-                  src={imageSrc}
-                  alt={imageAlt ?? ""}
-                  width={400}
-                  height={400}
-                  className="object-contain object-bottom rounded-t-3xl"
-                  sizes="(max-width: 768px) 100vw, 42vw"
-                  priority={false}
-                />
-              )}
+              <Image
+                src={imageSrc}
+                width={400}
+                height={400}
+                alt={content.imageAlt ?? "Module overview"}
+                className="object-contain object-bottom rounded-t-3xl"
+                sizes="(max-width: 768px) 100vw, 42vw"
+                priority={false}
+              />
             </div>
 
 

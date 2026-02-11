@@ -121,13 +121,14 @@ export function FeaturesSection({ locale, data }: { locale: Locale; data?: Homep
     const remainingFeatures = allFeatures.filter(f => !featureTitles.has(f.title));
 
     return (
-        <Section variant="default" padding="xl" className="relative isolate !overflow-visible">
+        <Section variant="gradient" padding="lg" className="relative isolate !overflow-visible">
             {/* Animated mesh gradient background - like hero section */}
             <div className="absolute inset-0 -z-20">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10" />
             </div>
-
+      
+          
             {/* Floating orbs */}
             <div className="absolute left-1/4 top-1/4 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-pulse -z-10" />
             <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl animate-pulse -z-10" style={{ animationDelay: '1s' }} />

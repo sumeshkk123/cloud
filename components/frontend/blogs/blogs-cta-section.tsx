@@ -15,6 +15,7 @@ export function BlogsCtaSection({ contactHref, servicesHref, locale }: BlogsCtaS
       title={cta.title}
       description={cta.description}
       primaryButton={{ text: cta.primaryButtonText, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       secondaryButton={{ text: cta.secondaryButtonText, href: servicesHref }}
       trustIndicators={cta.trustIndicators}
     />

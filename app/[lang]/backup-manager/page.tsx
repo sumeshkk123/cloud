@@ -31,6 +31,7 @@ export default async function BackupManagerPage({ params }: BackupManagerPagePro
       pageTitleData={pageTitleData}
       contactHref={contactHref}
       secondaryHref={secondaryHref}
+      locale={locale}
     />
   );
 }

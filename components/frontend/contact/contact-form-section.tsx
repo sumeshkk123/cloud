@@ -40,7 +40,7 @@ export function ContactFormSection({ locale }: ContactFormSectionProps) {
   };
 
   return (
-    <Section variant="gradient-dark" padding="md" containerClassName="relative">
+    <Section id="get-in-touch" variant="gradient-dark" padding="md" containerClassName="relative">
       {/* Map Background - 80% width */}
       <div className="absolute left-0 top-0 h-full w-[80%] opacity-20">
         <div className="relative h-full w-full">

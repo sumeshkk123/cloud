@@ -5,6 +5,7 @@ import { BulletList } from "@/components/ui/bullet-list";
 import { Typography } from "@/components/ui/typography";
 import type { Locale } from "@/i18n-config";
 import { buildLocalizedPath } from "@/lib/locale-links";
+import { getCanonicalServiceSlug } from "@/lib/services-subpage-slugs";
 import type { SupportedLocale } from "@/config/site";
 import { Section } from "@/components/ui/section";
 import * as RemixIcon from "@remixicon/react";
@@ -13,35 +14,16 @@ import { getCommonContent } from "@/lib/common";
 import { SectionTitle } from "@/components/ui/section-title";
 
 // Translation strings for service-specific content
-const translations: Record<Locale, {
-  keyBenefits: string;
-  serviceHighlights: string;
-}> = {
-  en: {
-    keyBenefits: "Key Benefits",
-    serviceHighlights: "Service Highlights"
-  },
-  es: {
-    keyBenefits: "Beneficios Clave",
-    serviceHighlights: "Destacados del Servicio"
-  },
-  it: {
-    keyBenefits: "Vantaggi Chiave",
-    serviceHighlights: "Punti Salienti del Servizio"
-  },
-  de: {
-    keyBenefits: "Hauptvorteile",
-    serviceHighlights: "Service-Highlights"
-  },
-  pt: {
-    keyBenefits: "Benefícios Principais",
-    serviceHighlights: "Destaques do Serviço"
-  },
-  zh: {
-    keyBenefits: "主要优势",
-    serviceHighlights: "服务亮点"
-  }
+const translations: Record<string, { keyBenefits: string }> = {
+  en: { keyBenefits: "Key Benefits" },
+  es: { keyBenefits: "Beneficios Clave" },
+  fr: { keyBenefits: "Avantages clés" },
+  it: { keyBenefits: "Vantaggi Chiave" },
+  de: { keyBenefits: "Hauptvorteile" },
+  pt: { keyBenefits: "Benefícios Principais" },
+  zh: { keyBenefits: "主要优势" },
 };
+const defaultTranslation = translations.en;
 
 type ServiceDetail = {
   title: string;
@@ -77,31 +59,28 @@ function generateSlug(title: string): string {
 
 // Transform service records to service details
 function transformServices(services: ServiceRecord[], locale: Locale, englishTitleMap: Map<string, string>): ServiceDetail[] {
-  const t = translations[locale];
+  const t = translations[locale] ?? defaultTranslation;
 
   return services
+    .filter((service): service is ServiceRecord => service != null)
     .map((service) => {
-      // Use keyBenefits for benefits, or serviceHighlights as fallback
       const benefits = (service.keyBenefits && Array.isArray(service.keyBenefits) && service.keyBenefits.length > 0)
         ? service.keyBenefits
-        : (service.serviceHighlights && Array.isArray(service.serviceHighlights) && service.serviceHighlights.length > 0)
-          ? service.serviceHighlights
-          : [];
+        : [];
 
-      // Use English title for slug generation to ensure consistency across locales
-      // Services are linked by icon + showOnHomePage, so use that as lookup key
       const lookupKey = `${service.icon || ''}_${service.showOnHomePage}`;
       const englishTitle = englishTitleMap.get(lookupKey) || service.title;
-      const slug = generateSlug(englishTitle);
-      const href = buildLocalizedPath(`/services/${slug}`, locale as SupportedLocale);
+      const slug = getCanonicalServiceSlug(generateSlug(englishTitle));
+      const href =
+        slug === "bitcoin-cryptocurrency-mlm-software"
+          ? buildLocalizedPath("/bitcoin-cryptocurrency-mlm-software", locale as SupportedLocale)
+          : buildLocalizedPath(`/services/${slug}`, locale as SupportedLocale);
 
       return {
         title: String(service.title || ''),
         highlight: String(service.title || '').split(' ')[0] || 'Service',
         description: String(service.description || ''),
-        benefitsTitle: service.keyBenefits && Array.isArray(service.keyBenefits) && service.keyBenefits.length > 0
-          ? t.keyBenefits
-          : t.serviceHighlights,
+        benefitsTitle: t.keyBenefits,
         benefits: benefits,
         href: href,
         image: {
@@ -120,7 +99,7 @@ export function ServicesDetailsSection({ locale, services: servicesProp, english
   // Otherwise, this component can still work with client-side fetching if needed
   const titleMap = englishTitleMap || new Map<string, string>();
   const services = servicesProp ? transformServices(servicesProp, locale, titleMap) : [];
-  const t = translations[locale];
+  const t = translations[locale] ?? defaultTranslation;
   const common = getCommonContent(locale);
 
   if (services.length === 0) {
@@ -137,7 +116,7 @@ export function ServicesDetailsSection({ locale, services: servicesProp, english
       {services.map((service, index) => (
         <article
           key={service.title}
-          className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center bg-primary/10 rounded-3xl border border-border/40 p-10"
+          className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]  bg-primary/10 rounded-3xl border border-border/40 p-10"
         >
           <div className={index % 2 === 1 ? "lg:order-2" : ""}>
             <Badge

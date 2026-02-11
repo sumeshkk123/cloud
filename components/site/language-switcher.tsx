@@ -102,9 +102,9 @@ export function LanguageSwitcher({ locale, label, ariaLabel, options }: Language
         aria-expanded={isOpen}
         aria-haspopup="true"
         className={cn(
-          "flex items-center gap-2 rounded-full border border-border/50 bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground shadow-sm transition-all duration-200",
+          "flex items-center gap-2 rounded-full border border-border/50 bg-background/90 min-w-[88px] px-4 py-1.5 text-xs font-medium text-foreground shadow-sm transition-all duration-200",
           "hover:border-primary hover:bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
-          "sm:px-4 sm:py-2",
+          "sm:min-w-[100px] sm:px-5 sm:py-2",
           "cursor-pointer",
           isOpen && "border-primary bg-background ring-2 ring-primary/20"
         )}
@@ -133,7 +133,7 @@ export function LanguageSwitcher({ locale, label, ariaLabel, options }: Language
             role="menu"
             aria-label="Language options"
             className={cn(
-              "absolute right-0 mt-2 z-[9999] min-w-[160px] rounded-lg border border-border/50 bg-background shadow-lg backdrop-blur-sm overflow-hidden",
+              "absolute right-0 mt-2 z-[9999] min-w-[180px] rounded-lg border border-border/50 bg-background shadow-lg backdrop-blur-sm overflow-hidden",
               "animate-in fade-in-0 zoom-in-95 duration-200"
             )}
             style={{ top: "100%" }}

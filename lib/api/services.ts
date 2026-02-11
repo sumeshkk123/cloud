@@ -9,7 +9,6 @@ export interface ServiceRecord {
   image?: string | null;
   icon?: string | null;
   keyBenefits?: string[] | null;
-  serviceHighlights?: string[] | null;
   showOnHomePage: boolean;
   locale: string;
   createdAt: Date;
@@ -30,7 +29,6 @@ export async function listServices(locale?: string, showOnHomePage?: boolean): P
     return services.map((service) => ({
       ...service,
       keyBenefits: service.keyBenefits ? (service.keyBenefits as any) : null,
-      serviceHighlights: service.serviceHighlights ? (service.serviceHighlights as any) : null,
     }));
   } catch (error) {
     throw error;
@@ -60,7 +58,6 @@ export async function listServicesWithTranslations(locale?: string, showOnHomePa
       translationGroups.get(groupKey)!.push({
         ...service,
         keyBenefits: service.keyBenefits ? (service.keyBenefits as any) : null,
-        serviceHighlights: service.serviceHighlights ? (service.serviceHighlights as any) : null,
       });
     }
 
@@ -85,7 +82,6 @@ export async function listServicesWithTranslations(locale?: string, showOnHomePa
       allServices.set(service.id, {
         ...service,
         keyBenefits: service.keyBenefits ? (service.keyBenefits as any) : null,
-        serviceHighlights: service.serviceHighlights ? (service.serviceHighlights as any) : null,
       });
     });
 
@@ -107,7 +103,6 @@ export async function getServiceById(id: string, locale?: string): Promise<Servi
   return {
     ...service,
     keyBenefits: service.keyBenefits ? (service.keyBenefits as any) : null,
-    serviceHighlights: service.serviceHighlights ? (service.serviceHighlights as any) : null,
   };
 }
 
@@ -118,7 +113,6 @@ export async function createService(data: {
   image?: string | null;
   icon?: string | null;
   keyBenefits?: string[] | null;
-  serviceHighlights?: string[] | null;
   showOnHomePage?: boolean;
   locale: string;
 }): Promise<ServiceRecord> {
@@ -131,7 +125,6 @@ export async function createService(data: {
       image: data.image || null,
       icon: data.icon || null,
       keyBenefits: data.keyBenefits ? (data.keyBenefits as any) : null,
-      serviceHighlights: data.serviceHighlights ? (data.serviceHighlights as any) : null,
       showOnHomePage: data.showOnHomePage ?? false,
       locale: data.locale,
       updatedAt: new Date(),
@@ -141,7 +134,6 @@ export async function createService(data: {
   return {
     ...service,
     keyBenefits: service.keyBenefits ? (service.keyBenefits as any) : null,
-    serviceHighlights: service.serviceHighlights ? (service.serviceHighlights as any) : null,
   };
 }
 
@@ -154,7 +146,6 @@ export async function updateService(
     image?: string | null;
     icon?: string | null;
     keyBenefits?: string[] | null;
-    serviceHighlights?: string[] | null;
     showOnHomePage?: boolean;
     locale?: string;
   }
@@ -168,7 +159,6 @@ export async function updateService(
   if (data.image !== undefined) updateData.image = data.image || null;
   if (data.icon !== undefined) updateData.icon = data.icon || null;
   if (data.keyBenefits !== undefined) updateData.keyBenefits = data.keyBenefits ? (data.keyBenefits as any) : null;
-  if (data.serviceHighlights !== undefined) updateData.serviceHighlights = data.serviceHighlights ? (data.serviceHighlights as any) : null;
   if (data.showOnHomePage !== undefined) updateData.showOnHomePage = data.showOnHomePage;
   if (data.locale !== undefined) updateData.locale = data.locale;
 
@@ -180,7 +170,6 @@ export async function updateService(
   return {
     ...service,
     keyBenefits: service.keyBenefits ? (service.keyBenefits as any) : null,
-    serviceHighlights: service.serviceHighlights ? (service.serviceHighlights as any) : null,
   };
 }
 
@@ -217,6 +206,5 @@ export async function getAllServiceTranslations(id: string): Promise<ServiceReco
     icon: sharedIcon || t.icon,
     showOnHomePage: sharedShowOnHomePage,
     keyBenefits: t.keyBenefits ? (t.keyBenefits as any) : null,
-    serviceHighlights: t.serviceHighlights ? (t.serviceHighlights as any) : null,
   }));
 }

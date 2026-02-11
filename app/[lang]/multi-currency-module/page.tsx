@@ -9,7 +9,7 @@ import { MultiCurrencyClient } from "./multi-currency-client";
 export const dynamic = "force-dynamic";
 
 const DEMO_URL = "https://demo.cloudmlmsoftware.com";
-const PAGE_KEY = "mlm-software-modules-multi-currency";
+const PAGE_KEY = "mlm-software-modules-multi-currency-module";
 
 function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
@@ -33,6 +33,7 @@ export default async function MultiCurrencyPage(props: MultiCurrencyPageProps) {
       pageTitleData={pageTitleData}
       contactHref={contactHref}
       secondaryHref={secondaryHref}
+      locale={locale}
     />
   );
 }

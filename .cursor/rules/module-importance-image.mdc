@@ -1,0 +1,25 @@
+---
+description: Do not change the fixed image in the module importance section
+globs: "**/module-layout/module-importance-section.tsx"
+alwaysApply: false
+---
+
+# Module Importance Section — Fixed Image
+
+In `module-importance-section.tsx`, the right-side image **must always** be:
+
+- **Source:** `/images/dashboard-deign.webp`
+- **Constant:** `IMPORTANCE_IMAGE_SRC` in this file
+
+**Do not:**
+
+- Replace this image with `content.imageSrc` or any other dynamic source
+- Change the image path to another file (e.g. module-specific images like `atursondrIntro.webp` or `emailmodule.svg`)
+- Remove the image or make it conditional on content
+
+**Allowed:**
+
+- Use `content.imageAlt` (or heading fallback) for the `alt` attribute for accessibility
+- Change layout, styles, or the left-side content; only the image source is fixed
+
+This keeps a consistent importance-section visual across all module subpages.

@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "Disponibilidade do software MLM no mundo",
+    "description": "Veja como o Cloud MLM Software apoia a venda direta em conformidade em todas as regiões com localização, pagamentos e parceiros."
+  },
+  "hero": {
+    "badgeText": "Guia de implantação global",
+    "highlightText": "Lance e expanda seu negócio MLM em qualquer região com confiança.",
+    "description": "Da preparação regulatória à localização de idiomas, o Cloud MLM Software está disponível em vários países para você expandir sem reconstruir sua stack de tecnologia a cada vez.",
+    "primaryCtaLabel": "Reservar sua demo",
+    "secondaryCtaLabel": "Ver demo gratuita",
+    "highlights": [
+      {
+        "title": "Presença global",
+        "description": "O Cloud MLM Software suporta implantações em mais de 120 territórios com localização, multimoeda e residência de dados incluídos."
+      },
+      {
+        "title": "Conformidade regulatória",
+        "description": "Nossa equipe acompanha a evolução das regulamentações de venda direta para que seu lançamento atenda às expectativas de cada país desde o primeiro dia."
+      },
+      {
+        "title": "Ecossistema de parceiros",
+        "description": "Aproveite parceiros regionais de fulfilment, pagamento e capacitação para acelerar o time-to-market sem reconstruir operações."
+      }
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "Disponibilidade do software MLM por país ou região",
+    "sectionDescription": "Saiba mais sobre a disponibilidade do software MLM em cada país ou região",
+    "badge": "Por região",
+    "countriesCountLabel": "países"
+  },
+  "steps": {
+    "badge": "Caminho de lançamento",
+    "heading": "Como habilitamos lançamentos por país",
+    "description": "Um caminho de migração estruturado mantém a continuidade do negócio enquanto o novo mercado entra em produção.",
+    "steps": [
+      {
+        "title": "Avaliar",
+        "detail": "Faça um benchmark das suas operações atuais, mapeie as integrações necessárias e identifique os pontos de verificação regulatórios por país."
+      },
+      {
+        "title": "Ativar",
+        "detail": "Localize conteúdos, configure variantes de compensação e conecte provedores regionais de pagamento e fulfilment."
+      },
+      {
+        "title": "Acelerar",
+        "detail": "Lance análises, capacitação e sprints de otimização para manter cada mercado crescendo de forma sustentável."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Precisa de uma avaliação país a país?",
+    "description": "Diga-nos quais territórios você está mirando e quais sistemas usa. Prepararemos um dossiê de prontidão com notas regulatórias, listas de integração e orientação de cronograma.",
+    "primaryButtonText": "Solicitar agora",
+    "secondaryButtonText": "Fale conosco",
+    "subheading": "De: Disponibilidade (países)",
+    "trustIndicators": ["Dossiê de prontidão", "Retorno em um dia útil", "Listas regulatórias e de integração"]
+  },
+  "continentNames": {
+    "africa": "África",
+    "asia": "Ásia",
+    "europe": "Europa",
+    "north-america": "América do Norte",
+    "oceania": "Oceania",
+    "south-america": "América do Sul"
+  }
+}

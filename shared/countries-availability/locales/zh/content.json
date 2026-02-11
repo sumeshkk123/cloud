@@ -1,0 +1,37 @@
+{
+  "intro": {
+    "badge": "为何选择我们",
+    "heading": "为{{countryName}}量身定制的MLM软件解决方案",
+    "paragraph1": "我们了解{{countryName}}的MLM商业环境，并利用Cloud MLM Software提供量身定制的解决方案。",
+    "paragraph2": "从法规合规到当地支付方式和语言支持，我们的平台旨在帮助您在{{countryName}}启动并扩大直销业务。"
+  },
+  "hero": {
+    "badge": "MLM软件可用性",
+    "title": "适用于{{countryName}}的MLM软件",
+    "description": "Cloud MLM Software 支持在{{countryName}}开展合规的直销与网络营销。为您的{{countryName}}市场配置薪酬、本地化与支付。",
+    "primaryCtaLabel": "定价",
+    "secondaryCtaLabel": "免费试用演示",
+    "reserveDemoCtaLabel": "预约演示",
+    "trustPills": ["120+国家", "合规安全", "24/7支持"],
+    "metrics": [
+      { "label": "可配置模块", "value": "56+", "detail": "根据您的市场和合规需求添加或移除模块。" },
+      { "label": "服务市场", "value": "120+", "detail": "包括{{countryName}}及全球各地区。" },
+      { "label": "支持", "value": "24/7", "detail": "在您需要时提供专属支持与本地化指导。" }
+    ]
+  },
+  "cta": {
+    "title": "准备在{{countryName}}开展您的MLM业务了吗？",
+    "description": "告诉我们您的目标和现有系统。我们将为您准备一份包含监管说明、集成选项和时间线指导的 readiness 概览。",
+    "primaryButtonText": "立即申请",
+    "secondaryButtonText": "联系我们",
+    "subheading": "来自：MLM软件可用性（{{countryName}}）",
+    "trustIndicators": ["准备情况概览", "一个工作日内回复", "监管与集成说明"]
+  },
+  "applyPlan": {
+    "badge": "MLM计划",
+    "heading": "在MLM软件中应用您的计划",
+    "description": "充分利用Cloud MLM Software的潜力，提升您在{{countryName}}的多层次营销策略。我们的平台旨在简化您的MLM运营、提高参与度并增加网络销量。通过Cloud MLM Software，您可以使用一整套工具无缝管理分销网络、实时绩效跟踪和高级报告。基于可操作的洞察做出战略决策，优化流程并最大化利润。面向增长型MLM企业，我们的软件助您在竞争激烈的{{countryName}}市场中保持领先。",
+    "imageAlt": "Cloud MLM Software 仪表板 - 通过实时跟踪与报告应用您的MLM计划",
+    "linkText": "了解更多MLM计划"
+  }
+}

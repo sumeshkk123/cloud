@@ -24,7 +24,6 @@ type FormState = {
   icon: string;
   image: string;
   keyBenefits: string[];
-  serviceHighlights: string[];
   showOnHomePage: boolean;
 };
 
@@ -35,7 +34,6 @@ interface ServiceTranslation {
   icon: string;
   image: string;
   keyBenefits: string[];
-  serviceHighlights: string[];
   showOnHomePage: boolean;
   exists: boolean;
 }
@@ -76,7 +74,6 @@ export function ServicesForm({
         icon: '',
         image: '',
         keyBenefits: [],
-        serviceHighlights: [],
         showOnHomePage: false,
         exists: false,
       };
@@ -90,7 +87,6 @@ export function ServicesForm({
   const [savedLocales, setSavedLocales] = useState<string[]>([]);
   const preserveTabRef = React.useRef<string | null>(null);
   const [newKeyBenefit, setNewKeyBenefit] = useState<Record<string, string>>({});
-  const [newServiceHighlight, setNewServiceHighlight] = useState<Record<string, string>>({});
 
   useEffect(() => {
     onSavingChange?.(isSaving);
@@ -136,7 +132,6 @@ export function ServicesForm({
       setSavedLocales([]);
       setActiveTab('en');
       setNewKeyBenefit({});
-      setNewServiceHighlight({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- loadAllTranslations loads when currentServiceId changes
   }, [currentServiceId]);
@@ -183,7 +178,6 @@ export function ServicesForm({
             icon: sharedIcon || existing.icon || '',
             image: sharedImage || existing.image || '',
             keyBenefits: Array.isArray(existing.keyBenefits) ? existing.keyBenefits.map((f: any) => String(f)) : [],
-            serviceHighlights: Array.isArray(existing.serviceHighlights) ? existing.serviceHighlights.map((f: any) => String(f)) : [],
             showOnHomePage: sharedShowOnHomePage,
             exists: true,
           };
@@ -196,7 +190,6 @@ export function ServicesForm({
             icon: sharedIcon || '',
             image: sharedImage || '',
             keyBenefits: [],
-            serviceHighlights: [],
             showOnHomePage: sharedShowOnHomePage,
             exists: false,
           };
@@ -286,39 +279,6 @@ export function ServicesForm({
   const removeKeyBenefit = (locale: string, index: number) => {
     const current = translations[locale];
     updateTranslation(locale, 'keyBenefits', current.keyBenefits.filter((_, i) => i !== index));
-  };
-
-  const addServiceHighlight = (locale: string) => {
-    const highlight = newServiceHighlight[locale]?.trim() || '';
-    if (highlight) {
-      setTranslations((prev) => {
-        const current = prev[locale];
-        if (!current || !current.serviceHighlights) {
-          return prev;
-        }
-        if (!current.serviceHighlights.includes(highlight)) {
-          return {
-            ...prev,
-            [locale]: {
-              ...current,
-              serviceHighlights: [...current.serviceHighlights, highlight],
-            },
-          };
-        }
-        return prev;
-      });
-      // Clear the input field after adding - use functional update to ensure state is current
-      setNewServiceHighlight((prevHighlight) => {
-        const updated = { ...prevHighlight };
-        updated[locale] = '';
-        return updated;
-      });
-    }
-  };
-
-  const removeServiceHighlight = (locale: string, index: number) => {
-    const current = translations[locale];
-    updateTranslation(locale, 'serviceHighlights', current.serviceHighlights.filter((_, i) => i !== index));
   };
 
   const autoTranslate = async () => {
@@ -418,38 +378,6 @@ export function ServicesForm({
         }
       }
 
-      // Translate service highlights
-      if (english.serviceHighlights.length > 0) {
-        const translatedHighlights: string[] = [];
-        for (const highlight of english.serviceHighlights) {
-          try {
-            const res = await fetch('/api/translate', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                text: highlight,
-                sourceLocale: 'en',
-                targetLocale: activeTab,
-              }),
-            });
-            const data = await res.json();
-            if (res.ok && data.translatedText) {
-              translatedHighlights.push(data.translatedText);
-              successCount++;
-            } else {
-              translatedHighlights.push(highlight);
-              errorCount++;
-            }
-          } catch (error) {
-            translatedHighlights.push(highlight);
-            errorCount++;
-          }
-        }
-        if (translatedHighlights.length > 0) {
-          updateTranslation(activeTab, 'serviceHighlights', translatedHighlights);
-        }
-      }
-
       if (errorCount > 0 && successCount === 0) {
         showToast('Translation failed. Please try again later or translate manually.', 'error');
       } else if (errorCount > 0) {
@@ -471,11 +399,8 @@ export function ServicesForm({
     const trimmedDescription = current.description.trim();
     const trimmedIcon = current.icon.trim();
 
-    // Automatically add any text in the input fields to their respective arrays
+    // Automatically add any text in the input field to key benefits
     let finalKeyBenefits = [...(current.keyBenefits || [])];
-    let finalServiceHighlights = [...(current.serviceHighlights || [])];
-
-    // Add new key benefit if there's text in the input field
     const newBenefit = newKeyBenefit[activeTab]?.trim();
     if (newBenefit && !finalKeyBenefits.includes(newBenefit)) {
       finalKeyBenefits.push(newBenefit);
@@ -483,32 +408,20 @@ export function ServicesForm({
       setNewKeyBenefit({ ...newKeyBenefit, [activeTab]: '' });
     }
 
-    // Add new service highlight if there's text in the input field
-    const newHighlight = newServiceHighlight[activeTab]?.trim();
-    if (newHighlight && !finalServiceHighlights.includes(newHighlight)) {
-      finalServiceHighlights.push(newHighlight);
-      updateTranslation(activeTab, 'serviceHighlights', finalServiceHighlights);
-      setNewServiceHighlight({ ...newServiceHighlight, [activeTab]: '' });
-    }
-
-    // Update current with the final arrays
     const updatedCurrent = {
       ...current,
       keyBenefits: finalKeyBenefits,
-      serviceHighlights: finalServiceHighlights,
     };
 
     const trimmedImage = (updatedCurrent.image || '').trim();
     if (!trimmedTitle || !trimmedDescription || !trimmedIcon || !trimmedImage ||
-      !updatedCurrent.keyBenefits || updatedCurrent.keyBenefits.length === 0 ||
-      !updatedCurrent.serviceHighlights || updatedCurrent.serviceHighlights.length === 0) {
+      !updatedCurrent.keyBenefits || updatedCurrent.keyBenefits.length === 0) {
       const missingFields = [];
       if (!trimmedTitle) missingFields.push('Title');
       if (!trimmedDescription) missingFields.push('Description');
       if (!trimmedIcon) missingFields.push('Icon');
       if (!trimmedImage) missingFields.push('Image');
       if (!updatedCurrent.keyBenefits || updatedCurrent.keyBenefits.length === 0) missingFields.push('Key Benefits');
-      if (!updatedCurrent.serviceHighlights || updatedCurrent.serviceHighlights.length === 0) missingFields.push('Service Highlights');
       showToast(`Please fill in all required fields: ${missingFields.join(', ')}`, 'error');
       return;
     }
@@ -533,7 +446,6 @@ export function ServicesForm({
             icon: trimmedIcon,
             image: trimmedImage || null,
             keyBenefits: updatedCurrent.keyBenefits,
-            serviceHighlights: updatedCurrent.serviceHighlights,
             showOnHomePage: updatedCurrent.showOnHomePage,
             locale: 'en',
           }),
@@ -566,7 +478,6 @@ export function ServicesForm({
           icon: trimmedIcon,
           image: trimmedImage || null,
           keyBenefits: updatedCurrent.keyBenefits,
-          serviceHighlights: updatedCurrent.serviceHighlights,
           showOnHomePage: updatedCurrent.showOnHomePage,
           locale: activeTab,
         }),
@@ -605,7 +516,6 @@ export function ServicesForm({
     icon: '',
     image: '',
     keyBenefits: [],
-    serviceHighlights: [],
     showOnHomePage: false,
     exists: false,
   };
@@ -792,66 +702,6 @@ export function ServicesForm({
                     <button
                       type="button"
                       onClick={() => removeKeyBenefit(activeTab, index)}
-                      disabled={isSaving || isLoading || isTranslating}
-                      className={cn(
-                        "text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors",
-                        (isSaving || isLoading || isTranslating) && "opacity-50 cursor-not-allowed"
-                      )}
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Service Highlights */}
-        <div className="space-y-1.5">
-          <FieldLabel required>Service Highlights ({localeNames[activeTab as keyof typeof localeNames]})</FieldLabel>
-          <div className="space-y-2">
-            <div className="flex gap-2">
-              <Input
-                value={newServiceHighlight[activeTab] || ''}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setNewServiceHighlight((prev) => {
-                    const updated = { ...prev };
-                    updated[activeTab] = value;
-                    return updated;
-                  });
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    addServiceHighlight(activeTab);
-                  }
-                }}
-                placeholder="Add a service highlight..."
-                disabled={isSaving || isLoading || isTranslating}
-              />
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => addServiceHighlight(activeTab)}
-                disabled={isSaving || isLoading || isTranslating || !newServiceHighlight[activeTab]?.trim()}
-                leftIcon={<Plus className="h-4 w-4" />}
-              >
-                Add
-              </Button>
-            </div>
-            {current.serviceHighlights.length > 0 && (
-              <div className="flex flex-wrap gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
-                {current.serviceHighlights.map((highlight, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    {highlight}
-                    <button
-                      type="button"
-                      onClick={() => removeServiceHighlight(activeTab, index)}
                       disabled={isSaving || isLoading || isTranslating}
                       className={cn(
                         "text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors",

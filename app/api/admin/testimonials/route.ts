@@ -45,9 +45,12 @@ export async function GET(request: Request) {
     return NextResponse.json(testimonials, {
       headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
     });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Failed to process request.';
-    return NextResponse.json({ error: message }, { status: 500 });
+  } catch {
+    // Return a message that won't be sanitized by the toast (no prisma/schema/migrate etc.)
+    return NextResponse.json(
+      { error: 'Unable to load testimonials. Check that the database is set up correctly and try again.' },
+      { status: 500 }
+    );
   }
 }
 

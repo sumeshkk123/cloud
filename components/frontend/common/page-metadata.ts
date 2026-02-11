@@ -72,6 +72,10 @@ export async function getPageMetadata(
                 if (!meta && page === 'about-company') {
                     meta = await getMetaDetail('About company', locale);
                 }
+                // Fallback: compliance-modules route loads data saved under legacy "compliance" key
+                if (!meta && page === 'mlm-software-modules-compliance-modules') {
+                    meta = await getMetaDetail('mlm-software-modules-compliance', locale);
+                }
                 // Fallback: module pages may be stored with or without prefix (e.g. "emails" vs "mlm-software-modules-emails")
                 if (!meta && page.startsWith('mlm-software-modules-')) {
                     const shortKey = page.replace(/^mlm-software-modules-/, '');
@@ -84,6 +88,9 @@ export async function getPageMetadata(
                 }
                 // When meta_details has no row or missing title/description, fall back to page_titles
                 let pageTitleRecord = await getPageTitle(page, locale);
+                if (!pageTitleRecord && page === 'mlm-software-modules-compliance-modules') {
+                    pageTitleRecord = await getPageTitle('mlm-software-modules-compliance', locale);
+                }
                 if (!pageTitleRecord && page.startsWith('mlm-software-modules-')) {
                     const shortKey = page.replace(/^mlm-software-modules-/, '');
                     pageTitleRecord = await getPageTitle(shortKey, locale);
@@ -132,8 +139,13 @@ export async function getPageMetadata(
         console.error('[getPageMetadata] Error generating metadata:', error);
         const { fallbackTitle, fallbackDescription, fallbackKeywords } = config;
         
-        // Resolve params for fallback
-        const resolvedParams = params != null && (params instanceof Promise ? await params : params);
+        // Resolve params for fallback (guard so we never read .lang on undefined)
+        let resolvedParams: { lang?: SupportedLocale } | undefined;
+        try {
+            resolvedParams = params == null ? undefined : (params instanceof Promise ? await params : params);
+        } catch {
+            resolvedParams = undefined;
+        }
         const locale = resolvedParams?.lang;
         if (locale != null) {
             const canonicalPath = config.slug ? `${path}/${config.slug}` : path;

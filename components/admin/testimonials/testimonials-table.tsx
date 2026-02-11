@@ -58,27 +58,52 @@ export function TestimonialsTable() {
           'Pragma': 'no-cache',
         },
       });
-      const data = await res.json();
-      if (!res.ok) {
-        if (res.status >= 500) {
-          showToast(data?.error || 'Unable to load testimonials.', 'error');
-        }
+      let data: unknown;
+      try {
+        data = await res.json();
+      } catch {
+        showToast('Invalid response from server. Please try again.', 'error');
         setItems([]);
         setCurrentPage(1);
         return;
       }
-      const mapped: TestimonialRow[] = Array.isArray(data)
-        ? data.map((item: any) => ({
-          id: String(item.id),
-          name: String(item.name || ''),
-          role: item.role ? String(item.role) : '',
-          content: String(item.content || ''),
-          image: item.image ? String(item.image) : undefined,
-          locale: String(item.locale || 'en'),
-          updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
-          availableLocales: Array.isArray(item.availableLocales) ? item.availableLocales : [item.locale || 'en'],
-        }))
-        : [];
+      if (!res.ok) {
+        const message =
+          (data && typeof data === 'object' && 'error' in data && typeof (data as { error: unknown }).error === 'string')
+            ? (data as { error: string }).error
+            : res.status === 401
+              ? 'Please sign in to view testimonials.'
+              : res.status === 403
+                ? 'You don’t have permission to view testimonials.'
+                : `Unable to load testimonials (${res.status}).`;
+        showToast(message, 'error');
+        setItems([]);
+        setCurrentPage(1);
+        return;
+      }
+      const rawList = Array.isArray(data)
+        ? data
+        : (data && typeof data === 'object' && Array.isArray((data as { data?: unknown }).data))
+          ? (data as { data: unknown[] }).data
+          : (data && typeof data === 'object' && Array.isArray((data as { testimonials?: unknown }).testimonials))
+            ? (data as { testimonials: unknown[] }).testimonials
+            : null;
+      if (!rawList) {
+        showToast('Unexpected response format from server.', 'error');
+        setItems([]);
+        setCurrentPage(1);
+        return;
+      }
+      const mapped: TestimonialRow[] = rawList.map((item: any) => ({
+        id: String(item.id),
+        name: String(item.name || ''),
+        role: item.role ? String(item.role) : '',
+        content: String(item.content || ''),
+        image: item.image ? String(item.image) : undefined,
+        locale: String(item.locale || 'en'),
+        updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
+        availableLocales: Array.isArray(item.availableLocales) ? item.availableLocales : [item.locale || 'en'],
+      }));
 
       setItems(mapped);
       setCurrentPage(1);
@@ -86,6 +111,8 @@ export function TestimonialsTable() {
         hasLoadedRef.current = true;
       }
     } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to load testimonials.';
+      showToast(message, 'error');
       setItems([]);
       setCurrentPage(1);
     } finally {

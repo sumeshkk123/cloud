@@ -9,6 +9,7 @@ type KycDocumentationClientProps = {
   pageTitleData: PageTitleRecord | null;
   contactHref: string;
   secondaryHref: string;
+  locale?: string;
 };
 
 function mergeContentWithPageTitle(
@@ -32,6 +33,7 @@ export function KycDocumentationClient({
   pageTitleData,
   contactHref,
   secondaryHref,
+  locale = "en",
 }: KycDocumentationClientProps) {
   const content = mergeContentWithPageTitle(kycDocumentationContent, pageTitleData);
   return (
@@ -39,6 +41,8 @@ export function KycDocumentationClient({
       content={content}
       contactHref={contactHref}
       demoHref={secondaryHref}
+      moduleSlug="kyc-documentation"
+      locale={locale}
     />
   );
 }

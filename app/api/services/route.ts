@@ -28,7 +28,6 @@ export async function GET(request: NextRequest) {
       image: service.image ? String(service.image) : null,
       icon: service.icon ? String(service.icon) : null,
       keyBenefits: service.keyBenefits || null,
-      serviceHighlights: service.serviceHighlights || null,
       showOnHomePage: Boolean(service.showOnHomePage ?? false),
       locale: String(service.locale || locale),
       createdAt: service.createdAt,

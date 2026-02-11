@@ -19,9 +19,6 @@ interface CombinedRow {
     metaTitle: string;
     metaDescription: string;
     metaKeywords: string;
-    pageTitle: string;
-    pagePill: string;
-    sectionSubtitle: string;
     availableLocales?: string[];
     updatedAt?: Date | string;
 }
@@ -29,8 +26,9 @@ interface CombinedRow {
 const SERVICE_PAGE_PREFIX = 'services';
 const ITEMS_PER_PAGE = 20;
 
-// Static service pages
+// Static service pages (must match route folders under app/[lang]/services/)
 const STATIC_SERVICE_PAGES = [
+  { value: 'services/bitcoin-cryptocurrency-mlm-software', label: 'Bitcoin & Cryptocurrency MLM Software' },
   { value: 'services/comp-plan-audit', label: 'Comp Plan Audit' },
   { value: 'services/e-commerce-integration', label: 'E-commerce Integration' },
   { value: 'services/magento-development', label: 'Magento Development' },
@@ -98,11 +96,6 @@ export function ServicesMetaPageTitleTab() {
         });
         const metaData = metaRes.ok ? await metaRes.json() : [];
         
-        const pageTitleRes = await fetch(`/api/admin/page-titles?page=${encodeURIComponent(page)}`, {
-          cache: 'no-store',
-        });
-        const pageTitleData = pageTitleRes.ok ? await pageTitleRes.json() : [];
-        
         const combinedMap = new Map<string, CombinedRow>();
         const locales = new Set<string>();
         
@@ -118,9 +111,6 @@ export function ServicesMetaPageTitleTab() {
                   metaTitle: '',
                   metaDescription: '',
                   metaKeywords: '',
-                  pageTitle: '',
-                  pagePill: '',
-                  sectionSubtitle: '',
                   availableLocales: [],
                 });
               }
@@ -132,39 +122,13 @@ export function ServicesMetaPageTitleTab() {
           });
         }
         
-        if (Array.isArray(pageTitleData)) {
-          pageTitleData.forEach((item: any) => {
-            if (item.page === page) {
-              const locale = item.locale || 'en';
-              locales.add(locale);
-              if (!combinedMap.has(locale)) {
-                combinedMap.set(locale, {
-                  page,
-                  locale,
-                  metaTitle: '',
-                  metaDescription: '',
-                  metaKeywords: '',
-                  pageTitle: '',
-                  pagePill: '',
-                  sectionSubtitle: '',
-                  availableLocales: [],
-                });
-              }
-              const row = combinedMap.get(locale)!;
-              row.pageTitle = item.title || '';
-              row.pagePill = item.pagePill || '';
-              row.sectionSubtitle = item.sectionSubtitle || '';
-            }
-          });
-        }
-        
         const allLocales = Array.from(locales);
         combinedMap.forEach((row) => {
           row.availableLocales = allLocales;
           allData.push(row);
         });
       }
-      
+
       setTableData(allData);
     } catch (error) {
       console.error('Error loading data:', error);
@@ -199,13 +163,7 @@ export function ServicesMetaPageTitleTab() {
     try {
       setIsDeleting(true);
       
-      // Delete meta details
       await fetch(`/api/admin/meta-details?page=${encodeURIComponent(pageToDelete)}&locale=${localeToDelete}`, {
-        method: 'DELETE',
-      });
-      
-      // Delete page titles
-      await fetch(`/api/admin/page-titles?page=${encodeURIComponent(pageToDelete)}&locale=${localeToDelete}`, {
         method: 'DELETE',
       });
       
@@ -225,7 +183,7 @@ export function ServicesMetaPageTitleTab() {
   const columns = [
     { key: 'page', label: 'Page', className: 'w-1/4' },
     { key: 'metaTitle', label: 'Meta Title', className: 'w-1/4' },
-    { key: 'pageTitle', label: 'Page Title', className: 'w-1/4' },
+    { key: 'metaDescription', label: 'Meta Description', className: 'w-1/4' },
     { key: 'languages', label: 'Languages', className: 'w-32' },
     { key: 'actions', label: 'Actions', className: 'w-24 text-right' },
   ];
@@ -277,7 +235,7 @@ export function ServicesMetaPageTitleTab() {
         columns={columns}
         data={paginated}
         isLoading={isLoading}
-        emptyMessage={isLoading ? 'Loading meta details and page titles...' : 'No meta details or page titles yet. Click \'New\' to create.'}
+        emptyMessage={isLoading ? 'Loading meta details...' : 'No meta details yet. Click \'New\' to create.'}
         renderCell={(column, row) => {
           if (column.key === 'page') {
             // Extract just the slug part for display
@@ -287,8 +245,8 @@ export function ServicesMetaPageTitleTab() {
           if (column.key === 'metaTitle') {
             return <span className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2">{row.metaTitle || <span className="text-gray-400 italic">No title</span>}</span>;
           }
-          if (column.key === 'pageTitle') {
-            return <span className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2">{row.pageTitle || <span className="text-gray-400 italic">No title</span>}</span>;
+          if (column.key === 'metaDescription') {
+            return <span className="text-gray-700 dark:text-gray-300 line-clamp-2">{row.metaDescription || <span className="text-gray-400 italic">—</span>}</span>;
           }
           if (column.key === 'languages') {
             const locales = row.availableLocales || [row.locale];
@@ -333,7 +291,7 @@ export function ServicesMetaPageTitleTab() {
           setEditingLocale('en');
           setFormToast(null);
         }}
-        title={editingPage ? 'Edit Meta Details & Page Title' : 'New Meta Details & Page Title'}
+        title={editingPage ? 'Edit Meta Details' : 'New Meta Details'}
         size="4xl"
         isLoading={isFormLoading}
         footer={
@@ -389,8 +347,8 @@ export function ServicesMetaPageTitleTab() {
         }}
         onConfirm={handleDelete}
         isLoading={isDeleting}
-        title="Delete Meta Details & Page Title"
-        message={`Are you sure you want to delete meta details and page title for page "${pageToDelete}" (${localeToDelete})?`}
+        title="Delete Meta Details"
+        message={`Are you sure you want to delete meta details for page "${pageToDelete}" (${localeToDelete})?`}
       />
     </div>
   );

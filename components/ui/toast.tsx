@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X, CheckCircle2, AlertCircle, Info, AlertTriangle } from 'lucide-react';
+import { sanitizeErrorForToast } from '@/lib/sanitize-toast-error';
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -80,7 +81,8 @@ export function useToast() {
   const [toast, setToast] = useState<{ message: string; type: ToastType; duration: number } | null>(null);
 
   const showToast = (message: string, type: ToastType = 'info', duration: number = 3000) => {
-    setToast({ message, type, duration });
+    const safeMessage = type === 'error' ? sanitizeErrorForToast(message, 'Something went wrong. Please try again.') : message;
+    setToast({ message: safeMessage, type, duration });
   };
 
   const closeToast = useCallback(() => {

@@ -11,6 +11,8 @@ interface ServicesHeroSectionProps {
   demoHref: string;
   supportHref: string;
   pageTitleData?: PageTitleRecord | null;
+  /** When set, primary CTA runs this instead of linking (e.g. open project brief modal) */
+  onPrimaryCtaClick?: () => void;
 }
 
 // Translation strings
@@ -122,7 +124,7 @@ const translations: Record<Locale, {
   }
 };
 
-export function ServicesHeroSection({ locale, contactHref, demoHref, supportHref, pageTitleData }: ServicesHeroSectionProps) {
+export function ServicesHeroSection({ locale, contactHref, demoHref, supportHref, pageTitleData, onPrimaryCtaClick }: ServicesHeroSectionProps) {
   const t = translations[locale];
 
   // Parse title to extract highlight text
@@ -183,10 +185,11 @@ export function ServicesHeroSection({ locale, contactHref, demoHref, supportHref
       highlightText={titleParts.highlightText}
       afterText={titleParts.afterText}
       description={pageTitleData?.sectionSubtitle || t.description}
-      primaryCta={{
-        label: t.primaryCta,
-        href: contactHref,
-      }}
+      primaryCta={
+        onPrimaryCtaClick
+          ? { label: t.primaryCta, onClick: onPrimaryCtaClick }
+          : { label: t.primaryCta, href: contactHref }
+      }
       secondaryCta={{
         label: t.secondaryCta,
         href: demoHref,

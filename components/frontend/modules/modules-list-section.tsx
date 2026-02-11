@@ -39,8 +39,8 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    // Show all modules
-                    setModules(Array.isArray(data) ? data : []);
+                    // Show all modules in reverse order (oldest first, newest last)
+                    setModules(Array.isArray(data) ? [...data].reverse() : []);
                 } else {
                     setModules([]);
                 }

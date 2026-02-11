@@ -4,7 +4,7 @@ import { getPageMetadata } from "@/components/frontend/common/page-metadata";
 
 export const dynamic = "force-dynamic";
 
-const PAGE_KEY = "mlm-software-modules-multi-currency";
+const PAGE_KEY = "mlm-software-modules-multi-currency-module";
 
 export async function generateMetadata(props: {
   params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };

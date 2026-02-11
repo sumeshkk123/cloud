@@ -5,13 +5,43 @@ import { ModuleSubpageLayout } from "@/components/frontend/modules/subpage";
 import type { ModuleFeatureContent } from "@/components/frontend/modules/subpage";
 import { autoResponderContent } from "./content";
 
-type Props = { pageTitleData: PageTitleRecord | null; contactHref: string; secondaryHref: string };
+type AutoResponderClientProps = {
+  pageTitleData: PageTitleRecord | null;
+  contactHref: string;
+  secondaryHref: string;
+  locale?: string;
+};
 
-function merge(content: ModuleFeatureContent, pageTitleData: PageTitleRecord | null): ModuleFeatureContent {
+function mergeContentWithPageTitle(
+  content: ModuleFeatureContent,
+  pageTitleData: PageTitleRecord | null
+): ModuleFeatureContent {
   if (!pageTitleData) return content;
-  return { ...content, hero: { ...content.hero, title: pageTitleData.title, badge: pageTitleData.pagePill ?? content.hero.badge, description: pageTitleData.sectionSubtitle ?? content.hero.description } };
+  return {
+    ...content,
+    hero: {
+      ...content.hero,
+      title: pageTitleData.title,
+      badge: pageTitleData.pagePill ?? content.hero.badge,
+      description: pageTitleData.sectionSubtitle ?? content.hero.description,
+    },
+  };
 }
 
-export function AutoResponderClient({ pageTitleData, contactHref, secondaryHref }: Props) {
-  return <ModuleSubpageLayout content={merge(autoResponderContent, pageTitleData)} contactHref={contactHref} demoHref={secondaryHref} />;
+export function AutoResponderClient({
+  pageTitleData,
+  contactHref,
+  secondaryHref,
+  locale = "en",
+}: AutoResponderClientProps) {
+  const content = mergeContentWithPageTitle(autoResponderContent, pageTitleData);
+  return (
+    <ModuleSubpageLayout
+      content={content}
+      contactHref={contactHref}
+      demoHref={secondaryHref}
+      moduleSlug="auto-responder"
+      locale={locale}
+    />
+  );
 }

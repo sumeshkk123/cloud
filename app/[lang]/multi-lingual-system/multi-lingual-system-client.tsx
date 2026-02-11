@@ -9,6 +9,7 @@ type MultiLingualSystemClientProps = {
   pageTitleData: PageTitleRecord | null;
   contactHref: string;
   secondaryHref: string;
+  locale?: string;
 };
 
 function mergeContentWithPageTitle(
@@ -31,6 +32,7 @@ export function MultiLingualSystemClient({
   pageTitleData,
   contactHref,
   secondaryHref,
+  locale = "en",
 }: MultiLingualSystemClientProps) {
   const content = mergeContentWithPageTitle(multiLingualSystemContent, pageTitleData);
   return (
@@ -38,6 +40,8 @@ export function MultiLingualSystemClient({
       content={content}
       contactHref={contactHref}
       demoHref={secondaryHref}
+      moduleSlug="multi-lingual-system"
+      locale={locale}
     />
   );
 }

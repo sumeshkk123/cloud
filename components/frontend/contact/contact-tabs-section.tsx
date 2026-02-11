@@ -158,6 +158,7 @@ export function ContactTabsSection({ locale }: ContactTabsSectionProps) {
                         email={address.email}
                         whatsapp={address.whatsapp || undefined}
                         flagIso={address.country ? getCountryIsoCode(address.country) ?? undefined : undefined}
+                        flag={address.flag ?? undefined}
                       />
                     );
                   })}

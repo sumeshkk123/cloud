@@ -313,7 +313,6 @@ model services {
   createdAt         DateTime @default(now())
   updatedAt         DateTime
   keyBenefits       Json?
-  serviceHighlights Json?
 
   @@index([locale])
   @@index([showOnHomePage])

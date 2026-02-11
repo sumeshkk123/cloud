@@ -12,7 +12,6 @@ export interface CommonContent {
   };
   labels: {
     keyBenefits: string;
-    serviceHighlights: string;
   };
 }
 

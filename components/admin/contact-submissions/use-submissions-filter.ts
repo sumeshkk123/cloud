@@ -34,6 +34,8 @@ export function useSubmissionsFilter(submissions: ContactSubmission[], itemsPerP
         const submissionSource = submission.source || 'contact';
         if (sourceFilter === 'demo') {
           matchesSource = submissionSource === 'demo' || submissionSource.startsWith('demo-');
+        } else if (sourceFilter === 'hero-section-module') {
+          matchesSource = submissionSource === 'hero-section-module' || submissionSource === 'mlm-software-modules';
         } else {
           matchesSource = submissionSource === sourceFilter;
         }

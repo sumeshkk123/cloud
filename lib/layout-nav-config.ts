@@ -7,32 +7,32 @@ function MODULE_HIGHLIGHTS_LINKS(): LinkWithIcon[] {
   return [
     {
       label: "Multi currency",
-      href: "/mlm-software-modules/multi-currency-module/",
+      href: "/multi-currency-module",
       iconUrl: "/wp-content/themes/cloudmlmdemo/assets/images/icon/modules/multicurrency.webp"
     },
     {
       label: "Ticket desk",
-      href: "/mlm-software-modules/mlm-ticket-system-module/",
+      href: "/ticket-system-module-for-mlm-software",
       iconUrl: "/wp-content/themes/cloudmlmdemo/assets/images/icon/modules/ticket-system.webp"
     },
     {
       label: "Autoresponder",
-      href: "/mlm-software-modules/mlm-autoresponder-module/",
+      href: "/auto-responder",
       iconUrl: "/wp-content/themes/cloudmlmdemo/assets/images/icon/modules/auto-responder.webp"
     },
     {
       label: "E-voucher",
-      href: "/mlm-software-modules/mlm-e-voucher-module/",
+      href: "/e-voucher-for-mlm-software",
       iconUrl: "/wp-content/themes/cloudmlmdemo/assets/images/icon/modules/voucher.webp"
     },
     {
       label: "E-wallet",
-      href: "/mlm-software-modules/e-wallet-module/",
+      href: "/e-wallet-module-for-mlm-software",
       iconUrl: "/wp-content/themes/cloudmlmdemo/assets/images/icon/modules/Ewallet.webp"
     },
     {
       label: "Backup manager",
-      href: "/mlm-software-modules/mlm-backup-manager-module/",
+      href: "/backup-manager",
       iconUrl: "/wp-content/themes/cloudmlmdemo/assets/images/icon/modules/backup.webp"
     }
   ];
@@ -43,19 +43,19 @@ function PLAN_CARDS_LINKS(): MegaMenu["cards"] {
     {
       title: "Binary",
       description: "Left-right legs with spillover, carry-forward logic, and rank accelerators.",
-      href: "/mlm-plan/binary-mlm-plan/",
+      href: "/mlm-plan/mlm-binary-plan",
       iconUrl: "/wp-content/themes/cloudmlmdemo/assets/images/icon/plans/binary.svg"
     },
     {
       title: "Unilevel",
       description: "Unlimited frontline with depth-based bonus rules.",
-      href: "/mlm-plan/unilevel-mlm-plan/",
+      href: "/mlm-plan/unilevel-mlm-plan",
       iconUrl: "/wp-content/themes/cloudmlmdemo/assets/images/icon/plans/unilevel.svg"
     },
     {
       title: "Matrix",
       description: "Forced width matrices with re-entry and spill incentives.",
-      href: "/mlm-plan/matrix-plan/",
+      href: "/mlm-plan/mlm-matrix-plan",
       iconUrl: "/wp-content/themes/cloudmlmdemo/assets/images/icon/plans/matrix.svg"
     }
   ];
@@ -148,18 +148,18 @@ const PLANS_MEGA: MegaMenu = {
   highlights: [],
   cards: PLAN_CARDS_LINKS(),
   serviceList: [
-    { label: "Binary plan", href: "/mlm-plan/binary-mlm-plan/" },
-    { label: "Unilevel plan", href: "/mlm-plan/unilevel-mlm-plan/" },
-    { label: "Matrix plan", href: "/mlm-plan/matrix-plan/" },
-    { label: "Generation plan", href: "/mlm-plan/generation-plan/" },
-    { label: "Monoline plan", href: "/mlm-plan/monoline-mlm-plan/" },
-    { label: "Board plan", href: "/mlm-plan/board-plan/" }
+    { label: "Binary plan", href: "/mlm-plan/mlm-binary-plan" },
+    { label: "Unilevel plan", href: "/mlm-plan/unilevel-mlm-plan" },
+    { label: "Matrix plan", href: "/mlm-plan/mlm-matrix-plan" },
+    { label: "Generation plan", href: "/mlm-plan/mlm-generation-plan" },
+    { label: "Monoline plan", href: "/mlm-plan/monoline-mlm-plan" },
+    { label: "Board plan", href: "/mlm-plan/mlm-board-plan" }
   ],
   serviceDetails: [
     {
       title: "Plan comparison guide",
       description: "Evaluate Binary, Unilevel, Matrix, and hybrids against your growth targets.",
-      href: "/mlm-plan/",
+      href: "/mlm-plans",
       imageUrl: "/wp-content/uploads/2024/08/plan-comparison.webp",
       ctaLabel: "Download guide"
     }

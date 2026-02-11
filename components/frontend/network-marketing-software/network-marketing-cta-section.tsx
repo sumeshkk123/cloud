@@ -19,6 +19,7 @@ export function NetworkMarketingCtaSection({
       title={c.heading}
       description={c.description}
       primaryButton={{ text: c.card.ctaLabel, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       trustIndicators={[
         items[0] ? `${items[0].label}: ${items[0].value}` : "",
         items[1] ? `${items[1].label}: ${items[1].value}` : "",

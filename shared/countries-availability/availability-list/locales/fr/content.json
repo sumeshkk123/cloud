@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "Disponibilité du logiciel MLM dans le monde",
+    "description": "Découvrez comment Cloud MLM Software accompagne la vente directe conforme dans toutes les régions, avec localisation, paiements et partenaires."
+  },
+  "hero": {
+    "badgeText": "Guide de déploiement mondial",
+    "highlightText": "Lancez et développez votre activité MLM dans n'importe quelle région en toute confiance.",
+    "description": "De la préparation réglementaire à la localisation linguistique, Cloud MLM Software est disponible dans de nombreux pays pour vous permettre de vous développer sans reconstruire votre stack technique à chaque fois.",
+    "primaryCtaLabel": "Réserver votre démo",
+    "secondaryCtaLabel": "Voir la démo gratuite",
+    "highlights": [
+      {
+        "title": "Présence mondiale",
+        "description": "Cloud MLM Software prend en charge les déploiements dans plus de 120 territoires avec localisation, multi-devises et résidence des données intégrées."
+      },
+      {
+        "title": "Conformité réglementaire",
+        "description": "Notre équipe suit l'évolution des réglementations de la vente directe pour que votre lancement réponde aux attentes de chaque pays dès le premier jour."
+      },
+      {
+        "title": "Écosystème de partenaires",
+        "description": "Profitez de partenaires régionaux pour la logistique, les paiements et l'accompagnement pour accélérer votre mise sur le marché sans tout reconstruire."
+      }
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "Disponibilité du logiciel MLM par pays ou région",
+    "sectionDescription": "En savoir plus sur la disponibilité du logiciel MLM dans chaque pays ou région",
+    "badge": "Par région",
+    "countriesCountLabel": "pays"
+  },
+  "steps": {
+    "badge": "Parcours de lancement",
+    "heading": "Comment nous permettons les lancements par pays",
+    "description": "Un parcours de migration structuré préserve la continuité d'activité tout en mettant le nouveau marché en production.",
+    "steps": [
+      {
+        "title": "Évaluer",
+        "detail": "Évaluez vos opérations actuelles, cartographiez les intégrations nécessaires et identifiez les points de contrôle réglementaires par pays."
+      },
+      {
+        "title": "Activer",
+        "detail": "Localisez les contenus, configurez les variantes de rémunération et connectez les prestataires de paiement et de logistique régionaux."
+      },
+      {
+        "title": "Accélérer",
+        "detail": "Lancez des analyses, de l'accompagnement et des sprints d'optimisation pour maintenir une croissance durable de chaque marché."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Besoin d'une évaluation pays par pays ?",
+    "description": "Indiquez-nous les territoires ciblés et les systèmes que vous utilisez. Nous préparerons un dossier de préparation avec les notes réglementaires, les listes d'intégration et un calendrier.",
+    "primaryButtonText": "Demander maintenant",
+    "secondaryButtonText": "Nous contacter",
+    "subheading": "De : Disponibilité (pays)",
+    "trustIndicators": ["Dossier de préparation", "Suivi sous un jour ouvré", "Listes réglementaires et d'intégration"]
+  },
+  "continentNames": {
+    "africa": "Afrique",
+    "asia": "Asie",
+    "europe": "Europe",
+    "north-america": "Amérique du Nord",
+    "oceania": "Océanie",
+    "south-america": "Amérique du Sud"
+  }
+}

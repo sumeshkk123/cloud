@@ -38,7 +38,6 @@ async function main() {
       image: true,
       icon: true,
       keyBenefits: true,
-      serviceHighlights: true,
       showOnHomePage: true,
       createdAt: true,
       updatedAt: true,
@@ -58,7 +57,6 @@ async function main() {
       image: r.image ?? null,
       icon: r.icon ?? null,
       keyBenefits: r.keyBenefits ?? null,
-      serviceHighlights: r.serviceHighlights ?? null,
       showOnHomePage: r.showOnHomePage,
     })),
   };

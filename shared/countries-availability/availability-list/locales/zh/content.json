@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "MLM软件全球可用性",
+    "description": "了解 Cloud MLM Software 如何通过本地化、支付与合作伙伴在全球范围内支持合规直销。"
+  },
+  "hero": {
+    "badgeText": "全球部署指南",
+    "highlightText": "在任意地区自信地启动并拓展您的 MLM 业务。",
+    "description": "从法规准备到语言本地化，Cloud MLM Software 在多个国家可用，助您拓展业务而无需每次重建技术架构。",
+    "primaryCtaLabel": "预约演示",
+    "secondaryCtaLabel": "观看免费演示",
+    "highlights": [
+      {
+        "title": "全球覆盖",
+        "description": "Cloud MLM Software 支持在 120 多个地区部署，提供本地化、多币种与数据驻留的一站式支持。"
+      },
+      {
+        "title": "法规合规",
+        "description": "我们的团队持续跟踪直销法规变化，确保您的上线从第一天起就符合各国要求。"
+      },
+      {
+        "title": "合作伙伴生态",
+        "description": "借助区域履约、支付与赋能合作伙伴，缩短上市时间，无需重建运营体系。"
+      }
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "按国家或地区查看 MLM 软件可用性",
+    "sectionDescription": "了解 MLM 软件在各国或各地区的可用性",
+    "badge": "按地区",
+    "countriesCountLabel": "国家/地区"
+  },
+  "steps": {
+    "badge": "上线路径",
+    "heading": "我们如何支持按国家上线",
+    "description": "结构化的迁移路径在保证业务连续性的同时，将新市场顺利上线。",
+    "steps": [
+      {
+        "title": "评估",
+        "detail": "对当前运营进行基准评估，梳理所需集成，并识别各国的法规检查点。"
+      },
+      {
+        "title": "激活",
+        "detail": "本地化内容、配置薪酬方案并接入区域支付与履约服务商。"
+      },
+      {
+        "title": "加速",
+        "detail": "启动分析、赋能与优化冲刺，推动各市场持续可持续增长。"
+      }
+    ]
+  },
+  "cta": {
+    "title": "需要按国家评估？",
+    "description": "告诉我们您目标覆盖的地区以及当前使用的系统。我们将为您准备一份就绪度报告，包含监管说明、集成清单与时间线建议。",
+    "primaryButtonText": "立即申请",
+    "secondaryButtonText": "联系我们",
+    "subheading": "来自：可用性（国家）",
+    "trustIndicators": ["就绪度报告", "一个工作日内回复", "监管与集成清单"]
+  },
+  "continentNames": {
+    "africa": "非洲",
+    "asia": "亚洲",
+    "europe": "欧洲",
+    "north-america": "北美洲",
+    "oceania": "大洋洲",
+    "south-america": "南美洲"
+  }
+}

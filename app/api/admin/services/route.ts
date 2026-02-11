@@ -43,7 +43,6 @@ export async function GET(request: Request) {
         image: service.image ? String(service.image) : null,
         icon: service.icon ? String(service.icon) : null,
         keyBenefits: service.keyBenefits || null,
-        serviceHighlights: service.serviceHighlights || null,
         showOnHomePage: Boolean(service.showOnHomePage ?? false),
         locale: String(service.locale || ''),
         createdAt: service.createdAt,
@@ -104,7 +103,6 @@ export async function GET(request: Request) {
           image: service.image ? String(service.image) : null,
           icon: service.icon ? String(service.icon) : null,
           keyBenefits: service.keyBenefits || null,
-          serviceHighlights: service.serviceHighlights || null,
           showOnHomePage: Boolean(service.showOnHomePage ?? false),
           locale: String(service.locale || ''),
           createdAt: service.createdAt,
@@ -124,7 +122,6 @@ export async function GET(request: Request) {
       image: service.image ? String(service.image) : null,
       icon: service.icon ? String(service.icon) : null,
       keyBenefits: service.keyBenefits || null,
-      serviceHighlights: service.serviceHighlights || null,
       showOnHomePage: Boolean(service.showOnHomePage ?? false),
       locale: String(service.locale || ''),
       createdAt: service.createdAt,
@@ -145,7 +142,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, description, content, image, icon, keyBenefits, serviceHighlights, showOnHomePage, locale = 'en' } = body || {};
+    const { title, description, content, image, icon, keyBenefits, showOnHomePage, locale = 'en' } = body || {};
 
     if (!title || !description || !icon) {
       return NextResponse.json(
@@ -161,13 +158,6 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!serviceHighlights || !Array.isArray(serviceHighlights) || serviceHighlights.length === 0) {
-      return NextResponse.json(
-        { error: 'serviceHighlights is required and must have at least one item.' },
-        { status: 400 }
-      );
-    }
-
     const service = await createService({
       title: String(title),
       description: String(description),
@@ -175,7 +165,6 @@ export async function POST(request: Request) {
       image: image ? String(image) : null,
       icon: String(icon),
       keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
-      serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
       showOnHomePage: Boolean(showOnHomePage ?? false),
       locale: String(locale),
     });
@@ -197,7 +186,7 @@ export async function PUT(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const body = await request.json();
-    const { title, description, content, image, icon, keyBenefits, serviceHighlights, showOnHomePage, locale = 'en' } = body || {};
+    const { title, description, content, image, icon, keyBenefits, showOnHomePage, locale = 'en' } = body || {};
 
     if (!id) {
       return NextResponse.json({ error: 'id is required in query params.' }, { status: 400 });
@@ -217,13 +206,6 @@ export async function PUT(request: Request) {
       );
     }
 
-    if (!serviceHighlights || !Array.isArray(serviceHighlights) || serviceHighlights.length === 0) {
-      return NextResponse.json(
-        { error: 'serviceHighlights is required and must have at least one item.' },
-        { status: 400 }
-      );
-    }
-
     const existing = await getServiceById(id);
     if (!existing) {
       if (locale !== 'en') {
@@ -238,7 +220,6 @@ export async function PUT(request: Request) {
             image: image ? String(image) : null,
             icon: englishMatch.icon || String(icon),
             keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
-            serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
             showOnHomePage: englishMatch.showOnHomePage,
             locale: String(locale),
           });
@@ -267,7 +248,6 @@ export async function PUT(request: Request) {
           image: imageToUseForTranslation,
           icon: iconToUse,
           keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
-          serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
           showOnHomePage: showOnHomePageToUse,
           locale: targetLocale,
         });
@@ -280,7 +260,6 @@ export async function PUT(request: Request) {
           image: imageToUseForTranslation,
           icon: iconToUse,
           keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
-          serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
           showOnHomePage: showOnHomePageToUse,
           locale: targetLocale,
         });
@@ -304,7 +283,6 @@ export async function PUT(request: Request) {
         image: imageToUse,
         icon: iconToUse,
         keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
-        serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
         showOnHomePage: showOnHomePageToUse,
         locale: targetLocale,
       });
@@ -324,7 +302,6 @@ export async function PUT(request: Request) {
                 description: t.description,
                 content: t.content,
                 keyBenefits: t.keyBenefits,
-                serviceHighlights: t.serviceHighlights,
               })
             )
         );
@@ -348,7 +325,6 @@ export async function PUT(request: Request) {
       image: imageToUse,
       icon: iconToUse,
       keyBenefits: Array.isArray(keyBenefits) ? keyBenefits.map((f: any) => String(f)) : null,
-      serviceHighlights: Array.isArray(serviceHighlights) ? serviceHighlights.map((f: any) => String(f)) : null,
       showOnHomePage: showOnHomePageToUse,
       locale: targetLocale,
     });

@@ -14,6 +14,7 @@ import type { Locale } from "@/i18n-config";
 import { resolveIcon } from "@/components/frontend/home/utils";
 import { Code } from "lucide-react";
 import { buildLocalizedPath } from "@/lib/locale-links";
+import { getCanonicalServiceSlug } from "@/lib/services-subpage-slugs";
 import type { SupportedLocale } from "@/config/site";
 import { getCommonContent } from "@/lib/common";
 import type { ServiceRecord } from "@/lib/api/services";
@@ -30,7 +31,6 @@ interface ServiceCategory {
   description: string;
   icon: RemixIconType;
   benefits: string[];
-  serviceHighlights: string[];
   href: string;
   image?: string | null;
 }
@@ -112,24 +112,16 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
 
     // Fetch English services to create a map for consistent slug generation
     return limitedServices.map((service) => {
-      // Use keyBenefits for benefits
       const benefits = (service.keyBenefits && Array.isArray(service.keyBenefits) && service.keyBenefits.length > 0)
         ? service.keyBenefits
         : [];
 
-      // Use serviceHighlights for service highlights (separate from keyBenefits)
-      const serviceHighlights = (service.serviceHighlights && Array.isArray(service.serviceHighlights) && service.serviceHighlights.length > 0)
-        ? service.serviceHighlights
-        : [];
-
-      // Generate slug from title
-      const slug = generateSlug(service.title);
-      const href = buildLocalizedPath(`/services/${slug}`, locale as SupportedLocale);
-
-      // Resolve icon component
+      const slug = getCanonicalServiceSlug(generateSlug(service.title));
+      const href =
+        slug === "bitcoin-cryptocurrency-mlm-software"
+          ? buildLocalizedPath("/bitcoin-cryptocurrency-mlm-software", locale as SupportedLocale)
+          : buildLocalizedPath(`/services/${slug}`, locale as SupportedLocale);
       const IconComponent = resolveIcon(service.icon || null, Code);
-
-      // Use first sentence or first 100 chars as summary
       const summary = service.description.split('.')[0] || service.description.substring(0, 100);
 
       return {
@@ -140,7 +132,6 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
         description: service.description,
         icon: IconComponent,
         benefits: benefits,
-        serviceHighlights: serviceHighlights,
         href: href,
         image: service.image,
       };
@@ -244,6 +235,22 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
         <div className="rounded-2xl border border-border/50 bg-card p-8 shadow-sm">
           <div className="grid gap-8 lg:grid-cols-[1fr_1fr]">
             {/* Left Column */}
+            <div className="space-y-4">
+              {activeCategory.image && (
+                <div className="relative w-full overflow-hidden rounded-xl border border-border/50 bg-muted/30 shadow-sm sm:h-80 md:h-96">
+                  <SmartImage
+                    key={`service-image-${activeCategory.id}-${activeTab}`}
+                    src={activeCategory.image}
+                    alt={`${activeCategory.title} - MLM Software Service for Network Marketing Business`}
+                    width={800}
+                    height={500}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* right Column */}
             <div className="space-y-6">
               <div>
                 <Typography as="h4" variant="h4" className="font-bold">
@@ -251,7 +258,7 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
                 </Typography>
               </div>
 
-              <Typography variant="p" className="text-base leading-7 text-muted-foreground">
+              <Typography variant="p" className="text-base leading-7 text-muted-foreground line-clamp-4">
                 {activeCategory.description}
               </Typography>
 
@@ -272,30 +279,7 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
               </div>
             </div>
 
-            {/* Right Column - Service Benefits Display */}
-            <div className="space-y-4">
-              {activeCategory.image && (
-                <div className="relative h-48 w-full overflow-hidden rounded-xl border border-border/50 bg-muted/30 shadow-sm mb-6">
-                  <SmartImage
-                    key={`service-image-${activeCategory.id}-${activeTab}`}
-                    src={activeCategory.image}
-                    alt={`${activeCategory.title} - MLM Software Service for Network Marketing Business`}
-                    width={800}
-                    height={400}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              )}
-              {activeCategory.serviceHighlights.length > 0 && (
-                <div className="rounded-xl border border-primary/20 bg-primary/10 p-6">
-                  <Typography as="h3" variant="h6" className="mb-4 font-semibold">
-                    {common.labels.serviceHighlights}
-                  </Typography>
-                  <BulletList items={activeCategory.serviceHighlights.slice(0, 3)} className="text-sm" />
-                </div>
-              )}
 
-            </div>
           </div>
         </div>
 

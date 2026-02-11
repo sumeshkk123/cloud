@@ -7,7 +7,7 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { getPageTitle } from "@/lib/api/page-titles";
 import {
-  ContactHeroSection,
+  ContactHeroWithProjectBriefModal,
   ContactAddressSection,
   ContactFaqSection,
   ContactExpertiseSection,
@@ -23,11 +23,12 @@ function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
 }
 
-export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } }): Promise<Metadata> {
   const { getPageMetadata } = await import("@/components/frontend/common/page-metadata");
+  const resolved = params != null ? (params instanceof Promise ? await params : params) : null;
 
   return getPageMetadata(
-    params,
+    resolved ?? null,
     "/contact",
     {
       page: "contact",
@@ -39,11 +40,13 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 }
 
 type ContactUsPageProps = {
-  params: { lang: SupportedLocale };
+  params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 };
 
 export default async function ContactUsPage({ params }: ContactUsPageProps) {
-  const locale = resolveLocale(params.lang);
+  const resolvedParams =
+    params != null ? (params instanceof Promise ? await params : params) : null;
+  const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
   const contactHref = buildLocalizedPath("/contact", locale);
   const supportHref = "https://support.cloudmlmsoftware.com";
 
@@ -58,7 +61,7 @@ export default async function ContactUsPage({ params }: ContactUsPageProps) {
 
   return (
     <div>
-      <ContactHeroSection
+      <ContactHeroWithProjectBriefModal
         locale={locale}
         contactHref={contactHref}
         supportHref={supportHref}

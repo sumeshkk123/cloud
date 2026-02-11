@@ -9,6 +9,7 @@ type EmailsClientProps = {
   pageTitleData: PageTitleRecord | null;
   contactHref: string;
   secondaryHref: string;
+  locale?: string;
 };
 
 function mergeContentWithPageTitle(
@@ -31,6 +32,7 @@ export function EmailsClient({
   pageTitleData,
   contactHref,
   secondaryHref,
+  locale = "en",
 }: EmailsClientProps) {
   const content = mergeContentWithPageTitle(emailsContent, pageTitleData);
   return (
@@ -38,6 +40,8 @@ export function EmailsClient({
       content={content}
       contactHref={contactHref}
       demoHref={secondaryHref}
+      moduleSlug="emails"
+      locale={locale}
     />
   );
 }

@@ -7,7 +7,7 @@ import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import {
-  ServicesHeroSection,
+  ServicesHeroWithProjectBriefModal,
   ServicesCategoriesSection,
   ServicesDeliveryPillarsSection,
   ServicesDetailsSection,
@@ -108,30 +108,34 @@ function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } }): Promise<Metadata> {
   const { getPageMetadata } = await import("@/components/frontend/common/page-metadata");
 
   const { getPageKeywords } = await import("@/lib/seo-keywords");
-  const resolvedParams = params instanceof Promise ? await params : params;
-  
+  const resolvedParams =
+    params != null ? (params instanceof Promise ? await params : params) : null;
+  const lang = resolvedParams?.lang ?? i18n.defaultLocale;
+
   return getPageMetadata(
-    params,
+    params ?? null,
     "/services",
     {
       page: "services",
       fallbackTitle: "MLM Services | Consulting, Development & Integration Services | USA, India, Philippines, Australia, Germany",
       fallbackDescription: "Partner with Cloud MLM Software for MLM consulting, custom software development, payment gateway integrations, compliance services, and managed hosting. Expert MLM services for network marketing businesses worldwide.",
-      fallbackKeywords: `${getPageKeywords("services", resolvedParams.lang)}, MLM consulting services, MLM software development, MLM integration services, MLM implementation services, MLM compliance services, MLM managed services`
+      fallbackKeywords: `${getPageKeywords("services", lang)}, MLM consulting services, MLM software development, MLM integration services, MLM implementation services, MLM compliance services, MLM managed services`
     }
   );
 }
 
 type ServicesPageProps = {
-  params: { lang: SupportedLocale };
+  params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 };
 
 export default async function ServicesPage({ params }: ServicesPageProps) {
-  const locale = resolveLocale(params.lang);
+  const resolvedParams =
+    params != null ? (params instanceof Promise ? await params : params) : null;
+  const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = "/mlm-software/";
   const supportHref = "/customer-success/";
@@ -173,9 +177,12 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
     pageTitleData = null;
   }
 
+  // Services list: show oldest first so Bitcoin Cryptocurrency MLM Software (newest) appears last
+  const servicesOrderedForPage = [...services].reverse();
+
   return (
     <div>
-      <ServicesHeroSection
+      <ServicesHeroWithProjectBriefModal
         locale={locale}
         contactHref={contactHref}
         demoHref={demoHref}
@@ -185,7 +192,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
 
       <ServicesCategoriesSection categories={SERVICE_CATEGORIES} />
 
-      <ServicesDetailsSection locale={locale} services={services} englishTitleMap={englishTitleMap} />
+      <ServicesDetailsSection locale={locale} services={servicesOrderedForPage} englishTitleMap={englishTitleMap} />
 
 
       <ServicesDeliveryPillarsSection pillars={DELIVERY_PILLARS} />

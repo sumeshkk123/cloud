@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "badgeText": "Zahlungsinfrastruktur für MLM",
+    "highlightText": "Zahlungen überall akzeptieren und Vertriebspartner-Einnahmen reibungslos auszahlen.",
+    "description": "Cloud MLM Software verbindet die Zahlungsgateways und Auszahlungsoptionen, die Ihr Unternehmen braucht, um sicher in allen Regionen zu wachsen und Kunden sowie Vertriebspartner zufriedenzustellen.",
+    "primaryCtaLabel": "Demo reservieren",
+    "secondaryCtaLabel": "Kostenlose Demo ansehen",
+    "highlights": [
+      {
+        "title": "Globale Gateway-Bibliothek",
+        "description": "Schließen Sie 60+ Zahlungsanbieter an – Karten, Wallets, Überweisungen und alternative Methoden, zugeschnitten auf jeden Markt."
+      },
+      {
+        "title": "Risiko- und Compliance-Automatisierung",
+        "description": "KYC, AML und Chargeback-Minderung mit konfigurierbaren Schwellen und Benachrichtigungen verwalten."
+      },
+      {
+        "title": "Echtzeit-Auszahlungen",
+        "description": "Sofortige, geplante oder geteilte Abrechnungen per E-Wallet, Direktüberweisung oder Provisionskarten orchestrieren."
+      }
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "Zahlungsgateways für MLM-Software nach Land oder Region",
+    "sectionDescription": "Erfahren Sie mehr über MLM-Software-Zahlungsgateways in jedem Land oder jeder Region",
+    "badge": "Nach Region",
+    "countriesCountLabel": "Länder"
+  },
+  "continentNames": {
+    "africa": "Afrika",
+    "asia": "Asien",
+    "europe": "Europa",
+    "north-america": "Nordamerika",
+    "oceania": "Ozeanien",
+    "south-america": "Südamerika"
+  },
+  "cta": {
+    "title": "Brauchen Sie eine Bewertung Ihrer Zahlungsbereitschaft?",
+    "description": "Nennen Sie uns die Gateways und Auszahlungssysteme, die Sie heute nutzen, sowie die Zielländer. Wir empfehlen die optimale Architektur und Migrationsschritte.",
+    "primaryButtonText": "Demo anfordern",
+    "secondaryButtonText": "Kontakt aufnehmen",
+    "subheading": "Von: Seite Zahlungsgateways",
+    "trustIndicators": ["Schnelle Reaktion", "Expertenprüfung", "Unverbindlich"]
+  }
+}

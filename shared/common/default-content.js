@@ -7,6 +7,5 @@ export default {
   },
   labels: {
     keyBenefits: "Key Benefits",
-    serviceHighlights: "Service Highlights",
   }
 };

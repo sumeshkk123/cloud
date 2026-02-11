@@ -31,10 +31,10 @@ const FeatureCard = React.forwardRef<HTMLElement, FeatureCardProps>(
       <article
         ref={ref as any}
         className={cn(
-          "group relative flex gap-4 overflow-hidden rounded-3xl border p-8 text-left shadow-sm transition-all duration-300",
+          "group relative flex gap-2 overflow-hidden rounded-3xl border-b border-primary/70 p-6 text-left  transition-all duration-300",
           "h-auto lg:h-full",
-          "hover:scale-[1.02] hover:-translate-y-1 hover:shadow-xl",
-          "border-border/40 bg-card/95",
+          "hover:scale-[1.02] hover:-translate-y-1 hover:shadow-xl hover:bg-background",
+          "border-b-border/40 ",
           className
         )}
         {...props}
@@ -47,7 +47,7 @@ const FeatureCard = React.forwardRef<HTMLElement, FeatureCardProps>(
         </div>
 
         {/* Content - Right side */}
-        <div className="flex flex-1 flex-col gap-4">
+        <div className="flex flex-1 flex-col gap-2">
           {/* Title */}
           <Typography
             as="h3"

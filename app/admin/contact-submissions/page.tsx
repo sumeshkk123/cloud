@@ -13,7 +13,11 @@ export default function AdminContactSubmissionsPage() {
 
   const fetchSubmissions = useCallback(async () => {
     try {
-      const res = await fetch('/api/admin/contact', { credentials: 'include' });
+      const res = await fetch('/api/admin/contact', {
+        credentials: 'include',
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' },
+      });
       const data = res.ok ? await res.json() : [];
       const list = Array.isArray(data) ? data : [];
       // Normalize: ensure each submission has sourceSite (for older records or API variance)

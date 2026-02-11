@@ -24,11 +24,12 @@ export interface HeroSectionProps {
     afterText?: string;
     /** Description text below the title */
     description?: string;
-    /** Primary CTA button props */
+    /** Primary CTA: use href for link, or onClick for client action (e.g. open modal) */
     primaryCta?: {
         label: string;
-        href: string;
+        href?: string;
         external?: boolean;
+        onClick?: () => void;
     };
     /** Secondary CTA button props */
     secondaryCta?: {
@@ -46,6 +47,8 @@ export interface HeroSectionProps {
     centered?: boolean;
     /** Whether to disable the gradient highlight on the title */
     disableHighlight?: boolean;
+    /** Max lines for description (ellipsis after); e.g. 4 */
+    descriptionMaxLines?: number;
 }
 
 export function HeroSection({
@@ -62,10 +65,11 @@ export function HeroSection({
     className,
     centered = false,
     disableHighlight = false,
+    descriptionMaxLines,
 }: HeroSectionProps) {
     return (
         <section className={cn(
-            "relative isolate overflow-hidden border-b border-border/60 bg-background",
+            "relative isolate overflow-hidden border-border/60 bg-transparent border-0 py-0",
             className
         )}>
             {/* Animated mesh gradient background */}
@@ -73,11 +77,11 @@ export function HeroSection({
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10" />
             </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10"/>
 
             {/* Floating orbs */}
             <div className="absolute left-1/4 top-1/4 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-pulse" />
             <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-
             <div className="container relative py-24">
                 <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
                     {/* Left Column - Content */}
@@ -91,6 +95,7 @@ export function HeroSection({
                             description={description}
                             centered={centered}
                             disableHighlight={disableHighlight}
+                            descriptionMaxLines={descriptionMaxLines}
                             as="h1"
                         />
 
@@ -98,12 +103,19 @@ export function HeroSection({
                         {(primaryCta || secondaryCta) && (
                             <div className={cn("flex flex-wrap gap-4", !centered && "justify-start")}>
                                 {primaryCta && (
-                                    <Button asChild size="lg" className="group rounded-xl px-6 py-6 text-base font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                                        <Link href={primaryCta.href} target={primaryCta.external ? "_blank" : undefined} rel={primaryCta.external ? "noopener noreferrer" : undefined}>
+                                    primaryCta.onClick ? (
+                                        <Button type="button" onClick={primaryCta.onClick} size="lg" className="group rounded-xl px-6 py-6 text-base font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
                                             {primaryCta.label}
                                             <ArrowUpRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
-                                        </Link>
-                                    </Button>
+                                        </Button>
+                                    ) : (
+                                        <Button asChild size="lg" className="group rounded-xl px-6 py-6 text-base font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                                            <Link href={primaryCta.href!} target={primaryCta.external ? "_blank" : undefined} rel={primaryCta.external ? "noopener noreferrer" : undefined}>
+                                                {primaryCta.label}
+                                                <ArrowUpRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
+                                            </Link>
+                                        </Button>
+                                    )
                                 )}
                                 {secondaryCta && (
                                     <Button asChild variant="outline" size="lg" className="group rounded-xl border-2 px-6 py-6 text-base font-semibold transition-all duration-300 hover:scale-105 hover:border-primary hover:bg-primary/5">

@@ -16,6 +16,7 @@ export function ServicesCtaSection({ contactHref, demoHref, locale }: ServicesCt
       title={t.title}
       description={t.description}
       primaryButton={{ text: t.scheduleButton, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       secondaryButton={{ text: t.caseStudiesButton, href: demoHref, openInNewTab: true }}
       trustIndicators={[t.quickImplementation, t.expertConsultation, t.provenResults]}
     />

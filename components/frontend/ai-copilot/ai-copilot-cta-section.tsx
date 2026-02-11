@@ -16,6 +16,7 @@ export function AICopilotCtaSection({ contactHref, demoHref, locale }: AICopilot
       title={t.title}
       description={t.description}
       primaryButton={{ text: t.primaryButton, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       secondaryButton={{ text: t.secondaryButton, href: demoHref }}
       trustIndicators={[
         t.trustIndicators.quickImplementation,

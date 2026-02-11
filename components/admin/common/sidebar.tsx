@@ -408,7 +408,7 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
                         : 'text-gray-700 hover:bg-gray-100'
                         }`}
                     >
-                      <span>Service Meta and Page Title</span>
+                      <span>Service Meta Details</span>
                     </Link>
                   </div>
                 )}

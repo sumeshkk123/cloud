@@ -15,6 +15,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const LOCALE_MAP: Record<string, string> = {
   en: 'en',
   es: 'es',
+  fr: 'fr',
   it: 'it',
   de: 'de',
   pt: 'pt',
@@ -26,6 +27,7 @@ const LOCALE_MAP: Record<string, string> = {
 const DEEPL_LOCALE_MAP: Record<string, string> = {
   en: 'EN',
   es: 'ES',
+  fr: 'FR',
   it: 'IT',
   de: 'DE',
   pt: 'PT',

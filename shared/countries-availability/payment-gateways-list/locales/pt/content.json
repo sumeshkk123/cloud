@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "badgeText": "Infraestrutura de pagamento para MLM",
+    "highlightText": "Aceite pagamentos em qualquer lugar e pague os ganhos dos distribuidores sem atrito.",
+    "description": "O Cloud MLM Software conecta os gateways de pagamento e as opções de repasse que sua empresa precisa para se expandir com segurança em todas as regiões, satisfazendo clientes e distribuidores.",
+    "primaryCtaLabel": "Reservar sua demo",
+    "secondaryCtaLabel": "Ver demo gratuita",
+    "highlights": [
+      {
+        "title": "Biblioteca global de gateways",
+        "description": "Conecte mais de 60 provedores de pagamento (cartões, carteiras, transferências e métodos alternativos) adaptados a cada mercado."
+      },
+      {
+        "title": "Automação de risco e conformidade",
+        "description": "Gerencie KYC, AML e mitigação de chargebacks com limites e alertas configuráveis."
+      },
+      {
+        "title": "Pagamentos em tempo real",
+        "description": "Orquestre liquidações instantâneas, agendadas ou repartidas via e-wallet, depósito direto ou cartões de comissão."
+      }
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "Gateways de pagamento para software MLM por país ou região",
+    "sectionDescription": "Saiba mais sobre gateways de pagamento do software MLM em cada país ou região",
+    "badge": "Por região",
+    "countriesCountLabel": "países"
+  },
+  "continentNames": {
+    "africa": "África",
+    "asia": "Ásia",
+    "europe": "Europa",
+    "north-america": "América do Norte",
+    "oceania": "Oceania",
+    "south-america": "América do Sul"
+  },
+  "cta": {
+    "title": "Precisa de uma avaliação de maturidade de pagamentos?",
+    "description": "Informe-nos os gateways e sistemas de repasse que você usa hoje e os países que pretende atingir. Recomendaremos a arquitetura ideal e as etapas de migração.",
+    "primaryButtonText": "Solicitar demo",
+    "secondaryButtonText": "Fale conosco",
+    "subheading": "De: Página de gateways de pagamento",
+    "trustIndicators": ["Resposta rápida", "Análise de especialistas", "Sem compromisso"]
+  }
+}

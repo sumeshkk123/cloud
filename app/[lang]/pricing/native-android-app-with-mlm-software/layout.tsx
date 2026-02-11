@@ -4,11 +4,10 @@ import { getPageMetadata } from "@/components/frontend/common/page-metadata";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+export async function generateMetadata(props: {
+  params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 }): Promise<Metadata> {
+  const params = props?.params ?? null;
   return getPageMetadata(params, "/pricing/native-android-app-with-mlm-software", {
     page: "native-android-app-with-mlm-software",
     fallbackTitle: "Native Android App with Cloud MLM Software Pricing",

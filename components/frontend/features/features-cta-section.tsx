@@ -17,6 +17,7 @@ export function FeaturesCtaSection({ contactHref, demoHref, locale }: FeaturesCt
       title={cta.title ?? ""}
       description={cta.description ?? ""}
       primaryButton={{ text: cta.primaryButtonText ?? "", href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       secondaryButton={{ text: cta.secondaryButtonText ?? "", href: demoHref, openInNewTab: true }}
       trustIndicators={[
         cta.trust?.quickImplementation ?? "",

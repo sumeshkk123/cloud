@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "MLM-Software-Verfügbarkeit weltweit",
+    "description": "Erfahren Sie, wie Cloud MLM Software konforme Direktvertriebsaktivitaeten in allen Regionen mit Lokalisierung, Zahlungen und Partnern unterstuetzt."
+  },
+  "hero": {
+    "badgeText": "Globaler Bereitstellungsleitfaden",
+    "highlightText": "Starten und erweitern Sie Ihr MLM-Geschäft in jeder Region mit Vertrauen.",
+    "description": "Von der regulatorischen Vorbereitung bis zur Sprachlokalisierung – Cloud MLM Software ist in vielen Ländern verfuegbar.",
+    "primaryCtaLabel": "Demo reservieren",
+    "secondaryCtaLabel": "Kostenlose Demo ansehen",
+    "highlights": [
+      {"title": "Globale Präsenz", "description": "Cloud MLM Software unterstuetzt Bereitstellungen in über 120 Gebieten mit Lokalisierung und Mehrwährungsunterstützung."},
+      {"title": "Regulatorische Kompetenz", "description": "Unser Team verfolgt die Direktvertriebsregulierungen, damit Ihr Start den Erwartungen jedes Landes entspricht."},
+      {"title": "Partnernetzwerk", "description": "Nutzen Sie regionale Partner für Logistik und Zahlung, um die Time-to-Market zu verkürzen."}
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "MLM-Software-Verfügbarkeit nach Land oder Region",
+    "sectionDescription": "Erfahren Sie mehr über die MLM-Software-Verfügbarkeit in jedem Land oder jeder Region",
+    "badge": "Nach Region",
+    "countriesCountLabel": "Länder"
+  },
+  "steps": {
+    "badge": "Launch-Pfad",
+    "heading": "Wie wir Länder-Launches ermöglichen",
+    "description": "Ein strukturierter Migrationspfad hält die Geschäftskontinuität hoch.",
+    "steps": [
+      {"title": "Bewerten", "detail": "Benchmarken Sie Ihre aktuellen Abläufe und identifizieren Sie regulatorische Prüfpunkte pro Land."},
+      {"title": "Aktivieren", "detail": "Lokalisieren Sie Inhalte und schließen Sie regionale Zahlungs- und Logistikpartner an."},
+      {"title": "Beschleunigen", "detail": "Starten Sie Analysen und Optimierungs-Sprints für nachhaltiges Wachstum."}
+    ]
+  },
+  "cta": {
+    "title": "Brauchen Sie eine Bewertung Land für Land?",
+    "description": "Teilen Sie uns mit, welche Gebiete Sie anvisieren. Wir erstellen ein Bereitschaftsdossier mit regulatorischen Hinweisen.",
+    "primaryButtonText": "Jetzt anfragen",
+    "secondaryButtonText": "Kontakt",
+    "subheading": "Von: Verfügbarkeit (Länder)",
+    "trustIndicators": ["Bereitschaftsdossier", "Rückmeldung innerhalb eines Werktags", "Regulatorische & Integrations-Checklisten"]
+  },
+  "continentNames": {
+    "africa": "Afrika",
+    "asia": "Asien",
+    "europe": "Europa",
+    "north-america": "Nordamerika",
+    "oceania": "Ozeanien",
+    "south-america": "Südamerika"
+  }
+}

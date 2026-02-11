@@ -46,6 +46,20 @@ const EXPERT_SUPPORT_ICONS: IconComponent[] = [Buildings, UsersThree, ShieldChec
 
 const DOMINANCE_VALUES = ["3,200+", "$1.4B+", "99.98%", "80+"];
 
+const AVAILABLE_COUNTRIES_TITLE = "Available Countries";
+const AVAILABLE_COUNTRIES_BASE_PATH = "/mlm-software-availability-across-countries";
+/** Display name -> slug for footer country links (must match countries-by-continent slugs). */
+const AVAILABLE_COUNTRIES: { name: string; slug: string }[] = [
+  { name: "United States", slug: "united-states" },
+  { name: "Spain", slug: "spain" },
+  { name: "France", slug: "france" },
+  { name: "Italy", slug: "italy" },
+  { name: "Portugal", slug: "portugal" },
+  { name: "Singapore", slug: "singapore" },
+  { name: "Malaysia", slug: "malaysia" },
+];
+const VIEW_ALL_COUNTRIES_LABEL = "View All Countries";
+
 const FOOTER_STATIC_COPY: Record<string, FooterStaticCopy> = {
   en: {
     badgeLabel: "Dominant MLM Platform",
@@ -804,6 +818,31 @@ export function SiteFooter({ locale, siteName, siteTagline, columns, cta, contac
                       </ul>
                     </div>
                   ))}
+                  <div className="space-y-3 text-sm">
+                    <h3 className="text-base font-semibold text-foreground/90">{AVAILABLE_COUNTRIES_TITLE}</h3>
+                    <ul className="space-y-2">
+                      {AVAILABLE_COUNTRIES.map(({ name, slug }) => (
+                        <li key={slug}>
+                          <FooterLink
+                            link={{ title: name, href: buildLocalizedPath(`${AVAILABLE_COUNTRIES_BASE_PATH}/${slug}`, locale) }}
+                            locale={locale}
+                            className="text-muted-foreground transition hover:text-foreground"
+                          >
+                            {name}
+                          </FooterLink>
+                        </li>
+                      ))}
+                      <li>
+                        <FooterLink
+                          link={{ title: VIEW_ALL_COUNTRIES_LABEL, href: buildLocalizedPath(AVAILABLE_COUNTRIES_BASE_PATH, locale) }}
+                          locale={locale}
+                          className="font-medium text-primary transition hover:text-primary/80"
+                        >
+                          {VIEW_ALL_COUNTRIES_LABEL}
+                        </FooterLink>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </section>
             ) : null}

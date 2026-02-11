@@ -1,15 +1,21 @@
 "use client";
 
 import type { PageTitleRecord } from "@/lib/api/page-titles";
-import { PricingSubPageLayout } from "@/components/frontend/pricing/sub-page";
-import type { PricingSubPageContent } from "@/components/frontend/pricing/sub-page";
+import { ModuleSubpageLayout } from "@/components/frontend/modules/subpage";
+import type { ModuleFeatureContent } from "@/components/frontend/modules/subpage";
 import { analyticsContent } from "./content";
 
-const DEMO_URL = "https://demo.cloudmlmsoftware.com";
+type AnalyticsClientProps = {
+  pageTitleData: PageTitleRecord | null;
+  contactHref: string;
+  secondaryHref: string;
+  locale?: string;
+};
 
-type Props = { pageTitleData: PageTitleRecord | null; contactHref: string; secondaryHref: string };
-
-function merge(content: PricingSubPageContent, pageTitleData: PageTitleRecord | null): PricingSubPageContent {
+function mergeContentWithPageTitle(
+  content: ModuleFeatureContent,
+  pageTitleData: PageTitleRecord | null
+): ModuleFeatureContent {
   if (!pageTitleData) return content;
   return {
     ...content,
@@ -22,12 +28,20 @@ function merge(content: PricingSubPageContent, pageTitleData: PageTitleRecord | 
   };
 }
 
-export function AnalyticsClient({ pageTitleData, contactHref, secondaryHref }: Props) {
+export function AnalyticsClient({
+  pageTitleData,
+  contactHref,
+  secondaryHref,
+  locale = "en",
+}: AnalyticsClientProps) {
+  const content = mergeContentWithPageTitle(analyticsContent, pageTitleData);
   return (
-    <PricingSubPageLayout
-      content={merge(analyticsContent, pageTitleData)}
+    <ModuleSubpageLayout
+      content={content}
       contactHref={contactHref}
-      secondaryHref={secondaryHref}
+      demoHref={secondaryHref}
+      moduleSlug="analytics"
+      locale={locale}
     />
   );
 }

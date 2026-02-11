@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "badgeText": "Infrastructure de paiement pour le MLM",
+    "highlightText": "Acceptez les paiements partout et réglez les gains des distributeurs sans friction.",
+    "description": "Cloud MLM Software connecte les passerelles de paiement et les options de versement dont votre entreprise a besoin pour se développer en toute sécurité dans toutes les régions, tout en satisfaisant clients et distributeurs.",
+    "primaryCtaLabel": "Réserver votre démo",
+    "secondaryCtaLabel": "Voir la démo gratuite",
+    "highlights": [
+      {
+        "title": "Bibliothèque de passerelles mondiale",
+        "description": "Connectez plus de 60 prestataires de paiement (cartes, portefeuilles, virements, moyens alternatifs) adaptés à chaque marché."
+      },
+      {
+        "title": "Automatisation risque et conformité",
+        "description": "Gérez KYC, AML et la mitigation des litiges avec des seuils et alertes configurables."
+      },
+      {
+        "title": "Paiements en temps réel",
+        "description": "Orchestrez les règlements instantanés, programmés ou partagés via e-portefeuille, virement direct ou cartes de commission."
+      }
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "Passerelles de paiement pour le logiciel MLM par pays ou région",
+    "sectionDescription": "En savoir plus sur les passerelles de paiement MLM dans chaque pays ou région",
+    "badge": "Par région",
+    "countriesCountLabel": "pays"
+  },
+  "continentNames": {
+    "africa": "Afrique",
+    "asia": "Asie",
+    "europe": "Europe",
+    "north-america": "Amérique du Nord",
+    "oceania": "Océanie",
+    "south-america": "Amérique du Sud"
+  },
+  "cta": {
+    "title": "Besoin d'une évaluation de maturité paiement ?",
+    "description": "Indiquez-nous les passerelles et systèmes de versement que vous utilisez aujourd'hui ainsi que les pays ciblés. Nous recommanderons l'architecture optimale et les étapes de migration.",
+    "primaryButtonText": "Demander une démo",
+    "secondaryButtonText": "Nous contacter",
+    "subheading": "Depuis : Page passerelles de paiement",
+    "trustIndicators": [
+      "Réponse rapide",
+      "Examen par des experts",
+      "Sans engagement"
+    ]
+  }
+}

@@ -7,27 +7,32 @@ import { getPageTitle } from "@/lib/api/page-titles";
 import { GenealogyClient } from "./genealogy-client";
 
 export const dynamic = "force-dynamic";
+
 const DEMO_URL = "https://demo.cloudmlmsoftware.com";
+const PAGE_KEY = "mlm-software-modules-genealogy";
 
 function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
-}) {
+type GenealogyPageProps = {
+  params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+};
+
+export default async function GenealogyPage(props: GenealogyPageProps) {
   const params = props?.params;
-  const resolved =
+  const resolvedParams =
     params != null ? (params instanceof Promise ? await params : params) : null;
-  const locale = resolveLocale(resolved?.lang ?? i18n.defaultLocale);
-  const pageTitleData = await getPageTitle("mlm-software-modules-genealogy", locale);
+  const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
+  const pageTitleData = await getPageTitle(PAGE_KEY, locale);
+  const contactHref = buildLocalizedPath("/contact", locale);
+
   return (
     <GenealogyClient
       pageTitleData={pageTitleData}
-      contactHref={buildLocalizedPath("/contact", locale)}
+      contactHref={contactHref}
       secondaryHref={DEMO_URL}
+      locale={locale}
     />
   );
 }

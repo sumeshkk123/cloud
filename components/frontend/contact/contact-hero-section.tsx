@@ -9,9 +9,11 @@ interface ContactHeroSectionProps {
   contactHref: string;
   supportHref: string;
   pageTitleData?: PageTitleRecord | null;
+  /** When set, primary CTA opens this handler instead of linking (e.g. open project brief modal) */
+  onPrimaryCtaClick?: () => void;
 }
 
-export function ContactHeroSection({ locale, contactHref, supportHref, pageTitleData }: ContactHeroSectionProps) {
+export function ContactHeroSection({ locale, contactHref, supportHref, pageTitleData, onPrimaryCtaClick }: ContactHeroSectionProps) {
   const content = getContactContent(locale);
   const t = content.heroSection;
 
@@ -85,10 +87,11 @@ export function ContactHeroSection({ locale, contactHref, supportHref, pageTitle
         highlightText={titleParts.highlightText}
         afterText={titleParts.afterText}
         description={pageTitleData?.sectionSubtitle || t.description}
-        primaryCta={{
-          label: t.primaryCta,
-          href: contactHref,
-        }}
+        primaryCta={
+          onPrimaryCtaClick
+            ? { label: t.primaryCta, onClick: onPrimaryCtaClick }
+            : { label: t.primaryCta, href: contactHref }
+        }
         secondaryCta={{
           label: t.secondaryCta,
           href: supportHref,

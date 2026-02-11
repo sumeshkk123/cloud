@@ -1,0 +1,23 @@
+---
+description: Default and override image for the module "Why choose" / Types section
+globs: "**/module-layout/module-why-choose-section.tsx"
+alwaysApply: false
+---
+
+# Module Why Choose Section — Image
+
+In `module-why-choose-section.tsx`, the left-side image:
+
+- **Default source:** `/images/atursondrIntro.webp` (constant `WHY_CHOOSE_IMAGE_SRC`)
+- **Override:** When `content.imageSrc` is provided, use it (e.g. ticket-system Types section uses `/images/moduleautoresponder4.svg`)
+
+**Do not:**
+
+- Remove the default constant or the fallback logic `content.imageSrc ?? WHY_CHOOSE_IMAGE_SRC`
+- Remove the image or make visibility conditional (image should always render)
+- Change the default path for modules that do not set `content.imageSrc` (must remain `atursondrIntro.webp`)
+
+**Allowed:**
+
+- Use `content.imageAlt` for the `alt` attribute
+- Let specific module content pass `imageSrc` to override for that page only (e.g. ticket-system)

@@ -28,16 +28,17 @@ const PAGE_CONFIG: Record<
 };
 
 type LayoutProps = {
-  params: Promise<{ lang: SupportedLocale; slug: string }> | { lang: SupportedLocale; slug: string };
+  params?: Promise<{ lang: SupportedLocale; slug: string }> | { lang: SupportedLocale; slug: string };
   children: React.ReactNode;
 };
 
-export async function generateMetadata({ params }: LayoutProps): Promise<Metadata> {
+export async function generateMetadata(props: LayoutProps): Promise<Metadata> {
+  const params = props?.params;
   const resolved = params != null ? await Promise.resolve(params) : undefined;
   if (!resolved?.lang) {
     return { title: "Pricing | Cloud MLM Software" };
   }
-  const locale = resolved.lang as SupportedLocale;
+  const locale = resolved?.lang as SupportedLocale;
   const slug = decodeURIComponent(resolved.slug ?? "");
   const pageKey =
     getPricingSubpageFromSlug(slug, locale) ??

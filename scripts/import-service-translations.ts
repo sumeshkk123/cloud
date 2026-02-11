@@ -12,8 +12,8 @@
  *     {
  *       "sourceId": "en-service-id",
  *       "translations": {
- *         "es": { "title": "...", "description": "...", "content": "...", "keyBenefits": [...], "serviceHighlights": [...] },
- *         "zh": { "title": "...", "description": "...", "content": "...", "keyBenefits": [...], "serviceHighlights": [...] }
+ *         "es": { "title": "...", "description": "...", "content": "...", "keyBenefits": [...] },
+ *         "zh": { "title": "...", "description": "...", "content": "...", "keyBenefits": [...] }
  *       }
  *     }
  *   ]
@@ -33,7 +33,6 @@ type Translation = {
   description: string;
   content?: string | null;
   keyBenefits?: any;
-  serviceHighlights?: any;
 };
 
 type Payload = {
@@ -111,7 +110,6 @@ async function main() {
           description: t.description,
           content: t.content ?? null,
           keyBenefits: (t.keyBenefits as any) ?? null,
-          serviceHighlights: (t.serviceHighlights as any) ?? null,
           updatedAt: new Date(),
         },
       });

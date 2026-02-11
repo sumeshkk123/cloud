@@ -1,143 +1,154 @@
-import { IdentificationCard, ArrowsClockwise } from "@phosphor-icons/react";
+import { IdentificationCard, HardDrives } from "@phosphor-icons/react";
 import type { ModuleFeatureContent } from "@/components/frontend/modules/subpage";
+
+/** Image for Types section (why choose) – KYC / verification theme */
+const TYPES_IMAGE = "/images/dashboard-deign-dark.webp";
 
 export const kycDocumentationContent: ModuleFeatureContent = {
   hero: {
     badge: "Compliance",
-    title: "Secure KYC Documentation Module | Simplify Verification",
+    title: "Secure KYC Documentation Module",
     description:
-      "KYC documentation is provided not only at the time of new joinings but also for refreshing accounts. Refreshing members' accounts is necessary in the MLM business because there are many members; some are more active while others are inactive.",
-    primaryCta: "Talk to compliance experts",
-    secondaryCta: "View live demo",
+      "KYC documentation for new joinings and account refresh. Prevent fraud, verify members with identity proof, and keep your MLM business compliant. Cloud MLM Software helps you collect, store, and verify ID and address documents with a clear audit trail and regional rules.",
+    primaryCta: "Request a demo",
+    secondaryCta: "View demo",
     metrics: [
-      { label: "Documents verified", value: "1M+", detail: "ID and address proof." },
-      { label: "Regions", value: "50+", detail: "Configurable KYC rules." },
+      { label: "Documents verified", value: "1M+", detail: "ID and address." },
+      { label: "Regions", value: "50+", detail: "Configurable rules." },
       { label: "Review time", value: "< 24h", detail: "Approve or re-request." },
     ],
   },
+  intro: {
+    badge: "Why this module",
+    heading: "Simplify Verification and Stay Compliant",
+    paragraphs: [
+      "Know Your Customer (KYC) requirements are essential for MLM compliance and fraud prevention. The KYC Documentation Module in Cloud MLM Software lets you collect and store ID and address documents from distributors, review them in a clear workflow, and keep a full audit trail.",
+      "Configure requirements by country or programme, approve or request re-upload with a few clicks, and keep your network verified and compliant. Our module is designed for scale, regional rules, and fast review times.",
+    ],
+    partnerCard: {
+      badge: "Included",
+      heading: "Features of Cloud MLM's KYC Documentation Module",
+      points: [
+        "Document collection – Collect and store ID and address documents from distributors in one place.",
+        "Verification workflow – Review, approve, or request re-upload with a full audit trail.",
+        "Regional rules – Configure requirements by country or programme so you stay compliant everywhere.",
+        "Fast review – Typical review time under 24 hours; re-request or approve with clear feedback.",
+      ],
+    },
+  },
   importanceSection: {
     badge: "Compliance",
-    heading: "Importance of KYC in MLM Business?",
-    subheading: "Why KYC documentation in MLM software?",
+    heading: "Why a KYC Documentation module in MLM software?",
+    subheading: "Prevent fraud and verify members with identity proof",
     paragraphs: [
-      "Cloud MLM software includes a KYC documentation module primarily to prevent fraudulent activities in the MLM business. Given that the majority of MLM activities are conducted online, some individuals may join the business using fake names and engage in money laundering. Due to the large number of customers, it is challenging for business owners to easily identify such fraudulent individuals.",
-      "This highlights the importance of MLM software in the MLM business. In our MLM software, we provide a KYC module that assists business owners in preventing fraudulent activities. For KYC documentation, customers who join the MLM business must upload their identity proof, such as a voter ID or driving license, to the owners. Only after successful submission can the user join the business.",
-      "Additionally, KYC documentation helps business owners investigate the history of joining customers to determine if they have any previous financial burdens, allowing owners to serve them better.",
+      "KYC documentation is critical for new joinings and account refresh. It helps prevent fraud, verifies members with identity proof, and keeps your MLM business compliant with local and international rules.",
+      "With a dedicated KYC module you streamline collection, review, and storage of documents, reduce manual work, and maintain a clear audit trail for regulators. Cloud MLM Software's module supports multiple regions and configurable requirements.",
     ],
-    imageSrc: "/images/modulekycIntro.svg",
-    imageAlt: "Cloud MLM Software dashboard and KYC documentation",
+    imageSrc: TYPES_IMAGE,
+    imageAlt: "Cloud MLM Software KYC Documentation – verification and compliance",
   },
   benefitsSection: {
     badge: "Benefits",
-    heading: "Why choose our KYC documentation module",
-    description: "Built for compliance and scale with your MLM programme.",
+    heading: "Key benefits of the KYC Documentation module",
+    description:
+      "Collect and verify ID and address documents, configure regional rules, and keep a full audit trail for compliance.",
     items: [
       {
-        title: "Fraud prevention",
-        description: "Verify identity before join. Reduce fake names and money-laundering risk with mandatory ID upload.",
+        title: "Document collection",
+        description: "Collect and store ID and address documents from distributors in a single, secure workflow.",
       },
       {
-        title: "Privacy and security",
-        description: "Documents stored securely with access controls and audit trails. Compliant with data protection requirements.",
+        title: "Verification workflow",
+        description: "Review, approve, or request re-upload with a clear audit trail and feedback to the member.",
       },
       {
-        title: "Configurable rules",
-        description: "Set requirements by region or programme. Support multiple document types and refresh cycles.",
+        title: "Regional rules",
+        description: "Configure requirements by country or programme so you meet local and international compliance.",
       },
       {
-        title: "Faster onboarding",
-        description: "Clear upload flow and status so members know when they are verified. Fewer support tickets.",
+        title: "Fast review",
+        description: "Typical review time under 24 hours; reduce manual work and keep joinings moving.",
       },
       {
-        title: "Audit-ready",
-        description: "Full history of submissions and decisions. Export and reporting for regulators and internal review.",
+        title: "Audit trail",
+        description: "Full history of submissions and decisions for regulators and internal audits.",
       },
       {
-        title: "Ongoing compliance",
-        description: "KYC refresh at level upgrade or account renewal. Stay aligned with changing policies.",
+        title: "New joinings and refresh",
+        description: "Use for new joinings and periodic account refresh to keep data current and compliant.",
       },
     ],
   },
   whyChooseSection: {
-    imageSrc: "/images/modulekycIntro.svg",
-    imageAlt: "KYC and compliance verification",
-    badge: "Why Choose Us",
-    heading: "Why Choose KYC Documentation",
-    headingHighlight: "KYC Documentation",
+    imageSrc: TYPES_IMAGE,
+    imageAlt: "KYC Documentation module for MLM",
+    badge: "Types",
+    heading: "Key capabilities of the KYC Documentation module",
     description:
-      "Built for compliance and scale. Our KYC module helps you verify members, prevent fraud, and stay audit-ready.",
+      "Document collection, verification workflow, regional rules, and audit trail. Simplify verification and stay compliant.",
     items: [
       {
         number: "01",
-        title: "Flexible verification",
+        title: "Collect and store documents",
         description:
-          "Our flexible KYC flow is designed to fit your busy schedule, allowing you to verify new joiners and refresh existing members anytime, anywhere with ease.",
+          "Collect ID and address documents from distributors in one place. Store securely with clear status and review workflow.",
       },
       {
         number: "02",
-        title: "Verify from anywhere",
+        title: "Review and approve",
         description:
-          "Access quality verification from any location. Members can submit documents and track status at their own pace, on any device, without boundaries or limits.",
+          "Review, approve, or request re-upload with a full audit trail. Typical review time under 24 hours.",
       },
       {
         number: "03",
-        title: "Experienced compliance support",
+        title: "Regional compliance",
         description:
-          "Our experienced team are compliance professionals who bring years of real-world knowledge, practical skills, and audit-ready workflows to your programme.",
+          "Configure requirements by country or programme. Meet local and international KYC rules with one module.",
       },
     ],
-  },
-  kycCompletionSection: {
-    titleLine1: "KYC",
-    titleLine2: "Completion",
-    profileImageSrc: "https://cloudmlmsoftware.com/wp-content/uploads/2024/07/kycphoto-img.webp",
   },
   features: [
     {
       icon: IdentificationCard,
-      title: "Document collection & confirmation",
+      title: "Document collection",
       description:
-        "Know-your-customer processing enables the company to verify members and customers. Cloud MLM's software developers understand the importance of privacy of these documents and use reliable, independent source data and information security for a better privacy policy.",
+        "Collect and store ID and address documents from distributors with a clear submission and status workflow.",
     },
     {
-      icon: ArrowsClockwise,
-      title: "Periodicity of KYC refresh",
+      icon: HardDrives,
+      title: "Verification workflow",
       description:
-        "KYC is required at new joinings and at account refreshments. At level upgradation, the user must provide updated KYC documentation. Existing members who want to create a new account must also provide fresh KYC documentation based on the latest KYC policies.",
+        "Review, approve, or request re-upload with audit trail and feedback to the member.",
     },
   ],
   faq: {
     badge: "FAQ",
     heading: "Frequently asked questions",
-    description: "Common questions about the KYC documentation module.",
+    description: "Common questions about the KYC Documentation module.",
     items: [
       {
-        question: "When is KYC documentation required?",
+        question: "What document types are supported?",
         answer:
-          "KYC documentation is required both at the time of new joinings and when refreshing accounts. When members upgrade their level, they must provide updated KYC. Existing members creating a new account must submit fresh KYC per the latest policies.",
+          "The module supports common ID and address proof formats. You can configure required document types by region or programme. Our team can help you align with local KYC regulations.",
       },
       {
-        question: "Which documents are supported?",
+        question: "How long does verification take?",
         answer:
-          "Identity proof such as voter ID, driving licence, passports, and proof-of-address. We support configurable validation rules per region and keep document handling secure and private.",
+          "Typical review time is under 24 hours. Administrators can approve or request re-upload with clear feedback. The workflow includes status tracking and audit trail for every action.",
       },
       {
-        question: "How does KYC prevent fraud in MLM?",
+        question: "Can we set different rules per country?",
         answer:
-          "With most MLM activities conducted online, the KYC module ensures customers submit verified identity documents before joining. This helps prevent fake names, money laundering, and allows business owners to investigate the history of joining customers.",
+          "Yes. You can configure requirements by country or programme so you meet local and international compliance. Regional rules determine what documents are required and how they are reviewed.",
       },
     ],
   },
   cta: {
-    heading: "Purchase AI-Powered Cloud MLM Software Today!",
+    heading: "Get KYC Documentation for Your MLM Software",
     description:
-      "Achieve MLM success with smart AI-driven tools! Automate, manage, and grow your network effortlessly. Get the KYC documentation module and scale your business with confidence.",
-    buttonText: "Buy Now",
-    secondaryCta: "View demo",
-    trustIndicators: [
-      "Quick implementation",
-      "Expert compliance support",
-      "Proven verification results",
-    ],
+      "Simplify verification, prevent fraud, and stay compliant. Request a demo to see the KYC Documentation module in action.",
+    buttonText: "Request a demo",
+    secondaryCta: "Try Demo",
+    trustIndicators: ["Fast review", "Regional rules", "Full audit trail"],
   },
 };

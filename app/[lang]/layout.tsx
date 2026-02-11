@@ -38,7 +38,7 @@ export const dynamic = "force-static";
 type LocaleLayoutParams = { lang: SupportedLocale };
 type LocaleLayoutProps = {
   children: ReactNode;
-  params: LocaleLayoutParams | Promise<LocaleLayoutParams>;
+  params?: LocaleLayoutParams | Promise<LocaleLayoutParams>;
 };
 
 const SITE_NAME = "Cloud MLM Software";
@@ -98,8 +98,13 @@ const FOOTER_BOTTOM_LINKS: FooterBottomLink[] = [
 ];
 
 export async function generateMetadata(props: { params?: LocaleLayoutParams | Promise<LocaleLayoutParams> }): Promise<Metadata> {
-  const params = props?.params;
-  const resolved = params != null ? (params instanceof Promise ? await params : params) : null;
+  let resolved: LocaleLayoutParams | null = null;
+  try {
+    const params = props?.params;
+    resolved = params != null ? (params instanceof Promise ? await params : params) : null;
+  } catch {
+    return { alternates: { canonical: buildLocalizedPath("/", i18n.defaultLocale as SupportedLocale) } };
+  }
   const locale = resolveLocale(resolved?.lang ?? i18n.defaultLocale);
   return {
     alternates: {
@@ -110,7 +115,12 @@ export async function generateMetadata(props: { params?: LocaleLayoutParams | Pr
 
 export default async function LocaleLayout(props: LocaleLayoutProps) {
   const { children, params } = props ?? {};
-  const resolved = params != null ? (params instanceof Promise ? await params : params) : null;
+  let resolved: LocaleLayoutParams | null = null;
+  try {
+    resolved = params != null ? (params instanceof Promise ? await params : params) : null;
+  } catch {
+    resolved = null;
+  }
   const locale = resolveLocale(resolved?.lang ?? i18n.defaultLocale);
   let globalSettings: GlobalSettings | null = null;
 

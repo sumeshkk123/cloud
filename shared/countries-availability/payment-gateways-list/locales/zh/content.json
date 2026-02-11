@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "badgeText": "MLM 支付基础设施",
+    "highlightText": "随时随地接受付款，无障碍支付经销商收益。",
+    "description": "Cloud MLM Software 连接您的业务在各地安全扩张所需的支付网关与付款方式，同时让客户和经销商满意。",
+    "primaryCtaLabel": "预约演示",
+    "secondaryCtaLabel": "观看免费演示",
+    "highlights": [
+      {
+        "title": "全球网关库",
+        "description": "连接 60 多家支付服务商，涵盖卡支付、电子钱包、银行转账及针对各市场的替代方式。"
+      },
+      {
+        "title": "风险与合规自动化",
+        "description": "通过可配置的阈值与告警处理 KYC、AML 与退单缓解。"
+      },
+      {
+        "title": "实时付款",
+        "description": "通过电子钱包、直接存款或佣金卡编排即时、定时或分账结算。"
+      }
+    ]
+  },
+  "countriesSection": {
+    "sectionTitle": "按国家或地区查看 MLM 软件支付网关",
+    "sectionDescription": "了解 MLM 软件支付网关在各国或各地区的支持情况",
+    "badge": "按地区",
+    "countriesCountLabel": "国家/地区"
+  },
+  "continentNames": {
+    "africa": "非洲",
+    "asia": "亚洲",
+    "europe": "欧洲",
+    "north-america": "北美洲",
+    "oceania": "大洋洲",
+    "south-america": "南美洲"
+  },
+  "cta": {
+    "title": "需要支付就绪评估？",
+    "description": "请告知我们您目前使用的网关与付款系统以及目标国家。我们将推荐最优架构与迁移步骤。",
+    "primaryButtonText": "申请演示",
+    "secondaryButtonText": "联系我们",
+    "subheading": "来自：支付网关页面",
+    "trustIndicators": ["快速响应", "专家评估", "无强制承诺"]
+  }
+}

@@ -4,13 +4,13 @@
  */
 export const MODULES_SUBPAGE_SLUGS = [
   "emails",
-  "compensation",
-  "ecommerce",
+  "compensation-module",
+  "ecommerce-module",
   "marketing-automation",
-  "compliance",
+  "compliance-modules",
   "analytics",
   "genealogy",
-  "customer-engagement",
+  "customer-engagement-module",
   // Feature-style module sub-pages (different design from pricing-style above)
   "mass-email-sending-module",
   "e-voucher",
@@ -55,14 +55,14 @@ const SLUG_META: Record<
     fallbackKeywords:
       "MLM email module, marketing automation module, Cloud MLM Software emails",
   },
-  compensation: {
+  "compensation-module": {
     fallbackTitle: "Compensation Plan Module | Cloud MLM Software",
     fallbackDescription:
       "Design and run compensation plans with the Cloud MLM Software compensation module. Binary, unilevel, matrix, and custom structures.",
     fallbackKeywords:
       "MLM compensation module, commission module, Cloud MLM Software compensation",
   },
-  ecommerce: {
+  "ecommerce-module": {
     fallbackTitle: "E-Commerce Module | Cloud MLM Software",
     fallbackDescription:
       "E-commerce and order management module for direct selling. Catalogs, carts, and fulfilment within Cloud MLM Software.",
@@ -83,6 +83,13 @@ const SLUG_META: Record<
     fallbackKeywords:
       "MLM compliance module, governance module, Cloud MLM Software compliance",
   },
+  "compliance-modules": {
+    fallbackTitle: "Compliance Module | Cloud MLM Software",
+    fallbackDescription:
+      "Compliance and governance module for MLM: consent, audit trails, and regional rules. Part of Cloud MLM Software modules.",
+    fallbackKeywords:
+      "MLM compliance module, governance module, Cloud MLM Software compliance",
+  },
   analytics: {
     fallbackTitle: "Analytics & Reporting Module | Cloud MLM Software",
     fallbackDescription:
@@ -97,7 +104,7 @@ const SLUG_META: Record<
     fallbackKeywords:
       "MLM genealogy module, network tree, Cloud MLM Software genealogy",
   },
-  "customer-engagement": {
+  "customer-engagement-module": {
     fallbackTitle: "Customer Engagement Module | Cloud MLM Software",
     fallbackDescription:
       "Customer and distributor engagement module: support, loyalty, and journeys. Part of Cloud MLM Software modules.",
@@ -181,13 +188,13 @@ export function isModulesSubpageSlug(slug: string): slug is ModulesSubpageSlug {
 /** Common translated keywords for module titles (e.g. from /api/modules?locale=es). */
 const TRANSLATED_KEYWORDS: Record<string, string[]> = {
   emails: ["email", "correo", "correos", "e-mail", "comunicación", "comunicaciones"],
-  compensation: ["compensation", "compensación", "commission", "comisión", "plan"],
-  ecommerce: ["ecommerce", "e-commerce", "commerce", "comercio", "comercio electrónico"],
+  "compensation-module": ["compensation", "compensación", "commission", "comisión", "plan", "module", "módulo"],
+  "ecommerce-module": ["ecommerce", "e-commerce", "commerce", "comercio", "comercio electrónico", "ecommerce-module"],
   "marketing-automation": ["marketing", "automation", "automatización", "campaña", "campaign"],
   compliance: ["compliance", "cumplimiento", "governance", "gobernanza"],
   analytics: ["analytics", "analítica", "reporting", "informes", "informe"],
   genealogy: ["genealogy", "genealogía", "tree", "árbol", "network", "red"],
-  "customer-engagement": ["customer", "cliente", "engagement", "compromiso", "support", "soporte"],
+  "customer-engagement-module": ["customer", "cliente", "engagement", "compromiso", "support", "soporte", "module", "módulo"],
   "mass-email-sending-module": ["mass", "email", "masivo", "correo", "envío"],
   "e-voucher": ["e-voucher", "voucher", "vale", "cupón", "bono"],
   "e-wallet": ["e-wallet", "wallet", "cartera", "monedero", "billetera"],
@@ -211,13 +218,13 @@ export function getModuleSlugFromTitleOrId(title: string | null, id: string | nu
   const t = (title ?? id ?? "").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
   const idStr = (id ?? "").toLowerCase();
   // Prefer slug that matches a known sub-page (English + translated keywords). Check specific slugs before generic "emails".
-  if (titleMatchesSlug(t, "compensation") || idStr.includes("compensation")) return "compensation";
-  if (titleMatchesSlug(t, "ecommerce") || idStr.includes("ecommerce")) return "ecommerce";
+  if (titleMatchesSlug(t, "compensation-module") || idStr.includes("compensation")) return "compensation-module";
+  if (titleMatchesSlug(t, "ecommerce-module") || idStr.includes("ecommerce-module") || idStr.includes("ecommerce")) return "ecommerce-module";
   if ((t.includes("marketing") || t.includes("automatización")) && (t.includes("automation") || t.includes("campaign") || t.includes("campaña"))) return "marketing-automation";
-  if (titleMatchesSlug(t, "compliance")) return "compliance";
+  if (titleMatchesSlug(t, "compliance")) return "compliance-modules";
   if (titleMatchesSlug(t, "analytics")) return "analytics";
   if (titleMatchesSlug(t, "genealogy")) return "genealogy";
-  if (titleMatchesSlug(t, "customer-engagement")) return "customer-engagement";
+  if (titleMatchesSlug(t, "customer-engagement-module")) return "customer-engagement-module";
   if ((t.includes("mass") || t.includes("masivo")) && (t.includes("email") || t.includes("correo"))) return "mass-email-sending-module";
   if (titleMatchesSlug(t, "e-voucher")) return "e-voucher";
   if (titleMatchesSlug(t, "e-wallet")) return "e-wallet";

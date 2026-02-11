@@ -1,4 +1,5 @@
 import { randomUUID } from 'crypto';
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/prisma';
 
 export interface TestimonialRecord {
@@ -25,25 +26,84 @@ export function slugify(name: string): string {
 }
 
 export async function listTestimonials(locale?: string): Promise<TestimonialRecord[]> {
-  return prisma.testimonials.findMany({
-    where: locale ? { locale } : undefined,
-    orderBy: { createdAt: 'desc' },
-  });
+  try {
+    return await prisma.testimonials.findMany({
+      where: locale ? { locale } : undefined,
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch {
+    // Fallback when schema mismatch (e.g. slug column missing after restore): use raw query
+    return listTestimonialsRaw(locale);
+  }
+}
+
+/** Raw query fallback for listTestimonials when table lacks slug or Prisma fails. */
+async function listTestimonialsRaw(locale?: string): Promise<TestimonialRecord[]> {
+  type Row = { id: string; name: string; role: string | null; content: string; image: string | null; locale: string; createdAt: Date; updatedAt: Date };
+  if (locale) {
+    const list = await prisma.$queryRaw<Row[]>`
+      SELECT id, name, role, content, image, locale, "createdAt", "updatedAt"
+      FROM testimonials
+      WHERE locale = ${locale}
+      ORDER BY "createdAt" DESC
+    `;
+    return list.map((t) => ({ ...t, slug: null }));
+  }
+  const list = await prisma.$queryRaw<Row[]>`
+    SELECT id, name, role, content, image, locale, "createdAt", "updatedAt"
+    FROM testimonials
+    ORDER BY "createdAt" DESC
+  `;
+  return list.map((t) => ({ ...t, slug: null }));
 }
 
 /** List testimonials for a locale with availableLocales for each (by name). Two queries total. */
 export async function listTestimonialsWithLocales(locale = 'en'): Promise<(TestimonialRecord & { availableLocales: string[] })[]> {
-  const list = await prisma.testimonials.findMany({
-    where: { locale },
-    orderBy: { createdAt: 'desc' },
-  });
+  try {
+    const list = await prisma.testimonials.findMany({
+      where: { locale },
+      orderBy: { createdAt: 'desc' },
+    });
+    if (list.length === 0) return [];
+    const names = [...new Set(list.map((t) => t.name))];
+    const nameLocaleRows = await prisma.testimonials.findMany({
+      where: { name: { in: names } },
+      select: { name: true, locale: true },
+      orderBy: { locale: 'asc' },
+    });
+    const nameToLocales = new Map<string, string[]>();
+    for (const row of nameLocaleRows) {
+      const arr = nameToLocales.get(row.name) || [];
+      if (!arr.includes(row.locale)) arr.push(row.locale);
+      nameToLocales.set(row.name, arr);
+    }
+    return list.map((t) => ({
+      ...t,
+      availableLocales: nameToLocales.get(t.name) || [t.locale],
+    }));
+  } catch {
+    // Fallback when schema mismatch (e.g. slug column missing after restore): use raw query
+    return listTestimonialsWithLocalesRaw(locale);
+  }
+}
+
+/** Raw query fallback when testimonials table lacks slug or has different columns. */
+async function listTestimonialsWithLocalesRaw(locale: string): Promise<(TestimonialRecord & { availableLocales: string[] })[]> {
+  type Row = { id: string; name: string; role: string | null; content: string; image: string | null; locale: string; createdAt: Date; updatedAt: Date };
+  const list = await prisma.$queryRaw<Row[]>`
+    SELECT id, name, role, content, image, locale, "createdAt", "updatedAt"
+    FROM testimonials
+    WHERE locale = ${locale}
+    ORDER BY "createdAt" DESC
+  `;
   if (list.length === 0) return [];
   const names = [...new Set(list.map((t) => t.name))];
-  const nameLocaleRows = await prisma.testimonials.findMany({
-    where: { name: { in: names } },
-    select: { name: true, locale: true },
-    orderBy: { locale: 'asc' },
-  });
+  const nameLocaleRows = names.length
+    ? await prisma.$queryRaw<{ name: string; locale: string }[]>`
+        SELECT name, locale FROM testimonials WHERE name IN (${Prisma.join(names.map((n) => Prisma.sql`${n}`), ', ')})
+        ORDER BY locale ASC
+      `
+    : [];
   const nameToLocales = new Map<string, string[]>();
   for (const row of nameLocaleRows) {
     const arr = nameToLocales.get(row.name) || [];
@@ -52,6 +112,7 @@ export async function listTestimonialsWithLocales(locale = 'en'): Promise<(Testi
   }
   return list.map((t) => ({
     ...t,
+    slug: null,
     availableLocales: nameToLocales.get(t.name) || [t.locale],
   }));
 }
@@ -82,18 +143,13 @@ export async function getTestimonialBySlug(slug: string, locale: string): Promis
     // slug column may not exist yet; fall through to name fallback
   }
 
-  // Fallback: find by slugified name (for rows without slug set or before migration)
-  const all = await prisma.testimonials.findMany({
-    where: { locale },
-    orderBy: { createdAt: 'desc' },
-  });
+  // Fallback: find by slugified name (uses listTestimonials so raw fallback applies if needed)
+  const all = await listTestimonials(locale);
   const match = all.find((t) => slugify(t.name) === normalizedSlug);
   if (match) {
     if (match.image === null && locale !== 'en') {
-      const en = await prisma.testimonials.findFirst({
-        where: { name: match.name, locale: 'en' },
-        select: { image: true },
-      });
+      const enList = await listTestimonials('en');
+      const en = enList.find((t) => t.name === match.name);
       if (en?.image) return { ...match, image: en.image };
     }
     return match;

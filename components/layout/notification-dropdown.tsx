@@ -3,8 +3,10 @@
 import * as React from 'react';
 import { Bell, Mail, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+
+const CONTACT_SUBMISSIONS_LAST_VISITED_KEY = 'contactSubmissionsLastVisitedAt';
 
 interface ContactSubmission {
   id: string;
@@ -15,6 +17,35 @@ interface ContactSubmission {
   source: string;
 }
 
+function getLastVisitedAt(): string | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    return localStorage.getItem(CONTACT_SUBMISSIONS_LAST_VISITED_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function setLastVisitedAt(isoString: string) {
+  try {
+    localStorage.setItem(CONTACT_SUBMISSIONS_LAST_VISITED_KEY, isoString);
+  } catch {
+    // ignore
+  }
+}
+
+/** Submissions created after this timestamp count as "new" for the badge. */
+function countNewSubmissions(submissions: ContactSubmission[], lastVisitedAt: string | null): number {
+  if (!lastVisitedAt) return submissions.length;
+  const cutoff = new Date(lastVisitedAt).getTime();
+  return submissions.filter((sub) => new Date(sub.createdAt).getTime() > cutoff).length;
+}
+
+function isNewSubmission(sub: ContactSubmission, lastVisitedAt: string | null): boolean {
+  if (!lastVisitedAt) return true;
+  return new Date(sub.createdAt).getTime() > new Date(lastVisitedAt).getTime();
+}
+
 export function NotificationDropdown() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [submissions, setSubmissions] = React.useState<ContactSubmission[]>([]);
@@ -22,107 +53,56 @@ export function NotificationDropdown() {
   const [isLoading, setIsLoading] = React.useState(false);
   const { data: session } = useSession();
   const router = useRouter();
+  const pathname = usePathname();
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
-  // Only show notification dropdown if user is authenticated
   const isAdmin = !!session?.user;
 
-  // Get seen submission IDs from localStorage
-  const getSeenSubmissionIds = React.useCallback((): string[] => {
-    if (typeof window === 'undefined') return [];
-    try {
-      const seen = localStorage.getItem('seenSubmissions');
-      return seen ? JSON.parse(seen) : [];
-    } catch {
-      return [];
-    }
-  }, []);
-
-  // Fetch submissions
   const fetchSubmissions = React.useCallback(async () => {
     if (!isAdmin) return;
-    
+
     try {
       setIsLoading(true);
       const response = await fetch('/api/admin/contact');
       if (response.ok) {
         const data = await response.json();
         if (Array.isArray(data)) {
-          // Get the 5 most recent submissions for display
           const recent = data.slice(0, 5);
           setSubmissions(recent);
-          
-          // Calculate unread count - compare against all submissions, not just recent 5
-          const seenIds = getSeenSubmissionIds();
-          const unread = data.filter(sub => !seenIds.includes(sub.id));
-          setUnreadCount(unread.length);
+          const lastVisited = getLastVisitedAt();
+          const count = countNewSubmissions(data, lastVisited);
+          setUnreadCount(count);
         }
       }
-    } catch (error) {
+    } catch {
       // Silent fail
     } finally {
       setIsLoading(false);
     }
-  }, [isAdmin, getSeenSubmissionIds]);
+  }, [isAdmin]);
 
-  // Mark submission as seen
-  const markAsSeen = (id: string) => {
-    const seenIds = getSeenSubmissionIds();
-    if (!seenIds.includes(id)) {
-      const updated = [...seenIds, id];
-      localStorage.setItem('seenSubmissions', JSON.stringify(updated));
-      setUnreadCount(prev => Math.max(0, prev - 1));
+  // When user is on contact-submissions page, set last visited to now so count becomes 0 and only future enquiries count as new
+  React.useEffect(() => {
+    if (!isAdmin || typeof window === 'undefined') return;
+    if (pathname === '/admin/contact-submissions') {
+      const now = new Date().toISOString();
+      setLastVisitedAt(now);
+      setUnreadCount(0);
     }
-  };
+  }, [isAdmin, pathname]);
 
-  // Mark all as seen
   const markAllAsSeen = () => {
-    const seenIds = getSeenSubmissionIds();
-    const currentIds = submissions.map(sub => sub.id);
-    const newSeenIds = [...new Set([...seenIds, ...currentIds])];
-    localStorage.setItem('seenSubmissions', JSON.stringify(newSeenIds));
-    
-    // Need to fetch all submissions to mark them all as seen
-    fetch('/api/admin/contact')
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          const allIds = data.map(sub => sub.id);
-          localStorage.setItem('seenSubmissions', JSON.stringify(allIds));
-          setUnreadCount(0);
-        }
-      });
+    const now = new Date().toISOString();
+    setLastVisitedAt(now);
+    setUnreadCount(0);
   };
 
-  // Initial fetch and polling
   React.useEffect(() => {
     if (!isAdmin) return;
-    
-    // Initial fetch
     fetchSubmissions();
-    
-    // Poll every 30 seconds for new submissions
-    const interval = setInterval(() => {
-      fetchSubmissions();
-    }, 30000);
-    
+    const interval = setInterval(fetchSubmissions, 30000);
     return () => clearInterval(interval);
   }, [isAdmin, fetchSubmissions]);
-
-  // Mark all current submissions as seen when dropdown is opened
-  React.useEffect(() => {
-    if (isOpen && submissions.length > 0) {
-      // When dropdown opens, mark all displayed submissions as seen
-      const seenIds = getSeenSubmissionIds();
-      const currentIds = submissions.map(sub => sub.id);
-      const newSeenIds = [...new Set([...seenIds, ...currentIds])];
-      localStorage.setItem('seenSubmissions', JSON.stringify(newSeenIds));
-      
-      // Update unread count for displayed submissions
-      const displayedUnread = submissions.filter(sub => !seenIds.includes(sub.id)).length;
-      setUnreadCount(prev => Math.max(0, prev - displayedUnread));
-    }
-  }, [isOpen, submissions, getSeenSubmissionIds]);
 
   // Close dropdown when clicking outside
   React.useEffect(() => {
@@ -144,14 +124,6 @@ export function NotificationDropdown() {
   }
 
   const handleSubmissionClick = (id: string) => {
-    // Mark as seen and immediately update count
-    const seenIds = getSeenSubmissionIds();
-    if (!seenIds.includes(id)) {
-      const updated = [...seenIds, id];
-      localStorage.setItem('seenSubmissions', JSON.stringify(updated));
-      // Immediately decrement the count
-      setUnreadCount(prev => Math.max(0, prev - 1));
-    }
     setIsOpen(false);
     router.push('/admin/contact-submissions');
   };
@@ -192,7 +164,7 @@ export function NotificationDropdown() {
     }
   };
 
-  const seenIds = getSeenSubmissionIds();
+  const lastVisitedAt = typeof window !== 'undefined' ? getLastVisitedAt() : null;
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -242,7 +214,7 @@ export function NotificationDropdown() {
             ) : (
               <div className="divide-y divide-gray-200">
                 {submissions.map((submission) => {
-                  const isUnread = !seenIds.includes(submission.id);
+                  const isUnread = isNewSubmission(submission, lastVisitedAt);
                   return (
                     <button
                       key={submission.id}

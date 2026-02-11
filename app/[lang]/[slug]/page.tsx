@@ -2,6 +2,7 @@ import type { SupportedLocale } from "@/config/site";
 import { isSupportedLocale } from "@/lib/i18n-utils";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
+import { getPageFromSlug, modulesSubpageToSlugMap } from "@/lib/page-slugs";
 import { getPageTitle } from "@/lib/api/page-titles";
 import { ModuleSubpageClient } from "./module-subpage-client";
 import { isModulesSubpageSlug, MODULES_SUBPAGE_SLUGS } from "@/lib/modules-subpage-slugs";
@@ -9,8 +10,19 @@ import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
+/** All URL slugs that resolve to a module subpage (for static params). */
+function getModuleSubpageUrlSlugs(): string[] {
+  const slugs = new Set<string>(MODULES_SUBPAGE_SLUGS.slice());
+  for (const localeSlugs of Object.values(modulesSubpageToSlugMap)) {
+    for (const s of Object.values(localeSlugs)) {
+      slugs.add(s);
+    }
+  }
+  return Array.from(slugs);
+}
+
 export function generateStaticParams(): { slug: string }[] {
-  return MODULES_SUBPAGE_SLUGS.map((slug) => ({ slug }));
+  return getModuleSubpageUrlSlugs().map((slug) => ({ slug }));
 }
 
 function resolveLocale(lang: string): Locale {
@@ -22,19 +34,28 @@ type ModuleSubpagePageProps = {
 };
 
 export default async function ModuleSubpagePage(props: ModuleSubpagePageProps) {
-  const params = props?.params;
-  const resolved =
-    params != null ? (params instanceof Promise ? await params : params) : null;
+  let resolved: { lang: SupportedLocale; slug: string } | null = null;
+  try {
+    const params = props?.params;
+    resolved =
+      params != null ? (params instanceof Promise ? await params : params) : null;
+  } catch {
+    notFound();
+  }
   const locale = resolveLocale(resolved?.lang ?? i18n.defaultLocale);
-  const slug = decodeURIComponent(resolved?.slug ?? "").toLowerCase();
+  const urlSlug = decodeURIComponent(resolved?.slug ?? "").toLowerCase();
 
-  if (!resolved || !isModulesSubpageSlug(slug)) notFound();
+  if (!resolved) notFound();
 
-  const pageTitleData = await getPageTitle(`mlm-software-modules-${slug}`, locale);
+  // Resolve URL slug to page id (e.g. e-voucher-for-mlm-software -> e-voucher) so translated slugs work
+  const pageId = getPageFromSlug(urlSlug, locale as SupportedLocale) ?? (isModulesSubpageSlug(urlSlug) ? urlSlug : null);
+  if (!pageId || !isModulesSubpageSlug(pageId)) notFound();
+
+  const pageTitleData = await getPageTitle(`mlm-software-modules-${pageId}`, locale);
 
   return (
     <ModuleSubpageClient
-      slug={slug}
+      slug={pageId}
       locale={locale}
       serverTitle={pageTitleData?.title ?? undefined}
       serverBadge={pageTitleData?.pagePill ?? undefined}

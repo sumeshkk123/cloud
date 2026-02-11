@@ -29,6 +29,8 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'network-marketing-software': 'network-marketing-software',
     'direct-selling-software': 'direct-selling-software',
     'crm-mlm-software': 'crm-mlm-software',
+    'bitcoin-cryptocurrency-mlm-software': 'bitcoin-cryptocurrency-mlm-software',
+    'mlm-software-availability-across-countries': 'mlm-software-availability-across-countries',
   },
   es: {
     'sobre-la-empresa': 'about-company',
@@ -78,6 +80,9 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'direct-selling-software': 'direct-selling-software',
     'software-crm-mlm': 'crm-mlm-software',
     'crm-mlm-software': 'crm-mlm-software',
+    'bitcoin-cryptocurrency-mlm-software': 'bitcoin-cryptocurrency-mlm-software',
+    'disponibilidad-software-mlm-paises': 'mlm-software-availability-across-countries',
+    'mlm-software-availability-across-countries': 'mlm-software-availability-across-countries',
   },
   fr: {
     'a-propos-de-l-entreprise': 'about-company',
@@ -123,6 +128,10 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'direct-selling-software': 'direct-selling-software',
     'logiciel-crm-mlm': 'crm-mlm-software',
     'crm-mlm-software': 'crm-mlm-software',
+    'logiciel-mlm-de-crypto-monnaie-bitcoin': 'bitcoin-cryptocurrency-mlm-software',
+    'bitcoin-cryptocurrency-mlm-software': 'bitcoin-cryptocurrency-mlm-software',
+    'disponibilite-logiciel-mlm-pays': 'mlm-software-availability-across-countries',
+    'mlm-software-availability-across-countries': 'mlm-software-availability-across-countries',
   },
   it: {
     'chi-siamo': 'about-company',
@@ -172,6 +181,10 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'direct-selling-software': 'direct-selling-software',
     'software-crm-mlm': 'crm-mlm-software',
     'crm-mlm-software': 'crm-mlm-software',
+    'software-mlm-per-criptovaluta-bitcoin': 'bitcoin-cryptocurrency-mlm-software',
+    'bitcoin-cryptocurrency-mlm-software': 'bitcoin-cryptocurrency-mlm-software',
+    'disponibilita-software-mlm-paesi': 'mlm-software-availability-across-countries',
+    'mlm-software-availability-across-countries': 'mlm-software-availability-across-countries',
   },
   de: {
     'ueber-uns': 'about-company',
@@ -218,6 +231,10 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'direktvertrieb-software': 'direct-selling-software',
     'direct-selling-software': 'direct-selling-software',
     'crm-mlm-software': 'crm-mlm-software',
+    'bitcoin-kryptowahrung-mlm-software': 'bitcoin-cryptocurrency-mlm-software',
+    'bitcoin-cryptocurrency-mlm-software': 'bitcoin-cryptocurrency-mlm-software',
+    'mlm-software-verfuegbarkeit-laender': 'mlm-software-availability-across-countries',
+    'mlm-software-availability-across-countries': 'mlm-software-availability-across-countries',
   },
   pt: {
     'sobre-a-empresa': 'about-company',
@@ -265,6 +282,10 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'direct-selling-software': 'direct-selling-software',
     'software-crm-mlm': 'crm-mlm-software',
     'crm-mlm-software': 'crm-mlm-software',
+    'software-de-mlm-de-criptomoeda-bitcoin': 'bitcoin-cryptocurrency-mlm-software',
+    'bitcoin-cryptocurrency-mlm-software': 'bitcoin-cryptocurrency-mlm-software',
+    'disponibilidade-software-mlm-paises': 'mlm-software-availability-across-countries',
+    'mlm-software-availability-across-countries': 'mlm-software-availability-across-countries',
   },
   zh: {
     'guanyu-gongsi': 'about-company',
@@ -315,6 +336,10 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'direct-selling-software': 'direct-selling-software',
     'crm-mlm-ruan-jian': 'crm-mlm-software',
     'crm-mlm-software': 'crm-mlm-software',
+    'bitcoin-jia-mi-huo-bi-mlm-ruan-jian': 'bitcoin-cryptocurrency-mlm-software',
+    'bitcoin-cryptocurrency-mlm-software': 'bitcoin-cryptocurrency-mlm-software',
+    'mlm-ruan-jian-ge-guo-ke-yong': 'mlm-software-availability-across-countries',
+    'mlm-software-availability-across-countries': 'mlm-software-availability-across-countries',
   },
 };
 
@@ -538,25 +563,99 @@ export const pageToSlugMap: Record<string, Record<string, string>> = {
     pt: 'software-crm-mlm',
     zh: 'crm-mlm-ruan-jian',
   },
+  'bitcoin-cryptocurrency-mlm-software': {
+    en: 'bitcoin-cryptocurrency-mlm-software',
+    es: 'bitcoin-cryptocurrency-mlm-software',
+    fr: 'logiciel-mlm-de-crypto-monnaie-bitcoin',
+    it: 'software-mlm-per-criptovaluta-bitcoin',
+    de: 'bitcoin-kryptowahrung-mlm-software',
+    pt: 'software-de-mlm-de-criptomoeda-bitcoin',
+    zh: 'bitcoin-jia-mi-huo-bi-mlm-ruan-jian',
+  },
+  'mlm-software-availability-across-countries': {
+    en: 'mlm-software-availability-across-countries',
+    es: 'disponibilidad-software-mlm-paises',
+    fr: 'disponibilite-logiciel-mlm-pays',
+    it: 'disponibilita-software-mlm-paesi',
+    de: 'mlm-software-verfuegbarkeit-laender',
+    pt: 'disponibilidade-software-mlm-paises',
+    zh: 'mlm-ruan-jian-ge-guo-ke-yong',
+  },
 };
 
 /**
- * Module sub-page slugs (top-level [slug] under [lang], e.g. /emails, /ticket-system).
+ * Module sub-page slugs (top-level [slug] under [lang], e.g. /emails, /ticket-system-module-for-mlm-software).
  * Canonical page id -> locale -> slug. Used so /es/correos-electronicos rewrites to /es/emails and buildLocalizedPath(/emails) returns locale-specific slug.
  */
 export const modulesSubpageToSlugMap: Record<string, Record<string, string>> = {
   emails: { en: 'emails', es: 'correos-electronicos', fr: 'emails-automatisation', it: 'email', de: 'e-mails', pt: 'emails', zh: 'dian-zi-you-jian' },
-  compensation: { en: 'compensation', es: 'compensacion', fr: 'compensation', it: 'compensi', de: 'vergütung', pt: 'compensacao', zh: 'bu-chang' },
-  ecommerce: { en: 'ecommerce', es: 'ecommerce', fr: 'e-commerce', it: 'e-commerce', de: 'e-commerce', pt: 'ecommerce', zh: 'dian-shang' },
+  'compensation-module': {
+    en: 'compensation-module',
+    es: 'modulo-compensacion',
+    fr: 'module-compensation',
+    it: 'modulo-compensi',
+    de: 'compensation-modul',
+    pt: 'modulo-compensacao',
+    zh: 'bu-chang-mo-kuai',
+  },
+  'ecommerce-module': {
+    en: 'ecommerce-module',
+    es: 'modulo-ecommerce',
+    fr: 'module-e-commerce',
+    it: 'modulo-e-commerce',
+    de: 'e-commerce-modul',
+    pt: 'modulo-ecommerce',
+    zh: 'dian-shang-mo-kuai',
+  },
   'marketing-automation': { en: 'marketing-automation', es: 'automatizacion-marketing', fr: 'automatisation-marketing', it: 'automazione-marketing', de: 'marketing-automatisierung', pt: 'automacao-marketing', zh: 'ying-xiao-zi-dong-hua' },
-  compliance: { en: 'compliance', es: 'cumplimiento', fr: 'conformite', it: 'conformita', de: 'compliance', pt: 'conformidade', zh: 'he-gui' },
+  'compliance-modules': {
+    en: 'compliance-modules',
+    es: 'modulos-cumplimiento',
+    fr: 'modules-conformite',
+    it: 'moduli-conformita',
+    de: 'compliance-modul',
+    pt: 'modulos-conformidade',
+    zh: 'he-gui-mo-kuai',
+  },
   analytics: { en: 'analytics', es: 'analiticas', fr: 'analytiques', it: 'analytics', de: 'analysen', pt: 'analytics', zh: 'fen-xi' },
   genealogy: { en: 'genealogy', es: 'genealogia', fr: 'genealogie', it: 'genealogia', de: 'genealogie', pt: 'genealogia', zh: 'wang-luo-shu' },
-  'customer-engagement': { en: 'customer-engagement', es: 'compromiso-cliente', fr: 'engagement-client', it: 'coinvolgimento-clienti', de: 'kundenbindung', pt: 'engajamento-cliente', zh: 'ke-hu-can-yu' },
+  'customer-engagement-module': {
+    en: 'customer-engagement-module',
+    es: 'compromiso-cliente',
+    fr: 'engagement-client',
+    it: 'coinvolgimento-clienti',
+    de: 'kundenbindung',
+    pt: 'engajamento-cliente',
+    zh: 'ke-hu-can-yu',
+  },
   'mass-email-sending-module': { en: 'mass-email-sending-module', es: 'modulo-envio-masivo-email', fr: 'module-envoi-email-masse', it: 'modulo-invio-email-massa', de: 'modul-massene-mail', pt: 'modulo-envio-email-massa', zh: 'qun-fa-you-jian-mo-kuai' },
-  'e-voucher': { en: 'e-voucher', es: 'e-vale', fr: 'e-bon', it: 'e-voucher', de: 'e-gutschein', pt: 'e-voucher', zh: 'dian-zi-dai-jin-quan' },
-  'e-wallet': { en: 'e-wallet', es: 'e-wallet', fr: 'porte-monnaie-electronique', it: 'e-wallet', de: 'e-wallet', pt: 'carteira-eletronica', zh: 'dian-zi-qian-bao' },
-  'ticket-system': { en: 'ticket-system', es: 'sistema-tickets', fr: 'systeme-tickets', it: 'sistema-ticket', de: 'ticket-system', pt: 'sistema-tickets', zh: 'gong-dan-xi-tong' },
+  'e-voucher': {
+    en: 'e-voucher-for-mlm-software',
+    es: 'e-voucher-para-el-software-de-mlm',
+    fr: 'e-voucher-pour-le-logiciel-mlm',
+    it: 'e-voucher-per-il-software-mlm',
+    de: 'e-gutschein-fur-mlm-software',
+    pt: 'e-voucher-para-o-mlm-software',
+    zh: 'dian-zi-dai-jin-quan-mlm-ruan-jian',
+  },
+  'e-wallet': {
+    en: 'e-wallet-module-for-mlm-software',
+    es: 'e-wallet-module-for-mlm-software',
+    fr: 'e-wallet-module-for-mlm-software',
+    it: 'e-wallet-module-for-mlm-software',
+    de: 'e-wallet-module-for-mlm-software',
+    pt: 'e-wallet-module-for-mlm-software',
+    zh: 'e-wallet-module-for-mlm-software',
+  },
+  'ticket-system': {
+    en: 'ticket-system-module-for-mlm-software',
+    es: 'ticket-system-module-for-mlm-software',
+    fr: 'ticket-system-module-for-mlm-software',
+    it: 'ticket-system-module-for-mlm-software',
+    de: 'ticket-system-module-for-mlm-software',
+    pt: 'ticket-system-module-for-mlm-software',
+    zh: 'ticket-system-module-for-mlm-software',
+  },
   'auto-responder': { en: 'auto-responder', es: 'respuesta-automatica', fr: 'reponse-automatique', it: 'risposta-automatica', de: 'auto-responder', pt: 'resposta-automatica', zh: 'zi-dong-hui-fu' },
   'multi-currency-module': {
     en: 'multi-currency-module',
@@ -580,6 +679,12 @@ export const modulesSubpageToSlugMap: Record<string, Record<string, string>> = {
     for (const [loc, slug] of Object.entries(slugs)) {
       if (!pageSlugMap[loc]) (pageSlugMap as Record<string, Record<string, string>>)[loc] = {};
       (pageSlugMap as Record<string, Record<string, string>>)[loc][slug] = pageId;
+    }
+    // Allow page id as path segment so buildLocalizedPath("/e-voucher", locale) still resolves
+    for (const loc of Object.keys(slugs)) {
+      if (!(pageSlugMap as Record<string, Record<string, string>>)[loc][pageId]) {
+        (pageSlugMap as Record<string, Record<string, string>>)[loc][pageId] = pageId;
+      }
     }
   }
 })();
@@ -756,10 +861,19 @@ export function getSlugForPricingSubpage(page: string, locale: string): string |
 }
 
 /**
- * Get page identifier from locale-specific slug
+ * Get page identifier from locale-specific slug.
+ * Tries exact match, then URL-decoded slug (e.g. verg%C3%BCtungsmodul → vergütungsmodul).
  */
 export function getPageFromSlug(slug: string, locale: string): string | null {
-  return pageSlugMap[locale]?.[slug] || null;
+  const exact = pageSlugMap[locale]?.[slug];
+  if (exact) return exact;
+  try {
+    const decoded = decodeURIComponent(slug);
+    if (decoded !== slug) return pageSlugMap[locale]?.[decoded] ?? null;
+  } catch {
+    // ignore decode errors
+  }
+  return null;
 }
 
 /**

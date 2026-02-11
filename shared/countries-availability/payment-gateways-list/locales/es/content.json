@@ -1,0 +1,16 @@
+{
+  "countriesSection": {
+    "sectionTitle": "Pasarelas de pago para software MLM por país o región",
+    "sectionDescription": "Conozca las pasarelas de pago de software MLM en cada país o región",
+    "badge": "Por región",
+    "countriesCountLabel": "países"
+  },
+  "continentNames": {
+    "africa": "África",
+    "asia": "Asia",
+    "europe": "Europa",
+    "north-america": "América del Norte",
+    "oceania": "Oceanía",
+    "south-america": "América del Sur"
+  }
+}

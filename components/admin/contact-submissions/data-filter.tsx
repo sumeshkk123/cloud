@@ -29,6 +29,8 @@ const SOURCE_OPTIONS = [
   { value: 'contact', label: 'Contact' },
   { value: 'pricing', label: 'Pricing' },
   { value: 'demo', label: 'Demo' },
+  { value: 'hero-section-country', label: 'Hero section - country' },
+  { value: 'hero-section-module', label: 'Hero section - module' },
 ];
 
 export function ContactSubmissionsFilter({

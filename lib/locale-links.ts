@@ -6,6 +6,10 @@ import {
   getPricingSubpageKeyFromSlug,
   getSlugForPricingSubpage,
 } from "@/lib/page-slugs";
+import {
+  getServiceSubpageKeyFromSlug,
+  getSlugForServiceSubpage,
+} from "@/lib/services-subpage-slugs";
 
 const ORIGIN = siteBaseConfig.url.replace(/\/$/, "");
 
@@ -79,6 +83,10 @@ export function buildLocalizedPath(path: string, locale: SupportedLocale): strin
             }
           }
         }
+        // Path segment may be a page id (e.g. /ticket-system) when slug differs (e.g. ticket-system-module-for-mlm-software)
+        if (!pageId && getSlugFromPage(firstSegment, locale)) {
+          pageId = firstSegment;
+        }
       }
       
       // Cache the result (null means not a translatable page)
@@ -102,6 +110,14 @@ export function buildLocalizedPath(path: string, locale: SupportedLocale): strin
               remainingPath = rest.length ? `${translatedSecond}/${rest.join("/")}` : translatedSecond;
             }
           }
+        }
+        // Translate services sub-page second segment (e.g. opencart-development -> desarrollo-opencart for es)
+        if (pageId === "services" && pathSegments.length >= 2) {
+          const secondSegment = pathSegments[1];
+          const serviceKey = getServiceSubpageKeyFromSlug(secondSegment) ?? secondSegment;
+          const translatedSecond = getSlugForServiceSubpage(serviceKey, locale);
+          const rest = pathSegments.slice(2);
+          remainingPath = rest.length ? `${translatedSecond}/${rest.join("/")}` : translatedSecond;
         }
         const fullPath = `/${translatedSlug}${remainingPath ? `/${remainingPath}` : ""}`;
 

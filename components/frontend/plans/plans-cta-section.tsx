@@ -91,6 +91,7 @@ export function PlansCtaSection({ contactHref, guideHref, locale }: PlansCtaSect
       title={cta.title}
       description={cta.description}
       primaryButton={{ text: cta.primaryButton, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       secondaryButton={{ text: cta.secondaryButton, href: guideHref, openInNewTab: true }}
       trustIndicators={cta.trustIndicators}
     />

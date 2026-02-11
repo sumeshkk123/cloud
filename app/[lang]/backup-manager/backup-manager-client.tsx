@@ -9,6 +9,7 @@ type BackupManagerClientProps = {
   pageTitleData: PageTitleRecord | null;
   contactHref: string;
   secondaryHref: string;
+  locale?: string;
 };
 
 function mergeContentWithPageTitle(
@@ -31,6 +32,7 @@ export function BackupManagerClient({
   pageTitleData,
   contactHref,
   secondaryHref,
+  locale = "en",
 }: BackupManagerClientProps) {
   const content = mergeContentWithPageTitle(backupManagerContent, pageTitleData);
   return (
@@ -38,6 +40,8 @@ export function BackupManagerClient({
       content={content}
       contactHref={contactHref}
       demoHref={secondaryHref}
+      moduleSlug="backup-manager"
+      locale={locale}
     />
   );
 }

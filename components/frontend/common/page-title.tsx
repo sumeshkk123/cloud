@@ -26,6 +26,8 @@ export interface PageTitleProps {
   centered?: boolean;
   /** Whether to disable the gradient highlight on the title */
   disableHighlight?: boolean;
+  /** Max number of lines for description (shows ellipsis after); e.g. 4 */
+  descriptionMaxLines?: number;
 }
 
 export function PageTitle({
@@ -40,6 +42,7 @@ export function PageTitle({
   as: Component = "h1",
   centered = false,
   disableHighlight = false,
+  descriptionMaxLines,
 }: PageTitleProps) {
   return (
     <div className={cn("space-y-6", className)}>
@@ -92,7 +95,18 @@ export function PageTitle({
       {description && (
         <p className={cn(
           "text-lg text-muted-foreground",
-          centered && "text-center"
+          centered && "text-center",
+          descriptionMaxLines !== undefined &&
+            descriptionMaxLines >= 1 &&
+            descriptionMaxLines <= 6 &&
+            {
+              1: "line-clamp-1",
+              2: "line-clamp-2",
+              3: "line-clamp-3",
+              4: "line-clamp-4",
+              5: "line-clamp-5",
+              6: "line-clamp-6",
+            }[descriptionMaxLines]
         )}>
           {description}
         </p>

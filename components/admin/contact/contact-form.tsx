@@ -101,7 +101,13 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
   const [currentContactId, setCurrentContactId] = useState<string | null>(contactId || null);
   const [savedLocales, setSavedLocales] = useState<string[]>([]);
   const [newPhone, setNewPhone] = useState('');
+  const [flagImgError, setFlagImgError] = useState(false);
   const preserveTabRef = React.useRef<string | null>(null);
+
+  const current = translations[activeTab] || { country: '', place: '', address: '', phones: [], whatsapp: '', email: '', flag: '', exists: false };
+  const english = translations['en'] || {};
+  const countryForFlag = (activeTab === 'en' ? current.country : (english.country ?? current.country)) || '';
+  const flagIso = getCountryIsoCode(countryForFlag);
 
   useEffect(() => {
     onSavingChange?.(isSaving);
@@ -114,6 +120,10 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
   useEffect(() => {
     setCurrentContactId(contactId || null);
   }, [contactId]);
+
+  useEffect(() => {
+    setFlagImgError(false);
+  }, [flagIso]);
 
   useEffect(() => {
     if (currentContactId) {
@@ -683,11 +693,6 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
     }
   };
 
-  const current = translations[activeTab] || { country: '', place: '', address: '', phones: [], whatsapp: '', email: '', flag: '', exists: false };
-  const english = translations['en'] || {};
-  // Show flag emoji on the right. Use dropdown value when on English tab; otherwise English country name. Fallback to stored emoji (never 2-letter code).
-  const countryForFlag = (activeTab === 'en' ? current.country : (english.country ?? current.country)) || '';
-  const flagIso = getCountryIsoCode(countryForFlag);
   const displayFlagEmoji = (() => {
     const fromCountry = getCountryFlag(countryForFlag);
     if (fromCountry) return fromCountry;
@@ -807,18 +812,19 @@ export function ContactForm({ contactId, onClose, onSave, onToastChange, onLoadi
                 />
               </div>
             )}
-            {/* Flag Display — use image so it always shows (emoji often doesn't render on Windows) */}
+            {/* Flag Display — use image so it always shows (emoji fallback when image fails) */}
             <div
               className="flex items-center justify-center w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shrink-0 overflow-hidden"
               title={countryForFlag ? `Flag: ${countryForFlag}` : 'Country flag'}
             >
-              {flagIso ? (
+              {flagIso && !flagImgError ? (
                 <img
                   src={`/api/contact/flag/${flagIso}`}
                   alt=""
                   className="w-full h-full object-cover"
-                  width={40}
-                  height={30}
+                  width={80}
+                  height={60}
+                  onError={() => setFlagImgError(true)}
                 />
               ) : displayFlagEmoji ? (
                 <span className="text-2xl leading-none" aria-hidden role="img">{displayFlagEmoji}</span>

@@ -20,6 +20,7 @@ export function DirectSellingCtaSection({
       title={c.heading}
       description={c.description}
       primaryButton={{ text: c.primaryCta, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       secondaryButton={{ text: c.secondaryCta, href: demoHref, openInNewTab: true }}
       trustIndicators={[
         "10–14 weeks typical launch",

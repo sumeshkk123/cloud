@@ -5,9 +5,17 @@ import { ModuleSubpageLayout } from "@/components/frontend/modules/subpage";
 import type { ModuleFeatureContent } from "@/components/frontend/modules/subpage";
 import { massEmailSendingModuleContent } from "./content";
 
-type Props = { pageTitleData: PageTitleRecord | null; contactHref: string; secondaryHref: string };
+type MassEmailSendingModuleClientProps = {
+  pageTitleData: PageTitleRecord | null;
+  contactHref: string;
+  secondaryHref: string;
+  locale?: string;
+};
 
-function merge(content: ModuleFeatureContent, pageTitleData: PageTitleRecord | null): ModuleFeatureContent {
+function mergeContentWithPageTitle(
+  content: ModuleFeatureContent,
+  pageTitleData: PageTitleRecord | null
+): ModuleFeatureContent {
   if (!pageTitleData) return content;
   return {
     ...content,
@@ -20,7 +28,20 @@ function merge(content: ModuleFeatureContent, pageTitleData: PageTitleRecord | n
   };
 }
 
-export function MassEmailSendingModuleClient({ pageTitleData, contactHref, secondaryHref }: Props) {
-  const content = merge(massEmailSendingModuleContent, pageTitleData);
-  return <ModuleSubpageLayout content={content} contactHref={contactHref} demoHref={secondaryHref} />;
+export function MassEmailSendingModuleClient({
+  pageTitleData,
+  contactHref,
+  secondaryHref,
+  locale = "en",
+}: MassEmailSendingModuleClientProps) {
+  const content = mergeContentWithPageTitle(massEmailSendingModuleContent, pageTitleData);
+  return (
+    <ModuleSubpageLayout
+      content={content}
+      contactHref={contactHref}
+      demoHref={secondaryHref}
+      moduleSlug="mass-email-sending-module"
+      locale={locale}
+    />
+  );
 }

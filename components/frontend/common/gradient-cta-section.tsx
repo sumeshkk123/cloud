@@ -1,27 +1,69 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, CheckCircle2, Clock, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { Section } from "@/components/ui/section";
+import { RequestDemoModal } from "@/components/frontend/common/request-demo-modal";
+import { useToast } from "@/components/ui/toast";
 
 export interface GradientCtaSectionProps {
   title: string;
   description: string;
   primaryButton: { text: string; href: string };
   secondaryButton?: { text: string; href: string; openInNewTab?: boolean };
+  /** Optional third button that runs onClick (e.g. open modal) instead of linking */
+  tertiaryButton?: { text: string; onClick: () => void };
+  /** When set, primary button opens Request Demo modal instead of linking. Source sent as enquiry (e.g. "cta-section"). */
+  primaryButtonOpensDemoModal?: true | { source?: string; subheading?: string; locale?: string };
   /** Exactly 3 strings for Zap, Clock, CheckCircle2 trust indicators */
   trustIndicators: [string, string, string];
 }
+
+const DEFAULT_CTA_MODAL_SOURCE = "cta-section";
+const DEFAULT_CTA_MODAL_SUBHEADING = "From: CTA section";
 
 export function GradientCtaSection({
   title,
   description,
   primaryButton,
   secondaryButton,
+  tertiaryButton,
+  primaryButtonOpensDemoModal,
   trustIndicators,
 }: GradientCtaSectionProps) {
+  const pathname = usePathname() ?? "";
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
+  const { showToast, ToastComponent } = useToast();
+
+  const demoConfig =
+    primaryButtonOpensDemoModal === true
+      ? { source: DEFAULT_CTA_MODAL_SOURCE, subheading: DEFAULT_CTA_MODAL_SUBHEADING, locale: "en" as const }
+      : primaryButtonOpensDemoModal;
+
+  const openDemoModal = () => setDemoModalOpen(true);
+  const closeDemoModal = () => setDemoModalOpen(false);
+
   return (
     <Section padding="lg" variant="gradient">
+      {ToastComponent}
+      {demoConfig && (
+        <RequestDemoModal
+          isOpen={demoModalOpen}
+          onClose={closeDemoModal}
+          heading="Request a Demo"
+          subheading={demoConfig.subheading ?? DEFAULT_CTA_MODAL_SUBHEADING}
+          source={demoConfig.source ?? DEFAULT_CTA_MODAL_SOURCE}
+          notes="cta section"
+          sourcePage={pathname || undefined}
+          locale={demoConfig.locale ?? "en"}
+          onSuccess={(message) => showToast(message, "success")}
+          onError={(message) => showToast(message, "error")}
+        />
+      )}
       <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-primary via-blue-500 via-purple-500 to-pink-500 p-12 text-center transition-all duration-300 hover:shadow-3xl">
         {/* Animated grid pattern */}
         <div className="pointer-events-none absolute inset-0 opacity-20">
@@ -55,17 +97,32 @@ export function GradientCtaSection({
           </Typography>
 
           <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="group relative overflow-hidden rounded-xl bg-white px-8 py-6 text-base font-semibold text-primary shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-white/95"
-            >
-              <Link href={primaryButton.href} className="relative z-10 flex items-center gap-2">
+            {demoConfig ? (
+              <Button
+                type="button"
+                size="lg"
+                onClick={openDemoModal}
+                className="group relative overflow-hidden rounded-xl bg-white px-8 py-6 text-base font-semibold text-primary shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-white/95"
+              >
                 <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 opacity-0 transition-opacity group-hover:opacity-100" />
-                {primaryButton.text}
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
-              </Link>
-            </Button>
+                <span className="relative z-10 flex items-center gap-2">
+                  {primaryButton.text}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
+                </span>
+              </Button>
+            ) : (
+              <Button
+                asChild
+                size="lg"
+                className="group relative overflow-hidden rounded-xl bg-white px-8 py-6 text-base font-semibold text-primary shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-white/95"
+              >
+                <Link href={primaryButton.href} className="relative z-10 flex items-center gap-2">
+                  <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 opacity-0 transition-opacity group-hover:opacity-100" />
+                  {primaryButton.text}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
+                </Link>
+              </Button>
+            )}
 
             {secondaryButton && (
               <Button
@@ -84,6 +141,20 @@ export function GradientCtaSection({
                   {secondaryButton.text}
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
                 </Link>
+              </Button>
+            )}
+            {tertiaryButton && (
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                onClick={tertiaryButton.onClick}
+                className="group relative overflow-hidden rounded-xl border-2 border-white/90 bg-white/10 px-8 py-6 text-base font-semibold !text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white !hover:text-white hover:shadow-xl"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  {tertiaryButton.text}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
+                </span>
               </Button>
             )}
           </div>

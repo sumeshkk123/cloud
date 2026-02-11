@@ -16,6 +16,7 @@ export function AboutCompanyCtaSection({ locale, contactHref, demoHref }: AboutC
       title={content.title}
       description={content.description}
       primaryButton={{ text: content.primaryButtonText, href: contactHref }}
+      primaryButtonOpensDemoModal={{ source: "cta-section", subheading: "From: CTA section", locale }}
       secondaryButton={{
         text: content.secondaryButtonText,
         href: demoHref,
