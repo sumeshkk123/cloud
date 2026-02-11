@@ -69,6 +69,12 @@ function getSourceLabel(source?: string, notes?: string | null) {
     }
     if (n.includes('modules page') || n.includes('mlm software modules')) return 'Modules';
   }
+  if (s === 'payment-gateways-cta') return 'CTA - payment-gateways';
+  if (s === 'hero-section-payment-gateways') {
+    const pageMatch = notes?.match(/Page:\s*(.+?)(?:\s·|$)/i);
+    const page = pageMatch?.[1]?.trim();
+    return page ? `Hero section (${page})` : 'Hero section - payment-gateways';
+  }
   if (s === 'hero-section-country') return 'Hero section - country';
   if (s === 'hero-section-module' || s === 'mlm-software-modules') return 'Hero section - module';
   if (s === 'hero-section' || s === 'cta-section') {
@@ -121,6 +127,9 @@ function getSourceBadgeClasses(source?: string, notes?: string | null): string {
   }
   if (effectiveSource === 'hero-section-country') {
     return `${baseClasses} bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-200`;
+  }
+  if (effectiveSource === 'payment-gateways-cta' || effectiveSource === 'hero-section-payment-gateways') {
+    return `${baseClasses} bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200`;
   }
   if (effectiveSource.startsWith('demo-')) {
     return `${baseClasses} bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200`;

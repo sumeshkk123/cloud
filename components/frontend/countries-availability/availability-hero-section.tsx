@@ -1,6 +1,7 @@
 "use client";
 
 import type { ComponentType } from "react";
+import * as RemixIcon from "@remixicon/react";
 import { Globe2, Network, ShieldCheck } from "lucide-react";
 import { HeroSection } from "@/components/frontend/common/hero-section";
 import type { AvailabilityListContent } from "@/lib/availability-list-content";
@@ -8,6 +9,9 @@ import type { AvailabilityListContent } from "@/lib/availability-list-content";
 type IconType = ComponentType<{ className?: string }>;
 
 const HIGHLIGHT_ICONS: IconType[] = [Globe2, ShieldCheck, Network];
+
+/** Same icon as common Badge component (ui/badge) */
+const BADGE_ICON = RemixIcon.RiCloudFill;
 
 export interface AvailabilityHeroSectionProps {
   contactHref: string;
@@ -43,6 +47,7 @@ export function AvailabilityHeroSection({ contactHref, demoHref, onPrimaryCtaCli
   return (
     <HeroSection
       badgeText={content.badgeText}
+      badgeIcon={<BADGE_ICON className="h-3.5 w-3.5 text-primary" aria-hidden />}
       highlightText={content.highlightText}
       description={content.description}
       primaryCta={

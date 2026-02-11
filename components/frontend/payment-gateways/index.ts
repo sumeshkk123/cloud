@@ -5,3 +5,5 @@ export { PaymentGatewaysCapabilitiesSection } from "./payment-gateways-capabilit
 export { PaymentGatewaysExtendSection } from "./payment-gateways-extend-section";
 export { PaymentGatewaysWorkshopSection } from "./payment-gateways-workshop-section";
 export { PaymentGatewaysCtaSection } from "./payment-gateways-cta-section";
+export { PaymentGatewayCountryLayout } from "./subpages";
+export type { PaymentGatewayCountryContent } from "./subpages";
