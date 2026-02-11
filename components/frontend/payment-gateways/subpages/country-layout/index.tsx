@@ -19,6 +19,8 @@ export interface PaymentGatewayCountryLayoutProps {
   demoHref: string;
   pricingHref: string;
   locale: Locale;
+  countrySlug?: string;
+  countryName?: string;
 }
 
 export function PaymentGatewayCountryLayout({
@@ -27,6 +29,8 @@ export function PaymentGatewayCountryLayout({
   demoHref,
   pricingHref,
   locale,
+  countrySlug,
+  countryName,
 }: PaymentGatewayCountryLayoutProps) {
   const [heroModalOpen, setHeroModalOpen] = useState(false);
   const { showToast, ToastComponent } = useToast();
@@ -40,6 +44,7 @@ export function PaymentGatewayCountryLayout({
       <PaymentGatewayCountryHero
         badge={hero.badge}
         title={hero.title}
+        highlightInTitle={countryName}
         description={hero.description}
         pricingHref={pricingHref}
         demoHref={demoHref}
@@ -61,7 +66,13 @@ export function PaymentGatewayCountryLayout({
         locale={locale}
         onSuccess={(message) => showToast(message, "success")}
       />
-      <PaymentGatewayCountryClustersSection heading={clusters.heading} description={clusters.description} items={clusters.items} />
+      <PaymentGatewayCountryClustersSection
+        heading={clusters.heading}
+        description={clusters.description}
+        items={clusters.items}
+        countrySlug={countrySlug}
+        countryName={countryName}
+      />
       <PaymentGatewayCountryStagesSection heading={stages.heading} description={stages.description} items={stages.items} />
       <PaymentGatewayCountryGuardsSection
         heading={guards.heading}

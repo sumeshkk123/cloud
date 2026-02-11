@@ -28,7 +28,7 @@ export function PaymentGatewayCountryFaqSection({ badge = "FAQ", heading, descri
           badge={badge}
           heading={heading}
           description={description}
-          centered={false}
+          centered
           maxWidth="3xl"
         />
         <div className="mx-auto max-w-5xl">

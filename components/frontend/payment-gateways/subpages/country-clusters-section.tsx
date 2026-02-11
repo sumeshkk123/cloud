@@ -5,6 +5,7 @@ import { SectionTitle } from "@/components/ui/section-title";
 import { Card, CardContent, CardHeader, CardIcon, CardTitle } from "@/components/ui/card";
 import { BulletList } from "@/components/ui/bullet-list";
 import { Typography } from "@/components/ui/typography";
+import { CountryFlag } from "@/components/frontend/countries-availability/subpages/country-flag";
 import { getPaymentGatewayCountryIcon } from "./icon-map";
 import type { PaymentGatewayCountryCluster } from "./types";
 
@@ -14,19 +15,39 @@ export interface PaymentGatewayCountryClustersSectionProps {
   heading: string;
   description: string;
   items: PaymentGatewayCountryCluster[];
+  /** When provided, a country flag is shown next to the section title. */
+  countrySlug?: string;
+  countryName?: string;
 }
 
-export function PaymentGatewayCountryClustersSection({ badge = "Gateway clusters", heading, description, items }: PaymentGatewayCountryClustersSectionProps) {
+export function PaymentGatewayCountryClustersSection({
+  badge = "Gateway clusters",
+  heading,
+  description,
+  items,
+  countrySlug,
+  countryName,
+}: PaymentGatewayCountryClustersSectionProps) {
   return (
     <Section padding="lg" variant="gradient">
       <div className="container space-y-12">
-        <SectionTitle
-          badge={badge}
-          heading={heading}
-          description={description}
-          centered={false}
-          maxWidth="3xl"
-        />
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+          <SectionTitle
+            badge={badge}
+            heading={heading}
+            description={description}
+            centered={false}
+            maxWidth="3xl"
+          />
+          {countrySlug && countryName && (
+            <CountryFlag
+              countrySlug={countrySlug}
+              countryName={countryName}
+              size="lg"
+              className="shrink-0"
+            />
+          )}
+        </div>
         <div className="grid gap-8 lg:grid-cols-3">
           {items.map((cluster) => {
             const Icon = getPaymentGatewayCountryIcon(cluster.icon);
