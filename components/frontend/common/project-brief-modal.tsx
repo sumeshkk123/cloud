@@ -33,6 +33,8 @@ export interface ProjectBriefModalProps {
   source: string;
   /** Optional notes for the submission (e.g. "Enquiry from services page") */
   notes?: string;
+  /** Optional page path for admin (e.g. "/mlm-software-payment-gateways/algeria"); appended to notes as "Page: {sourcePage}" */
+  sourcePage?: string;
   locale?: string;
   onSuccess?: (message: string) => void;
   onError?: (message: string) => void;
@@ -45,6 +47,7 @@ export function ProjectBriefModal({
   onClose,
   source,
   notes,
+  sourcePage,
   locale = "en",
   onSuccess,
   onError,
@@ -65,13 +68,14 @@ export function ProjectBriefModal({
     message: string;
   }) => {
     try {
+      const combinedNotes = [notes, sourcePage ? `Page: ${sourcePage}` : null].filter(Boolean).join(" · ") || undefined;
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
           source,
-          notes: notes ?? undefined,
+          notes: combinedNotes,
           sourceSite:
             typeof process !== "undefined" && process.env.NEXT_PUBLIC_CONTACT_WEBSITE
               ? process.env.NEXT_PUBLIC_CONTACT_WEBSITE

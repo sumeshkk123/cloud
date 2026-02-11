@@ -1,6 +1,7 @@
 "use client";
 
 import type { ComponentType } from "react";
+import * as RemixIcon from "@remixicon/react";
 import { CreditCard, Lock, Wallet } from "lucide-react";
 import { HeroSection } from "@/components/frontend/common/hero-section";
 import type { PaymentGatewaysListContent } from "@/lib/payment-gateways-list-content";
@@ -8,6 +9,9 @@ import type { PaymentGatewaysListContent } from "@/lib/payment-gateways-list-con
 type IconType = ComponentType<{ className?: string }>;
 
 const HIGHLIGHT_ICONS: IconType[] = [CreditCard, Lock, Wallet];
+
+/** Same icon as common Badge component (ui/badge) */
+const BADGE_ICON = RemixIcon.RiCloudFill;
 
 export interface PaymentGatewaysHeroSectionProps {
   contactHref: string;
@@ -49,6 +53,7 @@ export function PaymentGatewaysHeroSection({
   return (
     <HeroSection
       badgeText={content.badgeText}
+      badgeIcon={<BADGE_ICON className="h-3.5 w-3.5 text-primary" aria-hidden />}
       highlightText={content.highlightText}
       description={content.description}
       primaryCta={
