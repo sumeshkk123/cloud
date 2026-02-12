@@ -7,7 +7,6 @@ import type { Locale } from "@/i18n-config";
 import { ServiceSubpageLayout } from "@/components/frontend/services/subpage";
 import { getServicesSubpageContent } from "@/lib/services-subpage-content";
 
-const DEMO_URL = "https://demo.cloudmlmsoftware.com";
 
 type ServiceSubpageClientProps = {
   slug: string;
@@ -32,6 +31,7 @@ export function ServiceSubpageClient({
   serviceSlug,
 }: ServiceSubpageClientProps) {
   const contactHref = buildLocalizedPath("/contact", locale);
+  const featuresHref = buildLocalizedPath("/features", locale);
   const content = getServicesSubpageContent(slug);
   if (!content) notFound();
 
@@ -45,6 +45,7 @@ export function ServiceSubpageClient({
       title: serverTitle ?? content.hero.title,
       badge: serverBadge ?? content.hero.badge,
       description: serverDescription ?? content.hero.description,
+      secondaryCta: "Explore all features",
     },
   };
 
@@ -52,7 +53,7 @@ export function ServiceSubpageClient({
     <ServiceSubpageLayout
       content={mergedContent}
       contactHref={contactHref}
-      demoHref={DEMO_URL}
+      demoHref={featuresHref}
       serverTitle={serverTitle ?? undefined}
       serverBadge={serverBadge ?? undefined}
       serverDescription={serverDescription ?? undefined}

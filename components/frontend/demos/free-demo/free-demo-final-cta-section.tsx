@@ -34,6 +34,16 @@ const translations: Record<
       decisionReady: "Insights listos para decidir",
     },
   },
+  fr: {
+    title: "Démarrez votre démo Cloud MLM Software aujourd'hui",
+    description: "Nous vous aidons à importer les données, configurer les flux et informer les parties prenantes—pour décider en toute confiance.",
+    primaryButton: "Réserver un créneau",
+    trustIndicators: {
+      quickSetup: "Configuration rapide du sandbox",
+      guidedSession: "Démonstration guidée",
+      decisionReady: "Insights pour décider",
+    },
+  },
   it: {
     title: "Inizia oggi la tua demo di Cloud MLM Software",
     description: "Ti aiutiamo a importare i dati, configurare i flussi e allineare gli stakeholder—per decidere con sicurezza.",

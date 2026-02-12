@@ -16,7 +16,7 @@ export const mlmSoftwareDevelopmentContent: ServiceFeatureContent = {
     description:
       "Are you looking forward to getting your hands on the best MLM software development company? Then you are at the right place! Here the main steps involved in the software development process.",
     primaryCta: "Request a demo",
-    secondaryCta: "Explore live demo",
+    secondaryCta: "Explore all features",
     metrics: [
       {
         label: "Custom solutions",
@@ -247,7 +247,7 @@ export const mlmSoftwareDevelopmentContent: ServiceFeatureContent = {
     description:
       "Achieve MLM success with smart AI-driven tools! Automate, manage, and grow your network effortlessly. Buy now and scale your business!",
     buttonText: "Buy Now",
-    secondaryCta: "Try Demo",
+    secondaryCta: "Explore all features",
     trustIndicators: ["Customized", "Scalable", "24x7 support"],
   },
 };

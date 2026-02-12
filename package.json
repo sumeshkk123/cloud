@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 next build",
     "postbuild": "node scripts/ensure-prerender-manifest.js",
+    "prestart": "node scripts/ensure-prerender-manifest.js",
     "start": "next start",
     "lint": "next lint",
     "check:pages": "bash ./scripts/check-pages.sh",

@@ -62,6 +62,21 @@ const translations: Record<Locale, {
       marketsSupported: { label: "Mercados soportados", detail: "" }
     }
   },
+  fr: {
+    badgeText: "Prestation de services complète pour les équipes de vente directe",
+    fallbackTitle: {
+      highlightText: "Lancez",
+      afterText: "déployez et optimisez votre programme MLM avec un partenaire spécialisé."
+    },
+    description: "Consultants, ingénieurs et experts en conformité travaillent en une seule équipe pour accélérer les mises en œuvre, moderniser les systèmes existants et maintenir les opérations mondiales en douceur.",
+    primaryCta: "Parler à un responsable services",
+    secondaryCta: "Explorer les capacités de la plateforme",
+    metrics: {
+      projectsDelivered: { label: "Projets livrés", detail: "" },
+      launchSpecialists: { label: "Spécialistes lancement", detail: "" },
+      marketsSupported: { label: "Marchés pris en charge", detail: "" }
+    }
+  },
   it: {
     badgeText: "Consegna di servizio completo per team di vendita diretta",
     fallbackTitle: {

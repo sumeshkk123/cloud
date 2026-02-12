@@ -66,7 +66,7 @@ const ReadMoreButton = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, R
                 type="button"
                 ref={ref as React.Ref<HTMLButtonElement>}
                 className={baseClass}
-                onClick={onClick}
+                onClick={onClick as React.MouseEventHandler<HTMLButtonElement> | undefined}
                 {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
             >
                 {content}

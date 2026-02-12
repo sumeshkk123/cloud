@@ -286,9 +286,47 @@ export default {
   },
   industrySection: {
     badge: "Industry-ready deployments",
-    heading: "Tailored playbooks for every vertical",
+    heading: "Features Tailored For The Insurance Sector",
     description:
-      "Tap into curated feature packs, regulatory presets, and training templates built with leaders across direct selling, wellness, beauty, and finance.",
+      "Cloud MLM provides industry-specific features, which include simplified agent management, commission tracking, and policy distribution.",
+    features: [
+      {
+        title: "Agent & Team Management",
+        description:
+          "MLM Software allows insurance companies to efficiently manage agents at all levels, track their performance, and generate automated reports. It guarantees transparency and accountability, allowing both the corporation and the agents to fulfill their objectives.",
+        icon: "Users"
+      },
+      {
+        title: "Automated Policy Distribution",
+        description:
+          "Automate the process of assigning insurance policies to agents, so they can track leads, follow up with clients, and close the sales more easily & successfully. This enhances the entire customer experience while increasing policy sales.",
+        icon: "FileCheck"
+      },
+      {
+        title: "Advanced Commission Management",
+        description:
+          "Handle multiple commission structures with ease. Whether it's direct sales commissions or downline team commissions, our platform streamlines the process to assure timely and accurate payouts based on your specific compensation plan.",
+        icon: "CircleDollarSign"
+      },
+      {
+        title: "Lead & Client Relationship Management",
+        description:
+          "Our platform contains CRM (Customer Management Tools) tailored exclusively to insurance agents. This guarantees that the agents can effectively follow up on leads, manage client relationships, and drive conversions.",
+        icon: "HeartPulse"
+      },
+      {
+        title: "Comprehensive Agent Hierarchy Management",
+        description:
+          "Cloud MLM Software simplifies managing complex agent hierarchies in insurance firms. It enables quick role creation, permission control, and performance tracking across networks or teams.",
+        icon: "Layers"
+      },
+      {
+        title: "Compliance & Data Security",
+        description:
+          "We recognise that compliance is an important factor in the insurance industry. Our Cloud MLM Software is designed with strict compliance procedures to meet regulatory requirements, protecting the security of sensitive client data.",
+        icon: "ShieldCheck"
+      }
+    ],
     solutions: [
       {
         title: "Direct Selling Enterprises",

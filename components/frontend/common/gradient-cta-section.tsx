@@ -13,7 +13,8 @@ import { useToast } from "@/components/ui/toast";
 export interface GradientCtaSectionProps {
   title: string;
   description: string;
-  primaryButton: { text: string; href: string };
+  /** Either href (link) or onClick (e.g. open popup). When onClick is set, primary button runs it instead of navigating. */
+  primaryButton: { text: string; href?: string; onClick?: () => void };
   secondaryButton?: { text: string; href: string; openInNewTab?: boolean };
   /** Optional third button that runs onClick (e.g. open modal) instead of linking */
   tertiaryButton?: { text: string; onClick: () => void };
@@ -110,13 +111,26 @@ export function GradientCtaSection({
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
                 </span>
               </Button>
+            ) : primaryButton.onClick ? (
+              <Button
+                type="button"
+                size="lg"
+                onClick={primaryButton.onClick}
+                className="group relative overflow-hidden rounded-xl bg-white px-8 py-6 text-base font-semibold text-primary shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-white/95"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 opacity-0 transition-opacity group-hover:opacity-100" />
+                <span className="relative z-10 flex items-center gap-2">
+                  {primaryButton.text}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
+                </span>
+              </Button>
             ) : (
               <Button
                 asChild
                 size="lg"
                 className="group relative overflow-hidden rounded-xl bg-white px-8 py-6 text-base font-semibold text-primary shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-white/95"
               >
-                <Link href={primaryButton.href} className="relative z-10 flex items-center gap-2">
+                <Link href={primaryButton.href!} className="relative z-10 flex items-center gap-2">
                   <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 opacity-0 transition-opacity group-hover:opacity-100" />
                   {primaryButton.text}
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />

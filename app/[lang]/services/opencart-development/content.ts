@@ -14,7 +14,7 @@ export const opencartDevelopmentContent: ServiceFeatureContent = {
     description:
       "Cloud MLM provides smart Opencart Development Services to support you to accomplish the comprehensive business tasks easily and effectively, improve the performance of your store, boost your perception into the business flow, and finally to better satisfy your clients' requirements.",
     primaryCta: "Request a demo",
-    secondaryCta: "Try Free Demo",
+    secondaryCta: "Explore all features",
     metrics: [
       {
         label: "OpenCart implementations",
@@ -230,7 +230,7 @@ export const opencartDevelopmentContent: ServiceFeatureContent = {
     description:
       "Are you ready to build or integrate Opencart with your MLM business? Contact our team to discover more about how our Opencart development services can help you accomplish comprehensive business tasks, improve your store performance, and better satisfy your clients' requirements. Achieve MLM success with smart AI-driven tools! Automate, manage, and grow your network effortlessly. Buy now and scale your business!",
     buttonText: "Buy Now",
-    secondaryCta: "Try Demo",
+    secondaryCta: "Explore all features",
     trustIndicators: ["Opencart & MLM", "24/7 support", "100% satisfaction"],
   },
 };

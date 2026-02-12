@@ -37,6 +37,17 @@ const CATEGORY_TRANSLATIONS: Record<SupportedLocale, Record<FeatureCategory, str
     Enablement: 'Habilitación',
     Unique: 'Único',
   },
+  fr: {
+    Compensation: 'Rémunération',
+    AI: 'IA',
+    Core: 'Noyau',
+    Performance: 'Performance',
+    Security: 'Sécurité',
+    Commerce: 'Commerce',
+    Integrations: 'Intégrations',
+    Enablement: 'Activation',
+    Unique: 'Unique',
+  },
   it: {
     Compensation: 'Compensazione',
     AI: 'IA',

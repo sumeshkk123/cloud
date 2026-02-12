@@ -16,7 +16,7 @@ export const eCommerceIntegrationContent: ServiceFeatureContent = {
     description:
       "Cloud MLM Software is bundled with core modules to make integration with various e-commerce solutions. We have an expert team assigned to integrate e-commerce with MLM software.",
     primaryCta: "Request a demo",
-    secondaryCta: "Explore live demo",
+    secondaryCta: "Explore all features",
     metrics: [
       {
         label: "Commerce systems unified",
@@ -191,7 +191,7 @@ export const eCommerceIntegrationContent: ServiceFeatureContent = {
     description:
       "Achieve MLM success with smart AI-driven tools! Automate, manage, and grow your network effortlessly. Buy now and scale your business!",
     buttonText: "Buy Now",
-    secondaryCta: "Try Demo",
+    secondaryCta: "Explore all features",
     trustIndicators: ["WordPress, Shopify, Magento", "Structured checklist", "24/7 support"],
   },
 };

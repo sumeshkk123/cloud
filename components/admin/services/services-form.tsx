@@ -123,7 +123,6 @@ export function ServicesForm({
           icon: '',
           image: '',
           keyBenefits: [],
-          serviceHighlights: [],
           showOnHomePage: false,
           exists: false,
         };

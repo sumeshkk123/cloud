@@ -27,7 +27,7 @@ function mergeHero(localeContent: Record<string, unknown>, countryName: string):
   const def = defaultContent.hero;
   const trustPills = (hero.trustPills as string[] | undefined) ?? def.trustPills;
   const metricsRaw = (hero.metrics as CountryHeroMetric[] | undefined) ?? def.metrics;
-  const metrics: CountryHeroMetric[] = metricsRaw.map((m) => ({
+  const metrics: CountryHeroMetric[] = metricsRaw.map((m: CountryHeroMetric) => ({
     label: interpolate(m.label, countryName),
     value: m.value,
     detail: interpolate(m.detail, countryName),

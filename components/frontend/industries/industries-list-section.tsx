@@ -13,6 +13,7 @@ import { getIndustriesContent } from "@/lib/industries";
 import { resolveIcon } from "@/components/frontend/home/utils";
 import { Code } from "lucide-react";
 import { buildLocalizedPath } from "@/lib/locale-links";
+import { getIndustryPathSlug } from "@/lib/industries-subpage";
 import type { SupportedLocale } from "@/config/site";
 
 type IconType = ComponentType<{ className?: string }>;
@@ -82,7 +83,8 @@ export function IndustriesListSection({
                     // Map backend data to ProgramLayer format
                     const mappedLayers: ProgramLayer[] = solutions.map((solution: any) => {
                         const slug = generateSlug(solution.title);
-                        const href = buildLocalizedPath(`/industries/${slug}`, locale as SupportedLocale);
+                        const pathSlug = getIndustryPathSlug(slug);
+                        const href = buildLocalizedPath(`/industries/${pathSlug}`, locale as SupportedLocale);
                         const IconComponent = resolveIcon(solution.icon || null, Code);
 
                         return {

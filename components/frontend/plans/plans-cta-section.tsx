@@ -38,6 +38,17 @@ export function PlansCtaSection({ contactHref, guideHref, locale }: PlansCtaSect
         "Resultados probados"
       ] as [string, string, string],
     },
+    fr: {
+      title: "Prêt à moderniser votre plan de rémunération ?",
+      description: "Travaillez avec Cloud MLM Software pour tester des scénarios, aligner les parties prenantes et déployer un plan qui récompense les bons comportements à chaque étape de la croissance.",
+      primaryButton: "Planifier une session stratégique",
+      secondaryButton: "Explorer les ressources du plan",
+      trustIndicators: [
+        "Mise en œuvre rapide",
+        "Consultation d'experts",
+        "Résultats éprouvés"
+      ] as [string, string, string],
+    },
     it: {
       title: "Pronto a modernizzare il tuo piano di compensazione?",
       description: "Collabora con Cloud MLM Software per testare scenari, allineare gli stakeholder e lanciare un piano che premi i comportamenti giusti in ogni fase della crescita.",

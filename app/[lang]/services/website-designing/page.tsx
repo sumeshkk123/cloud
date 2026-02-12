@@ -8,7 +8,6 @@ import { WebsiteDesigningClient } from "./website-designing-client";
 
 export const dynamic = "force-dynamic";
 
-const DEMO_URL = "https://demo.cloudmlmsoftware.com";
 const SERVICE_SLUG = "website-designing";
 
 function resolveLocale(lang: string): Locale {
@@ -33,7 +32,7 @@ export default async function WebsiteDesigningPage(
     <WebsiteDesigningClient
       pageTitleData={pageTitleData}
       contactHref={contactHref}
-      secondaryHref={DEMO_URL}
+      secondaryHref={buildLocalizedPath("/features", locale)}
       locale={locale}
     />
   );

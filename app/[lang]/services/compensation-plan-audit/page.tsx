@@ -8,7 +8,6 @@ import { CompensationPlanAuditClient } from "./compensation-plan-audit-client";
 
 export const dynamic = "force-dynamic";
 
-const DEMO_URL = "https://demo.cloudmlmsoftware.com";
 const SERVICE_SLUG = "compensation-plan-audit";
 
 function resolveLocale(lang: string): Locale {
@@ -28,13 +27,13 @@ export default async function CompensationPlanAuditPage(
   const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
   const pageTitleData = await getServicePageTitleData(SERVICE_SLUG, locale);
   const contactHref = buildLocalizedPath("/contact", locale);
-  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
+  const featuresHref = buildLocalizedPath("/features", locale);
 
   return (
     <CompensationPlanAuditClient
       pageTitleData={pageTitleData}
       contactHref={contactHref}
-      secondaryHref={demoHref}
+      secondaryHref={featuresHref}
       locale={locale}
     />
   );

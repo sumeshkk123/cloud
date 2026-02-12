@@ -3,6 +3,7 @@ const defaultContent = (defaultContentModule as any).default || defaultContentMo
 import type { Locale } from "@/i18n-config";
 import contentEn from "../shared/blog-section/locales/en/content.json";
 import contentEs from "../shared/blog-section/locales/es/content.json";
+import contentFr from "../shared/blog-section/locales/fr/content.json";
 import contentIt from "../shared/blog-section/locales/it/content.json";
 import contentDe from "../shared/blog-section/locales/de/content.json";
 import contentPt from "../shared/blog-section/locales/pt/content.json";
@@ -11,6 +12,7 @@ import contentZh from "../shared/blog-section/locales/zh/content.json";
 const localeContent: Record<Locale, Record<string, string>> = {
   en: contentEn as Record<string, string>,
   es: contentEs as Record<string, string>,
+  fr: contentFr as Record<string, string>,
   it: contentIt as Record<string, string>,
   de: contentDe as Record<string, string>,
   pt: contentPt as Record<string, string>,

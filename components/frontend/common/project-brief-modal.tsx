@@ -5,6 +5,10 @@ import { ContactForm } from "@/components/frontend/common/contact-form";
 import { getContactContent } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n-config";
+import { Section } from "@/components/ui/section";
+import { SectionTitle } from "@/components/ui/section-title";
+import { Typography } from "@/components/ui/typography";
+import { Card, CardContent } from "@/components/ui/card";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -113,76 +117,92 @@ export function ProjectBriefModal({
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/20 bg-[#0D1C3D] p-6">
-          <h2 id="project-brief-modal-title" className="text-2xl font-bold text-white">
-            Submit a project brief
-          </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-2 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
-            aria-label="Close modal"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-
-        <div className="p-6 space-y-6">
-          {/* Phone & WhatsApp row */}
-          <div className="flex flex-wrap items-center gap-6 rounded-xl bg-white/5 border border-white/10 p-4">
-            <a
-              href={`tel:${phoneNumber.replace(/\s/g, "")}`}
-              className="flex items-center gap-3 text-slate-200 hover:text-white transition-colors"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white">
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  />
-                </svg>
-              </span>
-              <span className="font-medium">{phoneNumber}</span>
-            </a>
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-slate-200 hover:text-white transition-colors"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#25D366]/20 text-[#25D366]">
-                <WhatsAppIcon className="h-5 w-5" />
-              </span>
-              <span className="font-medium">WhatsApp</span>
-              <span className="text-slate-400 text-sm">{phoneNumber}</span>
-            </a>
-          </div>
-
-          {/* Contact form */}
-          <div className="rounded-2xl p-6 bg-white/5 border border-white/10">
-            <ContactForm
-              badge=""
-              heading=""
-              headingHighlight=""
-              onSubmit={handleSubmit}
-              className="w-full"
-              translations={{
-                fields: formTranslations.fields,
-                submitButton: formTranslations.submitButton,
-                errors: formTranslations.errors,
-                successMessage: formTranslations.successMessage,
-              }}
+        <Section padding="none" className="sticky top-0 z-10 border-b border-white/20 bg-[#0D1C3D]" containerClassName="!max-w-full px-6 py-6">
+          <div className="flex items-start justify-between gap-4">
+            <SectionTitle
+              badge="Get in touch"
+              heading="Submit a project brief"
+              centered={false}
+              maxWidth="full"
+              headingAs="h2"
+              headingClassName="text-2xl font-bold text-white capitalize"
+              id="project-brief-modal-title"
             />
+            <button
+              type="button"
+              onClick={onClose}
+              className="p-2 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition-colors shrink-0"
+              aria-label="Close modal"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
-        </div>
+        </Section>
+
+        <Section padding="none" className="bg-transparent" containerClassName="!max-w-full px-6 py-6 space-y-6">
+          <Card className="border-white/10 bg-white/5 hover:shadow-none hover:translate-y-0">
+            <CardContent className="flex flex-wrap items-center gap-6 p-6">
+              <a
+                href={`tel:${phoneNumber.replace(/\s/g, "")}`}
+                className="flex items-center gap-3 text-slate-200 hover:text-white transition-colors"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                </span>
+                <Typography as="span" variant="p" className="font-medium text-slate-200 hover:text-white">
+                  {phoneNumber}
+                </Typography>
+              </a>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-slate-200 hover:text-white transition-colors"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#25D366]/20 text-[#25D366]">
+                  <WhatsAppIcon className="h-5 w-5" />
+                </span>
+                <Typography as="span" variant="p" className="font-medium text-white">
+                  WhatsApp
+                </Typography>
+                <Typography as="span" variant="small" className="text-slate-400">
+                  {phoneNumber}
+                </Typography>
+              </a>
+            </CardContent>
+          </Card>
+
+          <Card className="border-white/10 bg-white/5 hover:shadow-none hover:translate-y-0">
+            <CardContent className="p-6">
+              <ContactForm
+                badge=""
+                heading=""
+                headingHighlight=""
+                onSubmit={handleSubmit}
+                className="w-full"
+                translations={{
+                  fields: formTranslations.fields,
+                  submitButton: formTranslations.submitButton,
+                  errors: formTranslations.errors,
+                  successMessage: formTranslations.successMessage,
+                }}
+              />
+            </CardContent>
+          </Card>
+        </Section>
       </div>
     </div>
   );

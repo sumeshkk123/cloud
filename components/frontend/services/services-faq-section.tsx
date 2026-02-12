@@ -19,6 +19,10 @@ const translations: Record<Locale, {
     loadingFaqs: "Cargando preguntas frecuentes...",
     noFaqsAvailable: "Aún no hay preguntas frecuentes disponibles."
   },
+  fr: {
+    loadingFaqs: "Chargement des FAQ...",
+    noFaqsAvailable: "Aucune FAQ disponible pour le moment."
+  },
   it: {
     loadingFaqs: "Caricamento FAQ...",
     noFaqsAvailable: "Nessuna FAQ disponibile ancora."

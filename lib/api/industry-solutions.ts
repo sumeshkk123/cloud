@@ -41,6 +41,31 @@ export async function getIndustrySolutionById(id: string, locale?: string): Prom
   }
 }
 
+/** Generate URL slug from title (e.g. "Beauty & Cosmetics" -> "beauty-cosmetics"). */
+export function slugFromIndustryTitle(title: string): string {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, 'and')
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_]+/g, '-')
+    .replace(/^-+|-+$/g, '') || '';
+}
+
+/** Get industry solution by URL slug and locale (matches slug derived from title). */
+export async function getIndustrySolutionBySlug(slug: string, locale: string): Promise<IndustrySolutionRecord | null> {
+  try {
+    const solutions = await prisma.industry_solutions.findMany({
+      where: { locale },
+      orderBy: { createdAt: 'desc' },
+    });
+    const normalized = slug.toLowerCase().trim();
+    return solutions.find((s) => slugFromIndustryTitle(s.title) === normalized) ?? null;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function createIndustrySolution(data: {
   title: string;
   description: string;
