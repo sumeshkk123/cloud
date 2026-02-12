@@ -1,69 +1,109 @@
 "use client";
 
 import Link from "next/link";
+import { Section } from "@/components/ui/section";
+import { SectionTitle } from "@/components/ui/section-title";
+import { Card, CardHeader, CardIcon, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Typography } from "@/components/ui/typography";
 import { ArrowUpRight } from "lucide-react";
+import { CountryFlag } from "@/components/frontend/countries-availability/subpages/country-flag";
 import { getPaymentGatewayCountryIcon } from "./icon-map";
-import type { PaymentGatewayCountryGuard } from "./types";
-import type { PaymentGatewayCountryBriefcase } from "./types";
+import type { PaymentGatewayCountryGuard, PaymentGatewayCountryBriefcase } from "./types";
 
 export interface PaymentGatewayCountryGuardsSectionProps {
+  /** Optional pill label above the heading (default: "Safeguards"). */
+  badge?: string;
   heading: string;
   description: string;
   items: PaymentGatewayCountryGuard[];
   briefcase: PaymentGatewayCountryBriefcase;
   pricingHref: string;
+  /** When provided, a country flag is shown next to the section title. */
+  countrySlug?: string;
+  countryName?: string;
 }
 
 export function PaymentGatewayCountryGuardsSection({
+  badge = "Safeguards",
   heading,
   description,
   items,
   briefcase,
   pricingHref,
+  countrySlug,
+  countryName,
 }: PaymentGatewayCountryGuardsSectionProps) {
   return (
-    <section className="container grid gap-12 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,0.45fr)] lg:items-center">
-      <div className="space-y-6">
-        <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">{heading}</h2>
-        <p className="text-base text-slate-600 dark:text-slate-300">{description}</p>
-        <div className="grid gap-6 sm:grid-cols-3">
-          {items.map((guard) => {
-            const Icon = getPaymentGatewayCountryIcon(guard.icon);
-            return (
-              <div
-                key={guard.title}
-                className="rounded-3xl border border-emerald-200/70 bg-white/80 p-5 text-sm shadow-sm dark:border-slate-700/60 dark:bg-slate-900/60"
-              >
-                <Icon className="h-6 w-6 text-emerald-600 dark:text-emerald-300" />
-                <h3 className="mt-3 text-base font-semibold text-emerald-900 dark:text-white">{guard.title}</h3>
-                <p className="mt-2 text-sm text-emerald-800/80 dark:text-slate-300">{guard.description}</p>
+    <Section padding="lg" variant="gradient">
+      <div className="container space-y-12">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+          <SectionTitle
+            badge={badge}
+            heading={heading}
+            description={description}
+            centered={false}
+            maxWidth="3xl"
+          />
+          {countrySlug && countryName && (
+            <CountryFlag
+              countrySlug={countrySlug}
+              countryName={countryName}
+              size="sm"
+              className="shrink-0"
+            />
+          )}
+        </div>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,0.45fr)] lg:items-end">
+          <div className="grid gap-6 sm:grid-cols-3">
+            {items.map((guard) => {
+              const Icon = getPaymentGatewayCountryIcon(guard.icon);
+              return (
+                <Card key={guard.title} className="flex h-full flex-col">
+                  <CardHeader className="flex flex-col gap-3">
+                    <CardIcon icon={Icon} />
+                    <div className="space-y-2">
+                      <CardTitle className="text-base">{guard.title}</CardTitle>
+                      <Typography variant="p" className="text-sm text-muted-foreground">
+                        {guard.description}
+                      </Typography>
+                    </div>
+                  </CardHeader>
+                </Card>
+              );
+            })}
+          </div>
+          <Card className="overflow-hidden border-primary/30 bg-gradient-to-br from-primary via-blue-500 via-purple-500 to-pink-500">
+            <div className="relative isolate p-6">
+              <div className="pointer-events-none absolute inset-0 -z-10 opacity-20" aria-hidden>
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:24px_24px]" />
               </div>
-            );
-          })}
+              <Typography as="h3" variant="h3" className="text-lg font-semibold text-white">
+                {briefcase.title}
+              </Typography>
+              <Typography variant="p" className="mt-3 text-sm text-white/90">
+                {briefcase.description}
+              </Typography>
+              <dl className="mt-6 space-y-4 text-sm">
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-white/80">{briefcase.artefactsLabel}</dt>
+                  <dd className="mt-2 leading-6 text-white/95">{briefcase.artefactsDetail}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-white/80">{briefcase.refreshLabel}</dt>
+                  <dd className="mt-2 leading-6 text-white/95">{briefcase.refreshDetail}</dd>
+                </div>
+              </dl>
+              <Button asChild size="lg" className="mt-6 w-full gap-2 bg-white text-primary hover:bg-white/95">
+                <Link href={pricingHref}>
+                  {briefcase.ctaLabel}
+                  <ArrowUpRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </Button>
+            </div>
+          </Card>
         </div>
       </div>
-      <div className="relative isolate overflow-hidden rounded-[2.25rem] border border-emerald-200/70 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 text-slate-100 shadow-xl dark:border-slate-700">
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_25%_25%,rgba(16,185,129,0.35),transparent_55%),radial-gradient(circle_at_80%_80%,rgba(101,163,13,0.35),transparent_55%)]" aria-hidden />
-        <h3 className="text-lg font-semibold">{briefcase.title}</h3>
-        <p className="mt-3 text-sm text-slate-200">{briefcase.description}</p>
-        <dl className="mt-6 space-y-4 text-sm">
-          <div>
-            <dt className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">{briefcase.artefactsLabel}</dt>
-            <dd className="mt-2 leading-6 text-slate-100">{briefcase.artefactsDetail}</dd>
-          </div>
-          <div>
-            <dt className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">{briefcase.refreshLabel}</dt>
-            <dd className="mt-2 leading-6 text-slate-100">{briefcase.refreshDetail}</dd>
-          </div>
-        </dl>
-        <Button asChild size="lg" className="mt-6 w-full gap-2 bg-white text-emerald-900 hover:bg-emerald-100">
-          <Link href={pricingHref}>
-            {briefcase.ctaLabel}
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Button>
-      </div>
-    </section>
+    </Section>
   );
 }

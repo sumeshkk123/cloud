@@ -51,6 +51,17 @@ const translations: Record<Locale, {
     contact: "Contacto",
     blog: "Blog"
   },
+  fr: {
+    badge: "Page introuvable",
+    title: "Oups ! Cette page n'existe pas",
+    description: "La page que vous recherchez a peut-être été déplacée, supprimée ou l'URL est incorrecte. Nous vous aidons à retrouver votre chemin.",
+    goHome: "Retour à l'accueil",
+    helpfulLinks: "Pages populaires",
+    features: "Fonctionnalités",
+    pricing: "Tarifs",
+    contact: "Contact",
+    blog: "Blog"
+  },
   it: {
     badge: "Pagina Non Trovata",
     title: "Ops! Questa pagina non esiste",

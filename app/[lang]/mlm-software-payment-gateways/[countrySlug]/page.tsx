@@ -7,9 +7,8 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { getAllCountrySlugs } from "@/lib/countries-by-continent";
 import { getLocalizedCountryName } from "@/lib/get-localized-country-name";
-import { getHomepageContent } from "@/lib/homepage";
-import { CountryLayout } from "@/components/frontend/countries-availability/subpages/country-layout";
-import { getCountryAvailabilityContent } from "@/lib/countries-availability-content";
+import { getPaymentGatewayCountryContent } from "@/lib/payment-gateway-country-content";
+import { PaymentGatewayCountryLayout } from "@/components/frontend/payment-gateways/subpages";
 
 export const dynamic = "force-static";
 
@@ -41,14 +40,14 @@ export async function generateMetadata({
     return { title: "Not found" };
   }
   const countryName = getLocalizedCountryName(countrySlug, locale);
-  const title = `MLM Software in ${countryName} | Affordable Network Marketing System`;
-  const description = `Cloud MLM Software supports compliant direct selling and network marketing in ${countryName}. Custom MLM compensation plans, localisation, and payments.`;
+  const title = `${countryName} MLM Payment Gateways | Cloud MLM Software`;
+  const description = `Coordinate ${countryName}-focused payment gateways. Cloud MLM Software connects banks, digital wallets, and regional corridors with regulator-grade governance.`;
 
   return {
     title,
     description,
     alternates: {
-      canonical: buildLocalizedPath(`/mlm-software-availability-across-countries/${countrySlug}`, locale),
+      canonical: buildLocalizedPath(`/mlm-software-payment-gateways/${countrySlug}`, locale),
     },
     openGraph: {
       title,
@@ -62,7 +61,7 @@ type PageProps = {
   params: Promise<{ lang?: string; countrySlug?: string }>;
 };
 
-export default async function CountryAvailabilityPage({ params }: PageProps) {
+export default async function PaymentGatewayCountryPage({ params }: PageProps) {
   const resolved = await params;
   if (resolved == null || resolved.countrySlug == null || resolved.lang == null) {
     notFound();
@@ -75,27 +74,23 @@ export default async function CountryAvailabilityPage({ params }: PageProps) {
     notFound();
   }
 
-  const countryName = getLocalizedCountryName(countrySlug, locale);
   const contactHref = buildLocalizedPath("/contact", locale);
-  const demoHref = "https://demo.cloudmlmsoftware.com/auth/login";
+  const demoHref = buildLocalizedPath("/free-mlm-software-demo", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);
-  const plansHref = buildLocalizedPath("/mlm-plans", locale);
 
-  const homepageContent = await getHomepageContent(locale as SupportedLocale).catch(() => null);
+  const content = getPaymentGatewayCountryContent(locale, countrySlug);
 
-  const content = getCountryAvailabilityContent(locale, countryName);
+  const countryName = getLocalizedCountryName(countrySlug, locale);
 
   return (
-    <CountryLayout
+    <PaymentGatewayCountryLayout
+      content={content}
+      contactHref={contactHref}
+      demoHref={demoHref}
+      pricingHref={pricingHref}
       locale={locale}
       countrySlug={countrySlug}
       countryName={countryName}
-      contactHref={contactHref}
-      demoHref={demoHref}
-      plansHref={plansHref}
-      pricingHref={pricingHref}
-      content={content}
-      homepageContent={homepageContent}
     />
   );
 }

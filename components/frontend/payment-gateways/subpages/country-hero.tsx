@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
+import { PageTitle } from "@/components/frontend/common/page-title";
 import { ArrowUpRight } from "lucide-react";
 import { getPaymentGatewayCountryIcon } from "./icon-map";
 import type { PaymentGatewayCountryHeroMetric } from "./types";
@@ -11,6 +12,8 @@ import type { PaymentGatewayCountryHeroMetric } from "./types";
 export interface PaymentGatewayCountryHeroProps {
   badge: string;
   title: string;
+  /** When set, this substring is highlighted in the title (e.g. country name, same as mlm-software-availability-across-countries). */
+  highlightInTitle?: string;
   description: string;
   pricingHref: string;
   demoHref: string;
@@ -31,6 +34,18 @@ export interface PaymentGatewayCountryHeroProps {
 export function PaymentGatewayCountryHero(props: PaymentGatewayCountryHeroProps) {
   const p = props;
   const isExternalDemo = p.demoHref.startsWith("http");
+
+  const titleParts = p.highlightInTitle
+    ? (() => {
+        const idx = p.title.indexOf(p.highlightInTitle);
+        if (idx === -1) return { beforeText: undefined, highlightText: p.title, afterText: undefined };
+        return {
+          beforeText: idx === 0 ? undefined : p.title.slice(0, idx).trimEnd(),
+          highlightText: p.highlightInTitle,
+          afterText: idx + p.highlightInTitle.length >= p.title.length ? undefined : p.title.slice(idx + p.highlightInTitle.length).trimStart(),
+        };
+      })()
+    : null;
 
   return (
     <section className="relative isolate overflow-hidden rounded-b-3xl">
@@ -67,17 +82,30 @@ export function PaymentGatewayCountryHero(props: PaymentGatewayCountryHeroProps)
       <div className="container relative py-24 md:py-32">
         <div className="grid gap-14 lg:grid-cols-[1fr_auto] lg:items-center">
           <div className="space-y-8">
-            <div className="space-y-4">
-              <Badge className="border-white/30 text-white hover:border-white/50">
-                {p.badge}
-              </Badge>
-              <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
-                {p.title}
-              </h1>
-              <Typography variant="p" className="max-w-xl text-lg text-white/90">
-                {p.description}
-              </Typography>
-            </div>
+            {titleParts ? (
+              <PageTitle
+                badgeText={p.badge}
+                beforeText={titleParts.beforeText}
+                highlightText={titleParts.highlightText}
+                afterText={titleParts.afterText}
+                description={p.description}
+                as="h1"
+                headingClassName="text-white [&_span]:bg-white/90 [&_span]:bg-clip-text [&_span]:text-transparent"
+                className="[&_p]:text-white/90 [&_span]:text-white [&>div:first-child]:text-white [&>div:first-child_svg]:text-white"
+              />
+            ) : (
+              <div className="space-y-4">
+                <Badge className="border-white/30 text-white hover:border-white/50">
+                  {p.badge}
+                </Badge>
+                <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
+                  {p.title}
+                </h1>
+                <Typography variant="p" className="max-w-xl text-lg text-white/90">
+                  {p.description}
+                </Typography>
+              </div>
+            )}
 
             <div className="flex flex-wrap gap-4">
               <Button
