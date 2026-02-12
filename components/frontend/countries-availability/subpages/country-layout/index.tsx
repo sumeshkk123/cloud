@@ -17,6 +17,15 @@ import { CountryIntro } from "../country-intro";
 import { CountryApplyPlanSection } from "../country-apply-plan-section";
 import type { CountrySubpageContent } from "../types";
 
+const DEFAULT_DEMO_DATA: HomepageContent["demoSection"] = {
+  heading: "",
+  description: "",
+  primaryCta: { label: "", href: "" },
+  secondaryCtas: [],
+  touchpoints: [],
+  callouts: [],
+};
+
 export interface CountryLayoutProps {
   locale: Locale;
   countrySlug: string;
@@ -82,17 +91,18 @@ export function CountryLayout({
 
       {/* A proven platform trusted by global direct selling brands */}
       <MomentumStatsSection
-        data={homepageContent?.momentumStats ?? {}}
-        trustBadges={homepageContent?.trustBadges ?? []}
+        data={homepageContent?.momentumStats ?? { heading: "", description: "", stats: [] }}
+        trustBadges={homepageContent?.trustBadges ?? undefined}
       />
 
       {/* Why leaders choose Cloud MLM Software */}
-      <WhyChooseSection locale={locale} data={homepageContent?.whyChoose ?? {}} />
+      <WhyChooseSection locale={locale} data={homepageContent?.whyChoose ?? { badge: "", heading: "", description: "", reasons: [] }} />
 
       {/* Demo section */}
       <MlmSoftwareDemo
         locale={locale}
         data={{
+          ...DEFAULT_DEMO_DATA,
           ...(homepageContent?.demoSection ?? {}),
           ...(homepageContent?.featureSection ?? {}),
         }}
@@ -101,17 +111,17 @@ export function CountryLayout({
       {/* Trusted by global direct selling brands (customer stories / logos) */}
       <ClientsSection
         locale={locale}
-        logos={homepageContent?.hero?.logos}
-        data={homepageContent?.clients ?? {}}
+        logos={homepageContent?.hero?.logos ?? []}
+        data={homepageContent?.clients ?? { heading: "", description: "", metrics: [], focusTags: [] }}
       />
 
       {/* Configure compensation, operations, and engagement from one modular platform */}
-      <AiToolsSection data={homepageContent?.aiHighlights ?? {}} />
+      <AiToolsSection data={homepageContent?.aiHighlights ?? { heading: "", description: "", highlights: [] }} />
 
       {/* MLM compensation plan templates optimised with AI simulations */}
       <MlmSoftwarePlans
         locale={locale}
-        data={homepageContent?.planShowcase ?? {}}
+        data={homepageContent?.planShowcase ?? { heading: "", description: "", cards: [] }}
         industryTags={homepageContent?.industrySection?.focusTags}
       />
 
@@ -123,9 +133,9 @@ export function CountryLayout({
 
       {/* GET IN TOUCH / Drop Us a Line — scroll target for "Reserve your demo" (120px top offset) */}
       <div id="country-contact-form" className="scroll-mt-[120px]">
-        <ContactFormSection locale={locale} data={homepageContent?.contact ?? {}} />
+        <ContactFormSection locale={locale} data={homepageContent?.contact ?? { heading: "", description: "", regions: [] }} />
       </div>
-      <ContactSection locale={locale} data={homepageContent?.contact ?? {}} />
+      <ContactSection locale={locale} data={homepageContent?.contact ?? { heading: "", description: "", regions: [] }} />
     </div>
   );
 }

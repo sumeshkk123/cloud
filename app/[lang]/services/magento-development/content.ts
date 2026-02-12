@@ -14,7 +14,7 @@ export const magentoDevelopmentContent: ServiceFeatureContent = {
     description:
       "Cloud MLM Software Solutions is a leading Magento Development Company where you can find Magento skills at a master level. We deliver scalable high-performance Magento websites for your business.",
     primaryCta: "Request a demo",
-    secondaryCta: "Try Free Demo",
+    secondaryCta: "Explore all features",
     metrics: [
       {
         label: "Magento builds delivered",
@@ -212,7 +212,7 @@ export const magentoDevelopmentContent: ServiceFeatureContent = {
     description:
       "Are you ready to build or scale your Magento storefront for your MLM business? Contact our team to discover how our Magento development services can secure the best commercial presence in the web domain. Achieve MLM success with smart AI-driven tools! Automate, manage, and grow your network effortlessly. Buy now and scale your business!",
     buttonText: "Buy Now",
-    secondaryCta: "Try Demo",
+    secondaryCta: "Explore all features",
     trustIndicators: ["Magento & MLM", "24/7 support", "100% satisfaction"],
   },
 };

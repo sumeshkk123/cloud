@@ -49,7 +49,7 @@ export function IndustrySolutionsMetaPageTitleForm({
     const isEditing = !!initialPage;
     const [metaFormData, setMetaFormData] = useState<Record<string, MetaFormData>>(() => {
         const initial: Record<string, MetaFormData> = {};
-        locales.forEach((loc) => {
+        i18n.locales.forEach((loc) => {
             initial[loc] = {
                 title: '',
                 description: '',
@@ -101,7 +101,7 @@ export function IndustrySolutionsMetaPageTitleForm({
         try {
             setIsLoading(true);
             
-            const metaPromises = locales.map(locale =>
+            const metaPromises = i18n.locales.map(locale =>
                 fetch(`/api/admin/meta-details?page=${encodeURIComponent(formPage)}&locale=${locale}`, {
                     cache: 'no-store',
                 }).then(res => res.ok ? res.json() : null)

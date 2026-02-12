@@ -5,6 +5,8 @@ import { SectionTitle } from "@/components/ui/section-title";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import type { AvailabilityListContent } from "@/lib/availability-list-content";
 
+type StepItem = AvailabilityListContent["steps"]["steps"][number];
+
 export interface AvailabilityStepsSectionProps {
   content: AvailabilityListContent["steps"];
 }
@@ -22,7 +24,7 @@ export function AvailabilityStepsSection({ content }: AvailabilityStepsSectionPr
           />
         </div>
         <div className="grid gap-6 md:grid-cols-3">
-          {content.steps.map((step) => (
+          {content.steps.map((step: StepItem) => (
             <Card key={step.title} className="flex h-full flex-col">
               <CardHeader className="space-y-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.4em] text-primary/70">

@@ -15,7 +15,7 @@ export const webDevelopmentContent: ServiceFeatureContent = {
     description:
       "Improve your online presence with Cloud MLM Software Solutions' web development services. We develop responsive, dynamic, and user-friendly websites that suits with your business goals, guaranteeing a smooth and engaging experience for your users.",
     primaryCta: "Request a demo",
-    secondaryCta: "Try Free Demo",
+    secondaryCta: "Explore all features",
     metrics: [
       {
         label: "MLM websites delivered",
@@ -226,7 +226,7 @@ export const webDevelopmentContent: ServiceFeatureContent = {
     description:
       "Are you ready to improve your online presence with a responsive, dynamic, and user-friendly MLM website? Contact Cloud MLM Software Solutions for web development that suits your business goals. Achieve MLM success with smart AI-driven tools! Automate, manage, and grow your network effortlessly. Buy now and scale your business!",
     buttonText: "Buy Now",
-    secondaryCta: "Try Demo",
+    secondaryCta: "Explore all features",
     trustIndicators: ["Web & MLM", "24/7 support", "100% satisfaction"],
   },
 };

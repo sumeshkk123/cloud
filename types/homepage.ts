@@ -66,6 +66,12 @@ export type HomepageIndustrySolution = {
   icon: string;
 };
 
+export type HomepageIndustryFeature = {
+  title: string;
+  description: string;
+  icon: string;
+};
+
 export type HomepagePlanCard = {
   title: string;
   intro: string;
@@ -189,6 +195,8 @@ export type HomepageContent = {
     heading: string;
     description: string;
     solutions: HomepageIndustrySolution[];
+    /** Insurance-sector style feature cards (6 items); when set, section uses bg image and this grid. */
+    features?: HomepageIndustryFeature[];
     focusTags: string[];
     metrics: Array<{
       value: string;

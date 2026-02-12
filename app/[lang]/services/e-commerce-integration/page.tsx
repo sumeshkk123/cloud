@@ -8,7 +8,6 @@ import { ECommerceIntegrationClient } from "./e-commerce-integration-client";
 
 export const dynamic = "force-dynamic";
 
-const DEMO_URL = "https://demo.cloudmlmsoftware.com";
 const SERVICE_SLUG = "e-commerce-integration";
 
 function resolveLocale(lang: string): Locale {
@@ -33,7 +32,7 @@ export default async function ECommerceIntegrationPage(
     <ECommerceIntegrationClient
       pageTitleData={pageTitleData}
       contactHref={contactHref}
-      secondaryHref={DEMO_URL}
+      secondaryHref={buildLocalizedPath("/features", locale)}
       locale={locale}
     />
   );

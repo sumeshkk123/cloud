@@ -8,7 +8,6 @@ import { WooCommerceIntegrationWithCloudMlmSoftwareClient } from "./woocommerce-
 
 export const dynamic = "force-dynamic";
 
-const DEMO_URL = "https://demo.cloudmlmsoftware.com";
 const SERVICE_SLUG = "woocommerce-integration-with-cloud-mlm-software";
 
 function resolveLocale(lang: string): Locale {
@@ -33,7 +32,7 @@ export default async function WooCommerceIntegrationPage(
     <WooCommerceIntegrationWithCloudMlmSoftwareClient
       pageTitleData={pageTitleData}
       contactHref={contactHref}
-      secondaryHref={DEMO_URL}
+      secondaryHref={buildLocalizedPath("/features", locale)}
       locale={locale}
     />
   );

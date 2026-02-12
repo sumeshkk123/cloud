@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/frontend/common/hero-section";
 import type { AvailabilityListContent } from "@/lib/availability-list-content";
 
 type IconType = ComponentType<{ className?: string }>;
+type HeroHighlight = AvailabilityListContent["hero"]["highlights"][number];
 
 const HIGHLIGHT_ICONS: IconType[] = [Globe2, ShieldCheck, Network];
 
@@ -24,7 +25,7 @@ export interface AvailabilityHeroSectionProps {
 export function AvailabilityHeroSection({ contactHref, demoHref, onPrimaryCtaClick, content }: AvailabilityHeroSectionProps) {
   const rightSlot = (
     <aside className="grid gap-4 rounded-3xl border border-border/60 bg-background/80 p-6 shadow-sm backdrop-blur">
-      {content.highlights.map((highlight, i) => {
+      {content.highlights.map((highlight: HeroHighlight, i: number) => {
         const Icon = HIGHLIGHT_ICONS[i] ?? Globe2;
         return (
           <article

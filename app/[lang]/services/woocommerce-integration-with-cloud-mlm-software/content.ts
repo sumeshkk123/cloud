@@ -15,7 +15,7 @@ export const woocommerceIntegrationContent: ServiceFeatureContent = {
     description:
       "Cloud MLM Software offers seamless integration with WordPress, combining the power of MLM management with the flexibility and user-friendliness of the WordPress platform.",
     primaryCta: "Request a demo",
-    secondaryCta: "Explore live demo",
+    secondaryCta: "Explore all features",
     metrics: [
       {
         label: "WooCommerce stores powered",
@@ -230,7 +230,7 @@ export const woocommerceIntegrationContent: ServiceFeatureContent = {
     description:
       "Are you ready to integrate WooCommerce into your MLM business? Contact our team to discover more about how our integration can alter the way you run your business. Achieve MLM success with smart AI-driven tools! Automate, manage, and grow your network effortlessly. Buy now and scale your business!",
     buttonText: "Buy Now",
-    secondaryCta: "Try Demo",
+    secondaryCta: "Explore all features",
     trustIndicators: ["WooCommerce & WordPress", "24/7 support", "100% satisfaction"],
   },
 };

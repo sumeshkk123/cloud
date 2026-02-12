@@ -308,7 +308,7 @@ export function BlogTable({
             return (
               <LanguageBadges
                 availableLocales={row.availableLocales?.length ? row.availableLocales : ['en']}
-                allLocales={LOCALES}
+                allLocales={[...LOCALES]}
                 layout="grid"
               />
             );

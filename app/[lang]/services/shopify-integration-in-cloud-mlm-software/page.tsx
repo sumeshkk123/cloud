@@ -8,7 +8,6 @@ import { ShopifyIntegrationClient } from "./shopify-integration-in-cloud-mlm-sof
 
 export const dynamic = "force-dynamic";
 
-const DEMO_URL = "https://demo.cloudmlmsoftware.com";
 const SERVICE_SLUG = "shopify-integration-in-cloud-mlm-software";
 
 function resolveLocale(lang: string): Locale {
@@ -33,7 +32,7 @@ export default async function ShopifyIntegrationPage(
     <ShopifyIntegrationClient
       pageTitleData={pageTitleData}
       contactHref={contactHref}
-      secondaryHref={DEMO_URL}
+      secondaryHref={buildLocalizedPath("/features", locale)}
       locale={locale}
     />
   );

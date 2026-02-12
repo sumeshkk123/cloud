@@ -3,6 +3,7 @@ const defaultContent = (defaultContentFeatures as any).default || defaultContent
 import type { Locale } from "@/i18n-config";
 import contentEn from "../shared/features/locales/en/content.json";
 import contentEs from "../shared/features/locales/es/content.json";
+import contentFr from "../shared/features/locales/fr/content.json";
 import contentIt from "../shared/features/locales/it/content.json";
 import contentDe from "../shared/features/locales/de/content.json";
 import contentPt from "../shared/features/locales/pt/content.json";
@@ -11,6 +12,7 @@ import contentZh from "../shared/features/locales/zh/content.json";
 const localeContent: Record<Locale, any> = {
   en: contentEn,
   es: contentEs,
+  fr: contentFr,
   it: contentIt,
   de: contentDe,
   pt: contentPt,

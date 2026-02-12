@@ -15,7 +15,7 @@ export const shopifyIntegrationContent: ServiceFeatureContent = {
     description:
       "Explore seamless Shopify integration with MLM Software – Increase sales effortlessly. Boost your business today!",
     primaryCta: "Request a demo",
-    secondaryCta: "Try Free Demo",
+    secondaryCta: "Explore all features",
     metrics: [
       {
         label: "Integration",
@@ -216,7 +216,7 @@ export const shopifyIntegrationContent: ServiceFeatureContent = {
     description:
       "Are you ready to integrate Shopify with your MLM business? Contact Cloud MLM Software to explore seamless Shopify integration and increase sales effortlessly. Achieve MLM success with smart AI-driven tools! Automate, manage, and grow your network effortlessly. Buy now and scale your business!",
     buttonText: "Buy Now",
-    secondaryCta: "Try Demo",
+    secondaryCta: "Explore all features",
     trustIndicators: ["Shopify & MLM", "24/7 support", "100% satisfaction"],
   },
 };

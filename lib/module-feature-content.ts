@@ -1,5 +1,6 @@
 import type {
   ModuleFeatureContent,
+  ModuleFeatureHero,
   ModuleHeroMetric,
 } from "@/components/frontend/modules/subpage/module-layout/types";
 import { getModulesSubpageMeta } from "./modules-subpage-slugs";
@@ -83,9 +84,14 @@ function getDefaultMetricsForSlug(slug: string): ModuleHeroMetric[] {
   ];
 }
 
+/** Overrides for createFeatureContent; hero can be partial (title/description come from meta). */
+type ModuleFeatureContentOverrides = Omit<Partial<ModuleFeatureContent>, "hero"> & {
+  hero?: Partial<ModuleFeatureHero>;
+};
+
 function createFeatureContent(
   slug: string,
-  overrides: Partial<ModuleFeatureContent> = {}
+  overrides: ModuleFeatureContentOverrides = {}
 ): ModuleFeatureContent {
   const meta = getModulesSubpageMeta(slug);
   const title = meta?.fallbackTitle ?? `${slug} | Cloud MLM Software`;

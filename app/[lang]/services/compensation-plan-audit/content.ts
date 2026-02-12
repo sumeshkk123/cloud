@@ -15,7 +15,7 @@ export const compensationPlanAuditContent: ServiceFeatureContent = {
     description:
       "Elevate your MLM compensation strategy with the industry's most trusted audit partners. Cloud MLM Software delivers deep strategic, financial, and compliance intelligence so your compensation plan inspires the field, satisfies regulators, and protects profitability worldwide.",
     primaryCta: "Request a demo",
-    secondaryCta: "Try Free Demo",
+    secondaryCta: "Explore all features",
     metrics: [
       {
         label: "Plans audited",
@@ -193,7 +193,7 @@ export const compensationPlanAuditContent: ServiceFeatureContent = {
     description:
       "Join the organisations that trust Cloud MLM Software to safeguard profitability, delight the field, and satisfy regulators worldwide. Schedule a consultation or see audit insights in action.",
     buttonText: "Schedule a consultation",
-    secondaryCta: "See audit insights in action",
+    secondaryCta: "Explore all features",
     trustIndicators: ["480+ plans audited", "38 markets", "100% compliance readiness"],
   },
 };

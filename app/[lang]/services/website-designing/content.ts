@@ -15,7 +15,7 @@ export const websiteDesigningContent: ServiceFeatureContent = {
     description:
       "The website is not just an online version of any MLM business, but this is also the reflection of each and every business.",
     primaryCta: "Request a demo",
-    secondaryCta: "Try Free Demo",
+    secondaryCta: "Explore all features",
     metrics: [
       {
         label: "Websites delivered",
@@ -229,7 +229,7 @@ export const websiteDesigningContent: ServiceFeatureContent = {
     description:
       "Are you ready to build or redesign your website with Cloud MLM? Contact our team to get a website that meets your specific needs and stands out in the digital landscape. Achieve MLM success with smart AI-driven tools! Automate, manage, and grow your network effortlessly. Buy now and scale your business!",
     buttonText: "Buy Now",
-    secondaryCta: "Try Demo",
+    secondaryCta: "Explore all features",
     trustIndicators: ["Website & MLM", "24/7 support", "100% satisfaction"],
   },
 };

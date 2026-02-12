@@ -8,7 +8,7 @@ export const bitcoinCryptocurrencyContent: ServiceFeatureContent = {
     description:
       "Run your MLM or direct selling business with crypto payouts and multi-currency support. Cloud MLM Software supports Bitcoin and cryptocurrency integration for commissions, e-wallets, and compliant reporting.",
     primaryCta: "Request a demo",
-    secondaryCta: "View demo",
+    secondaryCta: "Explore all features",
     metrics: [
       { label: "Crypto payouts", value: "Supported", detail: "Bitcoin and major cryptocurrencies." },
       { label: "Multi-currency", value: "Built-in", detail: "Fiat and crypto in one platform." },
@@ -147,7 +147,7 @@ export const bitcoinCryptocurrencyContent: ServiceFeatureContent = {
     description:
       "Run your MLM with crypto payouts and multi-currency support. Request a demo and see how Cloud MLM can power your network.",
     buttonText: "Request a demo",
-    secondaryCta: "Try Demo",
+    secondaryCta: "Explore all features",
     trustIndicators: ["Crypto-ready", "Multi-currency", "Compliance support"],
   },
 };

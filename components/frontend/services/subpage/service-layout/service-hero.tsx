@@ -43,7 +43,7 @@ export function ServiceHero({
           ? { label: hero.primaryCta, onClick: onPrimaryCtaClick }
           : { label: hero.primaryCta, href: contactHref }
       }
-      secondaryCta={{ label: hero.secondaryCta, href: demoHref, external: true }}
+      secondaryCta={{ label: hero.secondaryCta, href: demoHref, external: false }}
       metrics={hero.metrics ?? []}
       centered={false}
     />

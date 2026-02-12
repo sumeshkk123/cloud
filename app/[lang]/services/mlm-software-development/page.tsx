@@ -8,7 +8,6 @@ import { MlmSoftwareDevelopmentClient } from "./mlm-software-development-client"
 
 export const dynamic = "force-dynamic";
 
-const DEMO_URL = "https://demo.cloudmlmsoftware.com";
 const SERVICE_SLUG = "mlm-software-development";
 
 function resolveLocale(lang: string): Locale {
@@ -34,7 +33,7 @@ export default async function MlmSoftwareDevelopmentPage(
     <MlmSoftwareDevelopmentClient
       pageTitleData={pageTitleData}
       contactHref={contactHref}
-      secondaryHref={DEMO_URL}
+      secondaryHref={buildLocalizedPath("/features", locale)}
       locale={locale}
     />
   );
