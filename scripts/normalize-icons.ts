@@ -240,12 +240,8 @@ async function normalizeIndustrySolutionsIcons() {
     const solutions = await prisma.industry_solutions.findMany({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       where: { icon: { not: null } } as any,
-      select: {
-        id: true,
-        icon: true,
-      },
+      select: { id: true, icon: true },
     });
-
     let updated = 0;
     for (const solution of solutions) {
       if (solution.icon) {

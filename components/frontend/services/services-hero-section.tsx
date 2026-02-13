@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { HeroSection, type HeroMetric } from "@/components/frontend/common/hero-section";
-import { Sparkles, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import * as RemixIcon from "@remixicon/react";
 import type { Locale } from "@/i18n-config";
 import type { PageTitleRecord } from "@/lib/api/page-titles";
 
@@ -10,6 +11,8 @@ interface ServicesHeroSectionProps {
   contactHref: string;
   demoHref: string;
   supportHref: string;
+  /** Href for secondary CTA (e.g. Explore all features → /features). Defaults to demoHref if not set. */
+  featuresHref?: string;
   pageTitleData?: PageTitleRecord | null;
   /** When set, primary CTA runs this instead of linking (e.g. open project brief modal) */
   onPrimaryCtaClick?: () => void;
@@ -40,7 +43,7 @@ const translations: Record<Locale, {
     },
     description: "Consultants, engineers, and compliance experts work as one team to accelerate implementations, modernise legacy systems, and keep global operations running smoothly.",
     primaryCta: "Talk to a services lead",
-    secondaryCta: "Explore platform capabilities",
+    secondaryCta: "Explore all features",
     metrics: {
       projectsDelivered: { label: "Projects delivered", detail: "" },
       launchSpecialists: { label: "Launch specialists", detail: "" },
@@ -55,7 +58,7 @@ const translations: Record<Locale, {
     },
     description: "Consultores, ingenieros y expertos en cumplimiento trabajan como un solo equipo para acelerar implementaciones, modernizar sistemas heredados y mantener las operaciones globales funcionando sin problemas.",
     primaryCta: "Habla con un líder de servicios",
-    secondaryCta: "Explora las capacidades de la plataforma",
+    secondaryCta: "Explorar todas las funciones",
     metrics: {
       projectsDelivered: { label: "Proyectos entregados", detail: "" },
       launchSpecialists: { label: "Especialistas en lanzamiento", detail: "" },
@@ -70,7 +73,7 @@ const translations: Record<Locale, {
     },
     description: "Consultants, ingénieurs et experts en conformité travaillent en une seule équipe pour accélérer les mises en œuvre, moderniser les systèmes existants et maintenir les opérations mondiales en douceur.",
     primaryCta: "Parler à un responsable services",
-    secondaryCta: "Explorer les capacités de la plateforme",
+    secondaryCta: "Explorer toutes les fonctionnalités",
     metrics: {
       projectsDelivered: { label: "Projets livrés", detail: "" },
       launchSpecialists: { label: "Spécialistes lancement", detail: "" },
@@ -85,7 +88,7 @@ const translations: Record<Locale, {
     },
     description: "Consulenti, ingegneri ed esperti di conformità lavorano come un unico team per accelerare le implementazioni, modernizzare i sistemi legacy e mantenere le operazioni globali funzionanti senza intoppi.",
     primaryCta: "Parla con un responsabile servizi",
-    secondaryCta: "Esplora le capacità della piattaforma",
+    secondaryCta: "Esplora tutte le funzionalità",
     metrics: {
       projectsDelivered: { label: "Progetti consegnati", detail: "" },
       launchSpecialists: { label: "Specialisti di lancio", detail: "" },
@@ -100,7 +103,7 @@ const translations: Record<Locale, {
     },
     description: "Berater, Ingenieure und Compliance-Experten arbeiten als ein Team zusammen, um Implementierungen zu beschleunigen, Legacy-Systeme zu modernisieren und globale Operationen reibungslos am Laufen zu halten.",
     primaryCta: "Sprechen Sie mit einem Serviceleiter",
-    secondaryCta: "Plattformfunktionen erkunden",
+    secondaryCta: "Alle Funktionen erkunden",
     metrics: {
       projectsDelivered: { label: "Abgeschlossene Projekte", detail: "" },
       launchSpecialists: { label: "Launch-Spezialisten", detail: "" },
@@ -115,7 +118,7 @@ const translations: Record<Locale, {
     },
     description: "Consultores, engenheiros e especialistas em conformidade trabalham como uma equipe para acelerar implementações, modernizar sistemas legados e manter operações globais funcionando sem problemas.",
     primaryCta: "Fale com um líder de serviços",
-    secondaryCta: "Explorar capacidades da plataforma",
+    secondaryCta: "Explorar todas as funcionalidades",
     metrics: {
       projectsDelivered: { label: "Projetos entregues", detail: "" },
       launchSpecialists: { label: "Especialistas em lançamento", detail: "" },
@@ -130,7 +133,7 @@ const translations: Record<Locale, {
     },
     description: "顾问、工程师和合规专家作为一个团队工作，以加速实施、现代化遗留系统并保持全球运营顺利运行。",
     primaryCta: "与服务负责人交谈",
-    secondaryCta: "探索平台功能",
+    secondaryCta: "探索所有功能",
     metrics: {
       projectsDelivered: { label: "已完成项目", detail: "" },
       launchSpecialists: { label: "启动专家", detail: "" },
@@ -139,7 +142,7 @@ const translations: Record<Locale, {
   }
 };
 
-export function ServicesHeroSection({ locale, contactHref, demoHref, supportHref, pageTitleData, onPrimaryCtaClick }: ServicesHeroSectionProps) {
+export function ServicesHeroSection({ locale, contactHref, demoHref, supportHref, featuresHref, pageTitleData, onPrimaryCtaClick }: ServicesHeroSectionProps) {
   const t = translations[locale];
 
   // Parse title to extract highlight text
@@ -195,7 +198,7 @@ export function ServicesHeroSection({ locale, contactHref, demoHref, supportHref
   return (
     <HeroSection
       badgeText={pageTitleData?.pagePill || t.badgeText}
-      badgeIcon={<Sparkles className="h-4 w-4" aria-hidden />}
+      badgeIcon={<RemixIcon.RiCloudFill className="h-4 w-4" aria-hidden />}
       beforeText={titleParts.beforeText}
       highlightText={titleParts.highlightText}
       afterText={titleParts.afterText}
@@ -207,8 +210,8 @@ export function ServicesHeroSection({ locale, contactHref, demoHref, supportHref
       }
       secondaryCta={{
         label: t.secondaryCta,
-        href: demoHref,
-        external: true,
+        href: featuresHref ?? demoHref,
+        external: !featuresHref,
       }}
       metrics={metrics}
       centered={false}

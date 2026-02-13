@@ -131,7 +131,7 @@ const FOOTER_STATIC_COPY: Record<string, FooterStaticCopy> = {
           { title: "MLM App Development", href: "/services/mlm-app-development" },
           { title: "Compensation Plan Consulting", href: "/services/compensation-consulting" },
           { title: "Payment Gateway Integrations", href: "/services/payment-gateway-integration" },
-          { title: "Cloud & On-prem Migrations", href: "/services/mlm-software-migration" },
+          { title: "Cloud & On-prem Migrations", href: "/mlm-migration" },
           { title: "Enterprise Implementation", href: "/services/enterprise-mlm" },
           { title: "White Label MLM Platform", href: "/services/white-label-mlm" }
         ]
@@ -231,7 +231,7 @@ const FOOTER_STATIC_COPY: Record<string, FooterStaticCopy> = {
           { title: "Desarrollo de apps MLM", href: "/services/mlm-app-development" },
           { title: "Consultoría de planes de compensación", href: "/services/compensation-consulting" },
           { title: "Integraciones de pasarelas de pago", href: "/services/payment-gateway-integration" },
-          { title: "Migraciones en la nube y locales", href: "/services/mlm-software-migration" },
+          { title: "Migraciones en la nube y locales", href: "/mlm-migration" },
           { title: "Implementación empresarial", href: "/services/enterprise-mlm" },
           { title: "Plataforma MLM de marca blanca", href: "/services/white-label-mlm" }
         ]
@@ -331,7 +331,7 @@ const FOOTER_STATIC_COPY: Record<string, FooterStaticCopy> = {
           { title: "Desenvolvimento de aplicações MLM", href: "/services/mlm-app-development" },
           { title: "Consultoria de planos de compensação", href: "/services/compensation-consulting" },
           { title: "Integrações de gateways de pagamento", href: "/services/payment-gateway-integration" },
-          { title: "Migrações cloud e on-premises", href: "/services/mlm-software-migration" },
+          { title: "Migrações cloud e on-premises", href: "/mlm-migration" },
           { title: "Implementação empresarial", href: "/services/enterprise-mlm" },
           { title: "Plataforma MLM white label", href: "/services/white-label-mlm" }
         ]
@@ -431,7 +431,7 @@ const FOOTER_STATIC_COPY: Record<string, FooterStaticCopy> = {
           { title: "Développement d’applications MLM", href: "/services/mlm-app-development" },
           { title: "Consulting plan de compensation", href: "/services/compensation-consulting" },
           { title: "Intégrations de passerelles de paiement", href: "/services/payment-gateway-integration" },
-          { title: "Migrations cloud et on-premise", href: "/services/mlm-software-migration" },
+          { title: "Migrations cloud et on-premise", href: "/mlm-migration" },
           { title: "Mise en œuvre entreprise", href: "/services/enterprise-mlm" },
           { title: "Plateforme MLM en marque blanche", href: "/services/white-label-mlm" }
         ]
@@ -525,7 +525,7 @@ const FOOTER_STATIC_COPY: Record<string, FooterStaticCopy> = {
           { title: "MLM 应用开发", href: "/services/mlm-app-development" },
           { title: "奖金计划咨询", href: "/services/compensation-consulting" },
           { title: "支付网关集成", href: "/services/payment-gateway-integration" },
-          { title: "云端与本地迁移", href: "/services/mlm-software-migration" },
+          { title: "云端与本地迁移", href: "/mlm-migration" },
           { title: "企业级实施", href: "/services/enterprise-mlm" },
           { title: "白标 MLM 平台", href: "/services/white-label-mlm" }
         ]

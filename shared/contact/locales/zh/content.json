@@ -102,6 +102,10 @@
       "detail": "+91 85901 37114"
     }
   },
+  "projectBriefModal": {
+    "badge": "联系我们",
+    "heading": "提交项目简介"
+  },
   "formSection": {
     "badge": "联系我们",
     "heading": "给我们留言。",

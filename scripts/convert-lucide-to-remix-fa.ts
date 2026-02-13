@@ -506,53 +506,29 @@ async function convertIndustrySolutionsIcons() {
   console.log('Converting Lucide icons in industry_solutions table...');
   try {
     const solutions = await prisma.industry_solutions.findMany({
-      where: {
-        icon: {
-          not: null,
-        },
-      },
-      select: {
-        id: true,
-        icon: true,
-      },
+      where: { icon: { not: null } },
+      select: { id: true, icon: true },
     });
-
     let converted = 0;
     let skipped = 0;
-
     for (const solution of solutions) {
       if (!solution.icon) continue;
-
       const iconName = getIconName(solution.icon);
-      const isLucide = solution.icon.startsWith('lucide:') ||
-        (!solution.icon.includes(':') &&
-          !iconName.startsWith('Ri') &&
-          !iconName.startsWith('ri') &&
-          !iconName.startsWith('fa') &&
-          !iconName.startsWith('Fa'));
-
+      const isLucide =
+        solution.icon.startsWith('lucide:') ||
+        (!solution.icon.includes(':') && !iconName.startsWith('Ri') && !iconName.startsWith('ri') && !iconName.startsWith('fa') && !iconName.startsWith('Fa'));
       if (isLucide) {
         const replacement = findReplacement(iconName);
         if (replacement) {
           const newIconValue = `${replacement.type}:${replacement.name}`;
-          await prisma.industry_solutions.update({
-            where: { id: solution.id },
-            data: { icon: newIconValue },
-          });
+          await prisma.industry_solutions.update({ where: { id: solution.id }, data: { icon: newIconValue } });
           converted++;
-          console.log(`  ✓ ${solution.id}: "${solution.icon}" -> "${newIconValue}"`);
         } else {
-          const defaultIcon = 'remix:RiQuestionLine';
-          await prisma.industry_solutions.update({
-            where: { id: solution.id },
-            data: { icon: defaultIcon },
-          });
+          await prisma.industry_solutions.update({ where: { id: solution.id }, data: { icon: 'remix:RiQuestionLine' } });
           skipped++;
-          console.log(`  ⚠ ${solution.id}: No replacement found for "${solution.icon}", set to "${defaultIcon}"`);
         }
       }
     }
-
     console.log(`✓ Converted ${converted} industry_solutions, skipped ${skipped}\n`);
     return { converted, skipped };
   } catch (error) {

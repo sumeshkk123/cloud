@@ -120,8 +120,8 @@ export function ProjectBriefModal({
         <Section padding="none" className="sticky top-0 z-10 border-b border-white/20 bg-[#0D1C3D]" containerClassName="!max-w-full px-6 py-6">
           <div className="flex items-start justify-between gap-4">
             <SectionTitle
-              badge="Get in touch"
-              heading="Submit a project brief"
+              badge={content.projectBriefModal.badge}
+              heading={content.projectBriefModal.heading}
               centered={false}
               maxWidth="full"
               headingAs="h2"

@@ -1,4 +1,4 @@
-// Script to restore default/static data for contact_addresses, integrations, and connectors
+// Script to restore default/static data for contact_addresses and connectors
 // Note: Make sure DATABASE_URL is set in your environment or .env file
 // This script will use process.env.DATABASE_URL if available
 
@@ -61,38 +61,6 @@ const defaultContactAddresses = [
     email: "apac@cloudmlmsoftware.com",
     whatsapp: "+65 3165 0891",
     flag: "apac",
-    locale: "en"
-  }
-];
-
-// Default integrations (based on common integration categories)
-const defaultIntegrations = [
-  {
-    icon: "CreditCard",
-    title: "Payments and Settlement",
-    description: "Pre-built connectors for banks, PayPal, Stripe, and global pay-out partners to deliver commissions globally.",
-    connectors: "Stripe, PayPal, Square, Razorpay, Authorize.Net",
-    locale: "en"
-  },
-  {
-    icon: "Users",
-    title: "CRM and E-commerce",
-    description: "Integrate Shopify, WooCommerce, Magento, Salesforce, HubSpot, and custom portals for single source of truth.",
-    connectors: "Shopify, WooCommerce, Magento, Salesforce, HubSpot",
-    locale: "en"
-  },
-  {
-    icon: "Shield",
-    title: "Tax and Compliance",
-    description: "Sync GST engines, e-invoicing solutions, and statutory reporting platforms without duplicate entry.",
-    connectors: "QuickBooks, Zoho Desk, AWS SES",
-    locale: "en"
-  },
-  {
-    icon: "BarChart",
-    title: "Analytics and Data Lake",
-    description: "Stream demo and production metrics into Power BI, Tableau, Snowflake, or BigQuery for advanced modelling.",
-    connectors: "Meta Pixel, Zapier, Twilio",
     locale: "en"
   }
 ];
@@ -170,36 +138,7 @@ async function restoreData() {
       }
     }
 
-    // 2. Restore Integrations
-    console.log('\n🔌 Restoring integrations...');
-    for (const integration of defaultIntegrations) {
-      const existing = await prisma.integrations.findFirst({
-        where: {
-          title: integration.title,
-          locale: integration.locale
-        }
-      });
-
-      if (!existing) {
-        await prisma.integrations.create({
-          data: {
-            id: generateId(),
-            icon: integration.icon,
-            title: integration.title,
-            description: integration.description,
-            connectors: integration.connectors,
-            locale: integration.locale,
-            createdAt: new Date(),
-            updatedAt: new Date()
-          }
-        });
-        console.log(`  ✅ Created: ${integration.title}`);
-      } else {
-        console.log(`  ⏭️  Skipped: ${integration.title} - already exists`);
-      }
-    }
-
-    // 3. Restore Connectors
+    // 2. Restore Connectors
     console.log('\n🔗 Restoring connectors...');
     for (const slider of defaultConnectors) {
       // Check if slider already exists
@@ -233,10 +172,8 @@ async function restoreData() {
     console.log('\n✅ Data restoration completed successfully!');
     console.log('\nSummary:');
     const contactCount = await prisma.contact_addresses.count();
-    const integrationCount = await prisma.integrations.count();
     const connectorCount = await prisma.connectors.count();
     console.log(`  📞 Contact Addresses: ${contactCount}`);
-    console.log(`  🔌 Integrations: ${integrationCount}`);
     console.log(`  🔗 Connectors: ${connectorCount}`);
 
   } catch (error) {

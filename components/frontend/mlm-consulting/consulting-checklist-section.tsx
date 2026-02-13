@@ -2,15 +2,20 @@
 
 import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
+import { toAbsoluteUrl } from "@/lib/media";
 import { Section } from "@/components/ui/section";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Typography } from "@/components/ui/typography";
+
+const DEFAULT_IMAGE = "/images/moduleIntro.webp";
 
 interface ConsultingChecklistSectionProps {
   badge?: string;
   heading: string;
   description?: string;
   items: string[];
+  /** Backend image from Admin → Services. When set, used instead of default. */
+  imageUrl?: string | null;
 }
 
 export function ConsultingChecklistSection({
@@ -18,37 +23,41 @@ export function ConsultingChecklistSection({
   heading,
   description,
   items,
+  imageUrl,
 }: ConsultingChecklistSectionProps) {
   if (!items?.length) return null;
 
+  const resolvedImageUrl = imageUrl ? (toAbsoluteUrl(imageUrl) ?? imageUrl) : DEFAULT_IMAGE;
+
   return (
     <Section padding="lg" variant="gradient" className="bg-muted/20 dark:bg-slate-900/30">
-      <div className="container">
-        <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
-          {/* Left: title + description + image */}
-          <div className="space-y-6 mt-4">
-            <Image
-              src="/images/moduleIntro.webp"
-              alt="MLM consulting"
-              width={1200}
-              height={675}
-              className="h-auto w-full block"
-              priority={false}
+      <div className="container space-y-10">
+           <SectionTitle
+              badge={badge}
+              heading={heading}
+              description={description}
+              centered={false}
+              maxWidth="full"
+              headingClassName="normal-case"
             />
-          </div>
-          {/* Right: 2 cards per row */}
+        <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+          {/* Left: section title on top, then image */}
           <div className="space-y-6">
-            <div className="space-y-3">
-              <SectionTitle
-                badge={badge}
-                heading={heading}
-                description={description}
-                centered={false}
-                maxWidth="full"
-                headingClassName="normal-case"
+         
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+              <Image
+                src={resolvedImageUrl}
+                alt="MLM consulting"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                priority={false}
+                unoptimized={resolvedImageUrl.startsWith("http")}
               />
             </div>
-
+          </div>
+          {/* Right: checklist items */}
+          <div className="space-y-6">
             <ul className="grid gap-4 sm:grid-cols-2">
               {items.map((item, i) => (
                 <li

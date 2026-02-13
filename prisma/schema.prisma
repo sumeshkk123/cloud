@@ -419,20 +419,6 @@ model pricing_otps {
   @@index([expiresAt])
 }
 
-model integrations {
-  id          String
-  icon        String?
-  title       String
-  description String
-  connectors  Json?
-  locale      String   @default("en")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime
-
-  @@id([id, locale])
-  @@index([locale])
-}
-
 model connectors {
   id          String
   sliderTitle String   @default("Default Slider")

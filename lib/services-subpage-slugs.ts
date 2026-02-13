@@ -53,14 +53,28 @@ export function getServicePageKey(slug: string): string {
 
 /**
  * Map from slug derived from admin service title (e.g. "Shopify Integration" -> "shopify-integration")
- * to the canonical route slug used in app/[lang]/services/[slug].
+ * to the canonical route slug used in app/[lang]/services/[slug] or app/[lang]/ for top-level pages.
  * Used by services list "Explore More" links so they point to the correct service page.
  */
 const SERVICE_TITLE_SLUG_TO_CANONICAL: Record<string, string> = {
   "shopify-integration": "shopify-integration-in-cloud-mlm-software",
   "woocommerce-integration": "woocommerce-integration-with-cloud-mlm-software",
   "comp-plan-audit": "compensation-plan-audit",
+  "mlm-software-migration-services": "mlm-migration",
+  "mlm-migration-services": "mlm-migration",
+  "2mlm-software-migration-services": "mlm-migration",
+  "2mlm-migration-services": "mlm-migration",
+  "mlm-consulting-services": "mlm-consulting",
+  "2mlm-consulting-services": "mlm-consulting",
 };
+
+/** Slugs that live at top-level path /[lang]/{slug} instead of /[lang]/services/{slug}. */
+export const TOP_LEVEL_SERVICE_SLUGS: readonly string[] = [
+  "bitcoin-cryptocurrency-mlm-software",
+  "cryptocurrency-mlm-software",
+  "mlm-migration",
+  "mlm-consulting",
+];
 
 export function getCanonicalServiceSlug(titleDerivedSlug: string): string {
   return SERVICE_TITLE_SLUG_TO_CANONICAL[titleDerivedSlug] ?? titleDerivedSlug;

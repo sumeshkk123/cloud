@@ -12,6 +12,11 @@ import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { ServicesMetaPageTitleForm } from './services-meta-page-title-form';
 import { i18n } from '@/i18n-config';
+import {
+  TOP_LEVEL_SERVICE_SLUGS,
+  ALL_SERVICES_SUBPAGE_SLUGS,
+  getServicePageKey,
+} from '@/lib/services-subpage-slugs';
 
 interface CombinedRow {
     page: string;
@@ -26,19 +31,62 @@ interface CombinedRow {
 const SERVICE_PAGE_PREFIX = 'services';
 const ITEMS_PER_PAGE = 20;
 
-// Static service pages (must match route folders under app/[lang]/services/)
-const STATIC_SERVICE_PAGES = [
-  { value: 'services/bitcoin-cryptocurrency-mlm-software', label: 'Bitcoin & Cryptocurrency MLM Software' },
-  { value: 'services/comp-plan-audit', label: 'Comp Plan Audit' },
-  { value: 'services/e-commerce-integration', label: 'E-commerce Integration' },
-  { value: 'services/magento-development', label: 'Magento Development' },
-  { value: 'services/mlm-software-development', label: 'MLM Software Development' },
-  { value: 'services/opencart-development', label: 'OpenCart Development' },
-  { value: 'services/shopify-integration-in-cloud-mlm-software', label: 'Shopify Integration' },
-  { value: 'services/web-development', label: 'Web Development' },
-  { value: 'services/website-designing', label: 'Website Designing' },
-  { value: 'services/woocommerce-integration-with-cloud-mlm-software', label: 'WooCommerce Integration' },
-];
+/** Human-readable labels for service page slugs (for select field). */
+const SERVICE_SLUG_LABELS: Record<string, string> = {
+  'bitcoin-cryptocurrency-mlm-software': 'Bitcoin & Cryptocurrency MLM Software',
+  'cryptocurrency-mlm-software': 'Cryptocurrency MLM Software',
+  'mlm-consulting': 'MLM Consulting',
+  'mlm-migration': 'MLM Migration',
+  'mlm-software-development': 'MLM Software Development',
+  'compensation-plan-audit': 'Compensation Plan Audit',
+  'comp-plan-audit': 'Compensation Plan Audit',
+  'e-commerce-integration': 'E-commerce Integration',
+  'magento-development': 'Magento Development',
+  'opencart-development': 'OpenCart Development',
+  'shopify-integration-in-cloud-mlm-software': 'Shopify Integration',
+  'web-development': 'Web Development',
+  'website-designing': 'Website Designing',
+  'woocommerce-integration-with-cloud-mlm-software': 'WooCommerce Integration',
+};
+
+/** Legacy page keys (no "services/" prefix) that may exist in meta_details. */
+const LEGACY_SERVICE_PAGE_VALUES = [
+  'cryptocurrency-mlm-software',
+  'mlm-consulting',
+  'mlm-migration',
+  'services/comp-plan-audit',
+] as const;
+
+/** Build all service page options for the select (services + every service subpage + legacy keys). */
+function buildAllServicePageOptions(): Array<{ value: string; label: string }> {
+  const options: Array<{ value: string; label: string }> = [
+    { value: SERVICE_PAGE_PREFIX, label: 'Services (main)' },
+  ];
+  const seen = new Set<string>();
+
+  const add = (slug: string, valueOverride?: string) => {
+    const value = valueOverride ?? getServicePageKey(slug);
+    if (seen.has(value)) return;
+    seen.add(value);
+    const label = SERVICE_SLUG_LABELS[slug] ?? slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    options.push({ value, label });
+  };
+
+  TOP_LEVEL_SERVICE_SLUGS.forEach((s) => add(s));
+  ALL_SERVICES_SUBPAGE_SLUGS.forEach((s) => add(s));
+  LEGACY_SERVICE_PAGE_VALUES.forEach((value) => {
+    const slug = value.replace(/^services\//, '');
+    if (!seen.has(value)) {
+      seen.add(value);
+      const label = SERVICE_SLUG_LABELS[slug] ?? slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+      options.push({ value, label });
+    }
+  });
+  options.sort((a, b) => a.label.localeCompare(b.label));
+  return options;
+}
+
+const ALL_SERVICE_PAGE_OPTIONS = buildAllServicePageOptions();
 
 export function ServicesMetaPageTitleTab() {
   const { showToast, ToastComponent } = useToast();
@@ -82,15 +130,10 @@ export function ServicesMetaPageTitleTab() {
       setIsLoading(true);
       const allData: CombinedRow[] = [];
       
-      // Load data for all service pages (excluding main service page)
+      // Load data for all service pages (including main services page)
       for (const pageOption of servicePages) {
         const page = pageOption.value;
-        
-        // Skip the main service page - only show inner pages
-        if (page === SERVICE_PAGE_PREFIX) {
-          continue;
-        }
-        
+
         const metaRes = await fetch(`/api/admin/meta-details?page=${encodeURIComponent(page)}`, {
           cache: 'no-store',
         });
@@ -140,12 +183,7 @@ export function ServicesMetaPageTitleTab() {
 
   const loadServicePages = async () => {
     try {
-      const allPages = [...STATIC_SERVICE_PAGES];
-      
-      // Don't add main services page - only show inner pages
-      // Sort alphabetically by label
-      allPages.sort((a, b) => a.label.localeCompare(b.label));
-      setServicePages(allPages);
+      setServicePages(ALL_SERVICE_PAGE_OPTIONS);
     } catch (error) {
       console.error('Error loading service pages:', error);
       showToast('Failed to load service pages.', 'error');

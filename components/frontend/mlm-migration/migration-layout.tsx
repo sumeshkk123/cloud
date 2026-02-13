@@ -24,6 +24,8 @@ export interface MigrationLayoutProps {
   serverBadge?: string | null;
   /** Override hero description. */
   serverDescription?: string | null;
+  /** Backend image from Admin → Services (e.g. for Why Migrate section). */
+  serverImageUrl?: string | null;
   locale?: string;
 }
 
@@ -35,6 +37,7 @@ export function MigrationLayout({
   serverTitle,
   serverBadge,
   serverDescription,
+  serverImageUrl,
   locale = "en",
 }: MigrationLayoutProps) {
   const [popupOpen, setPopupOpen] = useState(false);
@@ -42,9 +45,9 @@ export function MigrationLayout({
   const { showToast, ToastComponent } = useToast();
   const hero = {
     ...content.hero,
-    title: serverTitle ?? content.hero.title,
-    badge: serverBadge ?? content.hero.badge,
-    description: serverDescription ?? content.hero.description,
+    title: (serverTitle != null && String(serverTitle).trim() !== "" ? serverTitle : content.hero.title) as string,
+    badge: (serverBadge != null && String(serverBadge).trim() !== "" ? serverBadge : content.hero.badge) as string,
+    description: (serverDescription != null && String(serverDescription).trim() !== "" ? serverDescription : content.hero.description) as string,
   };
 
   return (
@@ -80,6 +83,7 @@ export function MigrationLayout({
         heading={content.whySection.heading}
         description={content.whySection.description}
         reasons={content.whySection.reasons}
+        imageUrl={serverImageUrl ?? undefined}
       />
       {content.checklistSection && (
         <MigrationChecklistSection

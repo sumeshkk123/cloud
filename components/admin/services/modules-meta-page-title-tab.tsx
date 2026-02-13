@@ -30,7 +30,7 @@ const ITEMS_PER_PAGE = 20;
 
 // Static service pages
 const STATIC_SERVICE_PAGES = [
-  { value: 'services/comp-plan-audit', label: 'Comp Plan Audit' },
+  { value: 'services/comp-plan-audit', label: 'Compensation Plan Audit' },
   { value: 'services/e-commerce-integration', label: 'E-commerce Integration' },
   { value: 'services/magento-development', label: 'Magento Development' },
   { value: 'services/mlm-software-development', label: 'MLM Software Development' },

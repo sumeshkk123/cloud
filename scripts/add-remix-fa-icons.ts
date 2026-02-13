@@ -349,23 +349,15 @@ async function addIndustrySolutionsIcons() {
   console.log('Adding Remix icons to industry_solutions table...');
   try {
     const solutions = await prisma.industry_solutions.findMany({
-      select: {
-        id: true,
-        title: true,
-        icon: true,
-      },
+      select: { id: true, title: true, icon: true },
     });
-
     let added = 0;
     let skipped = 0;
-
     for (const solution of solutions) {
-      // Skip if already has an icon
       if (solution.icon && solution.icon.trim() !== '') {
         skipped++;
         continue;
       }
-
       const iconValue = findIconForTitle(solution.title);
       if (verifyRemixIcon(iconValue)) {
         await prisma.industry_solutions.update({
@@ -376,10 +368,8 @@ async function addIndustrySolutionsIcons() {
         console.log(`  ✓ ${solution.title}: ${iconValue}`);
       } else {
         skipped++;
-        console.log(`  ⚠ ${solution.title}: Invalid icon ${iconValue}`);
       }
     }
-
     console.log(`✓ Added ${added} icons, skipped ${skipped}\n`);
     return { added, skipped };
   } catch (error) {

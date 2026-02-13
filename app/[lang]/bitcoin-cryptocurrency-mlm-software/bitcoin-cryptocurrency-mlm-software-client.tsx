@@ -1,60 +1,35 @@
 "use client";
 
+import type { Locale } from "@/i18n-config";
 import type { PageTitleRecord } from "@/lib/api/page-titles";
-import { ServiceSubpageLayout } from "@/components/frontend/services/subpage";
-import type { ServiceFeatureContent } from "@/components/frontend/services/subpage";
-import { bitcoinCryptocurrencyContent } from "./content";
+import { ConsultingLayout } from "@/components/frontend/mlm-consulting";
+import { getBitcoinCryptocurrencyConsultingContent } from "./content-consulting-format";
 
 type BitcoinCryptocurrencyClientProps = {
   pageTitleData: PageTitleRecord | null;
-  /** Backend image for "Why use cryptocurrency in MLM software?" (importance) section, from services table. */
-  serviceImageUrl?: string | null;
-  /** Key features from backend (services.keyBenefits) for intro partner card. */
-  serviceKeyFeatures?: string[] | null;
   contactHref: string;
-  secondaryHref: string;
+  servicesHref: string;
+  featuresHref: string;
   locale?: string;
 };
 
-function mergeContentWithPageTitle(
-  content: ServiceFeatureContent,
-  pageTitleData: PageTitleRecord | null
-): ServiceFeatureContent {
-  if (!pageTitleData) return content;
-  return {
-    ...content,
-    hero: {
-      ...content.hero,
-      title: pageTitleData.title,
-      badge: pageTitleData.pagePill ?? content.hero.badge,
-      description: pageTitleData.sectionSubtitle ?? content.hero.description,
-    },
-  };
-}
-
 export function BitcoinCryptocurrencyClient({
   pageTitleData,
-  serviceImageUrl,
-  serviceKeyFeatures,
   contactHref,
-  secondaryHref,
+  servicesHref,
+  featuresHref,
   locale = "en",
 }: BitcoinCryptocurrencyClientProps) {
-  const content = mergeContentWithPageTitle(
-    bitcoinCryptocurrencyContent,
-    pageTitleData
-  );
+  const content = getBitcoinCryptocurrencyConsultingContent((locale || "en") as Locale);
   return (
-    <ServiceSubpageLayout
+    <ConsultingLayout
       content={content}
       contactHref={contactHref}
-      demoHref={secondaryHref}
+      servicesHref={servicesHref}
+      featuresHref={featuresHref}
       serverTitle={pageTitleData?.title ?? undefined}
       serverBadge={pageTitleData?.pagePill ?? undefined}
       serverDescription={pageTitleData?.sectionSubtitle ?? undefined}
-      serverImageUrl={serviceImageUrl ?? undefined}
-      serverKeyFeatures={serviceKeyFeatures ?? undefined}
-      serviceSlug={null}
       locale={locale}
     />
   );

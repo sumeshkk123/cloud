@@ -81,6 +81,11 @@ export async function getPageMetadata(
                     const shortKey = page.replace(/^mlm-software-modules-/, '');
                     meta = await getMetaDetail(shortKey, locale);
                 }
+                // Fallback: service pages (e.g. services/web-development) – try slug only in case meta was saved under legacy key
+                if (!meta && page.startsWith('services/')) {
+                    const serviceSlug = page.replace(/^services\//, '');
+                    if (serviceSlug) meta = await getMetaDetail(serviceSlug, locale);
+                }
                 if (meta) {
                     title = meta.title || title;
                     description = meta.description || description;

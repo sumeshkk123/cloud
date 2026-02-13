@@ -26,7 +26,6 @@ export async function GET(request: Request) {
     );
   } catch (error: any) {
     console.error('[API /api/industry-solutions] Error:', error);
-    // If table doesn't exist or other DB error, return empty array
     return NextResponse.json([], {
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',

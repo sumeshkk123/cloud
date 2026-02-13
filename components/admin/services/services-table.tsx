@@ -17,6 +17,7 @@ import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { ServicesForm } from './services-form';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { supportedLocales } from '@/config/site';
+import { toAbsoluteUrl } from '@/lib/media';
 
 // Register FontAwesome icons
 library.add(fas);
@@ -51,6 +52,8 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [imageRefreshKey, setImageRefreshKey] = useState(() => Date.now());
+  const [imageErrorIds, setImageErrorIds] = useState<Set<string>>(new Set());
 
   useImperativeHandle(ref, () => ({
     openNewForm: () => {
@@ -93,6 +96,8 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
         : [];
 
       setItems(mapped);
+      setImageRefreshKey(Date.now());
+      setImageErrorIds(new Set());
       setCurrentPage(1);
     } catch (error) {
       setItems([]);
@@ -223,20 +228,20 @@ export const ServicesTable = forwardRef<ServicesTableRef>((props, ref) => {
             );
           }
           if (column.key === 'image') {
+            const base = row.image ? (toAbsoluteUrl(row.image) ?? row.image) : '';
+            const imageUrl = base ? base + (base.includes('?') ? '&' : '?') + `t=${imageRefreshKey}` : '';
+            const imageFailed = imageErrorIds.has(row.id);
             return (
               <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 flex-shrink-0">
-                {row.image ? (
+                {imageUrl && !imageFailed ? (
                   /* eslint-disable-next-line @next/next/no-img-element -- dynamic admin image URLs */
                   <img
-                    src={row.image}
+                    key={`${row.id}-img-${imageRefreshKey}`}
+                    src={imageUrl}
                     alt={row.title ?? ''}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      if (target.parentElement) {
-                        target.parentElement.innerHTML = '<div class="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-600 text-xs">No image</div>';
-                      }
+                    onError={() => {
+                      setImageErrorIds((prev) => new Set(prev).add(row.id));
                     }}
                   />
                 ) : (

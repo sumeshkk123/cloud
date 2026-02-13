@@ -32,6 +32,7 @@ import { getPublishedBlogPostsForHome } from "@/lib/api/blog";
 import { mergeNavItems, mergeHeaderCta, mergeLanguageOptions } from "@/lib/layout-utils";
 import { NAV_ITEMS, HEADER_CTA, LANGUAGE_OPTIONS } from "@/lib/layout-nav-config";
 import { listServices } from "@/lib/api/services";
+import { getServicesForEcommerceSection } from "@/lib/services-page-title";
 import defaultContentModule from "@/shared/homepage/default-content.js";
 import type { HomepageBlogPost } from "@/types/homepage";
 
@@ -163,6 +164,21 @@ async function getCachedBlogPostsForHome(locale: string) {
   )();
 }
 
+async function getCachedEcommerceServices(locale: string) {
+  return unstable_cache(
+    async () => {
+      try {
+        return await getServicesForEcommerceSection(locale as SupportedLocale);
+      } catch (error) {
+        console.error('[HomePage] Error fetching ecommerce section services:', error);
+        return [];
+      }
+    },
+    ['home-ecommerce-services', locale],
+    { revalidate: 60, tags: ['services', `ecommerce-services-${locale}`] }
+  )();
+}
+
 export default async function HomePage(props: HomePageProps) {
   try {
     const params = props?.params;
@@ -171,12 +187,13 @@ export default async function HomePage(props: HomePageProps) {
     const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
 
     // Fetch all data in parallel for maximum performance
-    const [content, globalSettings, pageTitleData, homeServices, homeBlogPosts] = await Promise.all([
+    const [content, globalSettings, pageTitleData, homeServices, homeBlogPosts, ecommerceServices] = await Promise.all([
       getCachedHomepageContent(locale as SupportedLocale),
       getCachedGlobalSettings(locale as SupportedLocale),
       getCachedPageTitle("home", locale),
       getCachedServices(locale),
       getCachedBlogPostsForHome(locale),
+      getCachedEcommerceServices(locale),
     ]);
 
     const siteName = globalSettings?.siteName ?? SITE_NAME;
@@ -203,7 +220,7 @@ export default async function HomePage(props: HomePageProps) {
         <FeaturesSection locale={locale} data={content?.featureSection} />
         <MlmSoftwareServices locale={locale} services={homeServices} />
         <IndustriesSection locale={locale} data={content?.industrySection || {}} />
-        <IntegrationsSection data={content?.integrations || {}} locale={locale} />
+        <IntegrationsSection data={content?.integrations || {}} locale={locale} ecommerceServices={ecommerceServices} />
         <ClientsSection locale={locale} logos={content?.hero?.logos} data={content?.clients || {}} />
         <TestimonialsSection locale={locale} data={content?.testimonials || {}} />
         <BlogSection
