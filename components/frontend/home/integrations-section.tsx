@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import type { HomepageContent } from "@/types/homepage";
+import type { EcommerceServiceItem } from "@/lib/services-page-title";
 import * as RemixIcon from "@remixicon/react";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Typography } from "@/components/ui/typography";
@@ -21,6 +22,8 @@ interface Integration {
   description: string;
   icon?: string | null;
   connectors?: string[] | null;
+  /** When set (e.g. from ecommerce services), "Learn more" links to this URL. */
+  href?: string;
 }
 
 interface Connector {
@@ -36,14 +39,17 @@ interface ConnectorSlider {
 
 export function IntegrationsSection({
   data,
-  locale
+  locale,
+  ecommerceServices = [],
 }: {
   data: HomepageContent["integrations"];
   locale: Locale;
+  /** When provided, these 7 services (from Admin → Services) are used for the E-Commerce section hover boxes. */
+  ecommerceServices?: EcommerceServiceItem[];
 }) {
   const partners = data?.partners ?? [];
   const [integrations, setIntegrations] = useState<Integration[]>([]);
-  const [isLoadingIntegrations, setIsLoadingIntegrations] = useState(true);
+  const [isLoadingIntegrations, setIsLoadingIntegrations] = useState(ecommerceServices.length === 0);
   const [connectorSliders, setConnectorSliders] = useState<ConnectorSlider[]>([]);
   const [isLoadingConnectors, setIsLoadingConnectors] = useState(true);
 
@@ -102,8 +108,23 @@ export function IntegrationsSection({
     fetchConnectors();
   }, [locale]);
 
-  // Fetch integrations from API
+  // When ecommerceServices are provided from the server, use them; otherwise fetch from API
+  const displayIntegrations: Integration[] =
+    ecommerceServices.length > 0
+      ? ecommerceServices.map((s) => ({
+          id: s.id,
+          title: s.title,
+          description: s.description,
+          icon: s.icon ?? null,
+          href: s.href,
+        }))
+      : integrations;
+
   useEffect(() => {
+    if (ecommerceServices.length > 0) {
+      setIsLoadingIntegrations(false);
+      return;
+    }
     const fetchIntegrations = async () => {
       try {
         setIsLoadingIntegrations(true);
@@ -113,7 +134,6 @@ export function IntegrationsSection({
         if (response.ok) {
           const data = await response.json();
           const integrationsData = Array.isArray(data) ? data : [];
-          // Limit to maximum 6 integrations
           setIntegrations(integrationsData.slice(0, 6));
         } else {
           setIntegrations([]);
@@ -127,7 +147,7 @@ export function IntegrationsSection({
     };
 
     fetchIntegrations();
-  }, [locale]);
+  }, [locale, ecommerceServices.length]);
 
   return (
     <Section variant="gradient" padding="xl" containerClassName="">
@@ -256,8 +276,8 @@ export function IntegrationsSection({
               </div>
             ))}
           </div>
-        ) : integrations.length > 0 ? (
-          <IntegrationHoverBoxes integrations={integrations} locale={locale} />
+        ) : displayIntegrations.length > 0 ? (
+          <IntegrationHoverBoxes integrations={displayIntegrations} locale={locale} />
         ) : (
           <div className="text-center py-12">
             <Typography variant="p" textColor="muted">
@@ -266,15 +286,7 @@ export function IntegrationsSection({
           </div>
         )}
 
-        {/* InfoCtaBox */}
-        <div className="mt-8">
-          <InfoCtaBox
-            icon={RemixIcon.RiStoreFill}
-            text={data?.customIntegrationsText ?? "Need custom integrations? Our team can build connectors for your specific tools and workflows."}
-            buttonText={data?.exploreButtonText ?? "Explore all integrations"}
-            buttonHref={buildLocalizedPath("/mlm-software-integration", locale)}
-          />
-        </div>
+      
       </div>
     </Section>
   );
@@ -299,24 +311,24 @@ function IntegrationHoverBoxes({ integrations, locale }: { integrations: Integra
         {columnIntegrations.slice(0, 6).map((integration, colIndex) => {
           const Icon = resolveIcon(integration.icon, Plug);
           const isExpanded = expandedIndex === colIndex;
-          const integrationHref = buildLocalizedPath("/mlm-software-integration", locale);
+          const integrationHref = integration.href ?? buildLocalizedPath("/mlm-software-integration", locale);
 
           return (
             <div
               key={integration.id || colIndex}
               onMouseEnter={() => setExpandedIndex(colIndex)}
               className={cn(
-                "group relative flex flex-col items-center justify-center overflow-hidden transition-all duration-500 ease-in-out border-r border-border/50 bg-background",
+                "group relative flex flex-col items-start justify-center overflow-hidden transition-all duration-500 ease-in-out border-r border-border/50 bg-background",
                 isExpanded
                   ? "flex-[2] min-w-[420px]"
                   : "w-[175px] hover:bg-primary/5",
                 "h-[437px] px-[45px] py-10"
               )}
             >
-              {/* Service Icon */}
+              {/* Service Icon - Top, left-aligned */}
               <div className={cn(
-                "flex items-center justify-center mb-6 relative z-10 transition-all duration-300",
-                isExpanded && "mb-4"
+                "flex shrink-0 items-center justify-start relative z-10 transition-all duration-300",
+                isExpanded ? "mb-4" : "mb-6"
               )}>
                 <div className={cn(
                   "flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300",
@@ -329,13 +341,13 @@ function IntegrationHoverBoxes({ integrations, locale }: { integrations: Integra
               </div>
 
               {/* Content Container */}
-              <div className="relative w-full flex-1 overflow-hidden flex flex-col">
+              <div className="relative w-full flex-1 min-w-0 overflow-hidden flex flex-col items-start">
                 {/* Collapsed State - Vertical Title (at bottom) */}
                 <div className={cn(
                   "absolute inset-0 flex flex-col transition-all duration-500 ease-in-out",
                   isExpanded ? "opacity-0 invisible transition-opacity duration-200 ease-out" : "opacity-100 visible z-20"
                 )}>
-                  <div className="absolute bottom-[70px] left-[13px] h-[247px] w-full flex items-end justify-start">
+                  <div className="absolute bottom-[30px] left-0 h-[247px] w-full flex items-end justify-start">
                     <Typography
                       as="h4"
                       variant="h5"
@@ -365,7 +377,7 @@ function IntegrationHoverBoxes({ integrations, locale }: { integrations: Integra
                     <Typography
                       variant="small"
                       textColor="muted"
-                      className="leading-6 break-words"
+                      className="leading-6 break-words line-clamp-4"
                     >
                       {integration.description}
                     </Typography>
@@ -405,25 +417,25 @@ function IntegrationHoverBoxes({ integrations, locale }: { integrations: Integra
         })}
       </div>
 
-      {/* Mobile/Tablet - Show all items in expanded mode */}
+      {/* Mobile/Tablet - Icon top left-aligned, then title, description (4 lines), CTA */}
       <div className="grid grid-cols-1 gap-4 lg:hidden">
         {displayIntegrations.map((integration, index) => {
           const Icon = resolveIcon(integration.icon, Plug);
-          const integrationHref = buildLocalizedPath("/mlm-software-integration", locale);
+          const integrationHref = integration.href ?? buildLocalizedPath("/mlm-software-integration", locale);
 
           return (
             <div
               key={integration.id || index}
               className="rounded-2xl border border-border/50 bg-background p-6"
             >
-              <div className="flex flex-col space-y-4">
-                {/* Icon */}
+              <div className="flex flex-col items-start space-y-4">
+                {/* Icon - Top, left-aligned */}
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
                   <Icon className="h-6 w-6" />
                 </div>
 
-                {/* Title and Description */}
-                <div className="space-y-3">
+                {/* Title, Description (max 4 lines), CTA */}
+                <div className="w-full space-y-3 text-left">
                   <Typography
                     as="h4"
                     variant="h5"
@@ -434,20 +446,18 @@ function IntegrationHoverBoxes({ integrations, locale }: { integrations: Integra
                   <Typography
                     variant="small"
                     textColor="muted"
-                    className="leading-6 break-words"
+                    className="leading-6 break-words line-clamp-4"
                   >
                     {integration.description}
                   </Typography>
-                </div>
-
-                {/* CTA Button */}
-                <div className="pt-2">
-                  <ReadMoreButton
-                    href={integrationHref}
-                    variant="default"
-                  >
-                    Learn more
-                  </ReadMoreButton>
+                  <div className="pt-2">
+                    <ReadMoreButton
+                      href={integrationHref}
+                      variant="default"
+                    >
+                      Learn more
+                    </ReadMoreButton>
+                  </div>
                 </div>
               </div>
             </div>

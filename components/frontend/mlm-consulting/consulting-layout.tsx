@@ -21,6 +21,8 @@ export interface ConsultingLayoutProps {
   serverTitle?: string | null;
   serverBadge?: string | null;
   serverDescription?: string | null;
+  /** Hero image from backend (Admin → Services). */
+  serverImageUrl?: string | null;
   locale?: string;
 }
 
@@ -32,6 +34,7 @@ export function ConsultingLayout({
   serverTitle,
   serverBadge,
   serverDescription,
+  serverImageUrl,
   locale = "en",
 }: ConsultingLayoutProps) {
   const [popupOpen, setPopupOpen] = useState(false);
@@ -39,9 +42,9 @@ export function ConsultingLayout({
   const { showToast, ToastComponent } = useToast();
   const hero = {
     ...content.hero,
-    title: serverTitle ?? content.hero.title,
-    badge: serverBadge ?? content.hero.badge,
-    description: serverDescription ?? content.hero.description,
+    title: (serverTitle != null && String(serverTitle).trim() !== "" ? serverTitle : content.hero.title) as string,
+    badge: (serverBadge != null && String(serverBadge).trim() !== "" ? serverBadge : content.hero.badge) as string,
+    description: (serverDescription != null && String(serverDescription).trim() !== "" ? serverDescription : content.hero.description) as string,
   };
 
   return (
@@ -54,6 +57,7 @@ export function ConsultingLayout({
         title={hero.title}
         badge={hero.badge}
         description={hero.description}
+        serverImageUrl={serverImageUrl ?? undefined}
         onPrimaryCtaClick={() => {
           setPopupSource("hero");
           setPopupOpen(true);
@@ -84,6 +88,7 @@ export function ConsultingLayout({
           heading={content.checklistSection.heading}
           description={content.checklistSection.description}
           items={content.checklistSection.items}
+          imageUrl={serverImageUrl ?? undefined}
         />
       )}
       {content.offerSection && (

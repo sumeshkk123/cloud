@@ -94,7 +94,7 @@ export const cryptocurrencyMlmContent: ServiceFeatureContent = {
     paragraphs: [
       "An MLM platform that supports crypto alongside fiat gives you one system for commissions, e-wallets, and reporting—reducing manual reconciliation and supporting global networks. Cloud MLM's cryptocurrency integration keeps compensation rules, genealogy, and payouts in sync with audit trails and compliance-ready reporting.",
     ],
-    imageSrc: "/images/dashboard-deign.webp",
+    imageSrc: "/images/analytics-analysis.svg",
     imageAlt: "Cloud MLM Software – Cryptocurrency MLM dashboard",
     cards: [
       {

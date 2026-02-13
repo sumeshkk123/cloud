@@ -15,6 +15,8 @@ interface ServiceCtaProps {
   demoHref?: string;
   /** When set, primary button opens Request Demo modal with source "cta-section" instead of linking to contact */
   openDemoModalOnPrimary?: boolean;
+  /** Service page slug (e.g. "magento-development"); when set, submissions show "Page: services-{serviceSlug}" in admin */
+  serviceSlug?: string;
   locale?: string;
 }
 
@@ -23,6 +25,7 @@ export function ServiceCta({
   contactHref,
   demoHref,
   openDemoModalOnPrimary = true,
+  serviceSlug,
   locale = "en",
 }: ServiceCtaProps) {
   return (
@@ -32,7 +35,7 @@ export function ServiceCta({
       primaryButton={{ text: cta.buttonText, href: contactHref }}
       primaryButtonOpensDemoModal={
         openDemoModalOnPrimary
-          ? { source: "cta-section", subheading: "From: CTA section", locale }
+          ? { source: "cta-section", subheading: "From: CTA section", locale, sourcePage: serviceSlug ? `services-${serviceSlug}` : undefined }
           : undefined
       }
       secondaryButton={

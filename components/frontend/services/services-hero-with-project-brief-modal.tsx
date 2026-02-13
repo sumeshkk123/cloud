@@ -12,6 +12,7 @@ interface ServicesHeroWithProjectBriefModalProps {
   contactHref: string;
   demoHref: string;
   supportHref: string;
+  featuresHref?: string;
   pageTitleData?: PageTitleRecord | null;
 }
 
@@ -20,6 +21,7 @@ export function ServicesHeroWithProjectBriefModal({
   contactHref,
   demoHref,
   supportHref,
+  featuresHref,
   pageTitleData,
 }: ServicesHeroWithProjectBriefModalProps) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -33,6 +35,7 @@ export function ServicesHeroWithProjectBriefModal({
         contactHref={contactHref}
         demoHref={demoHref}
         supportHref={supportHref}
+        featuresHref={featuresHref}
         pageTitleData={pageTitleData}
         onPrimaryCtaClick={() => setModalOpen(true)}
       />

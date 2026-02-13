@@ -61,7 +61,11 @@ const SERVICE_TITLE_SLUG_TO_CANONICAL: Record<string, string> = {
   "woocommerce-integration": "woocommerce-integration-with-cloud-mlm-software",
   "comp-plan-audit": "compensation-plan-audit",
   "mlm-software-migration-services": "mlm-migration",
+  "mlm-migration-services": "mlm-migration",
+  "2mlm-software-migration-services": "mlm-migration",
+  "2mlm-migration-services": "mlm-migration",
   "mlm-consulting-services": "mlm-consulting",
+  "2mlm-consulting-services": "mlm-consulting",
 };
 
 /** Slugs that live at top-level path /[lang]/{slug} instead of /[lang]/services/{slug}. */

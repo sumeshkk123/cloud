@@ -19,7 +19,7 @@ export interface GradientCtaSectionProps {
   /** Optional third button that runs onClick (e.g. open modal) instead of linking */
   tertiaryButton?: { text: string; onClick: () => void };
   /** When set, primary button opens Request Demo modal instead of linking. Source sent as enquiry (e.g. "cta-section"). */
-  primaryButtonOpensDemoModal?: true | { source?: string; subheading?: string; locale?: string };
+  primaryButtonOpensDemoModal?: true | { source?: string; subheading?: string; locale?: string; sourcePage?: string };
   /** Exactly 3 strings for Zap, Clock, CheckCircle2 trust indicators */
   trustIndicators: [string, string, string];
 }
@@ -59,7 +59,7 @@ export function GradientCtaSection({
           subheading={demoConfig.subheading ?? DEFAULT_CTA_MODAL_SUBHEADING}
           source={demoConfig.source ?? DEFAULT_CTA_MODAL_SOURCE}
           notes="cta section"
-          sourcePage={pathname || undefined}
+          sourcePage={demoConfig.sourcePage ?? pathname || undefined}
           locale={demoConfig.locale ?? "en"}
           onSuccess={(message) => showToast(message, "success")}
           onError={(message) => showToast(message, "error")}

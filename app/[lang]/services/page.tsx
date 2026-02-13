@@ -139,6 +139,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
   const contactHref = buildLocalizedPath("/contact", locale);
   const demoHref = "/mlm-software/";
   const supportHref = "/customer-success/";
+  const featuresHref = buildLocalizedPath("/features", locale);
 
   // Fetch services on the server for faster loading
   let services: ServiceRecord[] = [];
@@ -187,6 +188,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
         contactHref={contactHref}
         demoHref={demoHref}
         supportHref={supportHref}
+        featuresHref={featuresHref}
         pageTitleData={pageTitleData}
       />
 

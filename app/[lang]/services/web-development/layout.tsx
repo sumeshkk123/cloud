@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import type { SupportedLocale } from "@/config/site";
 import { getPageMetadata } from "@/components/frontend/common/page-metadata";
+import { getServicePageKey } from "@/lib/services-subpage-slugs";
 
 export const dynamic = "force-dynamic";
 
-/** Same page key as admin /admin/services/meta-page-title – meta title/description come from backend. */
-const PAGE_KEY = "services/web-development";
+/** Same page key as admin services/meta-page-title (meta_details) – meta title/description from backend. */
+const SERVICE_SLUG = "web-development";
+const PAGE_KEY = getServicePageKey(SERVICE_SLUG);
 
 export async function generateMetadata(props: {
   params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };

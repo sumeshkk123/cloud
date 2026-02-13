@@ -58,9 +58,9 @@ export function ServiceSubpageLayout({
   const { showToast, ToastComponent } = useToast();
   const hero = {
     ...content.hero,
-    title: serverTitle ?? content.hero.title,
-    badge: serverBadge ?? content.hero.badge,
-    description: serverDescription ?? content.hero.description,
+    title: (serverTitle != null && String(serverTitle).trim() !== "" ? serverTitle : content.hero.title) as string,
+    badge: (serverBadge != null && String(serverBadge).trim() !== "" ? serverBadge : content.hero.badge) as string,
+    description: (serverDescription != null && String(serverDescription).trim() !== "" ? serverDescription : content.hero.description) as string,
   };
 
   const openDemoModal = () => setDemoModalOpen(true);
@@ -90,7 +90,7 @@ export function ServiceSubpageLayout({
         subheading={`From: ${hero.title}`}
         source={heroModalSource}
         notes={heroModalNotes}
-        sourcePage={pathname || undefined}
+        sourcePage={serviceSlug ? `services-${serviceSlug}` : pathname || undefined}
         locale={locale}
         onSuccess={(message) => showToast(message, "success")}
         onError={(message) => showToast(message, "error")}
@@ -121,6 +121,7 @@ export function ServiceSubpageLayout({
         contactHref={contactHref}
         demoHref={demoHref}
         openDemoModalOnPrimary
+        serviceSlug={serviceSlug ?? undefined}
         locale={locale}
       />
     </div>
