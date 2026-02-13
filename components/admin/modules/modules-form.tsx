@@ -386,6 +386,7 @@ export function ModulesForm({
                         image: trimmedIcon,
                         showOnHomePage: current.showOnHomePage,
                         locale: 'en',
+                        slug: (moduleSlug || '').trim() || undefined,
                     }),
                 });
                 const payload = await res.json();
