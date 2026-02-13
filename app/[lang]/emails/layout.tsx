@@ -4,7 +4,8 @@ import { getPageMetadata } from "@/components/frontend/common/page-metadata";
 
 export const dynamic = "force-dynamic";
 
-const PAGE_KEY = "mlm-software-modules-email-module";
+/** Page key for meta title / meta description / keywords (admin Module Meta Details at /admin/modules/meta-page-title). */
+const PAGE_KEY = "mlm-software-modules-emails";
 
 export async function generateMetadata(props: {
   params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };

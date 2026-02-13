@@ -89,10 +89,13 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
                     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         {modules.map((module) => {
                             const Icon = resolveIcon(module.image, Package);
-                            const subSlug =
+                            const derivedFromTitle = getModuleSlugFromTitleOrId(module.title, module.id);
+                            let subSlug =
                                 module.slug && isModulesSubpageSlug(module.slug)
                                     ? module.slug
-                                    : getModuleSlugFromTitleOrId(module.title, module.id);
+                                    : derivedFromTitle;
+                            // Always link email module to /emails (even if API returns wrong slug e.g. compensation-module)
+                            if (derivedFromTitle === "emails" || subSlug === "email-module" || subSlug === "emails") subSlug = "emails";
                             const href = subSlug
                                 ? buildLocalizedPath(`/${subSlug}`, locale)
                                 : buildLocalizedPath("/mlm-software-modules", locale);

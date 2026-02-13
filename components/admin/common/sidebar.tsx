@@ -306,7 +306,7 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
                         : 'text-gray-700 hover:bg-gray-100'
                         }`}
                     >
-                      <span>Module Meta and Page Title</span>
+                      <span>Module Meta Details</span>
                     </Link>
                   </div>
                 )}

@@ -3,7 +3,7 @@ import { isSupportedLocale } from "@/lib/i18n-utils";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import { getPageFromSlug, modulesSubpageToSlugMap } from "@/lib/page-slugs";
-import { getPageTitle } from "@/lib/api/page-titles";
+import { getModuleSubpageHeroDataBySlug } from "@/lib/module-subpage-hero";
 import { ModuleSubpageClient } from "./module-subpage-client";
 import { isModulesSubpageSlug, MODULES_SUBPAGE_SLUGS } from "@/lib/modules-subpage-slugs";
 import { notFound } from "next/navigation";
@@ -51,7 +51,7 @@ export default async function ModuleSubpagePage(props: ModuleSubpagePageProps) {
   const pageId = getPageFromSlug(urlSlug, locale as SupportedLocale) ?? (isModulesSubpageSlug(urlSlug) ? urlSlug : null);
   if (!pageId || !isModulesSubpageSlug(pageId)) notFound();
 
-  const pageTitleData = await getPageTitle(`mlm-software-modules-${pageId}`, locale);
+  const pageTitleData = await getModuleSubpageHeroDataBySlug(pageId, locale);
 
   return (
     <ModuleSubpageClient

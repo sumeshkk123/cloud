@@ -12,17 +12,14 @@ import { ActionMenu } from '@/components/ui/adminUi/action-menu';
 import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { ModulesMetaPageTitleForm } from './modules-meta-page-title-form';
 import { PageTitle } from '@/components/ui/adminUi/page-title';
-import { MODULES_SUBPAGE_SLUGS, getModulesSubpageMeta, getModuleSlugFromTitleOrId, isModulesSubpageSlug } from '@/lib/modules-subpage-slugs';
+import { MODULES_SUBPAGE_SLUGS, getModulesSubpageMeta } from '@/lib/modules-subpage-slugs';
 
-interface CombinedRow {
+interface MetaRow {
     page: string;
     locale: string;
     metaTitle: string;
     metaDescription: string;
     metaKeywords: string;
-    pageTitle: string;
-    pagePill: string;
-    sectionSubtitle: string;
     availableLocales?: string[];
     updatedAt?: Date | string;
 }
@@ -39,7 +36,7 @@ export function ModulesMetaPageTitleTab() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [modulePages, setModulePages] = useState<Array<{ value: string; label: string }>>([]);
-  const [tableData, setTableData] = useState<CombinedRow[]>([]);
+  const [tableData, setTableData] = useState<MetaRow[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [editingPage, setEditingPage] = useState<string | null>(null);
   const [editingLocale, setEditingLocale] = useState<string>('en');
@@ -47,7 +44,6 @@ export function ModulesMetaPageTitleTab() {
   const [pageToDelete, setPageToDelete] = useState<string | null>(null);
   const [localesToDelete, setLocalesToDelete] = useState<string[]>([]);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [missingSlugOnFrontend, setMissingSlugOnFrontend] = useState<string | null>(null);
 
   useEffect(() => {
     loadModulePages();
@@ -68,32 +64,19 @@ export function ModulesMetaPageTitleTab() {
 
     try {
       setIsLoading(true);
-      const allData: CombinedRow[] = [];
+      const allData: MetaRow[] = [];
 
-      // Load data for all module pages (excluding main module page) — one row per page, English for display (like /admin/page-titles)
+      // Load meta details for all module pages (main + subpages) — one row per page
       for (const pageOption of modulePages) {
         const page = pageOption.value;
-
-        if (page === MODULE_PAGE_PREFIX) continue;
 
         const metaRes = await fetch(`/api/admin/meta-details?page=${encodeURIComponent(page)}&all=true`, {
           cache: 'no-store',
         });
         const metaData = metaRes.ok ? await metaRes.json() : [];
 
-        const pageTitleRes = await fetch(`/api/admin/page-titles?page=${encodeURIComponent(page)}`, {
-          cache: 'no-store',
-        });
-        const pageTitleDataRaw = pageTitleRes.ok ? await pageTitleRes.json() : [];
-        const pageTitleData = Array.isArray(pageTitleDataRaw)
-          ? pageTitleDataRaw
-          : pageTitleDataRaw?.page
-            ? [pageTitleDataRaw]
-            : [];
-
         const locales = new Set<string>();
         let metaEn: { title?: string; description?: string; keywords?: string } = {};
-        let pageTitleEn: { title?: string; pagePill?: string; sectionSubtitle?: string } = {};
 
         if (Array.isArray(metaData)) {
           metaData.forEach((item: any) => {
@@ -106,51 +89,18 @@ export function ModulesMetaPageTitleTab() {
           });
         }
 
-        pageTitleData.forEach((item: any) => {
-          if (!item || item.page !== page) return;
-          const locale = item.locale || 'en';
-          locales.add(locale);
-          if (locale === 'en') {
-            pageTitleEn = {
-              title: item.title || '',
-              pagePill: item.pagePill ?? '',
-              sectionSubtitle: item.sectionSubtitle ?? '',
-            };
-          }
-        });
-
-        const singleRow: CombinedRow = {
+        const singleRow: MetaRow = {
           page,
           locale: 'en',
           metaTitle: metaEn.title ?? '',
           metaDescription: metaEn.description ?? '',
           metaKeywords: metaEn.keywords ?? '',
-          pageTitle: pageTitleEn.title ?? '',
-          pagePill: pageTitleEn.pagePill ?? '',
-          sectionSubtitle: pageTitleEn.sectionSubtitle ?? '',
           availableLocales: Array.from(locales),
         };
         allData.push(singleRow);
       }
 
       setTableData(allData);
-
-      // Detect which admin module page has no matching module on /mlm-software-modules (API returns DB modules only)
-      try {
-        const modulesRes = await fetch('/api/modules?locale=en', { cache: 'no-store' });
-        const modulesList: Array<{ id: string; title: string; slug?: string | null }> = modulesRes.ok ? await modulesRes.json() : [];
-        const frontendSlugs = new Set<string>();
-        for (const m of modulesList) {
-          const slug = m.slug && isModulesSubpageSlug(m.slug) ? m.slug : getModuleSlugFromTitleOrId(m.title, m.id);
-          if (slug) frontendSlugs.add(slug);
-        }
-        const excludedSlugs = new Set(['emails']);
-        const adminSlugs = (MODULES_SUBPAGE_SLUGS as readonly string[]).filter((s) => !excludedSlugs.has(s));
-        const missing = adminSlugs.find((s) => !frontendSlugs.has(s)) ?? null;
-        setMissingSlugOnFrontend(missing);
-      } catch {
-        setMissingSlugOnFrontend(null);
-      }
     } catch (error) {
       console.error('Error loading data:', error);
       setTableData([]);
@@ -161,16 +111,16 @@ export function ModulesMetaPageTitleTab() {
 
   const loadModulePages = async () => {
     try {
-      // Build select options from module sub-pages (page id = mlm-software-modules-<slug>). Exclude "emails" (Email & Communications Module).
-      const excludedSlugs = new Set(['emails']);
-      const allPages: Array<{ value: string; label: string }> = (MODULES_SUBPAGE_SLUGS as readonly string[])
-        .filter((slug) => !excludedSlugs.has(slug))
-        .map((slug) => {
+      // Main page first, then sub-pages (same backend as frontend: meta_details for hero on /mlm-software-modules and /emails etc.)
+      const allPages: Array<{ value: string; label: string }> = [
+        { value: MODULE_PAGE_PREFIX, label: "MLM Software Modules (main)" },
+        ...(MODULES_SUBPAGE_SLUGS as readonly string[]).map((slug) => {
           const value = `${MODULE_PAGE_PREFIX}-${slug}`;
           const meta = getModulesSubpageMeta(slug);
           const label = meta?.fallbackTitle ?? slug.replace(/-/g, ' ');
           return { value, label };
-        });
+        }),
+      ];
       allPages.sort((a, b) => a.label.localeCompare(b.label));
       setModulePages(allPages);
     } catch (error) {
@@ -190,12 +140,6 @@ export function ModulesMetaPageTitleTab() {
 
     try {
       setIsDeleting(true);
-
-      // Delete all page titles for this page (all locales) — same as /admin/page-titles
-      await fetch(`/api/admin/page-titles?page=${encodeURIComponent(pageToDelete)}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
 
       // Delete meta details for each locale (API is per locale)
       for (const locale of localesToDelete) {
@@ -222,8 +166,7 @@ export function ModulesMetaPageTitleTab() {
     { key: 'page', label: 'Page', className: 'text-black' },
     { key: 'metaTitle', label: 'Meta Title' },
     { key: 'metaDescription', label: 'Meta Description' },
-    { key: 'pagePill', label: 'Page Pill' },
-    { key: 'pageTitle', label: 'Page Title' },
+    { key: 'metaKeywords', label: 'Meta Keywords' },
     { key: 'languages', label: 'Languages' },
     { key: 'actions', label: 'Actions' },
   ];
@@ -239,8 +182,8 @@ export function ModulesMetaPageTitleTab() {
   return (
     <div className="space-y-4">
       <PageTitle 
-        title="Module Meta and Page Title" 
-        description="Manage module meta details and page titles across all languages"
+        title="Module Meta Details" 
+        description="Manage module meta details (title, description, keywords) across all languages"
       >
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-end w-full">
           <Button
@@ -264,12 +207,6 @@ export function ModulesMetaPageTitleTab() {
 
       {ToastComponent}
       {formToast}
-
-      {missingSlugOnFrontend && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-          <strong>Missing on /mlm-software-modules:</strong> The module page &quot;{missingSlugOnFrontend.replace(/-/g, ' ')}&quot; is in this table but has no matching module in the database, so it does not appear on the frontend. Add a module with this slug (or matching title) in <a href="/admin/modules" className="underline font-medium">Modules</a> to show it on the mlm-software-modules page.
-        </div>
-      )}
 
       {isLoading ? (
         <div className="flex justify-center items-center py-12">
@@ -306,7 +243,7 @@ export function ModulesMetaPageTitleTab() {
                 );
                 return actionMenu ?? <div />;
               }
-              const value = row[column.key as keyof CombinedRow];
+              const value = row[column.key as keyof MetaRow];
               return value != null ? String(value) : '';
             }}
           />
@@ -330,7 +267,7 @@ export function ModulesMetaPageTitleTab() {
           setEditingLocale('en');
           setFormToast(null);
         }}
-        title={editingPage ? 'Edit Meta Details & Page Title' : 'New Meta Details & Page Title'}
+        title={editingPage ? 'Edit Meta Details' : 'New Meta Details'}
         size="4xl"
         footer={
           <div className="flex justify-end gap-3">
@@ -384,8 +321,8 @@ export function ModulesMetaPageTitleTab() {
         }}
         onConfirm={handleDelete}
         isLoading={isDeleting}
-        title="Delete Meta Details & Page Title"
-        message={`Are you sure you want to delete all translations for "${modulePages.find((p) => p.value === pageToDelete)?.label ?? pageToDelete}"? This will delete meta details and page titles for all languages. This action cannot be reversed.`}
+        title="Delete Meta Details"
+        message={`Are you sure you want to delete all meta details for "${modulePages.find((p) => p.value === pageToDelete)?.label ?? pageToDelete}"? This will delete meta details for all languages. This action cannot be reversed.`}
       />
     </div>
   );

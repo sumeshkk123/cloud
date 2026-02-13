@@ -63,14 +63,16 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, description, image, showOnHomePage, locale = 'en' } = body || {};
+    const { title, description, image, showOnHomePage, locale = 'en', slug } = body || {};
 
     if (!title || !description || !image) {
       return NextResponse.json({ error: 'title, description, and image are required.' }, { status: 400 });
     }
 
+    const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
+
     const moduleRecord = await createModule({
-      slug: null,
+      slug: slugValue,
       title: String(title),
       description: String(description),
       image: String(image),
@@ -96,7 +98,7 @@ export async function PUT(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const body = await request.json();
-    const { title, description, image, showOnHomePage, locale = 'en' } = body || {};
+    const { title, description, image, showOnHomePage, locale = 'en', slug } = body || {};
 
     if (!id) {
       return NextResponse.json({ error: 'id is required in query params.' }, { status: 400 });
@@ -114,8 +116,9 @@ export async function PUT(request: Request) {
         const englishMatch = englishModules.find((m) => m.image === image && m.showOnHomePage === Boolean(showOnHomePage ?? false));
 
         if (englishMatch) {
+          const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
           const moduleRecord = await createModule({
-            slug: null,
+            slug: slugValue,
             title,
             description,
             image: englishMatch.image || image,
@@ -140,9 +143,10 @@ export async function PUT(request: Request) {
       const imageToUse = englishVersion.image || image;
       const showOnHomePageToUse = englishVersion.showOnHomePage;
 
+      const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
       if (existingTranslation) {
         const moduleRecord = await updateModule(existingTranslation.id, {
-          slug: null,
+          slug: slugValue,
           title,
           description,
           image: imageToUse,
@@ -153,7 +157,7 @@ export async function PUT(request: Request) {
         return NextResponse.json(moduleRecord);
       } else {
         const moduleRecord = await createModule({
-          slug: null,
+          slug: slugValue,
           title,
           description,
           image: imageToUse,
@@ -172,6 +176,7 @@ export async function PUT(request: Request) {
     if (targetLocale === 'en') {
       const allTranslations = await getAllModuleTranslations(id);
       if (allTranslations.length > 0 && imageToUse) {
+        const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
         await Promise.all(
           allTranslations
             .filter((t) => t.locale !== 'en')
@@ -179,7 +184,7 @@ export async function PUT(request: Request) {
               updateModule(t.id, {
                 image: imageToUse,
                 showOnHomePage: showOnHomePageToUse,
-                slug: null,
+                slug: slugValue,
                 title: t.title,
                 description: t.description,
                 hasDetailPage: false,
@@ -197,8 +202,9 @@ export async function PUT(request: Request) {
       }
     }
 
+    const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
     const moduleRecord = await updateModule(id, {
-      slug: null,
+      slug: slugValue,
       title,
       description,
       image: imageToUse,

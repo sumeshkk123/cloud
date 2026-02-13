@@ -69,6 +69,7 @@ export function ModulesForm({
     const [isTranslating, setIsTranslating] = useState(false);
     const [currentModuleId, setCurrentModuleId] = useState<string | null>(moduleId || null);
     const [savedLocales, setSavedLocales] = useState<string[]>([]);
+    const [moduleSlug, setModuleSlug] = useState<string>('');
     const preserveTabRef = React.useRef<string | null>(null);
 
     // Reset loading state on unmount
@@ -117,6 +118,7 @@ export function ModulesForm({
             });
             setTranslations(reset);
             setSavedLocales([]);
+            setModuleSlug('');
             setActiveTab('en');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -163,12 +165,16 @@ export function ModulesForm({
                 const imageValue = String(englishVersion.image || '').trim();
                 sharedImage = imageValue;
                 sharedShowOnHomePage = Boolean(englishVersion.showOnHomePage || false);
+                setModuleSlug(String(englishVersion.slug || '').trim());
                 console.log('English version found:', { ...englishVersion, imageValue });
             } else if (existingTranslations.length > 0) {
                 const imageValue = String(existingTranslations[0].image || '').trim();
                 sharedImage = imageValue;
                 sharedShowOnHomePage = Boolean(existingTranslations[0].showOnHomePage || false);
+                setModuleSlug(String(existingTranslations[0].slug || '').trim());
                 console.log('Using first translation as fallback:', { ...existingTranslations[0], imageValue });
+            } else {
+                setModuleSlug('');
             }
 
             const loaded: Record<string, ModuleTranslation> = {};

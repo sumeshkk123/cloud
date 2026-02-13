@@ -1,5 +1,6 @@
 import { randomUUID } from 'crypto';
 import { prisma } from '@/lib/db/prisma';
+import { getModuleSlugFromTitleOrId } from '@/lib/modules-subpage-slugs';
 
 export interface ModuleRecord {
   id: string;
@@ -86,6 +87,51 @@ export async function getModuleById(id: string, locale?: string): Promise<Module
   });
 
   return moduleRecord;
+}
+
+/**
+ * Find the module record that corresponds to a subpage slug (e.g. "emails", "backup-manager")
+ * for the given locale. Used to show Edit Module (backend) title/description on subpage hero.
+ */
+export async function getModuleBySubpageSlug(
+  subpageSlug: string,
+  locale: string
+): Promise<ModuleRecord | null> {
+  // Prefer direct lookup by slug when admin has set it (e.g. "backup-manager")
+  const bySlug = await prisma.modules.findFirst({
+    where: { slug: subpageSlug, locale },
+    select: {
+      id: true,
+      slug: true,
+      title: true,
+      description: true,
+      image: true,
+      hasDetailPage: true,
+      showOnHomePage: true,
+      locale: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+  if (bySlug) return bySlug;
+
+  const modules = await listModules(locale);
+  for (const m of modules) {
+    const derived = getModuleSlugFromTitleOrId(m.title, m.id);
+    if (derived === subpageSlug || m.slug === subpageSlug) return m;
+    if (subpageSlug === 'emails' && (m.slug === 'email-module' || derived === 'emails')) return m;
+  }
+
+  // Fallback: try English when the requested locale has no matching module
+  if (locale !== 'en') {
+    const enModules = await listModules('en');
+    for (const m of enModules) {
+      const derived = getModuleSlugFromTitleOrId(m.title, m.id);
+      if (derived === subpageSlug || m.slug === subpageSlug) return m;
+      if (subpageSlug === 'emails' && (m.slug === 'email-module' || derived === 'emails')) return m;
+    }
+  }
+  return null;
 }
 
 /** Single-query list: all modules (en as primary) with availableLocales. Use for admin list to avoid N+1. */

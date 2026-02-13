@@ -81,6 +81,10 @@ export async function getPageMetadata(
                     const shortKey = page.replace(/^mlm-software-modules-/, '');
                     meta = await getMetaDetail(shortKey, locale);
                 }
+                // Fallback: /emails page – admin may have meta under "Email Module" (mlm-software-modules-email-module)
+                if (!meta && page === 'mlm-software-modules-emails') {
+                    meta = await getMetaDetail('mlm-software-modules-email-module', locale);
+                }
                 // Fallback: service pages (e.g. services/web-development) – try slug only in case meta was saved under legacy key
                 if (!meta && page.startsWith('services/')) {
                     const serviceSlug = page.replace(/^services\//, '');

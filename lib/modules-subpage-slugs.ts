@@ -217,7 +217,8 @@ export function getModuleSlugFromTitleOrId(title: string | null, id: string | nu
   if (!title && !id) return null;
   const t = (title ?? id ?? "").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
   const idStr = (id ?? "").toLowerCase();
-  // Prefer slug that matches a known sub-page (English + translated keywords). Check specific slugs before generic "emails".
+  // Check email/emails first so "Email Module" does not match compensation-module (which has keyword "module")
+  if (titleMatchesSlug(t, "email-module") || titleMatchesSlug(t, "emails") || t.includes("email") || idStr.includes("email")) return "emails";
   if (titleMatchesSlug(t, "compensation-module") || idStr.includes("compensation")) return "compensation-module";
   if (titleMatchesSlug(t, "ecommerce-module") || idStr.includes("ecommerce-module") || idStr.includes("ecommerce")) return "ecommerce-module";
   if ((t.includes("marketing") || t.includes("automatización")) && (t.includes("automation") || t.includes("campaign") || t.includes("campaña"))) return "marketing-automation";
@@ -234,7 +235,5 @@ export function getModuleSlugFromTitleOrId(title: string | null, id: string | nu
   if ((t.includes("multi") || t.includes("mult")) && (t.includes("lingual") || t.includes("idioma") || t.includes("language"))) return "multi-lingual-system";
   if (titleMatchesSlug(t, "kyc-documentation")) return "kyc-documentation";
   if (titleMatchesSlug(t, "backup-manager")) return "backup-manager";
-  if (titleMatchesSlug(t, "email-module")) return "email-module";
-  if (titleMatchesSlug(t, "emails") || t.includes("email") || idStr.includes("email")) return "emails";
   return null;
 }

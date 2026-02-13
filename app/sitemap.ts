@@ -1,5 +1,9 @@
 import type { MetadataRoute } from "next";
 import { siteBaseConfig, supportedLocales, type SupportedLocale } from "@/config/site";
+
+/** Refresh sitemap periodically so it uses current slugs. */
+export const revalidate = 3600;
+
 import { i18n } from "@/i18n-config";
 import {
   getSlugForPricingSubpage,

@@ -3,7 +3,7 @@ import { isSupportedLocale } from "@/lib/i18n-utils";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
-import { getPageTitle } from "@/lib/api/page-titles";
+import { getModuleSubpageHeroDataBySlug } from "@/lib/module-subpage-hero";
 import { EmailModuleClient } from "./email-module-client";
 
 export const dynamic = "force-dynamic";
@@ -18,7 +18,7 @@ export default async function Page(props: { params?: Promise<{ lang: SupportedLo
   const resolved =
     params != null ? (params instanceof Promise ? await params : params) : null;
   const locale = resolveLocale(resolved?.lang ?? i18n.defaultLocale);
-  const pageTitleData = await getPageTitle("mlm-software-modules-email-module", locale);
+  const pageTitleData = await getModuleSubpageHeroDataBySlug("email-module", locale);
   return (
     <EmailModuleClient
       pageTitleData={pageTitleData}
