@@ -14,7 +14,7 @@ import type { Locale } from "@/i18n-config";
 import { resolveIcon } from "@/components/frontend/home/utils";
 import { Code } from "lucide-react";
 import { buildLocalizedPath } from "@/lib/locale-links";
-import { getCanonicalServiceSlug } from "@/lib/services-subpage-slugs";
+import { getCanonicalServiceSlug, TOP_LEVEL_SERVICE_SLUGS } from "@/lib/services-subpage-slugs";
 import type { SupportedLocale } from "@/config/site";
 import { getCommonContent } from "@/lib/common";
 import type { ServiceRecord } from "@/lib/api/services";
@@ -117,10 +117,9 @@ export function MlmSoftwareServices({ locale = 'en', services: servicesProp }: M
         : [];
 
       const slug = getCanonicalServiceSlug(generateSlug(service.title));
-      const href =
-        slug === "bitcoin-cryptocurrency-mlm-software"
-          ? buildLocalizedPath("/bitcoin-cryptocurrency-mlm-software", locale as SupportedLocale)
-          : buildLocalizedPath(`/services/${slug}`, locale as SupportedLocale);
+      const href = TOP_LEVEL_SERVICE_SLUGS.includes(slug)
+        ? buildLocalizedPath(`/${slug}`, locale as SupportedLocale)
+        : buildLocalizedPath(`/services/${slug}`, locale as SupportedLocale);
       const IconComponent = resolveIcon(service.icon || null, Code);
       const summary = service.description.split('.')[0] || service.description.substring(0, 100);
 

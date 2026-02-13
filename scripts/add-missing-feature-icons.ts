@@ -117,37 +117,27 @@ async function addMissingFeatureIcons() {
     }
 
     // Get industry solutions missing icons
-    // First get all English solutions, then filter for missing icons
     const allIndustrySolutions = await prisma.industry_solutions.findMany({
       where: { locale: 'en' },
       select: { id: true, title: true, icon: true, locale: true },
     });
-
     const industrySolutionsMissing = allIndustrySolutions.filter(
       sol => !sol.icon || sol.icon.trim() === ''
     );
-
     console.log(`\nFound ${industrySolutionsMissing.length} industry solutions missing icons\n`);
 
     for (const solution of industrySolutionsMissing) {
       const icon = findIconForFeature(solution.title || '');
-
-      // Update all translations
       const allTranslations = await prisma.industry_solutions.findMany({
-        where: {
-          title: solution.title,
-        },
+        where: { title: solution.title },
         select: { id: true, locale: true },
       });
-
       for (const translation of allTranslations) {
-        // Industry solutions use simple id (not compound key)
         await prisma.industry_solutions.update({
           where: { id: translation.id },
           data: { icon },
         });
       }
-
       console.log(`✓ "${solution.title}" → ${icon} (${allTranslations.length} translations)`);
       updatedCount++;
     }
@@ -164,7 +154,6 @@ async function addMissingFeatureIcons() {
         ],
       },
     });
-
     const allRemainingSolutions = await prisma.industry_solutions.findMany({
       where: { locale: 'en' },
       select: { icon: true },

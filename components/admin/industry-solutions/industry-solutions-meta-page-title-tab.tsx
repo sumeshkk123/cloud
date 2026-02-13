@@ -13,17 +13,21 @@ import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { IndustrySolutionsMetaPageTitleForm } from './industry-solutions-meta-page-title-form';
 import { i18n } from '@/i18n-config';
 
+function slugFromTitle(title: string): string {
+  return (title || '').toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+}
+
 interface CombinedRow {
-    page: string;
-    locale: string;
-    metaTitle: string;
-    metaDescription: string;
-    metaKeywords: string;
-    pageTitle: string;
-    pagePill: string;
-    sectionSubtitle: string;
-    availableLocales?: string[];
-    updatedAt?: Date | string;
+  page: string;
+  locale: string;
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
+  pageTitle: string;
+  pagePill: string;
+  sectionSubtitle: string;
+  availableLocales?: string[];
+  updatedAt?: Date | string;
 }
 
 const INDUSTRY_SOLUTION_PAGE_PREFIX = 'industry-solutions';
@@ -61,35 +65,39 @@ export function IndustrySolutionsMetaPageTitleTab() {
     loadAllData();
   }, [refreshKey]);
 
+  const loadIndustrySolutionPages = async () => {
+    try {
+      const res = await fetch('/api/admin/industry-solutions?locale=en', { cache: 'no-store' });
+      const data = await res.json();
+      if (!res.ok || !Array.isArray(data)) {
+        setIndustrySolutionPages([]);
+        return;
+      }
+      const allPages = data.map((s: any) => ({
+        value: `${INDUSTRY_SOLUTION_PAGE_PREFIX}/${slugFromTitle(s.title || '')}`,
+        label: String(s.title || s.id),
+      }));
+      setIndustrySolutionPages(allPages);
+    } catch (error) {
+      setIndustrySolutionPages([]);
+      showToast('Failed to load industry solution pages.', 'error');
+    }
+  };
+
   const loadAllData = async () => {
     if (industrySolutionPages.length === 0) return;
-    
     try {
       setIsLoading(true);
       const allData: CombinedRow[] = [];
-      
-      // Load data for all industry solution pages (excluding main industry solutions page)
       for (const pageOption of industrySolutionPages) {
         const page = pageOption.value;
-        
-        // Skip the main industry solutions page - only show inner pages
-        if (page === INDUSTRY_SOLUTION_PAGE_PREFIX) {
-          continue;
-        }
-        
-        const metaRes = await fetch(`/api/admin/meta-details?page=${encodeURIComponent(page)}`, {
-          cache: 'no-store',
-        });
+        if (page === INDUSTRY_SOLUTION_PAGE_PREFIX) continue;
+        const metaRes = await fetch(`/api/admin/meta-details?page=${encodeURIComponent(page)}`, { cache: 'no-store' });
         const metaData = metaRes.ok ? await metaRes.json() : [];
-        
-        const pageTitleRes = await fetch(`/api/admin/page-titles?page=${encodeURIComponent(page)}`, {
-          cache: 'no-store',
-        });
+        const pageTitleRes = await fetch(`/api/admin/page-titles?page=${encodeURIComponent(page)}`, { cache: 'no-store' });
         const pageTitleData = pageTitleRes.ok ? await pageTitleRes.json() : [];
-        
         const combinedMap = new Map<string, CombinedRow>();
         const locales = new Set<string>();
-        
         if (Array.isArray(metaData)) {
           metaData.forEach((item: any) => {
             if (item.page === page) {
@@ -115,7 +123,6 @@ export function IndustrySolutionsMetaPageTitleTab() {
             }
           });
         }
-        
         if (Array.isArray(pageTitleData)) {
           pageTitleData.forEach((item: any) => {
             if (item.page === page) {
@@ -141,106 +148,19 @@ export function IndustrySolutionsMetaPageTitleTab() {
             }
           });
         }
-        
         const allLocales = Array.from(locales);
         combinedMap.forEach((row) => {
           row.availableLocales = allLocales;
           allData.push(row);
         });
       }
-      
       setTableData(allData);
     } catch (error) {
-      console.error('Error loading data:', error);
       setTableData([]);
     } finally {
       setIsLoading(false);
     }
   };
-
-  const loadIndustrySolutionPages = async () => {
-    try {
-      const res = await fetch('/api/admin/industry-solutions?locale=en', {
-        cache: 'no-store',
-      });
-      
-      const allPages: Array<{ value: string; label: string }> = [];
-      
-      if (res.ok) {
-        const solutions = await res.json();
-        const dbPages = solutions.map((s: any) => ({
-          value: `${INDUSTRY_SOLUTION_PAGE_PREFIX}/${s.id}`,
-          label: s.title || s.id,
-        }));
-        
-        allPages.push(...dbPages);
-      }
-      
-      // Don't add main industry solutions page - only show inner pages
-      // Sort alphabetically by label
-      allPages.sort((a, b) => a.label.localeCompare(b.label));
-      setIndustrySolutionPages(allPages);
-    } catch (error) {
-      console.error('Error loading industry solution pages:', error);
-      showToast('Failed to load industry solution pages.', 'error');
-    }
-  };
-
-  const handleFormSave = async () => {
-    setRefreshKey((prev) => prev + 1);
-    await loadAllData();
-  };
-
-  const handleNew = () => {
-    setEditingPage(null);
-    setEditingLocale('en');
-    setIsFormOpen(true);
-    setFormToast(null);
-  };
-
-  const handleEdit = (page: string, locale: string) => {
-    setEditingPage(page);
-    setEditingLocale(locale);
-    setIsFormOpen(true);
-    setFormToast(null);
-  };
-
-  const handleDelete = async () => {
-    if (!pageToDelete) return;
-    
-    try {
-      setIsDeleting(true);
-      
-      // Delete meta details
-      await fetch(`/api/admin/meta-details?page=${encodeURIComponent(pageToDelete)}&locale=${localeToDelete}`, {
-        method: 'DELETE',
-      });
-      
-      // Delete page titles
-      await fetch(`/api/admin/page-titles?page=${encodeURIComponent(pageToDelete)}&locale=${localeToDelete}`, {
-        method: 'DELETE',
-      });
-      
-      showToast('Deleted successfully.', 'success');
-      setDeleteConfirmOpen(false);
-      setPageToDelete(null);
-      setLocaleToDelete('en');
-      await loadAllData();
-    } catch (error) {
-      console.error('Error deleting:', error);
-      showToast('Failed to delete.', 'error');
-    } finally {
-      setIsDeleting(false);
-    }
-  };
-
-  const columns = [
-    { key: 'page', label: 'Page', className: 'w-1/4' },
-    { key: 'metaTitle', label: 'Meta Title', className: 'w-1/4' },
-    { key: 'pageTitle', label: 'Page Title', className: 'w-1/4' },
-    { key: 'languages', label: 'Languages', className: 'w-32' },
-    { key: 'actions', label: 'Actions', className: 'w-24 text-right' },
-  ];
 
   const totalItems = tableData.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
@@ -249,59 +169,60 @@ export function IndustrySolutionsMetaPageTitleTab() {
     return tableData.slice(start, start + ITEMS_PER_PAGE);
   }, [tableData, currentPage]);
 
+  const columns = [
+    { key: 'page', label: 'Page', className: 'w-48' },
+    { key: 'locale', label: 'Locale', className: 'w-24' },
+    { key: 'pageTitle', label: 'Page Title', className: 'w-40' },
+    { key: 'metaTitle', label: 'Meta Title', className: 'w-40' },
+    { key: 'actions', label: 'Actions', className: 'w-24 text-right' },
+  ];
+
   return (
     <div className="space-y-4">
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-end w-full md:-mt-16 md:mb-8 md:justify-end">
-        <div className="flex items-center gap-1">
-          <Button
-            type="button"
-            variant="primary"
-            size="md"
-            rounded="default"
-            leftIcon={<Plus className="h-4 w-4" />}
-            className="whitespace-nowrap"
-            onClick={handleNew}
-          >
-            New
-          </Button>
-        </div>
+      <div className="flex justify-end">
+        <Button
+          type="button"
+          variant="primary"
+          leftIcon={<Plus className="h-4 w-4" />}
+          onClick={() => {
+            setEditingPage(null);
+            setEditingLocale('en');
+            setIsFormOpen(true);
+          }}
+        >
+          Add Meta & Page Title
+        </Button>
       </div>
 
-      {ToastComponent}
-      {formToast}
-
-      {/* Table */}
       <Table
         columns={columns}
         data={paginated}
         isLoading={isLoading}
-        emptyMessage={isLoading ? 'Loading meta details and page titles...' : 'No meta details or page titles yet. Click \'New\' to create.'}
+        emptyMessage={industrySolutionPages.length === 0 ? 'No industry solution pages. Add solutions first.' : 'No meta/page title data.'}
         renderCell={(column, row) => {
           if (column.key === 'page') {
-            // Extract just the slug part for display
             const pageSlug = row.page.replace(`${INDUSTRY_SOLUTION_PAGE_PREFIX}/`, '');
-            return <span className="font-medium text-gray-900 dark:text-gray-100">{pageSlug}</span>;
+            return <span className="font-mono text-sm text-gray-700 dark:text-gray-300">{pageSlug || row.page}</span>;
           }
-          if (column.key === 'metaTitle') {
-            return <span className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2">{row.metaTitle || <span className="text-gray-400 italic">No title</span>}</span>;
-          }
-          if (column.key === 'pageTitle') {
-            return <span className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2">{row.pageTitle || <span className="text-gray-400 italic">No title</span>}</span>;
-          }
-          if (column.key === 'languages') {
-            const locales = row.availableLocales || [row.locale];
+          if (column.key === 'locale') {
             return (
               <LanguageBadges
-                availableLocales={locales}
+                availableLocales={row.availableLocales || [row.locale]}
                 allLocales={[...i18n.locales]}
-                layout="grid"
+                layout="badge"
               />
             );
           }
+          if (column.key === 'pageTitle') return <span className="line-clamp-2 text-sm">{row.pageTitle || '—'}</span>;
+          if (column.key === 'metaTitle') return <span className="line-clamp-2 text-sm">{row.metaTitle || '—'}</span>;
           if (column.key === 'actions') {
             return (
               <ActionMenu
-                onEdit={() => handleEdit(row.page, row.locale)}
+                onEdit={() => {
+                  setEditingPage(row.page);
+                  setEditingLocale(row.locale);
+                  setIsFormOpen(true);
+                }}
                 onDelete={() => {
                   setPageToDelete(row.page);
                   setLocaleToDelete(row.locale);
@@ -322,39 +243,22 @@ export function IndustrySolutionsMetaPageTitleTab() {
         onPageChange={setCurrentPage}
       />
 
-      {/* Form Modal */}
       <Modal
         isOpen={isFormOpen}
         onClose={() => {
           setIsFormOpen(false);
           setEditingPage(null);
-          setEditingLocale('en');
           setFormToast(null);
         }}
-        title={editingPage ? 'Edit Meta Details & Page Title' : 'New Meta Details & Page Title'}
-        size="4xl"
+        title={editingPage ? 'Edit Meta & Page Title' : 'Add Meta & Page Title'}
+        size="3xl"
         isLoading={isFormLoading}
         footer={
-          <div className="flex justify-end items-center gap-2">
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={() => {
-                setIsFormOpen(false);
-                setEditingPage(null);
-                setEditingLocale('en');
-                setFormToast(null);
-              }}
-              disabled={isFormSaving}
-            >
+          <div className="flex justify-end gap-2">
+            <Button type="button" variant="ghost" onClick={() => setIsFormOpen(false)} disabled={isFormSaving}>
               Cancel
             </Button>
-            <Button
-              type="submit"
-              form="industry-solutions-meta-page-title-form"
-              variant="primary"
-              disabled={isFormSaving || isFormLoading}
-            >
+            <Button type="submit" form="industry-solutions-meta-page-title-form" variant="primary" disabled={isFormSaving || isFormLoading}>
               {isFormSaving ? 'Saving...' : 'Save'}
             </Button>
           </div>
@@ -364,18 +268,16 @@ export function IndustrySolutionsMetaPageTitleTab() {
           initialPage={editingPage || undefined}
           initialLocale={editingLocale}
           industrySolutionPages={industrySolutionPages}
-          onClose={() => {
+          onClose={() => setIsFormOpen(false)}
+          onSave={() => {
+            setRefreshKey((k) => k + 1);
             setIsFormOpen(false);
-            setEditingPage(null);
-            setEditingLocale('en');
-          }}
-          onSave={async () => {
-            await handleFormSave();
           }}
           onToastChange={setFormToast}
           onLoadingChange={setIsFormLoading}
           onSavingChange={setIsFormSaving}
         />
+        {formToast}
       </Modal>
 
       <DeleteConfirmModal
@@ -383,13 +285,19 @@ export function IndustrySolutionsMetaPageTitleTab() {
         onClose={() => {
           setDeleteConfirmOpen(false);
           setPageToDelete(null);
-          setLocaleToDelete('en');
         }}
-        onConfirm={handleDelete}
+        onConfirm={async () => {
+          if (!pageToDelete) return;
+          setDeleteConfirmOpen(false);
+          setPageToDelete(null);
+          setRefreshKey((k) => k + 1);
+        }}
         isLoading={isDeleting}
-        title="Delete Meta Details & Page Title"
-        message={`Are you sure you want to delete meta details and page title for page "${pageToDelete}" (${localeToDelete})?`}
+        title="Delete Meta & Page Title"
+        message="Deleting is done from Meta Details and Page Titles admin. This only closes the dialog."
       />
+
+      {ToastComponent}
     </div>
   );
 }

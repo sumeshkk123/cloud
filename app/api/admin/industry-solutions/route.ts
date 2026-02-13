@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 import {
   listIndustrySolutions,
   getIndustrySolutionById,
@@ -7,16 +9,21 @@ import {
   deleteIndustrySolution,
   getAllIndustrySolutionTranslations,
 } from '@/lib/api/industry-solutions';
+import { prisma } from '@/lib/db/prisma';
 
 export async function GET(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const allTranslations = searchParams.get('all') === 'true';
     const locale = searchParams.get('locale') || 'en';
 
     if (id) {
-      // If all translations requested, return all locales for this solution (linked by icon+showOnHomePage)
       if (allTranslations) {
         const translations = await getAllIndustrySolutionTranslations(id);
         return NextResponse.json({ translations });
@@ -39,18 +46,47 @@ export async function GET(request: Request) {
     }
 
     const solutions = await listIndustrySolutions('en');
-    const safeSolutions = solutions.map((solution) => ({
-      id: String(solution.id),
-      title: String(solution.title || ''),
-      description: String(solution.description || ''),
-      icon: String(solution.icon || ''),
-      showOnHomePage: Boolean(solution.showOnHomePage ?? false),
-      locale: String(solution.locale || ''),
-      createdAt: solution.createdAt,
-      updatedAt: solution.updatedAt,
+
+    const withTranslations = searchParams.get('withTranslations') === 'true';
+    if (withTranslations) {
+      const groupKey = (s: { icon: string; showOnHomePage: boolean }) =>
+        `${s.icon || 'no-icon'}_${s.showOnHomePage ? 'home' : 'no-home'}`;
+      const localeMap = new Map<string, string[]>();
+      for (const sol of solutions) {
+        const key = groupKey(sol);
+        const translations = await prisma.industry_solutions.findMany({
+          where: { icon: sol.icon, showOnHomePage: sol.showOnHomePage },
+          orderBy: { locale: 'asc' },
+        });
+        const locales = translations.map((t) => t.locale);
+        localeMap.set(key, locales);
+      }
+      const safeSolutions = solutions.map((sol) => ({
+        id: String(sol.id),
+        title: String(sol.title || ''),
+        description: String(sol.description || ''),
+        icon: String(sol.icon || ''),
+        showOnHomePage: Boolean(sol.showOnHomePage ?? false),
+        locale: String(sol.locale || ''),
+        createdAt: sol.createdAt,
+        updatedAt: sol.updatedAt,
+        availableLocales: localeMap.get(groupKey(sol)) || [sol.locale],
+      }));
+      return NextResponse.json(safeSolutions);
+    }
+
+    const safeSolutions = solutions.map((sol) => ({
+      id: String(sol.id),
+      title: String(sol.title || ''),
+      description: String(sol.description || ''),
+      icon: String(sol.icon || ''),
+      showOnHomePage: Boolean(sol.showOnHomePage ?? false),
+      locale: String(sol.locale || ''),
+      createdAt: sol.createdAt,
+      updatedAt: sol.updatedAt,
     }));
     return NextResponse.json(safeSolutions);
-  } catch (error: any) {
+  } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to process request.';
     return NextResponse.json({ error: message }, { status: 500 });
   }
@@ -58,6 +94,11 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { title, description, icon, showOnHomePage, locale = 'en' } = body || {};
 
@@ -76,17 +117,8 @@ export async function POST(request: Request) {
       locale: String(locale),
     });
 
-    return NextResponse.json({
-      id: String(solution.id),
-      title: String(solution.title || ''),
-      description: String(solution.description || ''),
-      icon: String(solution.icon || ''),
-      showOnHomePage: Boolean(solution.showOnHomePage ?? false),
-      locale: String(solution.locale || ''),
-      createdAt: solution.createdAt,
-      updatedAt: solution.updatedAt,
-    });
-  } catch (error: any) {
+    return NextResponse.json(solution);
+  } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to process request.';
     return NextResponse.json({ error: message }, { status: 500 });
   }
@@ -94,6 +126,11 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const body = await request.json();
@@ -102,7 +139,6 @@ export async function PUT(request: Request) {
     if (!id) {
       return NextResponse.json({ error: 'id is required in query params.' }, { status: 400 });
     }
-
     if (!title || !description || !icon) {
       return NextResponse.json(
         { error: 'title, description, and icon are required.' },
@@ -110,26 +146,36 @@ export async function PUT(request: Request) {
       );
     }
 
-    // Get existing solution
     const existing = await getIndustrySolutionById(id);
     if (!existing) {
+      if (locale !== 'en') {
+        const englishList = await listIndustrySolutions('en');
+        const englishMatch = englishList.find(
+          (s) => s.icon === String(icon) && s.showOnHomePage === Boolean(showOnHomePage ?? false)
+        );
+        if (englishMatch) {
+          const solution = await createIndustrySolution({
+            title: String(title),
+            description: String(description),
+            icon: englishMatch.icon || String(icon),
+            showOnHomePage: englishMatch.showOnHomePage,
+            locale: String(locale),
+          });
+          return NextResponse.json(solution);
+        }
+      }
       return NextResponse.json({ error: 'Industry solution not found.' }, { status: 404 });
     }
 
     const targetLocale = String(locale);
-    
-    // If locale is different, check if translation exists
     if (targetLocale !== existing.locale) {
       const allTranslations = await getAllIndustrySolutionTranslations(existing.id);
       const existingTranslation = allTranslations.find((t) => t.locale === targetLocale);
-      
-      // Use English icon and showOnHomePage for all translations
       const englishVersion = allTranslations.find((t) => t.locale === 'en') || existing;
-      const iconToUse = englishVersion.icon;
+      const iconToUse = englishVersion.icon || String(icon);
       const showOnHomePageToUse = englishVersion.showOnHomePage;
-      
+
       if (existingTranslation) {
-        // Update existing translation
         const solution = await updateIndustrySolution(existingTranslation.id, {
           title: String(title),
           description: String(description),
@@ -137,70 +183,53 @@ export async function PUT(request: Request) {
           showOnHomePage: showOnHomePageToUse,
           locale: targetLocale,
         });
-        return NextResponse.json({
-          id: String(solution.id),
-          title: String(solution.title || ''),
-          description: String(solution.description || ''),
-          icon: String(solution.icon || ''),
-          showOnHomePage: Boolean(solution.showOnHomePage ?? false),
-          locale: String(solution.locale || ''),
-          createdAt: solution.createdAt,
-          updatedAt: solution.updatedAt,
-        });
-      } else {
-        // Create new translation
-        const solution = await createIndustrySolution({
-          title: String(title),
-          description: String(description),
-          icon: iconToUse,
-          showOnHomePage: showOnHomePageToUse,
-          locale: targetLocale,
-        });
-        return NextResponse.json({
-          id: String(solution.id),
-          title: String(solution.title || ''),
-          description: String(solution.description || ''),
-          icon: String(solution.icon || ''),
-          showOnHomePage: Boolean(solution.showOnHomePage ?? false),
-          locale: String(solution.locale || ''),
-          createdAt: solution.createdAt,
-          updatedAt: solution.updatedAt,
-        });
+        return NextResponse.json(solution);
       }
+      const solution = await createIndustrySolution({
+        title: String(title),
+        description: String(description),
+        icon: iconToUse,
+        showOnHomePage: showOnHomePageToUse,
+        locale: targetLocale,
+      });
+      return NextResponse.json(solution);
     }
 
-    // Update existing entry (same locale)
-    // For English, allow icon and showOnHomePage update and sync to all translations
     let iconToUse = String(icon);
     let showOnHomePageToUse = Boolean(showOnHomePage ?? false);
-    
+
     if (targetLocale === 'en') {
-      // If updating English, sync icon and showOnHomePage to all translations
-      const allTranslations = await getAllIndustrySolutionTranslations(id);
-      if (allTranslations.length > 0) {
-        // Update icon and showOnHomePage for all translations
+      const allTranslationsBeforeUpdate = await getAllIndustrySolutionTranslations(id);
+      const updatedSolution = await updateIndustrySolution(id, {
+        title: String(title),
+        description: String(description),
+        icon: iconToUse,
+        showOnHomePage: showOnHomePageToUse,
+        locale: targetLocale,
+      });
+      if (allTranslationsBeforeUpdate.length > 0) {
         await Promise.all(
-          allTranslations
+          allTranslationsBeforeUpdate
             .filter((t) => t.locale !== 'en')
             .map((t) =>
               updateIndustrySolution(t.id, {
-                title: t.title,
-                description: t.description,
                 icon: iconToUse,
                 showOnHomePage: showOnHomePageToUse,
+                title: t.title,
+                description: t.description,
                 locale: t.locale,
               })
             )
         );
       }
-    } else {
-      // For other locales, use English icon and showOnHomePage
-      const allTranslations = await getAllIndustrySolutionTranslations(id);
-      const englishVersion = allTranslations.find((t) => t.locale === 'en');
-      if (englishVersion) {
-        iconToUse = englishVersion.icon;
-        showOnHomePageToUse = englishVersion.showOnHomePage;
-      }
+      return NextResponse.json(updatedSolution);
+    }
+
+    const allTranslations = await getAllIndustrySolutionTranslations(id);
+    const englishVersion = allTranslations.find((t) => t.locale === 'en');
+    if (englishVersion) {
+      iconToUse = englishVersion.icon || iconToUse;
+      showOnHomePageToUse = englishVersion.showOnHomePage;
     }
 
     const solution = await updateIndustrySolution(id, {
@@ -210,17 +239,7 @@ export async function PUT(request: Request) {
       showOnHomePage: showOnHomePageToUse,
       locale: targetLocale,
     });
-
-    return NextResponse.json({
-      id: String(solution.id),
-      title: String(solution.title || ''),
-      description: String(solution.description || ''),
-      icon: String(solution.icon || ''),
-      showOnHomePage: Boolean(solution.showOnHomePage ?? false),
-      locale: String(solution.locale || ''),
-      createdAt: solution.createdAt,
-      updatedAt: solution.updatedAt,
-    });
+    return NextResponse.json(solution);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to process request.';
     return NextResponse.json({ error: message }, { status: 500 });
@@ -229,23 +248,21 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
-
     if (!id) {
       return NextResponse.json({ error: 'id is required in query params.' }, { status: 400 });
     }
 
-    // Get all translations for this solution (linked by icon+showOnHomePage)
     const translations = await getAllIndustrySolutionTranslations(id);
-    
-    // Delete all translations
     if (translations.length > 0) {
-      await Promise.all(
-        translations.map((t) => deleteIndustrySolution(t.id))
-      );
+      await Promise.all(translations.map((t) => deleteIndustrySolution(t.id)));
     } else {
-      // If no translations found, delete by ID anyway
       await deleteIndustrySolution(id);
     }
 

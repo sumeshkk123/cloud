@@ -59,6 +59,13 @@ export function middleware(request: NextRequest) {
         redirectUrl.pathname = `/${locale}/${bitcoinSlug}`;
         return NextResponse.redirect(redirectUrl);
       }
+      // Redirect old /services/cryptocurrency-mlm-software to top-level (translated slug)
+      if (slug === "services" && segments[2] === "cryptocurrency-mlm-software") {
+        const redirectUrl = request.nextUrl.clone();
+        const cryptoSlug = getSlugFromPage("cryptocurrency-mlm-software", locale as any) ?? "cryptocurrency-mlm-software";
+        redirectUrl.pathname = `/${locale}/${cryptoSlug}`;
+        return NextResponse.redirect(redirectUrl);
+      }
       // Rewrite translated service subpage slug to canonical when first segment is already "services" (e.g. /fr/services/developpement-opencart → /fr/services/opencart-development)
       if (slug === "services" && segments[2]) {
         const serviceKey = getServiceSubpageKeyFromSlug(segments[2]);
@@ -120,6 +127,10 @@ export function middleware(request: NextRequest) {
   // Redirect old /services/bitcoin-cryptocurrency-mlm-software (no locale) to top-level page
   if (pathname === "/services/bitcoin-cryptocurrency-mlm-software" || pathname === "/services/bitcoin-cryptocurrency-mlm-software/") {
     return NextResponse.redirect(new URL("/bitcoin-cryptocurrency-mlm-software", request.url));
+  }
+  // Redirect old /services/cryptocurrency-mlm-software (no locale) to top-level page
+  if (pathname === "/services/cryptocurrency-mlm-software" || pathname === "/services/cryptocurrency-mlm-software/") {
+    return NextResponse.redirect(new URL("/cryptocurrency-mlm-software", request.url));
   }
   // Check if pathname matches a translated slug for any locale
   let slug = segments[0];

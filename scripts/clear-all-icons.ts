@@ -150,40 +150,15 @@ async function clearAICopilotsIcons() {
 async function clearIndustrySolutionsIcons() {
   console.log('Clearing icons in industry_solutions table...');
   try {
-    // Update all records where icon is not null and not empty
     const result = await prisma.industry_solutions.updateMany({
-      where: {
-        AND: [
-          { icon: { not: null } },
-          { icon: { not: '' } },
-        ],
-      },
-      data: {
-        icon: '',
-      },
+      where: { AND: [{ icon: { not: null } }, { icon: { not: '' } }] },
+      data: { icon: '' },
     });
     console.log(`✓ Cleared ${result.count} industry_solutions\n`);
     return result.count;
   } catch (error) {
     console.error('Error clearing industry_solutions icons:', error);
-    // Try alternative approach - update all records
-    try {
-      const allItems = await prisma.industry_solutions.findMany({
-        select: { id: true },
-      });
-      let count = 0;
-      for (const item of allItems) {
-        await prisma.industry_solutions.update({
-          where: { id: item.id },
-          data: { icon: '' },
-        });
-        count++;
-      }
-      console.log(`✓ Cleared ${count} industry_solutions (alternative method)\n`);
-      return count;
-    } catch (err) {
-      return 0;
-    }
+    return 0;
   }
 }
 

@@ -53,6 +53,10 @@ export interface ContactContent {
     emailSupport: { label: string; value: string; detail: string };
     phoneSupport: { label: string; value: string; detail: string };
   };
+  projectBriefModal: {
+    badge: string;
+    heading: string;
+  };
   formSection: {
     badge: string;
     heading: string;
@@ -125,6 +129,10 @@ export function getContactContent(locale: Locale): ContactContent {
     businessInfoSection: {
       ...defaultContent.businessInfoSection,
       ...localizedContent.businessInfoSection,
+    },
+    projectBriefModal: {
+      ...defaultContent.projectBriefModal,
+      ...localizedContent.projectBriefModal,
     },
     formSection: {
       ...defaultContent.formSection,

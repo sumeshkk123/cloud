@@ -270,13 +270,19 @@ async function restoreEnglishDemos() {
           distributorsDemoTitle: demo.distributorsDemoTitle,
           distributorsDemoFeatures: demo.distributorsDemoFeatures ? JSON.stringify(demo.distributorsDemoFeatures) : null,
           image: demo.image || '',
+          icon: demo.icon || existing.icon,
           updatedAt: new Date(),
         };
 
         if (existing) {
           await prisma.demo_items.update({
-            where: { id_locale: { id: existing.id, locale: 'en' } },
+            where: { id: existing.id },
             data,
+          });
+          // Update all locales with this icon so translations get the image too
+          await prisma.demo_items.updateMany({
+            where: { icon: demo.icon },
+            data: { image: demo.image || '', updatedAt: new Date() },
           });
           updated++;
           console.log(`✓ Updated: ${demo.title || demo.adminDemoTitle}`);

@@ -6,17 +6,14 @@ import { Textarea } from '@/components/ui/adminUi/textarea';
 import { FieldLabel } from '@/components/ui/adminUi/field-label';
 import { IconPicker } from '@/components/ui/adminUi/icon-picker';
 import { Toggle } from '@/components/ui/adminUi/toggle';
-import { i18n, localeNames } from '@/i18n-config';
 import { useToast } from '@/components/ui/toast';
 import { Loader } from '@/components/ui/adminUi/loader';
 import { Languages, Loader2 } from 'lucide-react';
+import { localeNames } from '@/i18n-config';
+import { i18n } from '@/i18n-config';
+import { supportedLocales } from '@/config/site';
 
-type FormState = {
-  title: string;
-  description: string;
-  icon: string;
-  showOnHomePage: boolean;
-};
+const locales = supportedLocales;
 
 interface IndustrySolutionTranslation {
   locale: string;
@@ -45,17 +42,10 @@ export function IndustrySolutionsForm({
   onSavingChange,
 }: IndustrySolutionsFormProps) {
   const { showToast, ToastComponent } = useToast();
-
-  React.useEffect(() => {
-    if (onToastChange) {
-      onToastChange(ToastComponent);
-    }
-  }, [ToastComponent, onToastChange]);
-
   const [activeTab, setActiveTab] = useState<string>('en');
   const [translations, setTranslations] = useState<Record<string, IndustrySolutionTranslation>>(() => {
     const initial: Record<string, IndustrySolutionTranslation> = {};
-    i18n.locales.forEach((loc) => {
+    locales.forEach((loc) => {
       initial[loc] = {
         locale: loc,
         title: '',
@@ -71,36 +61,78 @@ export function IndustrySolutionsForm({
   const [isLoading, setIsLoading] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
   const [currentSolutionId, setCurrentSolutionId] = useState<string | null>(solutionId || null);
-  const [savedLocales, setSavedLocales] = useState<string[]>([]);
-  const preserveTabRef = React.useRef<string | null>(null);
 
   useEffect(() => {
-    onSavingChange?.(isSaving);
-  }, [isSaving, onSavingChange]);
-
+    onToastChange?.(ToastComponent);
+  }, [ToastComponent, onToastChange]);
   useEffect(() => {
     onLoadingChange?.(isLoading);
   }, [isLoading, onLoadingChange]);
-
   useEffect(() => {
-    const newId = solutionId || null;
-    if (newId !== currentSolutionId) {
-      setCurrentSolutionId(newId);
-    }
+    onSavingChange?.(isSaving);
+  }, [isSaving, onSavingChange]);
+  useEffect(() => {
+    setCurrentSolutionId(solutionId || null);
   }, [solutionId]);
 
   useEffect(() => {
     if (currentSolutionId) {
-      const tabToPreserve = preserveTabRef.current;
-      preserveTabRef.current = null;
-      if (tabToPreserve) {
-        loadAllTranslations(true, tabToPreserve);
-      } else {
-        loadAllTranslations(false);
-      }
+      const load = async () => {
+        try {
+          setIsLoading(true);
+          const response = await fetch(`/api/admin/industry-solutions?id=${encodeURIComponent(currentSolutionId)}&all=true`);
+          if (!response.ok) {
+            showToast('Failed to load industry solution translations.', 'error');
+            return;
+          }
+          const data = await response.json();
+          const existingTranslations = data?.translations || [];
+          const loaded: Record<string, IndustrySolutionTranslation> = {};
+          let sharedIcon = '';
+          let sharedShowOnHomePage = false;
+          const enVersion = existingTranslations.find((t: any) => t.locale === 'en');
+          if (enVersion) {
+            sharedIcon = String(enVersion.icon || '').trim();
+            sharedShowOnHomePage = Boolean(enVersion.showOnHomePage ?? false);
+          } else if (existingTranslations.length > 0) {
+            sharedIcon = String(existingTranslations[0].icon || '').trim();
+            sharedShowOnHomePage = Boolean(existingTranslations[0].showOnHomePage ?? false);
+          }
+          locales.forEach((loc) => {
+            const existing = existingTranslations.find((t: any) => t.locale === loc);
+            if (existing) {
+              loaded[loc] = {
+                locale: loc,
+                title: String(existing.title || ''),
+                description: String(existing.description || ''),
+                icon: sharedIcon || String(existing.icon || ''),
+                showOnHomePage: sharedShowOnHomePage,
+                exists: true,
+              };
+            } else {
+              loaded[loc] = {
+                locale: loc,
+                title: '',
+                description: '',
+                icon: sharedIcon,
+                showOnHomePage: sharedShowOnHomePage,
+                exists: false,
+              };
+            }
+          });
+          setTranslations(loaded);
+          const firstExisting = locales.find((l) => loaded[l]?.exists);
+          setActiveTab(firstExisting || 'en');
+        } catch (error) {
+          showToast('Failed to load industry solution translations.', 'error');
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      load();
     } else {
       const reset: Record<string, IndustrySolutionTranslation> = {};
-      i18n.locales.forEach((loc) => {
+      locales.forEach((loc) => {
         reset[loc] = {
           locale: loc,
           title: '',
@@ -111,110 +143,17 @@ export function IndustrySolutionsForm({
         };
       });
       setTranslations(reset);
-      setSavedLocales([]);
       setActiveTab('en');
     }
   }, [currentSolutionId]);
 
-  const loadAllTranslations = async (preserveActiveTab: boolean = false, tabToPreserve: string | null = null) => {
-    if (!currentSolutionId) {
-      return;
-    }
-
-    const currentActiveTab = preserveActiveTab ? (tabToPreserve || activeTab) : null;
-
-    try {
-      setIsLoading(true);
-      onLoadingChange?.(true);
-
-      const response = await fetch(`/api/admin/industry-solutions?id=${encodeURIComponent(currentSolutionId)}&all=true`);
-
-      if (!response.ok) {
-        showToast('Failed to load industry solution translations.', 'error');
-        return;
-      }
-
-      const data = await response.json();
-      const existingTranslations = data?.translations || [];
-
-      const loaded: Record<string, IndustrySolutionTranslation> = {};
-      const existingLocales: string[] = [];
-      let sharedIcon = '';
-      let sharedShowOnHomePage = false;
-
-      const englishVersion = existingTranslations.find((t: any) => t.locale === 'en');
-      if (englishVersion) {
-        sharedIcon = englishVersion.icon || '';
-        sharedShowOnHomePage = englishVersion.showOnHomePage ?? false;
-      }
-
-      i18n.locales.forEach((loc) => {
-        const existing = existingTranslations.find((t: any) => t.locale === loc);
-        if (existing) {
-          loaded[loc] = {
-            locale: loc,
-            title: String(existing.title || ''),
-            description: String(existing.description || ''),
-            icon: sharedIcon || existing.icon || '',
-            showOnHomePage: sharedShowOnHomePage,
-            exists: true,
-          };
-          existingLocales.push(loc);
-        } else {
-          loaded[loc] = {
-            locale: loc,
-            title: '',
-            description: '',
-            icon: sharedIcon || '',
-            showOnHomePage: sharedShowOnHomePage,
-            exists: false,
-          };
-        }
-      });
-
-      if (sharedIcon || sharedShowOnHomePage !== false) {
-        Object.keys(loaded).forEach((loc) => {
-          loaded[loc].icon = sharedIcon || loaded[loc].icon || '';
-          loaded[loc].showOnHomePage = sharedShowOnHomePage;
-        });
-      }
-
-      setTranslations(loaded);
-      setSavedLocales(existingLocales);
-
-      if (preserveActiveTab && currentActiveTab) {
-        setActiveTab(currentActiveTab);
-      } else {
-        if (existingLocales.length > 0) {
-          setActiveTab(existingLocales[0]);
-        } else {
-          setActiveTab('en');
-        }
-      }
-    } catch (error) {
-      showToast('Failed to load industry solution translations.', 'error');
-    } finally {
-      setIsLoading(false);
-      onLoadingChange?.(false);
-    }
-  };
-
-  const updateTranslation = (locale: string, field: keyof FormState, value: string | boolean) => {
+  const updateTranslation = (locale: string, field: keyof IndustrySolutionTranslation, value: string | boolean) => {
     setTranslations((prev) => {
-      const updated = {
-        ...prev,
-        [locale]: {
-          ...prev[locale],
-          [field]: value,
-        },
-      };
+      const updated = { ...prev };
+      updated[locale] = { ...prev[locale], [field]: value };
       if (field === 'icon' || field === 'showOnHomePage') {
-        Object.keys(updated).forEach((loc) => {
-          if (field === 'icon') {
-            updated[loc].icon = value as string;
-          } else if (field === 'showOnHomePage') {
-            updated[loc].showOnHomePage = value as boolean;
-          }
+        locales.forEach((loc) => {
+          updated[loc] = { ...updated[loc], [field]: value };
         });
       }
       return updated;
@@ -226,19 +165,17 @@ export function IndustrySolutionsForm({
       showToast('Cannot auto-translate English. Please select another language.', 'error');
       return;
     }
-
     const english = translations['en'];
-    if (!english || !english.title.trim() || !english.description.trim()) {
-      showToast('Please fill in the English version first.', 'error');
+    if (!english || (!english.title?.trim() && !english.description?.trim())) {
+      showToast('Please fill in the English title and/or description first.', 'error');
       return;
     }
-
     try {
       setIsTranslating(true);
       let successCount = 0;
       let errorCount = 0;
 
-      if (english.title.trim()) {
+      if (english.title?.trim()) {
         try {
           const titleRes = await fetch('/api/translate', {
             method: 'POST',
@@ -256,14 +193,14 @@ export function IndustrySolutionsForm({
           } else {
             errorCount++;
           }
-        } catch (error) {
+        } catch {
           errorCount++;
         }
       }
 
-      if (english.description.trim()) {
+      if (english.description?.trim()) {
         try {
-          const descriptionRes = await fetch('/api/translate', {
+          const descRes = await fetch('/api/translate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -272,23 +209,20 @@ export function IndustrySolutionsForm({
               targetLocale: activeTab,
             }),
           });
-          const descriptionData = await descriptionRes.json();
-          if (descriptionRes.ok && descriptionData.translatedText) {
-            updateTranslation(activeTab, 'description', descriptionData.translatedText);
+          const descData = await descRes.json();
+          if (descRes.ok && descData.translatedText) {
+            updateTranslation(activeTab, 'description', descData.translatedText);
             successCount++;
           } else {
             errorCount++;
           }
-        } catch (error) {
+        } catch {
           errorCount++;
         }
       }
 
       if (errorCount > 0 && successCount === 0) {
-        showToast(
-          `Translation failed. ${errorCount > 1 ? 'All translations failed.' : 'The translation service may be unavailable or rate-limited. Please try again later or translate manually.'}`,
-          'error'
-        );
+        showToast('Translation failed. The translation service may be unavailable. Please try again later or translate manually.', 'error');
       } else if (errorCount > 0) {
         showToast(`Partially translated. ${successCount} field(s) translated, ${errorCount} failed.`, 'warning');
       } else if (successCount > 0) {
@@ -302,100 +236,46 @@ export function IndustrySolutionsForm({
     }
   };
 
-  const handleSaveCurrentTab = async () => {
+  const handleSave = async () => {
     const current = translations[activeTab];
-    const trimmedTitle = current.title.trim();
-    const trimmedDescription = current.description.trim();
-    const trimmedIcon = current.icon.trim();
+    const title = (current?.title || '').trim();
+    const description = (current?.description || '').trim();
+    const icon = (current?.icon || '').trim();
+    const showOnHomePage = current?.showOnHomePage ?? false;
+    const englishShowOnHomePage = translations['en']?.showOnHomePage ?? false;
 
-    if (!trimmedTitle || !trimmedDescription || !trimmedIcon) {
-      const missingFields = [];
-      if (!trimmedTitle) missingFields.push('Title');
-      if (!trimmedDescription) missingFields.push('Description');
-      if (!trimmedIcon) missingFields.push('Icon');
-      showToast(`Please fill in all required fields: ${missingFields.join(', ')}`, 'error');
+    if (!title || !description || !icon) {
+      showToast('Please fill in title, description, and icon.', 'error');
       return;
     }
 
     try {
       setIsSaving(true);
-
-      const idToUse = currentSolutionId || solutionId;
-
-      if (!idToUse) {
-        if (activeTab !== 'en') {
-          showToast('Please create the English version first.', 'error');
-          setIsSaving(false);
-          return;
-        }
-
-        const res = await fetch('/api/admin/industry-solutions', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            title: trimmedTitle,
-            description: trimmedDescription,
-            icon: trimmedIcon,
-            showOnHomePage: current.showOnHomePage,
-            locale: 'en',
-          }),
-        });
-        const payload = await res.json();
-        if (!res.ok) throw new Error(payload?.error || 'Failed to save industry solution');
-
-        if (payload && payload.id) {
-          setCurrentSolutionId(payload.id);
-          setTranslations((prev) => ({
-            ...prev,
-            en: {
-              ...prev.en,
-              exists: true,
-            },
-          }));
-          setSavedLocales(['en']);
-        }
-        showToast('Industry solution created successfully.', 'success');
-        setIsSaving(false);
-        if (onSave) {
-          await onSave();
-        }
-        return;
-      }
-
-      const res = await fetch(`/api/admin/industry-solutions?id=${encodeURIComponent(idToUse)}`, {
-        method: 'PUT',
+      const idToUse = currentSolutionId || 'new';
+      const url = idToUse === 'new' ? '/api/admin/industry-solutions' : `/api/admin/industry-solutions?id=${encodeURIComponent(idToUse)}`;
+      const res = await fetch(url, {
+        method: idToUse === 'new' ? 'POST' : 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title: trimmedTitle,
-          description: trimmedDescription,
-          icon: trimmedIcon,
-          showOnHomePage: current.showOnHomePage,
+          title,
+          description,
+          icon,
+          showOnHomePage: activeTab === 'en' ? showOnHomePage : englishShowOnHomePage,
           locale: activeTab,
         }),
       });
       const payload = await res.json();
-      if (!res.ok) throw new Error(payload?.error || 'Failed to save translation');
+      if (!res.ok) throw new Error(payload?.error || 'Failed to save industry solution');
 
+      if (idToUse === 'new' && payload.id) {
+        setCurrentSolutionId(payload.id);
+      }
       setTranslations((prev) => ({
         ...prev,
-        [activeTab]: {
-          ...prev[activeTab],
-          exists: true,
-        },
+        [activeTab]: { ...prev[activeTab], title, description, icon, showOnHomePage: prev['en']?.showOnHomePage ?? false, exists: true },
       }));
-
-      if (!savedLocales.includes(activeTab)) {
-        setSavedLocales([...savedLocales, activeTab]);
-      }
-
-      const tabToKeep = activeTab;
-      preserveTabRef.current = tabToKeep;
-      await loadAllTranslations(true, tabToKeep);
-
-      showToast(`Translation saved successfully.`, 'success');
-      if (onSave) {
-        await onSave();
-      }
+      showToast('Industry solution saved successfully.', 'success');
+      onSave?.();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unable to save industry solution.';
       showToast(message, 'error');
@@ -404,52 +284,65 @@ export function IndustrySolutionsForm({
     }
   };
 
-  const current = translations[activeTab] || { title: '', description: '', icon: '', showOnHomePage: false, exists: false };
+  const current = translations[activeTab] || {
+    locale: 'en',
+    title: '',
+    description: '',
+    icon: '',
+    showOnHomePage: false,
+    exists: false,
+  };
+
+  if (isLoading && currentSolutionId) {
+    return <Loader />;
+  }
 
   return (
-    <div className="space-y-5">
-      {/* Language Tabs */}
+    <form
+      id="industry-solutions-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSave();
+      }}
+      className="space-y-5"
+    >
       <div className="border-b border-gray-200 dark:border-gray-700">
-        <div className="flex flex-wrap gap-2">
-          {i18n.locales.map((locale) => {
+        <nav className="flex gap-2">
+          {locales.map((locale) => {
             const trans = translations[locale];
             const isActive = activeTab === locale;
-            const hasContent = trans && (trans.title || trans.description);
-            const exists = trans?.exists || false;
-
+            const hasContent = trans && (trans.title?.trim() || trans.description?.trim() || trans.icon?.trim());
+            const tabLabel = (localeNames as Record<string, string>)[locale] ?? locale;
             return (
               <button
                 key={locale}
                 type="button"
                 onClick={() => setActiveTab(locale)}
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${isActive
-                  ? 'border-primary-500 text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
-                  } ${hasContent ? 'bg-green-50 dark:bg-green-900/10' : ''}`}
+                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${
+                  isActive
+                    ? 'border-primary-500 text-primary-600 bg-primary-50 dark:bg-primary-900/20'
+                    : hasContent
+                      ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50 dark:bg-green-900/10'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
               >
                 <div className="flex items-center gap-2">
-                  <span>{localeNames[locale as keyof typeof localeNames]}</span>
-                  {exists && (
-                    <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />
-                  )}
-                  {hasContent && !exists && (
-                    <span className="w-2 h-2 bg-yellow-500 rounded-full" title="Unsaved changes" />
-                  )}
+                  <span>{tabLabel}</span>
+                  {trans?.exists && <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />}
                 </div>
               </button>
             );
           })}
-        </div>
+        </nav>
       </div>
 
-      {/* Auto Translate Button */}
-      {activeTab !== 'en' && translations['en']?.description && (
+      {activeTab !== 'en' && (
         <div className="flex justify-end">
           <button
             type="button"
-            onClick={() => autoTranslate()}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors border border-primary-200 dark:border-primary-800 bg-primary-50/50 dark:bg-primary-900/10"
-            disabled={isTranslating}
+            onClick={autoTranslate}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors border border-primary-200 dark:border-primary-800 bg-primary-50/50 dark:bg-primary-900/10 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isTranslating || isSaving || isLoading}
           >
             {isTranslating ? (
               <>
@@ -466,77 +359,52 @@ export function IndustrySolutionsForm({
         </div>
       )}
 
-      {/* Form */}
-      <form
-        id="industry-solutions-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSaveCurrentTab();
-        }}
-        className="space-y-5"
-      >
-        {/* Icon - Common for all languages */}
-        <div className="space-y-1.5">
-          <FieldLabel required>Icon (Common for all languages)</FieldLabel>
+      <div className="space-y-4">
+        <div>
+          <FieldLabel htmlFor="icon" required>Icon</FieldLabel>
           <IconPicker
-            value={current.icon}
-            onChange={(iconName) => {
-              Object.keys(translations).forEach((loc) => {
-                updateTranslation(loc, 'icon', iconName);
-              });
-            }}
-            disabled={(isSaving || isLoading || isTranslating) || activeTab !== 'en'}
+            value={current.icon || ''}
+            onChange={(icon) => i18n.locales.forEach((loc) => updateTranslation(loc, 'icon', icon))}
+            disabled={isSaving || isLoading || activeTab !== 'en'}
             placeholder="Select an icon..."
             className={activeTab !== 'en' ? 'bg-gray-50 dark:bg-gray-800 cursor-not-allowed' : ''}
           />
+          {activeTab !== 'en' && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Icon is shared. Edit in English to change.</p>
+          )}
         </div>
-
-        <div className="space-y-1.5">
-          <FieldLabel required>Title ({localeNames[activeTab as keyof typeof localeNames]})</FieldLabel>
+        <div>
+          <FieldLabel htmlFor="title" required>Title</FieldLabel>
           <Input
+            id="title"
             value={current.title}
             onChange={(e) => updateTranslation(activeTab, 'title', e.target.value)}
             placeholder="Enter industry solution title"
-            disabled={isSaving || isLoading || isTranslating}
           />
         </div>
-
-        <div className="space-y-1.5">
-          <FieldLabel required>Description ({localeNames[activeTab as keyof typeof localeNames]})</FieldLabel>
+        <div>
+          <FieldLabel htmlFor="description" required>Description</FieldLabel>
           <Textarea
+            id="description"
             value={current.description}
             onChange={(e) => updateTranslation(activeTab, 'description', e.target.value)}
             placeholder="Enter industry solution description"
-            rows={5}
-            disabled={isSaving || isLoading || isTranslating}
+            rows={4}
           />
         </div>
-
-        {/* Show on Home Page - Common for all languages */}
-        <div className="space-y-4 pt-2 border-t border-gray-200 dark:border-gray-800">
+        <div>
+          <FieldLabel htmlFor="showOnHomePage">Show on Home Page</FieldLabel>
           <Toggle
+            id="showOnHomePage"
             checked={current.showOnHomePage}
-            onChange={(checked) => {
-              Object.keys(translations).forEach((loc) => {
-                updateTranslation(loc, 'showOnHomePage', checked);
-              });
-            }}
-            label="Show on Home Page (Common for all languages)"
-            description={activeTab === 'en'
-              ? "Enable this to display this industry solution on the home page industry solutions section."
-              : ""}
-            disabled={(isSaving || isLoading || isTranslating) || activeTab !== 'en'}
+            onCheckedChange={(checked) => updateTranslation(activeTab, 'showOnHomePage', checked)}
+            disabled={activeTab !== 'en'}
           />
+          {activeTab !== 'en' && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Show on home is shared. Edit in English to change.</p>
+          )}
         </div>
-
-        {isLoading && <Loader />}
-
-        {activeTab !== 'en' && !currentSolutionId && (
-          <div className="p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg text-sm text-amber-800 dark:text-amber-200">
-            Please save the English version first before adding translations.
-          </div>
-        )}
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }

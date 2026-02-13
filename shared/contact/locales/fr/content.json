@@ -102,6 +102,10 @@
       "detail": "+91 85901 37114"
     }
   },
+  "projectBriefModal": {
+    "badge": "Entrer en contact",
+    "heading": "Soumettre un brief projet"
+  },
   "formSection": {
     "badge": "ENTRER EN CONTACT",
     "heading": "Écrivez-nous.",

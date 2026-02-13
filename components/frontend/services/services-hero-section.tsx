@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { HeroSection, type HeroMetric } from "@/components/frontend/common/hero-section";
-import { Sparkles, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import * as RemixIcon from "@remixicon/react";
 import type { Locale } from "@/i18n-config";
 import type { PageTitleRecord } from "@/lib/api/page-titles";
 
@@ -195,7 +196,7 @@ export function ServicesHeroSection({ locale, contactHref, demoHref, supportHref
   return (
     <HeroSection
       badgeText={pageTitleData?.pagePill || t.badgeText}
-      badgeIcon={<Sparkles className="h-4 w-4" aria-hidden />}
+      badgeIcon={<RemixIcon.RiCloudFill className="h-4 w-4" aria-hidden />}
       beforeText={titleParts.beforeText}
       highlightText={titleParts.highlightText}
       afterText={titleParts.afterText}

@@ -285,10 +285,10 @@ export default {
     ]
   },
   industrySection: {
-    badge: "Industry-ready deployments",
-    heading: "Features Tailored For The Insurance Sector",
+    badge: "Industry Solutions",
+    heading: "Industry-Specific Solutions from Cloud MLM Software",
     description:
-      "Cloud MLM provides industry-specific features, which include simplified agent management, commission tracking, and policy distribution.",
+      "Customized solutions to meet the needs of every industry",
     features: [
       {
         title: "Agent & Team Management",

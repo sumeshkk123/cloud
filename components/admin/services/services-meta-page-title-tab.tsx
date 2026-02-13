@@ -26,12 +26,14 @@ interface CombinedRow {
 const SERVICE_PAGE_PREFIX = 'services';
 const ITEMS_PER_PAGE = 20;
 
-// Static service pages (must match route folders under app/[lang]/services/)
+// Static service pages (must match route folders under app/[lang]/services/ or app/[lang]/)
 const STATIC_SERVICE_PAGES = [
-  { value: 'services/bitcoin-cryptocurrency-mlm-software', label: 'Bitcoin & Cryptocurrency MLM Software' },
+  { value: 'cryptocurrency-mlm-software', label: 'Cryptocurrency MLM Software' },
   { value: 'services/comp-plan-audit', label: 'Comp Plan Audit' },
   { value: 'services/e-commerce-integration', label: 'E-commerce Integration' },
   { value: 'services/magento-development', label: 'Magento Development' },
+  { value: 'mlm-consulting', label: 'MLM Consulting' },
+  { value: 'mlm-migration', label: 'MLM Migration' },
   { value: 'services/mlm-software-development', label: 'MLM Software Development' },
   { value: 'services/opencart-development', label: 'OpenCart Development' },
   { value: 'services/shopify-integration-in-cloud-mlm-software', label: 'Shopify Integration' },

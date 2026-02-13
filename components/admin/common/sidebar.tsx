@@ -22,7 +22,6 @@ import {
   PenLine,
   LucideIcon,
   Layers,
-  Plug,
   GitBranch,
   Bot,
   ImageIcon,
@@ -60,7 +59,6 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
   const [isPlansOpen, setIsPlansOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isIndustrySolutionsOpen, setIsIndustrySolutionsOpen] = useState(false);
-  const [isIntegrationOpen, setIsIntegrationOpen] = useState(false);
 
   const userRole = (session?.user as any)?.role || 'user';
   const isBusinessDeveloper = userRole === UserRole.BUSINESS_DEVELOPER;
@@ -79,7 +77,6 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
     if (pathname?.startsWith('/admin/plans')) setIsPlansOpen(true);
     if (pathname?.startsWith('/admin/services')) setIsServicesOpen(true);
     if (pathname?.startsWith('/admin/industry-solutions')) setIsIndustrySolutionsOpen(true);
-    if (pathname?.startsWith('/admin/integration')) setIsIntegrationOpen(true);
   }, [pathname]);
 
   useEffect(() => {
@@ -90,7 +87,6 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
       setIsPlansOpen(false);
       setIsServicesOpen(false);
       setIsIndustrySolutionsOpen(false);
-      setIsIntegrationOpen(false);
     }
   }, [isSidebarOpen]);
 
@@ -464,54 +460,6 @@ export function Sidebar({ isSidebarOpen }: SidebarProps) {
               </div>
             )}
 
-            {/* Integration Dropdown */}
-            {shouldShowMenuItem({ href: '/admin/integration', icon: Plug, label: 'Integration', permission: Permission.CONTENT_CREATE, hideForBusinessDeveloper: true }) && (
-              <div className="relative">
-                <button
-                  onClick={() => setIsIntegrationOpen(!isIntegrationOpen)}
-                  className={`w-full flex items-center ${isSidebarOpen ? 'px-4' : 'px-0 justify-center'} py-2.5 rounded-lg transition-colors text-sm group relative ${isActive('/admin/integration')
-                    ? 'bg-primary-600 text-white shadow-sm'
-                    : 'text-gray-700 hover:bg-gray-100'
-                    }`}
-                  title={!isSidebarOpen ? 'Integration' : undefined}
-                >
-                  <Plug className={`h-4 w-4 ${isSidebarOpen ? 'mr-3' : ''} ${isActive('/admin/integration') ? 'text-white' : ''}`} />
-                  {isSidebarOpen && (
-                    <>
-                      <span>Integration</span>
-                      <ChevronDown className={`h-4 w-4 ml-auto transition-transform ${isIntegrationOpen ? 'rotate-180' : ''} ${isActive('/admin/integration') ? 'text-white' : ''}`} />
-                    </>
-                  )}
-                  {!isSidebarOpen && (
-                    <span className="fixed left-20 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-[100] transition-opacity">
-                      Integration
-                    </span>
-                  )}
-                </button>
-                {isSidebarOpen && isIntegrationOpen && (
-                  <div className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
-                    <Link
-                      href="/admin/integration"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/integration' || (pathname.startsWith('/admin/integration') && !pathname.includes('/meta-page-title'))
-                        ? 'bg-primary-50 text-primary-600 font-medium'
-                        : 'text-gray-700 hover:bg-gray-100'
-                        }`}
-                    >
-                      <span>Integration List</span>
-                    </Link>
-                    <Link
-                      href="/admin/integration/meta-page-title"
-                      className={`flex items-center px-4 py-2 rounded-lg transition-colors text-sm ${pathname === '/admin/integration/meta-page-title' || pathname.startsWith('/admin/integration/meta-page-title')
-                        ? 'bg-primary-50 text-primary-600 font-medium'
-                        : 'text-gray-700 hover:bg-gray-100'
-                        }`}
-                    >
-                      <span>Integration Meta and Page Title</span>
-                    </Link>
-                  </div>
-                )}
-              </div>
-            )}
           </nav>
         </div>
 

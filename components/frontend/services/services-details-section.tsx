@@ -5,13 +5,24 @@ import { BulletList } from "@/components/ui/bullet-list";
 import { Typography } from "@/components/ui/typography";
 import type { Locale } from "@/i18n-config";
 import { buildLocalizedPath } from "@/lib/locale-links";
-import { getCanonicalServiceSlug } from "@/lib/services-subpage-slugs";
+import { getCanonicalServiceSlug, TOP_LEVEL_SERVICE_SLUGS } from "@/lib/services-subpage-slugs";
 import type { SupportedLocale } from "@/config/site";
 import { Section } from "@/components/ui/section";
 import * as RemixIcon from "@remixicon/react";
 import type { ServiceRecord } from "@/lib/api/services";
 import { getCommonContent } from "@/lib/common";
 import { SectionTitle } from "@/components/ui/section-title";
+
+// Use same pill icon as others (homepage-style).
+const SERVICE_PILL_ICON = RemixIcon.RiCloudFill;
+
+// Pill label: use short label for Migration/Consulting, otherwise first word of title.
+function getServicePillLabel(title: string, fallbackHighlight: string): string {
+  const t = title.toLowerCase();
+  if (t.includes("migration")) return "Migration";
+  if (t.includes("consulting")) return "Consulting";
+  return fallbackHighlight;
+}
 
 // Translation strings for service-specific content
 const translations: Record<string, { keyBenefits: string }> = {
@@ -71,10 +82,9 @@ function transformServices(services: ServiceRecord[], locale: Locale, englishTit
       const lookupKey = `${service.icon || ''}_${service.showOnHomePage}`;
       const englishTitle = englishTitleMap.get(lookupKey) || service.title;
       const slug = getCanonicalServiceSlug(generateSlug(englishTitle));
-      const href =
-        slug === "bitcoin-cryptocurrency-mlm-software"
-          ? buildLocalizedPath("/bitcoin-cryptocurrency-mlm-software", locale as SupportedLocale)
-          : buildLocalizedPath(`/services/${slug}`, locale as SupportedLocale);
+      const href = TOP_LEVEL_SERVICE_SLUGS.includes(slug)
+        ? buildLocalizedPath(`/${slug}`, locale as SupportedLocale)
+        : buildLocalizedPath(`/services/${slug}`, locale as SupportedLocale);
 
       return {
         title: String(service.title || ''),
@@ -121,9 +131,9 @@ export function ServicesDetailsSection({ locale, services: servicesProp, english
           <div className={index % 2 === 1 ? "lg:order-2" : ""}>
             <Badge
               variant="default"
-              icon={RemixIcon.RiServiceLine}
+              icon={SERVICE_PILL_ICON}
             >
-              {service.highlight}
+              {getServicePillLabel(service.title, service.highlight)}
             </Badge>
             <Typography
               as="h3"

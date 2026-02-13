@@ -102,6 +102,10 @@ export default {
       detail: "+91 85901 37114"
     }
   },
+  projectBriefModal: {
+    badge: "Get in touch",
+    heading: "Submit a project brief"
+  },
   formSection: {
     badge: "GET IN TOUCH",
     heading: "Drop Us a Line.",

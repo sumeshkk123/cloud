@@ -24,6 +24,7 @@
     "translate-page-title-cloud-mlm-software-basic": "tsx scripts/translate-page-title-cloud-mlm-software-basic.ts",
     "add-testimonials": "tsx scripts/add-testimonials.ts",
     "seed-demo-faqs": "tsx scripts/seed-demo-faqs.ts",
+    "seed-services": "tsx scripts/seed-services.ts",
     "seed-demo-items": "tsx scripts/seed-demo-items.ts",
     "seed-demo-items-quick": "tsx scripts/seed-demo-items-quick.ts",
     "update-binary-demo-titles": "tsx scripts/update-binary-demo-titles.ts",
@@ -36,6 +37,7 @@
     "check-demo-icons": "tsx scripts/check-demo-icons.ts",
     "check-demo-images": "tsx scripts/check-demo-images.ts",
     "restore-missing-demo-images": "tsx scripts/restore-missing-demo-images.ts",
+    "backfill-demo-images-icons": "tsx scripts/backfill-demo-images-icons.ts",
     "check-module-icons": "tsx scripts/check-module-icons.ts",
     "check-binary-demo": "tsx scripts/check-binary-demo.ts",
     "normalize-icons": "tsx scripts/normalize-icons.ts",
@@ -68,6 +70,7 @@
     "restore-database-from-backup": "tsx scripts/restore-database-from-backup.ts",
     "restore-english-demos-direct": "tsx scripts/restore-english-demos-direct.ts",
     "restore-full-database": "tsx scripts/restore-full-database.ts",
+    "restore-default-data": "node scripts/restore-default-data.js",
     "check-modules-count": "tsx scripts/check-modules-count.ts",
     "fetch-and-seed-blogs-from-live": "tsx scripts/fetch-and-seed-blogs-from-live.ts",
     "sync-full-blog-content-from-live": "tsx scripts/sync-full-blog-content-from-live.ts"
