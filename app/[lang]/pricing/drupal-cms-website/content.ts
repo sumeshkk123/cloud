@@ -23,8 +23,8 @@ export const drupalCmsWebsiteContent: PricingSubPageContent = {
     title: "Drupal CMS website pricing with Cloud MLM Software expertise.",
     description:
       "Build a high-converting digital home that integrates seamlessly with Cloud MLM Software. From brand storytelling to automation-ready infrastructure, we package everything needed to launch quickly and iterate intelligently.",
-    primaryCta: "Book a Drupal pricing session",
-    secondaryCta: "Review implementation services",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Drupal launches delivered",
@@ -236,8 +236,8 @@ export const drupalCmsWebsiteContent: PricingSubPageContent = {
     heading: "Let's design a Drupal experience reps love.",
     description:
       "Share your content, integration, and compliance requirements. We'll assemble a pricing proposal and delivery plan aligned to your launch timeline.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore services",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Expect a discovery call agenda and stakeholder checklist within one business day",
     cardBody:
       "We ensure your Drupal build becomes a revenue engine, not just a brochure.",

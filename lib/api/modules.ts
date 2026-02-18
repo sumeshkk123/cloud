@@ -90,6 +90,53 @@ export async function getModuleById(id: string, locale?: string): Promise<Module
 }
 
 /**
+ * Same data source and order as the main page (GET /api/modules?locale=).
+ * Main page displays listModules().reverse() (oldest first). We use the same reversed order
+ * so the module we pick for a slug matches the card that links to that page.
+ * Prefer module with explicit slug match (m.slug === slug) when multiple match.
+ */
+export async function getModuleForSubpageFromList(
+  locale: string,
+  slug: string,
+  moduleId?: string | null
+): Promise<ModuleRecord | null> {
+  let modules = await listModules(locale);
+  if (locale !== 'en' && modules.length === 0) {
+    modules = await listModules('en');
+  }
+  // Same order as main page: main page uses [...data].reverse() (oldest first)
+  const ordered = [...modules].reverse();
+
+  if (moduleId && moduleId.trim()) {
+    const byId = ordered.find((m) => m.id === moduleId.trim());
+    if (byId) return byId;
+  }
+
+  // Prefer explicit slug match so one canonical module per page when admin set slug
+  const withExplicitSlug = ordered.find((m) => m.slug === slug);
+  if (withExplicitSlug) return withExplicitSlug;
+
+  for (const m of ordered) {
+    const derived = getModuleSlugFromTitleOrId(m.title, m.id);
+    if (derived === slug) return m;
+    if (slug === 'emails' && derived === 'emails') return m;
+  }
+
+  if (locale !== 'en') {
+    const enModules = await listModules('en');
+    const enOrdered = [...enModules].reverse();
+    const enExplicit = enOrdered.find((m) => m.slug === slug);
+    if (enExplicit) return enExplicit;
+    for (const m of enOrdered) {
+      const derived = getModuleSlugFromTitleOrId(m.title, m.id);
+      if (derived === slug || m.slug === slug) return m;
+      if (slug === 'emails' && derived === 'emails') return m;
+    }
+  }
+  return null;
+}
+
+/**
  * Find the module record that corresponds to a subpage slug (e.g. "emails", "backup-manager")
  * for the given locale. Used to show Edit Module (backend) title/description on subpage hero.
  */
@@ -119,7 +166,7 @@ export async function getModuleBySubpageSlug(
   for (const m of modules) {
     const derived = getModuleSlugFromTitleOrId(m.title, m.id);
     if (derived === subpageSlug || m.slug === subpageSlug) return m;
-    if (subpageSlug === 'emails' && (m.slug === 'email-module' || derived === 'emails')) return m;
+    if (subpageSlug === 'emails' && derived === 'emails') return m;
   }
 
   // Fallback: try English when the requested locale has no matching module
@@ -128,7 +175,7 @@ export async function getModuleBySubpageSlug(
     for (const m of enModules) {
       const derived = getModuleSlugFromTitleOrId(m.title, m.id);
       if (derived === subpageSlug || m.slug === subpageSlug) return m;
-      if (subpageSlug === 'emails' && (m.slug === 'email-module' || derived === 'emails')) return m;
+      if (subpageSlug === 'emails' && derived === 'emails') return m;
     }
   }
   return null;

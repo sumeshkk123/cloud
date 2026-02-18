@@ -25,7 +25,10 @@ import {
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
-export const dynamic = "force-static";
+import { getMetaDetail } from "@/lib/api/meta-details";
+import { getIndustryPageTitleKey } from "@/lib/industries-subpage";
+
+export const dynamic = "force-dynamic";
 
 type IconType = ComponentType<{ className?: string }>;
 
@@ -88,7 +91,7 @@ const CHALLENGES: Challenge[] = [
   {
     title: "Operational scalability",
     description:
-      "Coordinating inventory, fulfilment, and commissions across regions demands a platform built for growth." 
+      "Coordinating inventory, fulfilment, and commissions across regions demands a platform built for growth."
   }
 ];
 
@@ -152,15 +155,23 @@ const FEATURES: Feature[] = [
   }
 ];
 
+const FALLBACK_TITLE = "Ecommerce MLM Software";
+const FALLBACK_DESCRIPTION =
+  "Power ecommerce expansion with Cloud MLM Software—affiliate automation, direct selling capabilities, and data-driven customer journeys.";
+const FALLBACK_KEYWORDS = "ecommerce mlm software, retail network marketing, online store mlm";
+
 export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
   const locale = resolveLocale(params.lang);
-  const title = "Ecommerce MLM Software";
-  const description =
-    "Power ecommerce expansion with Cloud MLM Software—affiliate automation, direct selling capabilities, and data-driven customer journeys.";
+  const pageKey = getIndustryPageTitleKey("ecommerce");
+  const metaData = await getMetaDetail(pageKey, locale);
+  const title = metaData?.title ?? FALLBACK_TITLE;
+  const description = metaData?.description ?? FALLBACK_DESCRIPTION;
+  const keywords = metaData?.keywords ?? FALLBACK_KEYWORDS;
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: buildLocalizedPath("/industries/ecommerce", locale)
     },

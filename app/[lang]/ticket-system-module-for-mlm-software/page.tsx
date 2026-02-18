@@ -17,14 +17,21 @@ function resolveLocale(lang: string): Locale {
 
 type TicketSystemPageProps = {
   params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+  searchParams?: Promise<{ mid?: string }> | { mid?: string };
 };
 
 export default async function TicketSystemPage(props: TicketSystemPageProps) {
-  const params = props?.params;
-  const resolvedParams =
-    params != null ? (params instanceof Promise ? await params : params) : null;
+  let resolvedParams: { lang?: SupportedLocale } | null = null;
+  try {
+    const params = props?.params;
+    resolvedParams =
+      params != null ? (params instanceof Promise ? await params : params) : null;
+  } catch {
+    resolvedParams = null;
+  }
   const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
-  const pageTitleData = await getModuleSubpageHeroDataBySlug(MODULE_SLUG, locale);
+  const resolvedSearch = props?.searchParams != null ? (props.searchParams instanceof Promise ? await props.searchParams : props.searchParams) : undefined;
+  const pageTitleData = await getModuleSubpageHeroDataBySlug(MODULE_SLUG, locale, resolvedSearch?.mid);
   const contactHref = buildLocalizedPath("/contact", locale);
 
   return (

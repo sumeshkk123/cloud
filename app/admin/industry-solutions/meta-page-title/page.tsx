@@ -7,8 +7,8 @@ export default function IndustrySolutionsMetaPageTitlePage() {
   return (
     <div className="space-y-4">
       <PageTitle
-        title="Industry Solution Meta and Page Title"
-        description="Manage meta details and page titles for industry solution pages."
+        title="Industry Solution Meta Details"
+        description="Manage meta details for industry solution pages."
       />
       <IndustrySolutionsMetaPageTitleTab />
     </div>

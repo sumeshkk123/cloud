@@ -99,10 +99,10 @@ export function ModulesMetaPageTitleForm({
 
     const loadAllData = async () => {
         if (!formPage) return;
-        
+
         try {
             setIsLoading(true);
-            
+
             const metaPromises = locales.map(locale =>
                 fetch(`/api/admin/meta-details?page=${encodeURIComponent(formPage)}&locale=${locale}`, {
                     cache: 'no-store',
@@ -350,11 +350,6 @@ export function ModulesMetaPageTitleForm({
                     required
                     disabled={isSaving || isLoading || isEditing}
                 />
-                {isEditing && (
-                    <p className="text-xs text-gray-500 mt-1">
-                        Editing translations for: <span className="font-medium text-gray-700">{formPage}</span>
-                    </p>
-                )}
             </div>
 
             <div className="border-b border-gray-200 dark:border-gray-700">
@@ -364,7 +359,7 @@ export function ModulesMetaPageTitleForm({
                         const localeMeta = metaFormData[locale];
                         const localePageTitle = pageTitleFormData[locale];
                         const hasContent = (localeMeta.title?.trim() || localeMeta.description?.trim() || localeMeta.keywords?.trim()) ||
-                                         (localePageTitle.title?.trim() || localePageTitle.pagePill?.trim() || localePageTitle.sectionSubtitle?.trim());
+                            (localePageTitle.title?.trim() || localePageTitle.pagePill?.trim() || localePageTitle.sectionSubtitle?.trim());
                         const exists = metaSavedLocales.has(locale) || pageTitleSavedLocales.has(locale);
 
                         return (
@@ -372,13 +367,12 @@ export function ModulesMetaPageTitleForm({
                                 key={locale}
                                 type="button"
                                 onClick={() => setActiveLocale(locale)}
-                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${
-                                    isActive
+                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${isActive
                                         ? 'border-blue-500 text-blue-600 bg-blue-50 dark:bg-blue-900/20'
                                         : hasContent
                                             ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50 dark:bg-green-900/10'
                                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                                }`}
+                                    }`}
                             >
                                 <div className="flex items-center gap-2">
                                     <span>{localeNames[locale]}</span>
@@ -415,7 +409,7 @@ export function ModulesMetaPageTitleForm({
 
             <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Meta Details</h3>
-                
+
                 <div className="space-y-4">
                     <div>
                         <FieldLabel htmlFor="meta-title">Meta Title</FieldLabel>
@@ -458,7 +452,7 @@ export function ModulesMetaPageTitleForm({
 
             <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Page Title</h3>
-                
+
                 <div className="space-y-4">
                     <div>
                         <FieldLabel htmlFor="page-title">Page Title</FieldLabel>

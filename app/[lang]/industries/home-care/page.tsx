@@ -26,7 +26,10 @@ import {
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
-export const dynamic = "force-static";
+import { getMetaDetail } from "@/lib/api/meta-details";
+import { getIndustryPageTitleKey } from "@/lib/industries-subpage";
+
+export const dynamic = "force-dynamic";
 
 type IconType = ComponentType<{ className?: string }>;
 
@@ -178,15 +181,23 @@ const LAUNCH_STEPS: Step[] = [
   }
 ];
 
+const FALLBACK_TITLE = "Home Care Industry MLM Software";
+const FALLBACK_DESCRIPTION =
+  "Deliver compassionate growth with Cloud MLM Software—caregiver enablement, subscription automation, and compliant compensation for home care brands.";
+const FALLBACK_KEYWORDS = "home care mlm software, caregiver network marketing, senior care direct selling";
+
 export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
   const locale = resolveLocale(params.lang);
-  const title = "Home Care Industry MLM Software";
-  const description =
-    "Deliver compassionate growth with Cloud MLM Software—caregiver enablement, subscription automation, and compliant compensation for home care brands.";
+  const pageKey = getIndustryPageTitleKey("home-care");
+  const metaData = await getMetaDetail(pageKey, locale);
+  const title = metaData?.title ?? FALLBACK_TITLE;
+  const description = metaData?.description ?? FALLBACK_DESCRIPTION;
+  const keywords = metaData?.keywords ?? FALLBACK_KEYWORDS;
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: buildLocalizedPath("/industries/home-care", locale)
     },

@@ -26,7 +26,10 @@ import {
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
-export const dynamic = "force-static";
+import { getMetaDetail } from "@/lib/api/meta-details";
+import { getIndustryPageTitleKey } from "@/lib/industries-subpage";
+
+export const dynamic = "force-dynamic";
 
 type IconType = ComponentType<{ className?: string }>;
 
@@ -153,15 +156,23 @@ const FEATURES: Feature[] = [
   }
 ];
 
+const FALLBACK_TITLE = "Clothing and Accessories MLM Software";
+const FALLBACK_DESCRIPTION =
+  "Scale clothing and accessories networks with Cloud MLM Software—trend-ready launches, omni-channel commerce, and precision payouts.";
+const FALLBACK_KEYWORDS = "fashion mlm software, clothing network marketing, apparel direct selling";
+
 export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
   const locale = resolveLocale(params.lang);
-  const title = "Clothing and Accessories MLM Software";
-  const description =
-    "Scale clothing and accessories networks with Cloud MLM Software—trend-ready launches, omni-channel commerce, and precision payouts.";
+  const pageKey = getIndustryPageTitleKey("clothing-and-accessories");
+  const metaData = await getMetaDetail(pageKey, locale);
+  const title = metaData?.title ?? FALLBACK_TITLE;
+  const description = metaData?.description ?? FALLBACK_DESCRIPTION;
+  const keywords = metaData?.keywords ?? FALLBACK_KEYWORDS;
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: buildLocalizedPath("/industries/clothing-and-accessories", locale)
     },

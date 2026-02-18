@@ -65,11 +65,6 @@ const METRICS_BY_SLUG: Partial<Record<string, ModuleHeroMetric[]>> = {
     { label: "Retention", value: "Configurable", detail: "Point-in-time restore." },
     { label: "Encryption", value: "AES-256", detail: "At rest and in transit." },
   ],
-  "email-module": [
-    { label: "Emails sent", value: "10M+", detail: "Transactional and campaign." },
-    { label: "Templates", value: "Unlimited", detail: "With tracking and variants." },
-    { label: "Compliance", value: "Built-in", detail: "Consent and unsubscribe." },
-  ],
 };
 
 function getDefaultMetricsForSlug(slug: string): ModuleHeroMetric[] {
@@ -219,14 +214,6 @@ const CONTENT_BY_SLUG: Partial<Record<string, ModuleFeatureContent>> = {
       { icon: HardDrives, title: "Scheduled backups", description: "Automated full and incremental backups of your MLM data." },
       { icon: Wallet, title: "Restore points", description: "Restore to a point in time or export data for migration." },
       { icon: Globe, title: "Secure storage", description: "Encrypted backups in redundant storage with retention policies." },
-    ],
-  }),
-  "email-module": createFeatureContent("email-module", {
-    hero: { badge: "Communications", primaryCta: "Request a demo", secondaryCta: "View demo" },
-    features: [
-      { icon: EnvelopeSimple, title: "Email delivery", description: "Transactional and campaign emails with tracking and templates." },
-      { icon: ChatCircleDots, title: "Automation", description: "Trigger-based sequences for onboarding, reminders, and promotions." },
-      { icon: Globe, title: "Compliance", description: "Consent, unsubscribe, and regional compliance built in." },
     ],
   }),
 };

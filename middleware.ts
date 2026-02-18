@@ -4,6 +4,8 @@ import type { NextRequest } from "next/server";
 import { i18n } from "@/i18n-config";
 import { getPageFromSlug, getSlugFromPage } from "@/lib/page-slugs";
 import { getServiceSubpageKeyFromSlug } from "@/lib/services-subpage-slugs";
+import { MLM_PLAN_SEGMENT, getPlanSubpageCanonicalFromSlug } from "@/lib/mlm-plan-subpage-slugs";
+import { getBlogSubpageKeyFromSlug } from "@/lib/page-slugs";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -21,11 +23,14 @@ export function middleware(request: NextRequest) {
   }
 
   const segments = pathname.split("/").filter(Boolean);
-  const hasLocale = segments.length > 0 && i18n.locales.includes(segments[0] as any);
+  // Map pt-pt to pt and zh-hans to zh for locale detection
+  const localeForCheck = segments[0] === "pt-pt" ? "pt" : segments[0] === "zh-hans" ? "zh" : segments[0];
+  const hasLocale = segments.length > 0 && i18n.locales.includes(localeForCheck as any);
   
   if (hasLocale) {
     if (segments.length > 1) {
-      const locale = segments[0];
+      // Use pt for pt-pt and zh for zh-hans URLs internally
+      let locale = segments[0] === "pt-pt" ? "pt" : segments[0] === "zh-hans" ? "zh" : segments[0];
       let slug = segments[1];
       try {
         slug = decodeURIComponent(slug);
@@ -77,6 +82,33 @@ export function middleware(request: NextRequest) {
           return NextResponse.rewrite(rewriteUrl);
         }
       }
+      // Rewrite translated MLM plan subpage slug to canonical (e.g. /es/mlm-plan/software-australiano-de-mlm-del-plan-x-up → /es/mlm-plan/australian-x-up-plan-mlm-software)
+      if (slug === MLM_PLAN_SEGMENT && segments[2]) {
+        const canonicalSlug = getPlanSubpageCanonicalFromSlug(segments[2]);
+        if (canonicalSlug) {
+          const rewriteUrl = request.nextUrl.clone();
+          const rest = segments.slice(3);
+          const remainingPath = rest.length ? `${canonicalSlug}/${rest.join("/")}` : canonicalSlug;
+          rewriteUrl.pathname = `/${locale}/${MLM_PLAN_SEGMENT}/${remainingPath}`;
+          return NextResponse.rewrite(rewriteUrl);
+        }
+      }
+      // Rewrite translated blog subpage slug to canonical (e.g. /es/blog/principales-empresas-de-multinivel → /es/blog/top-mlm-companies)
+      // Also handle case where 'blog' is translated (e.g. /zh/bo-ke/...)
+      if (segments[2]) {
+        // First resolve the first segment (blog) to get the pageId
+        const resolvedSlug = getPageFromSlug(slug, locale) ?? slug;
+        if (resolvedSlug === "blog") {
+          const blogKey = getBlogSubpageKeyFromSlug(segments[2]);
+          if (blogKey) {
+            const rewriteUrl = request.nextUrl.clone();
+            const rest = segments.slice(3);
+            const remainingPath = rest.length ? `${blogKey}/${rest.join("/")}` : blogKey;
+            rewriteUrl.pathname = `/${locale}/blog/${remainingPath}`;
+            return NextResponse.rewrite(rewriteUrl);
+          }
+        }
+      }
       // Redirect canonical (default-locale) slug to locale-specific slug (e.g. /es/emails → /es/correos-electronicos)
       const pageIdFromDefault = getPageFromSlug(slug, i18n.defaultLocale);
       if (pageIdFromDefault && locale !== i18n.defaultLocale) {
@@ -108,9 +140,9 @@ export function middleware(request: NextRequest) {
     return;
   }
 
-  // Redirect common typos (e.g. /email-modules -> /en/email-module)
+  // Redirect common typos (e.g. /email-modules -> /en/emails)
   if (pathname === "/email-modules" || pathname === "/email-modules/") {
-    return NextResponse.redirect(new URL("/en/email-module", request.url));
+    return NextResponse.redirect(new URL("/en/emails", request.url));
   }
   // Redirect old ecommerce module slug to ecommerce-module
   if (pathname === "/ecommerce" || pathname === "/ecommerce/") {
@@ -143,19 +175,28 @@ export function middleware(request: NextRequest) {
     for (const locale of i18n.locales) {
       const pageId = getPageFromSlug(slug, locale);
       if (pageId) {
-        // Rewrite to locale + canonical segment (pageId) so path matches static folder
+        // Use locale-specific slug so path matches static folder (e.g. ticket-system -> ticket-system-module-for-mlm-software for en)
+        const pathSegment = getSlugFromPage(pageId, locale as any) ?? pageId;
         const rewriteUrl = request.nextUrl.clone();
         const remainingPath = segments.slice(1).join("/");
-        rewriteUrl.pathname = `/${locale}/${pageId}${remainingPath ? `/${remainingPath}` : ""}`;
+        rewriteUrl.pathname = `/${locale}/${pathSegment}${remainingPath ? `/${remainingPath}` : ""}`;
         return NextResponse.rewrite(rewriteUrl);
       }
     }
   }
 
-  // Default: add default locale prefix
+  // Default: add default locale prefix; resolve MLM plan second segment to canonical when present
   const locale = i18n.defaultLocale;
   const rewriteUrl = request.nextUrl.clone();
-  rewriteUrl.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
+  let pathToUse = pathname === "/" ? "" : pathname;
+  if (segments[0] === MLM_PLAN_SEGMENT && segments[1]) {
+    const canonicalSlug = getPlanSubpageCanonicalFromSlug(segments[1]);
+    if (canonicalSlug) {
+      const rest = segments.slice(2);
+      pathToUse = `/${MLM_PLAN_SEGMENT}/${canonicalSlug}${rest.length ? `/${rest.join("/")}` : ""}`;
+    }
+  }
+  rewriteUrl.pathname = `/${locale}${pathToUse || pathname}`;
   return NextResponse.rewrite(rewriteUrl);
 }
 

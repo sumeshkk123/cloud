@@ -29,7 +29,10 @@ import {
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
-export const dynamic = "force-static";
+import { getMetaDetail } from "@/lib/api/meta-details";
+import { getIndustryPageTitleKey } from "@/lib/industries-subpage";
+
+export const dynamic = "force-dynamic";
 
 type IconType = ComponentType<{ className?: string }>;
 
@@ -156,15 +159,23 @@ const INITIATIVES: Initiative[] = [
   }
 ];
 
+const FALLBACK_TITLE = "Energy Industry MLM Software";
+const FALLBACK_DESCRIPTION =
+  "Scale renewable and utility networks with Cloud MLM Software—regulatory-ready compensation, sustainability analytics, and resilient partner enablement.";
+const FALLBACK_KEYWORDS = "energy mlm software, renewable energy network marketing, utility direct selling";
+
 export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
   const locale = resolveLocale(params.lang);
-  const title = "Energy Industry MLM Software";
-  const description =
-    "Scale renewable and utility networks with Cloud MLM Software—regulatory-ready compensation, sustainability analytics, and resilient partner enablement.";
+  const pageKey = getIndustryPageTitleKey("energy");
+  const metaData = await getMetaDetail(pageKey, locale);
+  const title = metaData?.title ?? FALLBACK_TITLE;
+  const description = metaData?.description ?? FALLBACK_DESCRIPTION;
+  const keywords = metaData?.keywords ?? FALLBACK_KEYWORDS;
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: buildLocalizedPath("/industries/energy", locale)
     },

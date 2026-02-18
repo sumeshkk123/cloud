@@ -5,11 +5,18 @@ import {
   getPageFromSlug,
   getPricingSubpageKeyFromSlug,
   getSlugForPricingSubpage,
+  getBlogSubpageKeyFromSlug,
+  getSlugForBlogSubpage,
 } from "@/lib/page-slugs";
 import {
   getServiceSubpageKeyFromSlug,
   getSlugForServiceSubpage,
 } from "@/lib/services-subpage-slugs";
+import {
+  MLM_PLAN_SEGMENT,
+  getPlanSubpageCanonicalFromSlug,
+  getSlugForPlanSubpage,
+} from "@/lib/mlm-plan-subpage-slugs";
 
 const ORIGIN = siteBaseConfig.url.replace(/\/$/, "");
 
@@ -119,13 +126,54 @@ export function buildLocalizedPath(path: string, locale: SupportedLocale): strin
           const rest = pathSegments.slice(2);
           remainingPath = rest.length ? `${translatedSecond}/${rest.join("/")}` : translatedSecond;
         }
+        // Translate blog sub-page second segment (e.g. top-mlm-companies -> principales-empresas-de-multinivel for es)
+        if (pageId === "blog" && pathSegments.length >= 2) {
+          const secondSegment = pathSegments[1];
+          const blogKey = getBlogSubpageKeyFromSlug(secondSegment) ?? secondSegment;
+          const translatedSecond = getSlugForBlogSubpage(blogKey, locale);
+          if (translatedSecond) {
+            const rest = pathSegments.slice(2);
+            remainingPath = rest.length ? `${translatedSecond}/${rest.join("/")}` : translatedSecond;
+          }
+        }
         const fullPath = `/${translatedSlug}${remainingPath ? `/${remainingPath}` : ""}`;
 
-        if (locale === (i18n.defaultLocale as SupportedLocale)) {
+        // Use pt-pt in URL path for Portuguese ONLY for blog top-mlm-companies page
+        let urlLocale: string = locale;
+        if (locale === "pt" && pageId === "blog") {
+          // Check if remaining path is the Portuguese translated slug
+          const ptSlug = getSlugForBlogSubpage("top-mlm-companies", "pt");
+          if (remainingPath === ptSlug) {
+            urlLocale = "pt-pt";
+          }
+        }
+        // Use zh-hans in URL path for Chinese ONLY for blog top-mlm-companies page
+        if (locale === "zh" && pageId === "blog") {
+          // Check if remaining path is the Chinese translated slug
+          const zhSlug = getSlugForBlogSubpage("top-mlm-companies", "zh");
+          if (remainingPath === zhSlug) {
+            urlLocale = "zh-hans";
+          }
+        }
+
+        if (urlLocale === (i18n.defaultLocale as SupportedLocale)) {
           return `${fullPath}${search}${hash}`;
         }
-        return `/${locale}${fullPath}${search}${hash}`;
+        return `/${urlLocale}${fullPath}${search}${hash}`;
       }
+    }
+  }
+
+  // MLM plan subpages: translate second segment (e.g. /mlm-plan/australian-x-up-plan-mlm-software -> /es/mlm-plan/software-australiano-de-mlm-del-plan-x-up)
+  if (pathSegments.length >= 2 && pathSegments[0] === MLM_PLAN_SEGMENT) {
+    const canonicalSlug = getPlanSubpageCanonicalFromSlug(pathSegments[1]);
+    if (canonicalSlug) {
+      const translatedSecond = getSlugForPlanSubpage(canonicalSlug, locale);
+      const fullPath = `/${MLM_PLAN_SEGMENT}/${translatedSecond}`;
+      if (locale === (i18n.defaultLocale as SupportedLocale)) {
+        return `${fullPath}${search}${hash}`;
+      }
+      return `/${locale}${fullPath}${search}${hash}`;
     }
   }
   
@@ -157,7 +205,10 @@ export function parseLocaleFromHref(href: string): SupportedLocale | null {
 
 function stripLocaleFromPath(pathname: string): string {
   const segments = pathname.split("/").filter(Boolean);
-  if (segments.length > 0 && supportedLocales.includes(segments[0] as SupportedLocale)) {
+  const firstSegment = segments[0];
+  // Map locale aliases to internal codes
+  const mappedLocale = firstSegment === "pt-pt" ? "pt" : firstSegment === "zh-hans" ? "zh" : firstSegment;
+  if (segments.length > 0 && supportedLocales.includes(mappedLocale as SupportedLocale)) {
     segments.shift();
   }
   return `/${segments.join("/")}`.replace(/\/+/g, "/");

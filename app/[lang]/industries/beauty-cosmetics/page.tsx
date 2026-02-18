@@ -27,7 +27,10 @@ import {
   UsersFour
 } from "@phosphor-icons/react/dist/ssr";
 
-export const dynamic = "force-static";
+import { getMetaDetail } from "@/lib/api/meta-details";
+import { getIndustryPageTitleKey } from "@/lib/industries-subpage";
+
+export const dynamic = "force-dynamic";
 
 type IconType = ComponentType<{ className?: string }>;
 
@@ -154,15 +157,23 @@ const FEATURES: Feature[] = [
   }
 ];
 
+const FALLBACK_TITLE = "Beauty and Cosmetics MLM Software";
+const FALLBACK_DESCRIPTION =
+  "Deliver luxurious customer journeys with Cloud MLM Software—personalised beauty experiences, flexible compensation, and compliant global operations.";
+const FALLBACK_KEYWORDS = "beauty mlm software, cosmetics network marketing, skincare direct selling system";
+
 export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
   const locale = resolveLocale(params.lang);
-  const title = "Beauty and Cosmetics MLM Software";
-  const description =
-    "Deliver luxurious customer journeys with Cloud MLM Software—personalised beauty experiences, flexible compensation, and compliant global operations.";
+  const pageKey = getIndustryPageTitleKey("beauty-cosmetics");
+  const metaData = await getMetaDetail(pageKey, locale);
+  const title = metaData?.title ?? FALLBACK_TITLE;
+  const description = metaData?.description ?? FALLBACK_DESCRIPTION;
+  const keywords = metaData?.keywords ?? FALLBACK_KEYWORDS;
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: buildLocalizedPath("/industries/beauty-cosmetics", locale)
     },

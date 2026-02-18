@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import type { PageTitleRecord } from "@/lib/api/page-titles";
 import { PricingSubPageLayout } from "@/components/frontend/pricing/sub-page";
 import type { PricingSubPageContent } from "@/components/frontend/pricing/sub-page";
 import { wordpressCmsWebsiteContent } from "./content";
+import { HeroSectionPopup } from "@/components/frontend/common/hero-section-popup";
+import { useToast } from "@/components/ui/toast";
 
 type WordPressCmsWebsiteClientProps = {
   pageTitleData: PageTitleRecord | null;
@@ -32,15 +35,29 @@ export function WordPressCmsWebsiteClient({
   contactHref,
   secondaryHref,
 }: WordPressCmsWebsiteClientProps) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const { showToast, ToastComponent } = useToast();
   const content = mergeContentWithPageTitle(
     wordpressCmsWebsiteContent,
     pageTitleData
   );
+
   return (
-    <PricingSubPageLayout
-      content={content}
-      contactHref={contactHref}
-      secondaryHref={secondaryHref}
-    />
+    <>
+      {ToastComponent}
+      <PricingSubPageLayout
+        content={content}
+        contactHref={contactHref}
+        secondaryHref={secondaryHref}
+        onPrimaryCtaClick={() => setModalOpen(true)}
+      />
+      <HeroSectionPopup
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        source="Pricing - WordPress"
+        notes="Enquiry from WordPress CMS website pricing page (Book a pricing session)"
+        onSuccess={(msg) => showToast(msg, "success")}
+      />
+    </>
   );
 }

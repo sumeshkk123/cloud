@@ -135,6 +135,7 @@ export function ModulesForm({
         try {
             setIsLoading(true);
             onLoadingChange?.(true);
+            setModuleSlug('');
             console.log('Starting to load module:', currentModuleId);
 
             const response = await fetch(`/api/admin/modules?id=${encodeURIComponent(currentModuleId)}&all=true`);
@@ -424,6 +425,7 @@ export function ModulesForm({
                     image: trimmedIcon,
                     showOnHomePage: current.showOnHomePage,
                     locale: activeTab,
+                    slug: (moduleSlug || '').trim() || undefined,
                 }),
             });
             const payload = await res.json();
@@ -589,6 +591,21 @@ export function ModulesForm({
                         checked={current.showOnHomePage}
                         onCheckedChange={(checked) => updateTranslation(activeTab, 'showOnHomePage', checked)}
                     />
+                </div>
+
+                <div>
+                    <FieldLabel htmlFor="moduleSlug">
+                        Page slug
+                    </FieldLabel>
+                    <Input
+                        id="moduleSlug"
+                        value={moduleSlug}
+                        onChange={(e) => setModuleSlug(e.target.value)}
+                        placeholder="e.g. backup-manager, emails"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                        Links this module to the page URL. Set to &quot;backup-manager&quot; for /backup-manager, &quot;emails&quot; for /emails, etc. Leave empty to match by title only.
+                    </p>
                 </div>
             </div>
 

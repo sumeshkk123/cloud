@@ -13,16 +13,16 @@ import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { ServicesMetaPageTitleForm } from './services-meta-page-title-form';
 
 interface CombinedRow {
-    page: string;
-    locale: string;
-    metaTitle: string;
-    metaDescription: string;
-    metaKeywords: string;
-    pageTitle: string;
-    pagePill: string;
-    sectionSubtitle: string;
-    availableLocales?: string[];
-    updatedAt?: Date | string;
+  page: string;
+  locale: string;
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
+  pageTitle: string;
+  pagePill: string;
+  sectionSubtitle: string;
+  availableLocales?: string[];
+  updatedAt?: Date | string;
 }
 
 const SERVICE_PAGE_PREFIX = 'services';
@@ -75,28 +75,28 @@ export function ServicesMetaPageTitleTab() {
 
   const loadAllData = async () => {
     if (servicePages.length === 0) return;
-    
+
     try {
       setIsLoading(true);
       const allData: CombinedRow[] = [];
-      
+
       // Load data for all service pages
       for (const pageOption of servicePages) {
         const page = pageOption.value;
-        
+
         const metaRes = await fetch(`/api/admin/meta-details?page=${encodeURIComponent(page)}`, {
           cache: 'no-store',
         });
         const metaData = metaRes.ok ? await metaRes.json() : [];
-        
+
         const pageTitleRes = await fetch(`/api/admin/page-titles?page=${encodeURIComponent(page)}`, {
           cache: 'no-store',
         });
         const pageTitleData = pageTitleRes.ok ? await pageTitleRes.json() : [];
-        
+
         const combinedMap = new Map<string, CombinedRow>();
         const locales = new Set<string>();
-        
+
         if (Array.isArray(metaData)) {
           metaData.forEach((item: any) => {
             if (item.page === page) {
@@ -122,7 +122,7 @@ export function ServicesMetaPageTitleTab() {
             }
           });
         }
-        
+
         if (Array.isArray(pageTitleData)) {
           pageTitleData.forEach((item: any) => {
             if (item.page === page) {
@@ -148,14 +148,17 @@ export function ServicesMetaPageTitleTab() {
             }
           });
         }
-        
+
         const allLocales = Array.from(locales);
-        combinedMap.forEach((row) => {
-          row.availableLocales = allLocales;
-          allData.push(row);
-        });
+        const enRow = combinedMap.get('en');
+        const rowToDisplay = enRow || (allLocales.length > 0 ? combinedMap.get(allLocales[0]) : null);
+
+        if (rowToDisplay) {
+          rowToDisplay.availableLocales = allLocales;
+          allData.push(rowToDisplay);
+        }
       }
-      
+
       setTableData(allData);
     } catch (error) {
       console.error('Error loading data:', error);
@@ -168,10 +171,10 @@ export function ServicesMetaPageTitleTab() {
   const loadServicePages = async () => {
     try {
       const allPages = [...STATIC_SERVICE_PAGES];
-      
+
       // Add main services page
       allPages.push({ value: SERVICE_PAGE_PREFIX, label: 'Services' });
-      
+
       // Sort alphabetically by label
       allPages.sort((a, b) => a.label.localeCompare(b.label));
       setServicePages(allPages);
@@ -191,20 +194,20 @@ export function ServicesMetaPageTitleTab() {
 
   const handleDelete = async () => {
     if (!pageToDelete) return;
-    
+
     try {
       setIsDeleting(true);
-      
+
       // Delete meta details
       await fetch(`/api/admin/meta-details?page=${encodeURIComponent(pageToDelete)}&locale=${localeToDelete}`, {
         method: 'DELETE',
       });
-      
+
       // Delete page titles
       await fetch(`/api/admin/page-titles?page=${encodeURIComponent(pageToDelete)}&locale=${localeToDelete}`, {
         method: 'DELETE',
       });
-      
+
       showToast('Deleted successfully.', 'success');
       setDeleteConfirmOpen(false);
       setPageToDelete(null);

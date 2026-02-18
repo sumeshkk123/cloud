@@ -16,7 +16,7 @@ export const autoResponderModuleContent: PricingSubPageContent = {
     description:
       "Activate intelligent nurture journeys that keep distributors productive and customers loyal. Our pricing packages bundle strategy, configuration, and optimisation so your teams realise value from day one and keep momentum in every market.",
     primaryCta: "Book a pricing session",
-    secondaryCta: "Compare all modules",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Automated journeys launched",
@@ -238,8 +238,8 @@ export const autoResponderModuleContent: PricingSubPageContent = {
     heading: "Ready to orchestrate outcomes with intelligent automation?",
     description:
       "Share your automation vision and constraints. We'll prepare a tailored proposal, timeline, and measurement framework grounded in Cloud MLM Software's thought leadership.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore pricing hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our automation architects",
     cardBody:
       "Receive a curated walkthrough, cost breakdown, and optimisation roadmap aligned to your organisation's growth objectives.",

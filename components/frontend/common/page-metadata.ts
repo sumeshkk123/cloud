@@ -50,10 +50,8 @@ export async function getPageMetadata(
         // Handle both Promise and direct params (Next.js 15 compatibility)
         const resolvedParams =
             params == null ? undefined : (params instanceof Promise ? await params : params);
-        const locale = resolvedParams?.lang;
-        if (locale == null) {
-            return buildFallbackMetadata(config);
-        }
+        const locale = resolvedParams != null ? resolvedParams.lang : undefined;
+        if (locale == null) return buildFallbackMetadata(config);
 
         const { page, fallbackTitle, fallbackDescription, fallbackKeywords, slug } = config;
 
@@ -64,7 +62,7 @@ export async function getPageMetadata(
         // Skip database query during build if DATABASE_URL is dummy (Docker build scenario)
         const databaseUrl = process.env.DATABASE_URL || '';
         const isBuildTime = databaseUrl.includes('dummy@localhost') || databaseUrl.includes('dummy:dummy');
-        
+
         if (!isBuildTime) {
             try {
                 let meta = await getMetaDetail(page, locale);
@@ -81,14 +79,20 @@ export async function getPageMetadata(
                     const shortKey = page.replace(/^mlm-software-modules-/, '');
                     meta = await getMetaDetail(shortKey, locale);
                 }
-                // Fallback: /emails page – admin may have meta under "Email Module" (mlm-software-modules-email-module)
-                if (!meta && page === 'mlm-software-modules-emails') {
-                    meta = await getMetaDetail('mlm-software-modules-email-module', locale);
-                }
                 // Fallback: service pages (e.g. services/web-development) – try slug only in case meta was saved under legacy key
                 if (!meta && page.startsWith('services/')) {
                     const serviceSlug = page.replace(/^services\//, '');
                     if (serviceSlug) meta = await getMetaDetail(serviceSlug, locale);
+                }
+                // Fallback: industry solutions (e.g. industry-solutions/insurance) – try dash variant too
+                if (!meta && page.startsWith('industry-solutions/')) {
+                    const slug = page.replace(/^industry-solutions\//, '');
+                    if (slug) meta = await getMetaDetail(`industry-solutions-${slug}`, locale);
+                }
+                // Fallback: industry solutions (e.g. industry-solutions-insurance) – try slash variant too
+                if (!meta && page.startsWith('industry-solutions-')) {
+                    const slug = page.replace(/^industry-solutions-/, '');
+                    if (slug) meta = await getMetaDetail(`industry-solutions/${slug}`, locale);
                 }
                 if (meta) {
                     title = meta.title || title;
@@ -104,6 +108,16 @@ export async function getPageMetadata(
                     const shortKey = page.replace(/^mlm-software-modules-/, '');
                     pageTitleRecord = await getPageTitle(shortKey, locale);
                 }
+                // Fallback: industry solutions – try dash variant
+                if (!pageTitleRecord && page.startsWith('industry-solutions/')) {
+                    const slug = page.replace(/^industry-solutions\//, '');
+                    if (slug) pageTitleRecord = await getPageTitle(`industry-solutions-${slug}`, locale);
+                }
+                // Fallback: industry solutions – try slash variant
+                if (!pageTitleRecord && page.startsWith('industry-solutions-')) {
+                    const slug = page.replace(/^industry-solutions-/, '');
+                    if (slug) pageTitleRecord = await getPageTitle(`industry-solutions/${slug}`, locale);
+                }
                 if (pageTitleRecord) {
                     if (!meta?.title) title = pageTitleRecord.title;
                     if (!meta?.description && pageTitleRecord.sectionSubtitle) description = pageTitleRecord.sectionSubtitle;
@@ -117,11 +131,11 @@ export async function getPageMetadata(
         // Generate canonical URL using buildLocalizedPath
         const canonicalPath = slug ? `${path}/${slug}` : path;
         const canonicalUrl = buildLocalizedPath(canonicalPath, locale);
-        
+
         // Ensure canonical URL is absolute
         const baseUrl = siteBaseConfig.url.replace(/\/$/, '');
-        const absoluteCanonicalUrl = canonicalUrl.startsWith('http') 
-            ? canonicalUrl 
+        const absoluteCanonicalUrl = canonicalUrl.startsWith('http')
+            ? canonicalUrl
             : `${baseUrl}${canonicalUrl}`;
 
         return {
@@ -147,7 +161,7 @@ export async function getPageMetadata(
         // Return fallback metadata if anything fails
         console.error('[getPageMetadata] Error generating metadata:', error);
         const { fallbackTitle, fallbackDescription, fallbackKeywords } = config;
-        
+
         // Resolve params for fallback (guard so we never read .lang on undefined)
         let resolvedParams: { lang?: SupportedLocale } | undefined;
         try {

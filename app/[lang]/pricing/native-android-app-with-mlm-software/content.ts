@@ -19,8 +19,8 @@ export const nativeAndroidAppWithMlmSoftwareContent: PricingSubPageContent = {
     title: "Native Android app pricing to accelerate field performance.",
     description:
       "Cloud MLM Software delivers a native Android experience that keeps distributors in sync, on brand, and revenue-focused. We handle product strategy, engineering, security, and enablement so your team can launch with confidence.",
-    primaryCta: "Book a mobile strategy session",
-    secondaryCta: "View Android demo",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Launch timeline",
@@ -224,8 +224,8 @@ export const nativeAndroidAppWithMlmSoftwareContent: PricingSubPageContent = {
     heading: "Ready to empower your distributors on Android?",
     description:
       "Share your launch goals, integrations, and timelines. We'll prepare a tailored proposal and roadmap that keeps every stakeholder aligned.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore Android demo",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our team",
     cardBody:
       "Expect a discovery agenda and prototype ideas within one business day. We remain embedded from kickoff through optimisation.",

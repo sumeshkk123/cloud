@@ -13,9 +13,7 @@ import { LanguageBadges } from '@/components/admin/common/language-badges';
 import { IndustrySolutionsMetaPageTitleForm } from './industry-solutions-meta-page-title-form';
 import { i18n } from '@/i18n-config';
 
-function slugFromTitle(title: string): string {
-  return (title || '').toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-}
+
 
 interface CombinedRow {
   page: string;
@@ -23,9 +21,6 @@ interface CombinedRow {
   metaTitle: string;
   metaDescription: string;
   metaKeywords: string;
-  pageTitle: string;
-  pagePill: string;
-  sectionSubtitle: string;
   availableLocales?: string[];
   updatedAt?: Date | string;
 }
@@ -74,7 +69,7 @@ export function IndustrySolutionsMetaPageTitleTab() {
         return;
       }
       const allPages = data.map((s: any) => ({
-        value: `${INDUSTRY_SOLUTION_PAGE_PREFIX}/${slugFromTitle(s.title || '')}`,
+        value: `${INDUSTRY_SOLUTION_PAGE_PREFIX}/${s.slug || ''}`,
         label: String(s.title || s.id),
       }));
       setIndustrySolutionPages(allPages);
@@ -92,70 +87,40 @@ export function IndustrySolutionsMetaPageTitleTab() {
       for (const pageOption of industrySolutionPages) {
         const page = pageOption.value;
         if (page === INDUSTRY_SOLUTION_PAGE_PREFIX) continue;
+
         const metaRes = await fetch(`/api/admin/meta-details?page=${encodeURIComponent(page)}`, { cache: 'no-store' });
         const metaData = metaRes.ok ? await metaRes.json() : [];
-        const pageTitleRes = await fetch(`/api/admin/page-titles?page=${encodeURIComponent(page)}`, { cache: 'no-store' });
-        const pageTitleData = pageTitleRes.ok ? await pageTitleRes.json() : [];
-        const combinedMap = new Map<string, CombinedRow>();
+
         const locales = new Set<string>();
+        let metaEn: { title?: string; description?: string; keywords?: string } = {};
+
         if (Array.isArray(metaData)) {
           metaData.forEach((item: any) => {
             if (item.page === page) {
               const locale = item.locale || 'en';
               locales.add(locale);
-              if (!combinedMap.has(locale)) {
-                combinedMap.set(locale, {
-                  page,
-                  locale,
-                  metaTitle: '',
-                  metaDescription: '',
-                  metaKeywords: '',
-                  pageTitle: '',
-                  pagePill: '',
-                  sectionSubtitle: '',
-                  availableLocales: [],
-                });
+              if (locale === 'en') {
+                metaEn = { title: item.title || '', description: item.description || '', keywords: item.keywords || '' };
               }
-              const row = combinedMap.get(locale)!;
-              row.metaTitle = item.title || '';
-              row.metaDescription = item.description || '';
-              row.metaKeywords = item.keywords || '';
             }
           });
         }
-        if (Array.isArray(pageTitleData)) {
-          pageTitleData.forEach((item: any) => {
-            if (item.page === page) {
-              const locale = item.locale || 'en';
-              locales.add(locale);
-              if (!combinedMap.has(locale)) {
-                combinedMap.set(locale, {
-                  page,
-                  locale,
-                  metaTitle: '',
-                  metaDescription: '',
-                  metaKeywords: '',
-                  pageTitle: '',
-                  pagePill: '',
-                  sectionSubtitle: '',
-                  availableLocales: [],
-                });
-              }
-              const row = combinedMap.get(locale)!;
-              row.pageTitle = item.title || '';
-              row.pagePill = item.pagePill || '';
-              row.sectionSubtitle = item.sectionSubtitle || '';
-            }
-          });
-        }
+
         const allLocales = Array.from(locales);
-        combinedMap.forEach((row) => {
-          row.availableLocales = allLocales;
-          allData.push(row);
-        });
+        if (allLocales.length > 0) {
+          allData.push({
+            page,
+            locale: 'en',
+            metaTitle: metaEn.title ?? '',
+            metaDescription: metaEn.description ?? '',
+            metaKeywords: metaEn.keywords ?? '',
+            availableLocales: allLocales,
+          });
+        }
       }
       setTableData(allData);
     } catch (error) {
+      console.error('Error loading data:', error);
       setTableData([]);
     } finally {
       setIsLoading(false);
@@ -171,9 +136,8 @@ export function IndustrySolutionsMetaPageTitleTab() {
 
   const columns = [
     { key: 'page', label: 'Page', className: 'w-48' },
-    { key: 'locale', label: 'Locale', className: 'w-24' },
-    { key: 'pageTitle', label: 'Page Title', className: 'w-40' },
     { key: 'metaTitle', label: 'Meta Title', className: 'w-40' },
+    { key: 'locale', label: 'Languages', className: 'w-48' },
     { key: 'actions', label: 'Actions', className: 'w-24 text-right' },
   ];
 
@@ -190,7 +154,7 @@ export function IndustrySolutionsMetaPageTitleTab() {
             setIsFormOpen(true);
           }}
         >
-          Add Meta & Page Title
+          Add Meta Details
         </Button>
       </div>
 
@@ -202,30 +166,31 @@ export function IndustrySolutionsMetaPageTitleTab() {
         renderCell={(column, row) => {
           if (column.key === 'page') {
             const pageSlug = row.page.replace(`${INDUSTRY_SOLUTION_PAGE_PREFIX}/`, '');
-            return <span className="font-mono text-sm text-gray-700 dark:text-gray-300">{pageSlug || row.page}</span>;
+            const label = industrySolutionPages.find((p) => p.value === row.page)?.label ?? pageSlug;
+            return <span className="font-medium text-gray-900 dark:text-gray-100">{label}</span>;
           }
           if (column.key === 'locale') {
             return (
               <LanguageBadges
                 availableLocales={row.availableLocales || [row.locale]}
                 allLocales={[...i18n.locales]}
-                layout="badge"
+                layout="flex"
               />
             );
           }
-          if (column.key === 'pageTitle') return <span className="line-clamp-2 text-sm">{row.pageTitle || '—'}</span>;
           if (column.key === 'metaTitle') return <span className="line-clamp-2 text-sm">{row.metaTitle || '—'}</span>;
           if (column.key === 'actions') {
             return (
               <ActionMenu
                 onEdit={() => {
                   setEditingPage(row.page);
-                  setEditingLocale(row.locale);
+                  setEditingLocale('en'); // Always start with English in the popup
                   setIsFormOpen(true);
                 }}
                 onDelete={() => {
                   setPageToDelete(row.page);
-                  setLocaleToDelete(row.locale);
+                  // Default to English locale for UI, but handle all in DeleteConfirmModal if needed
+                  setLocaleToDelete('en');
                   setDeleteConfirmOpen(true);
                 }}
               />
@@ -250,8 +215,8 @@ export function IndustrySolutionsMetaPageTitleTab() {
           setEditingPage(null);
           setFormToast(null);
         }}
-        title={editingPage ? 'Edit Meta & Page Title' : 'Add Meta & Page Title'}
-        size="3xl"
+        title={editingPage ? 'Edit Meta Details' : 'Add Meta Details'}
+        size="4xl"
         isLoading={isFormLoading}
         footer={
           <div className="flex justify-end gap-2">
@@ -271,7 +236,6 @@ export function IndustrySolutionsMetaPageTitleTab() {
           onClose={() => setIsFormOpen(false)}
           onSave={() => {
             setRefreshKey((k) => k + 1);
-            setIsFormOpen(false);
           }}
           onToastChange={setFormToast}
           onLoadingChange={setIsFormLoading}

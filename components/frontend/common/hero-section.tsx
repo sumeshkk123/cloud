@@ -31,11 +31,12 @@ export interface HeroSectionProps {
         external?: boolean;
         onClick?: () => void;
     };
-    /** Secondary CTA button props */
+    /** Secondary CTA: use href for link, or onClick for client action (e.g. open modal) */
     secondaryCta?: {
         label: string;
-        href: string;
+        href?: string;
         external?: boolean;
+        onClick?: () => void;
     };
     /** Metrics to display in the right column */
     metrics?: HeroMetric[];
@@ -118,12 +119,19 @@ export function HeroSection({
                                     )
                                 )}
                                 {secondaryCta && (
-                                    <Button asChild variant="outline" size="lg" className="group rounded-xl border-2 px-6 py-6 text-base font-semibold transition-all duration-300 hover:scale-105 hover:border-primary hover:bg-primary/5">
-                                        <Link href={secondaryCta.href} target={secondaryCta.external ? "_blank" : undefined} rel={secondaryCta.external ? "noopener noreferrer" : undefined}>
+                                    secondaryCta.onClick ? (
+                                        <Button type="button" onClick={secondaryCta.onClick} variant="outline" size="lg" className="group rounded-xl border-2 px-6 py-6 text-base font-semibold transition-all duration-300 hover:scale-105 hover:border-primary hover:bg-primary/5">
                                             {secondaryCta.label}
                                             <ArrowUpRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
-                                        </Link>
-                                    </Button>
+                                        </Button>
+                                    ) : (
+                                        <Button asChild variant="outline" size="lg" className="group rounded-xl border-2 px-6 py-6 text-base font-semibold transition-all duration-300 hover:scale-105 hover:border-primary hover:bg-primary/5">
+                                            <Link href={secondaryCta.href!} target={secondaryCta.external ? "_blank" : undefined} rel={secondaryCta.external ? "noopener noreferrer" : undefined}>
+                                                {secondaryCta.label}
+                                                <ArrowUpRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden />
+                                            </Link>
+                                        </Button>
+                                    )
                                 )}
                             </div>
                         )}

@@ -19,8 +19,8 @@ export const multilingualSystemContent: PricingSubPageContent = {
     title: "Multilingual system pricing that scales storytelling worldwide.",
     description:
       "Cloud MLM Software blends AI translation, human expertise, and governance so teams can launch multilingual campaigns, portals, and support assets without friction.",
-    primaryCta: "Plan your localisation roadmap",
-    secondaryCta: "Explore services hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Languages operationalised",
@@ -225,8 +225,8 @@ export const multilingualSystemContent: PricingSubPageContent = {
     heading: "Ready to speak every market's language?",
     description:
       "Share your launch calendar and language priorities. We'll craft a pricing proposal, timeline, and governance plan tuned to your stakeholders.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore services hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our team",
     cardBody:
       "Expect a discovery agenda and reviewer checklist within one business day. We stay partnered through every release cycle.",

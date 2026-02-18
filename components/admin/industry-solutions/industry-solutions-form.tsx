@@ -17,6 +17,7 @@ const locales = supportedLocales;
 
 interface IndustrySolutionTranslation {
   locale: string;
+  slug: string;
   title: string;
   description: string;
   icon: string;
@@ -48,6 +49,7 @@ export function IndustrySolutionsForm({
     locales.forEach((loc) => {
       initial[loc] = {
         locale: loc,
+        slug: '',
         title: '',
         description: '',
         icon: '',
@@ -103,6 +105,7 @@ export function IndustrySolutionsForm({
             if (existing) {
               loaded[loc] = {
                 locale: loc,
+                slug: String(existing.slug || ''),
                 title: String(existing.title || ''),
                 description: String(existing.description || ''),
                 icon: sharedIcon || String(existing.icon || ''),
@@ -112,6 +115,7 @@ export function IndustrySolutionsForm({
             } else {
               loaded[loc] = {
                 locale: loc,
+                slug: '',
                 title: '',
                 description: '',
                 icon: sharedIcon,
@@ -135,6 +139,7 @@ export function IndustrySolutionsForm({
       locales.forEach((loc) => {
         reset[loc] = {
           locale: loc,
+          slug: '',
           title: '',
           description: '',
           icon: '',
@@ -151,7 +156,7 @@ export function IndustrySolutionsForm({
     setTranslations((prev) => {
       const updated = { ...prev };
       updated[locale] = { ...prev[locale], [field]: value };
-      if (field === 'icon' || field === 'showOnHomePage') {
+      if (field === 'icon' || field === 'showOnHomePage' || field === 'slug') {
         locales.forEach((loc) => {
           updated[loc] = { ...updated[loc], [field]: value };
         });
@@ -238,14 +243,16 @@ export function IndustrySolutionsForm({
 
   const handleSave = async () => {
     const current = translations[activeTab];
+    const slug = (current?.slug || '').trim();
     const title = (current?.title || '').trim();
     const description = (current?.description || '').trim();
     const icon = (current?.icon || '').trim();
     const showOnHomePage = current?.showOnHomePage ?? false;
     const englishShowOnHomePage = translations['en']?.showOnHomePage ?? false;
+    const englishSlug = translations['en']?.slug ?? '';
 
-    if (!title || !description || !icon) {
-      showToast('Please fill in title, description, and icon.', 'error');
+    if (!title || !description || !icon || !slug) {
+      showToast('Please fill in slug, title, description, and icon.', 'error');
       return;
     }
 
@@ -257,6 +264,7 @@ export function IndustrySolutionsForm({
         method: idToUse === 'new' ? 'POST' : 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          slug: activeTab === 'en' ? slug : englishSlug,
           title,
           description,
           icon,
@@ -286,6 +294,7 @@ export function IndustrySolutionsForm({
 
   const current = translations[activeTab] || {
     locale: 'en',
+    slug: '',
     title: '',
     description: '',
     icon: '',
@@ -318,13 +327,12 @@ export function IndustrySolutionsForm({
                 key={locale}
                 type="button"
                 onClick={() => setActiveTab(locale)}
-                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${
-                  isActive
-                    ? 'border-primary-500 text-primary-600 bg-primary-50 dark:bg-primary-900/20'
-                    : hasContent
-                      ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50 dark:bg-green-900/10'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${isActive
+                  ? 'border-primary-500 text-primary-600 bg-primary-50 dark:bg-primary-900/20'
+                  : hasContent
+                    ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50 dark:bg-green-900/10'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   <span>{tabLabel}</span>
@@ -365,13 +373,19 @@ export function IndustrySolutionsForm({
           <IconPicker
             value={current.icon || ''}
             onChange={(icon) => i18n.locales.forEach((loc) => updateTranslation(loc, 'icon', icon))}
-            disabled={isSaving || isLoading || activeTab !== 'en'}
+            disabled={isSaving || isLoading}
             placeholder="Select an icon..."
-            className={activeTab !== 'en' ? 'bg-gray-50 dark:bg-gray-800 cursor-not-allowed' : ''}
           />
-          {activeTab !== 'en' && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Icon is shared. Edit in English to change.</p>
-          )}
+        </div>
+        <div>
+          <FieldLabel htmlFor="slug" required>Slug (App Folder Name)</FieldLabel>
+          <Input
+            id="slug"
+            value={current.slug}
+            onChange={(e) => i18n.locales.forEach((loc) => updateTranslation(loc, 'slug', e.target.value))}
+            placeholder="e.insurance"
+            disabled={isSaving || isLoading}
+          />
         </div>
         <div>
           <FieldLabel htmlFor="title" required>Title</FieldLabel>
@@ -397,12 +411,9 @@ export function IndustrySolutionsForm({
           <Toggle
             id="showOnHomePage"
             checked={current.showOnHomePage}
-            onCheckedChange={(checked) => updateTranslation(activeTab, 'showOnHomePage', checked)}
-            disabled={activeTab !== 'en'}
+            onCheckedChange={(checked) => i18n.locales.forEach((loc) => updateTranslation(loc, 'showOnHomePage', checked))}
+            disabled={isSaving || isLoading}
           />
-          {activeTab !== 'en' && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Show on home is shared. Edit in English to change.</p>
-          )}
         </div>
       </div>
     </form>

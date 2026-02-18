@@ -31,6 +31,7 @@ function resolveLocale(lang: string): Locale {
 
 type ModuleSubpagePageProps = {
   params?: Promise<{ lang: SupportedLocale; slug: string }> | { lang: SupportedLocale; slug: string };
+  searchParams?: Promise<{ mid?: string }> | { mid?: string };
 };
 
 export default async function ModuleSubpagePage(props: ModuleSubpagePageProps) {
@@ -51,7 +52,8 @@ export default async function ModuleSubpagePage(props: ModuleSubpagePageProps) {
   const pageId = getPageFromSlug(urlSlug, locale as SupportedLocale) ?? (isModulesSubpageSlug(urlSlug) ? urlSlug : null);
   if (!pageId || !isModulesSubpageSlug(pageId)) notFound();
 
-  const pageTitleData = await getModuleSubpageHeroDataBySlug(pageId, locale);
+  const searchResolved = props?.searchParams != null ? (props.searchParams instanceof Promise ? await props.searchParams : props.searchParams) : undefined;
+  const pageTitleData = await getModuleSubpageHeroDataBySlug(pageId, locale, searchResolved?.mid);
 
   return (
     <ModuleSubpageClient

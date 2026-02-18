@@ -20,8 +20,8 @@ export const magentoIntegrationContent: PricingSubPageContent = {
     title: "Magento integration pricing that delivers unified commerce and compensation.",
     description:
       "Launch storefront experiences that synchronise with distributor operations, finance, and analytics. Cloud MLM Software packages strategy, integration, and optimisation into one engagement so your teams can scale momentum globally.",
-    primaryCta: "Schedule pricing consultation",
-    secondaryCta: "Explore commerce demo",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Catalog sync velocity",
@@ -200,8 +200,8 @@ export const magentoIntegrationContent: PricingSubPageContent = {
     heading: "Ready to unify Magento and Cloud MLM Software?",
     description:
       "Share your architecture, catalog complexity, and launch goals. We'll craft a pricing proposal, timeline, and measurement plan that keeps leadership aligned.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "View product tour",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our team",
     cardBody:
       "Expect a discovery agenda and stakeholder checklist within one business day. We partner with your teams through launch and beyond.",

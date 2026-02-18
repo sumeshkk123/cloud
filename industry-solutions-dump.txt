@@ -1,0 +1,1023 @@
+--- ALL INDUSTRY SOLUTIONS ---
+[
+  {
+    "id": "7483cae2-d2dd-4d92-9c02-4252f6cb7372",
+    "title": "MLM Software for Investment Industry",
+    "description": "Streamline operations and optimize your investment strategies.",
+    "icon": "fontawesome:faHandHoldingDollar",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:02:31.944Z",
+    "updatedAt": "2026-01-23T04:49:25.713Z"
+  },
+  {
+    "id": "fc1ac456-e2a1-43d1-bd61-ac7050c79aa9",
+    "title": "Software MMN para a Indústria de Marketing de Afiliados",
+    "description": "Nosso software de MLM capacita as empresas com recursos avançados e ferramentas flexíveis para marketing de afiliados",
+    "icon": "remix:RiContactsLine",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-23T03:59:55.051Z",
+    "updatedAt": "2026-01-23T04:49:34.147Z"
+  },
+  {
+    "id": "33ba1797-7e23-43cf-ac6e-7c853190e48a",
+    "title": "MLM-Software für die Affiliate-Marketing-Branche",
+    "description": "Unsere MLM-Software unterstützt Unternehmen mit erweiterten Funktionen und flexiblen Tools für Affiliate-Marketing",
+    "icon": "remix:RiContactsLine",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-23T03:59:50.596Z",
+    "updatedAt": "2026-01-23T04:49:34.147Z"
+  },
+  {
+    "id": "afe74647-b8f1-42e6-a9ad-3f3e98e0cb06",
+    "title": "Software MLM para la formación profesional y la industria del coaching",
+    "description": "Ayuda a tus formadores y entrenadores a generar un impacto duradero en el crecimiento de tu negocio.",
+    "icon": "fontawesome:faPersonChalkboard",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-23T04:05:33.691Z",
+    "updatedAt": "2026-01-23T04:21:15.411Z"
+  },
+  {
+    "id": "d509cefa-35fa-4126-bf35-b0c72e42af84",
+    "title": "MLM Software for Gaming Industry",
+    "description": "Create an immersive gaming experience to keep your customers engaged from start to finish..",
+    "icon": "fontawesome:faGamepad",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:15:46.121Z",
+    "updatedAt": "2026-01-23T04:15:46.120Z"
+  },
+  {
+    "id": "872ffecd-ec86-4bc9-8ff7-10649cc997ef",
+    "title": "MLM Software for Professional Training and Coaching Industry",
+    "description": "Help your trainers and coaches generate a lasting impact on your business growth.",
+    "icon": "fontawesome:faPersonChalkboard",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:05:02.450Z",
+    "updatedAt": "2026-01-23T04:21:15.427Z"
+  },
+  {
+    "id": "96ba811e-72b5-40bb-9106-d7f3208e9970",
+    "title": "MLM Software for Travel Industry",
+    "description": "Enhance every step of your customer journey with personalized services.",
+    "icon": "remix:RiEBikeLine",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:31:02.102Z",
+    "updatedAt": "2026-01-23T04:31:02.100Z"
+  },
+  {
+    "id": "0e4420bd-3748-424d-b195-64aff741e878",
+    "title": "MLM Software for IT Industry",
+    "description": "Deliver exceptional support and enhanced productivity with top-notch features.",
+    "icon": "fontawesome:faDesktopAlt",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:31:31.604Z",
+    "updatedAt": "2026-01-23T04:31:31.603Z"
+  },
+  {
+    "id": "efdd4940-f575-4286-99fe-df2a4d9db307",
+    "title": "MLM Software for E-Learning Industry",
+    "description": "Enhance course engagement with an interactive learning experience.",
+    "icon": "fontawesome:faBookAtlas",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:32:32.236Z",
+    "updatedAt": "2026-01-23T04:32:32.235Z"
+  },
+  {
+    "id": "fed88119-ffad-45a7-8da9-3607f2ff6317",
+    "title": "MLM Software for Energy Industry",
+    "description": "Manage energy services and enhance sustainability initiatives for superior service delivery.",
+    "icon": "fontawesome:faSunPlantWilt",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:33:04.738Z",
+    "updatedAt": "2026-01-23T04:33:04.738Z"
+  },
+  {
+    "id": "11896ff8-389d-414c-9a4b-c38950322547",
+    "title": "MLM Software for Finance Industry",
+    "description": "Drive growth, ensure compliance, and make better data-driven decisions with a cutting-edge solution.",
+    "icon": "remix:RiExchangeDollarLine",
+    "showOnHomePage": true,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:33:47.732Z",
+    "updatedAt": "2026-01-23T04:33:47.731Z"
+  },
+  {
+    "id": "94aa8e17-b3ab-44e9-ad7f-7038dff3eb5b",
+    "title": "Software MLM para la industria financiera",
+    "description": "Impulse el crecimiento, garantice el cumplimiento y tome mejores decisiones basadas en datos con una solución de vanguardia.",
+    "icon": "remix:RiExchangeDollarLine",
+    "showOnHomePage": true,
+    "locale": "es",
+    "createdAt": "2026-01-23T04:33:55.427Z",
+    "updatedAt": "2026-01-23T04:33:55.426Z"
+  },
+  {
+    "id": "11bdf941-123d-4251-bdb3-1040db45e938",
+    "title": "Software MLM per l'industria finanziaria",
+    "description": "Promuovi la crescita, garantisci la conformità e prendi decisioni migliori basate sui dati con una soluzione all'avanguardia.",
+    "icon": "remix:RiExchangeDollarLine",
+    "showOnHomePage": true,
+    "locale": "it",
+    "createdAt": "2026-01-23T04:34:02.500Z",
+    "updatedAt": "2026-01-23T04:34:02.499Z"
+  },
+  {
+    "id": "0f4760dc-fb1c-4747-a395-c5da24729b62",
+    "title": "Software MLM para la industria del marketing de afiliación",
+    "description": "Nuestro software MLM empodera a las empresas con funciones avanzadas y herramientas flexibles para el marketing de afiliación",
+    "icon": "remix:RiContactsLine",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-23T03:59:37.830Z",
+    "updatedAt": "2026-01-23T04:49:34.147Z"
+  },
+  {
+    "id": "98b19f3d-6da5-470a-b570-8e52a7170ebc",
+    "title": "联盟营销行业的传销软件",
+    "description": "我们的传销软件为企业提供先进的功能和灵活的联盟营销工具",
+    "icon": "remix:RiContactsLine",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-23T03:59:59.311Z",
+    "updatedAt": "2026-01-23T04:49:34.147Z"
+  },
+  {
+    "id": "cdbd9025-5479-4b3d-acbd-8a86945bb83d",
+    "title": "MLM-Software für die Finanzbranche",
+    "description": "Fördern Sie das Wachstum, sorgen Sie für Compliance und treffen Sie bessere datengesteuerte Entscheidungen mit einer hochmodernen Lösung.",
+    "icon": "remix:RiExchangeDollarLine",
+    "showOnHomePage": true,
+    "locale": "de",
+    "createdAt": "2026-01-23T04:34:07.150Z",
+    "updatedAt": "2026-01-23T04:34:07.150Z"
+  },
+  {
+    "id": "2dfbe689-03f0-4b0b-952b-677d6ce38372",
+    "title": "Software MLM para a Indústria Financeira",
+    "description": "Impulsione o crescimento, garanta a conformidade e tome melhores decisões baseadas em dados com uma solução de ponta.",
+    "icon": "remix:RiExchangeDollarLine",
+    "showOnHomePage": true,
+    "locale": "pt",
+    "createdAt": "2026-01-23T04:34:12.700Z",
+    "updatedAt": "2026-01-23T04:34:12.699Z"
+  },
+  {
+    "id": "a0f9da5b-61f9-41c7-9ee3-cc4af3ea3903",
+    "title": "金融行业的传销软件",
+    "description": "借助尖端解决方案，推动增长、确保合规性，并做出更好的数据驱动型决策。",
+    "icon": "remix:RiExchangeDollarLine",
+    "showOnHomePage": true,
+    "locale": "zh",
+    "createdAt": "2026-01-23T04:34:19.161Z",
+    "updatedAt": "2026-01-23T04:34:19.159Z"
+  },
+  {
+    "id": "b0793fde-ec2f-419b-8cf2-a9e6acdd0f17",
+    "title": "MLM Software for Affiliate Marketing Industry",
+    "description": "Our MLM Software empowers businesses with advanced features and flexible tools for affiliate marketing",
+    "icon": "remix:RiContactsLine",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T03:58:14.873Z",
+    "updatedAt": "2026-01-23T04:49:34.150Z"
+  },
+  {
+    "id": "203720af-9db8-4d26-afae-529493233172",
+    "title": "MLM Software for Ecommerce Industry",
+    "description": "Deliver a seamless shopping experience to maximize customer satisfaction.",
+    "icon": "fontawesome:faCartFlatbedSuitcase",
+    "showOnHomePage": true,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:35:05.686Z",
+    "updatedAt": "2026-01-23T04:35:05.685Z"
+  },
+  {
+    "id": "5f7d1d34-cb2d-471c-890a-d6aed7662214",
+    "title": "Software MLM para la industria del comercio electrónico",
+    "description": "Ofrece una experiencia de compra perfecta para maximizar la satisfacción del cliente.",
+    "icon": "fontawesome:faCartFlatbedSuitcase",
+    "showOnHomePage": true,
+    "locale": "es",
+    "createdAt": "2026-01-23T04:35:12.444Z",
+    "updatedAt": "2026-01-23T04:35:12.443Z"
+  },
+  {
+    "id": "055a2ef4-9931-4369-91b5-26cbeb243570",
+    "title": "Software MLM per il settore dell'e-commerce",
+    "description": "Offri un'esperienza di acquisto senza interruzioni per massimizzare la soddisfazione del cliente.",
+    "icon": "fontawesome:faCartFlatbedSuitcase",
+    "showOnHomePage": true,
+    "locale": "it",
+    "createdAt": "2026-01-23T04:35:17.673Z",
+    "updatedAt": "2026-01-23T04:35:17.672Z"
+  },
+  {
+    "id": "da268836-1d40-4ddf-b449-8f48c95755cf",
+    "title": "MLM-Software für die E-Commerce-Branche",
+    "description": "Bieten Sie ein nahtloses Einkaufserlebnis, um die Kundenzufriedenheit zu maximieren.",
+    "icon": "fontawesome:faCartFlatbedSuitcase",
+    "showOnHomePage": true,
+    "locale": "de",
+    "createdAt": "2026-01-23T04:35:22.427Z",
+    "updatedAt": "2026-01-23T04:35:22.427Z"
+  },
+  {
+    "id": "c4c467e8-529e-4bb9-bc7c-0dd6fdea9472",
+    "title": "Software MLM para a Indústria de Ecommerce",
+    "description": "Ofereça uma experiência de compra perfeita para maximizar a satisfação do cliente.",
+    "icon": "fontawesome:faCartFlatbedSuitcase",
+    "showOnHomePage": true,
+    "locale": "pt",
+    "createdAt": "2026-01-23T04:35:26.175Z",
+    "updatedAt": "2026-01-23T04:35:26.174Z"
+  },
+  {
+    "id": "d37fbb03-eea9-458f-a516-57059a1f5586",
+    "title": "电子商务行业的传销软件",
+    "description": "提供无缝的购物体验，最大限度地提高客户满意度。",
+    "icon": "fontawesome:faCartFlatbedSuitcase",
+    "showOnHomePage": true,
+    "locale": "zh",
+    "createdAt": "2026-01-23T04:36:50.968Z",
+    "updatedAt": "2026-01-23T04:36:50.967Z"
+  },
+  {
+    "id": "5478d9f1-63c7-4725-ba85-46e881be3566",
+    "title": "MLM Software for Clothing Industry",
+    "description": "Streamline your fashion business and attract more customers.",
+    "icon": "fontawesome:faPersonHalfDress",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:37:57.103Z",
+    "updatedAt": "2026-01-23T04:37:57.102Z"
+  },
+  {
+    "id": "b55bf820-4f42-4e15-a8e0-b5348f51669d",
+    "title": "MLM Software for Home Care Industry",
+    "description": "Offer personalized approach to product sales and customer support.",
+    "icon": "fontawesome:faPaintRoller",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:42:17.308Z",
+    "updatedAt": "2026-01-23T04:42:17.307Z"
+  },
+  {
+    "id": "4272a63d-d2a3-4090-8a29-36a0bc503b23",
+    "title": "MLM Software for Cryptocurrency Industry",
+    "description": "Build a transparent crypto trading environment to increase client confidence.",
+    "icon": "remix:RiBitCoinFill",
+    "showOnHomePage": true,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:43:19.888Z",
+    "updatedAt": "2026-01-23T04:43:19.887Z"
+  },
+  {
+    "id": "c01bb375-f495-48af-a604-b57de78a98e0",
+    "title": "Software MLM para la industria de las criptomonedas",
+    "description": "Crea un entorno de trading en criptomonedas transparente para aumentar la confianza de los clientes.",
+    "icon": "remix:RiBitCoinFill",
+    "showOnHomePage": true,
+    "locale": "es",
+    "createdAt": "2026-01-23T04:43:28.470Z",
+    "updatedAt": "2026-01-23T04:43:28.469Z"
+  },
+  {
+    "id": "3238df5d-519a-4407-ad5b-dec8edebff8d",
+    "title": "Software MLM per il settore delle criptovalute",
+    "description": "Crea un ambiente di trading crittografico trasparente per aumentare la fiducia dei clienti.",
+    "icon": "remix:RiBitCoinFill",
+    "showOnHomePage": true,
+    "locale": "it",
+    "createdAt": "2026-01-23T04:43:38.583Z",
+    "updatedAt": "2026-01-23T04:43:38.582Z"
+  },
+  {
+    "id": "253f9990-b8b8-49d8-b839-9c35c4a3234d",
+    "title": "MLM-Software für die Kryptowährungsbranche",
+    "description": "Bauen Sie eine transparente Krypto-Handelsumgebung auf, um das Vertrauen der Kunden zu erhöhen.",
+    "icon": "remix:RiBitCoinFill",
+    "showOnHomePage": true,
+    "locale": "de",
+    "createdAt": "2026-01-23T04:43:49.054Z",
+    "updatedAt": "2026-01-23T04:43:49.054Z"
+  },
+  {
+    "id": "d1074f83-dc04-448a-a036-5ec65bf376f3",
+    "title": "Software MLM para a Indústria de Criptomoedas",
+    "description": "Construa um ambiente transparente de negociação de criptomoedas para aumentar a confiança do cliente.",
+    "icon": "remix:RiBitCoinFill",
+    "showOnHomePage": true,
+    "locale": "pt",
+    "createdAt": "2026-01-23T04:43:56.467Z",
+    "updatedAt": "2026-01-23T04:43:56.467Z"
+  },
+  {
+    "id": "b766d94c-f680-49e6-8a0f-d7f13ec0fa92",
+    "title": "适用于加密货币行业的传销软件",
+    "description": "构建透明的加密货币交易环境，增强客户信心。",
+    "icon": "remix:RiBitCoinFill",
+    "showOnHomePage": true,
+    "locale": "zh",
+    "createdAt": "2026-01-23T04:44:27.036Z",
+    "updatedAt": "2026-01-23T04:44:27.034Z"
+  },
+  {
+    "id": "afaaa929-51cd-4bfa-87cd-9b40171e207e",
+    "title": "MLM Software for Beauty & Cosmetics Industry",
+    "description": "Create a personalized approach to elevate customer satisfaction.",
+    "icon": "remix:RiBlueskyLine",
+    "showOnHomePage": true,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:45:27.401Z",
+    "updatedAt": "2026-01-23T04:45:27.400Z"
+  },
+  {
+    "id": "b138d612-5cb9-4418-a1fc-9ecac2f90185",
+    "title": "Software MLM para la industria de la belleza y la cosmética",
+    "description": "Cree un enfoque personalizado para elevar la satisfacción del cliente.",
+    "icon": "remix:RiBlueskyLine",
+    "showOnHomePage": true,
+    "locale": "es",
+    "createdAt": "2026-01-23T04:45:33.277Z",
+    "updatedAt": "2026-01-23T04:45:33.276Z"
+  },
+  {
+    "id": "e6902a29-de92-4f76-bc1a-88f5b97edbd3",
+    "title": "Software MLM per l'industria della bellezza e dei cosmetici",
+    "description": "Crea un approccio personalizzato per aumentare la soddisfazione del cliente.",
+    "icon": "remix:RiBlueskyLine",
+    "showOnHomePage": true,
+    "locale": "it",
+    "createdAt": "2026-01-23T04:45:39.736Z",
+    "updatedAt": "2026-01-23T04:45:39.735Z"
+  },
+  {
+    "id": "96b54b7b-37a2-4a0c-833f-e0de4ea0e8a2",
+    "title": "MLM-Software für die Beauty- & Kosmetikindustrie",
+    "description": "Erstellen Sie einen personalisierten Ansatz, um die Kundenzufriedenheit zu erhöhen.",
+    "icon": "remix:RiBlueskyLine",
+    "showOnHomePage": true,
+    "locale": "de",
+    "createdAt": "2026-01-23T04:45:46.419Z",
+    "updatedAt": "2026-01-23T04:45:46.419Z"
+  },
+  {
+    "id": "c3c2007b-bf27-4f47-bb14-ca7652b4df0b",
+    "title": "Software MLM para a Indústria de Beleza e Cosméticos",
+    "description": "Crie uma abordagem personalizada para elevar a satisfação do cliente.",
+    "icon": "remix:RiBlueskyLine",
+    "showOnHomePage": true,
+    "locale": "pt",
+    "createdAt": "2026-01-23T04:45:52.022Z",
+    "updatedAt": "2026-01-23T04:45:52.021Z"
+  },
+  {
+    "id": "7937b16c-901c-47c8-af12-32d8cedb6a24",
+    "title": "美容和化妆品行业的传销软件",
+    "description": "创建个性化方法来提高客户满意度。",
+    "icon": "remix:RiBlueskyLine",
+    "showOnHomePage": true,
+    "locale": "zh",
+    "createdAt": "2026-01-23T04:45:56.603Z",
+    "updatedAt": "2026-01-23T04:45:56.603Z"
+  },
+  {
+    "id": "5d08eed6-303d-47d1-9f0f-61a24d2945ec",
+    "title": "MLM Software for Real Estate Industry",
+    "description": "Gain seamless visibility for your property listings and optimize client interactions.",
+    "icon": "remix:RiBuildingFill",
+    "showOnHomePage": true,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:46:34.835Z",
+    "updatedAt": "2026-01-23T04:46:34.834Z"
+  },
+  {
+    "id": "6f7efa01-a880-4392-98ba-d77f100258c2",
+    "title": "Software MLM para la industria inmobiliaria",
+    "description": "Obtén una visibilidad perfecta de tus anuncios de propiedades y optimiza las interacciones con los clientes.",
+    "icon": "remix:RiBuildingFill",
+    "showOnHomePage": true,
+    "locale": "es",
+    "createdAt": "2026-01-23T04:46:41.898Z",
+    "updatedAt": "2026-01-23T04:46:41.897Z"
+  },
+  {
+    "id": "361c3f88-0a5b-40a0-9589-de2a461ea9ac",
+    "title": "Software MLM per il settore immobiliare",
+    "description": "Ottieni una visibilità senza soluzione di continuità per i tuoi annunci immobiliari e ottimizza le interazioni con i clienti.",
+    "icon": "remix:RiBuildingFill",
+    "showOnHomePage": true,
+    "locale": "it",
+    "createdAt": "2026-01-23T04:46:46.144Z",
+    "updatedAt": "2026-01-23T04:46:46.143Z"
+  },
+  {
+    "id": "59ee072e-97ac-4798-b8f0-b716f5a65247",
+    "title": "MLM-Software für die Immobilienbranche",
+    "description": "Erhalten Sie nahtlose Transparenz für Ihre Immobilieninserate und optimieren Sie die Kundeninteraktionen.",
+    "icon": "remix:RiBuildingFill",
+    "showOnHomePage": true,
+    "locale": "de",
+    "createdAt": "2026-01-23T04:46:50.787Z",
+    "updatedAt": "2026-01-23T04:46:50.787Z"
+  },
+  {
+    "id": "5d44deb4-7ad9-4ba8-920a-e14c77bd9c6f",
+    "title": "Software MLM para a Indústria Imobiliária",
+    "description": "Obtenha visibilidade perfeita para os seus anúncios de propriedades e otimize as interações com os clientes.",
+    "icon": "remix:RiBuildingFill",
+    "showOnHomePage": true,
+    "locale": "pt",
+    "createdAt": "2026-01-23T04:46:55.337Z",
+    "updatedAt": "2026-01-23T04:46:55.336Z"
+  },
+  {
+    "id": "741a9370-3978-4aea-9f1e-7d09487ed6ab",
+    "title": "适用于房地产行业的传销软件",
+    "description": "获得房源的无缝可见性，并优化与客户的互动。",
+    "icon": "remix:RiBuildingFill",
+    "showOnHomePage": true,
+    "locale": "zh",
+    "createdAt": "2026-01-23T04:46:59.682Z",
+    "updatedAt": "2026-01-23T04:46:59.681Z"
+  },
+  {
+    "id": "ad406c91-7d6a-4304-a9ac-5eebbfb4bad6",
+    "title": "MLM Software for Health & Wellness Industry",
+    "description": "Empower your distributors and expand the potential of your business.",
+    "icon": "fontawesome:faHeartPulse",
+    "showOnHomePage": false,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:42:55.705Z",
+    "updatedAt": "2026-01-23T04:48:35.846Z"
+  },
+  {
+    "id": "169b8922-cfba-4a24-8339-e2c9c114ea96",
+    "title": "Software MLM para la industria de la inversión",
+    "description": "Agiliza las operaciones y optimiza tus estrategias de inversión.",
+    "icon": "fontawesome:faHandHoldingDollar",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-23T04:03:03.410Z",
+    "updatedAt": "2026-01-23T04:49:25.700Z"
+  },
+  {
+    "id": "04960e30-2387-48ab-a512-fc319ea4298e",
+    "title": "MLM-Software für die Investmentbranche",
+    "description": "Rationalisieren Sie den Betrieb und optimieren Sie Ihre Anlagestrategien.",
+    "icon": "fontawesome:faHandHoldingDollar",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-23T04:03:12.973Z",
+    "updatedAt": "2026-01-23T04:49:25.700Z"
+  },
+  {
+    "id": "e84a8f18-068a-4b35-a9de-968e37c201ec",
+    "title": "Software MLM per il settore degli investimenti",
+    "description": "Semplifica le operazioni e ottimizza le tue strategie di investimento.",
+    "icon": "fontawesome:faHandHoldingDollar",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-23T04:03:09.014Z",
+    "updatedAt": "2026-01-23T04:49:25.700Z"
+  },
+  {
+    "id": "4722dec3-0050-45ac-bb07-d3bf0c7380a1",
+    "title": "Software MLM para Indústria de Investimentos",
+    "description": "Agilize as operações e otimize as suas estratégias de investimento.",
+    "icon": "fontawesome:faHandHoldingDollar",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-23T04:03:16.891Z",
+    "updatedAt": "2026-01-23T04:49:25.700Z"
+  },
+  {
+    "id": "30fa0016-35d4-4981-b61e-2ae1a4c6cdaf",
+    "title": "投资行业的传销软件",
+    "description": "简化运营并优化您的投资策略。",
+    "icon": "fontawesome:faHandHoldingDollar",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-23T04:03:20.379Z",
+    "updatedAt": "2026-01-23T04:49:25.700Z"
+  },
+  {
+    "id": "1b77465c-4c06-4c33-9f7c-80fb1481ba20",
+    "title": "Software MLM per il settore del marketing di affiliazione",
+    "description": "Il nostro software MLM offre alle aziende funzionalità avanzate e strumenti flessibili per il marketing di affiliazione",
+    "icon": "remix:RiContactsLine",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-23T03:59:45.982Z",
+    "updatedAt": "2026-01-23T04:49:34.147Z"
+  },
+  {
+    "id": "c9f38895-1f15-4700-bf9c-93700b3cd721",
+    "title": "Software MLM para la industria de la salud y el bienestar",
+    "description": "Empodere a sus distribuidores y amplíe el potencial de su negocio.",
+    "icon": "fontawesome:faHeartPulse",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-27T04:33:20.091Z",
+    "updatedAt": "2026-01-27T04:33:20.089Z"
+  },
+  {
+    "id": "6fefebc2-8222-4e50-b872-0b396bc4c62e",
+    "title": "Software MLM per l'industria della salute e del benessere",
+    "description": "Potenzia i tuoi distributori ed espandi il potenziale della tua attività.",
+    "icon": "fontawesome:faHeartPulse",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-27T04:33:23.159Z",
+    "updatedAt": "2026-01-27T04:33:23.156Z"
+  },
+  {
+    "id": "d46c3734-cd75-4547-ba0e-966a31520946",
+    "title": "MLM-Software für die Gesundheits- und Wellnessbranche",
+    "description": "Stärken Sie Ihre Vertriebspartner und erweitern Sie das Potenzial Ihres Unternehmens.",
+    "icon": "fontawesome:faHeartPulse",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-27T04:33:25.539Z",
+    "updatedAt": "2026-01-27T04:33:25.536Z"
+  },
+  {
+    "id": "2571916d-b9ae-4ca8-8a89-c7f7d81cc26b",
+    "title": "Software MLM para a Indústria de Saúde e Bem-Estar",
+    "description": "Capacite os seus distribuidores e expanda o potencial do seu negócio.",
+    "icon": "fontawesome:faHeartPulse",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-27T04:33:28.173Z",
+    "updatedAt": "2026-01-27T04:33:28.171Z"
+  },
+  {
+    "id": "c0485316-89a2-4e8a-b5b7-73c63eeee86c",
+    "title": "健康与保健行业的传销软件",
+    "description": "赋能您的经销商，拓展您的业务潜力。",
+    "icon": "fontawesome:faHeartPulse",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-27T04:33:30.384Z",
+    "updatedAt": "2026-01-27T04:33:30.383Z"
+  },
+  {
+    "id": "7b302ac2-942a-4582-be05-f423486008ea",
+    "title": "Software MLM para la industria del cuidado del hogar",
+    "description": "Ofrezca un enfoque personalizado para las ventas de productos y la atención al cliente.",
+    "icon": "fontawesome:faPaintRoller",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-27T04:33:32.784Z",
+    "updatedAt": "2026-01-27T04:33:32.783Z"
+  },
+  {
+    "id": "f5487079-e7e7-4335-b9a4-e5b3edc48359",
+    "title": "Software MLM per l'industria della cura della casa",
+    "description": "Offrire un approccio personalizzato alla vendita dei prodotti e all'assistenza clienti.",
+    "icon": "fontawesome:faPaintRoller",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-27T04:33:35.582Z",
+    "updatedAt": "2026-01-27T04:33:35.580Z"
+  },
+  {
+    "id": "4b6f1b7a-729e-43bc-899e-e94303e6d50b",
+    "title": "MLM-Software für die häusliche Pflegebranche",
+    "description": "Bieten Sie einen personalisierten Ansatz für den Produktverkauf und den Kundensupport.",
+    "icon": "fontawesome:faPaintRoller",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-27T04:33:38.092Z",
+    "updatedAt": "2026-01-27T04:33:38.091Z"
+  },
+  {
+    "id": "7b5f2cc0-e6b9-46a9-ba77-d571898c2e5a",
+    "title": "Software MMN para a Indústria de Cuidados Domésticos",
+    "description": "Oferecer abordagem personalizada para vendas de produtos e suporte ao cliente.",
+    "icon": "fontawesome:faPaintRoller",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-27T04:33:40.410Z",
+    "updatedAt": "2026-01-27T04:33:40.409Z"
+  },
+  {
+    "id": "223e17d4-4699-499b-b7e2-77e7e50d3b2c",
+    "title": "用于家庭护理行业的MLM软件",
+    "description": "提供个性化的产品销售和客户支持方法。",
+    "icon": "fontawesome:faPaintRoller",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-27T04:33:42.822Z",
+    "updatedAt": "2026-01-27T04:33:42.821Z"
+  },
+  {
+    "id": "9b986807-7e99-4179-9cdc-367c4d42223e",
+    "title": "Software MLM para la industria de la confección",
+    "description": "Optimiza tu negocio de moda y atrae a más clientes.",
+    "icon": "fontawesome:faPersonHalfDress",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-27T04:33:45.229Z",
+    "updatedAt": "2026-01-27T04:33:45.228Z"
+  },
+  {
+    "id": "7da36461-31b4-473b-b3f9-4191b70fa947",
+    "title": "Software MLM per l'industria dell'abbigliamento",
+    "description": "Semplifica la tua attività di moda e attira più clienti.",
+    "icon": "fontawesome:faPersonHalfDress",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-27T04:33:47.813Z",
+    "updatedAt": "2026-01-27T04:33:47.812Z"
+  },
+  {
+    "id": "8adeae39-5a63-4bb3-8381-d8f9fe0d91c7",
+    "title": "MLM-Software für die Bekleidungsindustrie",
+    "description": "Optimieren Sie Ihr Modegeschäft und gewinnen Sie mehr Kunden.",
+    "icon": "fontawesome:faPersonHalfDress",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-27T04:33:51.521Z",
+    "updatedAt": "2026-01-27T04:33:51.518Z"
+  },
+  {
+    "id": "092494b9-8190-40f4-83fd-7b906a889d24",
+    "title": "Software MMN para a Indústria de Vestuário",
+    "description": "Simplifique o seu negócio de moda e atraia mais clientes.",
+    "icon": "fontawesome:faPersonHalfDress",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-27T04:33:53.875Z",
+    "updatedAt": "2026-01-27T04:33:53.875Z"
+  },
+  {
+    "id": "4335706d-dc23-4909-b494-aa9e93aabddc",
+    "title": "服装行业的传销软件",
+    "description": "简化您的时尚业务，吸引更多顾客。",
+    "icon": "fontawesome:faPersonHalfDress",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-27T04:33:56.429Z",
+    "updatedAt": "2026-01-27T04:33:56.428Z"
+  },
+  {
+    "id": "836312f4-c54d-46f9-a2ce-39e2dc2d44e9",
+    "title": "Software MLM para la industria energética",
+    "description": "Gestionar los servicios energéticos y mejorar las iniciativas de sostenibilidad para una prestación de servicios superior.",
+    "icon": "fontawesome:faSunPlantWilt",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-27T04:33:58.935Z",
+    "updatedAt": "2026-01-27T04:33:58.933Z"
+  },
+  {
+    "id": "68bf9ed4-2c04-4aea-8946-d0e190b6e601",
+    "title": "Software MLM per l'industria energetica",
+    "description": "Gestire i servizi energetici e migliorare le iniziative di sostenibilità per un'erogazione superiore dei servizi.",
+    "icon": "fontawesome:faSunPlantWilt",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-27T04:34:18.160Z",
+    "updatedAt": "2026-01-27T04:34:18.157Z"
+  },
+  {
+    "id": "4ecc7a28-e6b7-4adc-a2b6-1d6bded22e24",
+    "title": "MLM-Software für die Energiewirtschaft",
+    "description": "Managen Sie Energiedienstleistungen und verbessern Sie Nachhaltigkeitsinitiativen für eine überlegene Leistungserbringung.",
+    "icon": "fontawesome:faSunPlantWilt",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-27T04:34:31.997Z",
+    "updatedAt": "2026-01-27T04:34:31.995Z"
+  },
+  {
+    "id": "720c350e-7d0f-41ac-ab03-62bb1e9b2f11",
+    "title": "Software MLM para a Indústria de Energia",
+    "description": "Gerir os serviços de energia e melhorar as iniciativas de sustentabilidade para uma prestação de serviços superior.",
+    "icon": "fontawesome:faSunPlantWilt",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-27T04:34:37.984Z",
+    "updatedAt": "2026-01-27T04:34:37.983Z"
+  },
+  {
+    "id": "e902645b-76c6-422b-a2e8-174a154ce498",
+    "title": "用于能源行业的传销软件",
+    "description": "管理能源服务并加强可持续发展举措，以提供卓越的服务。",
+    "icon": "fontawesome:faSunPlantWilt",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-27T04:34:44.368Z",
+    "updatedAt": "2026-01-27T04:34:44.361Z"
+  },
+  {
+    "id": "42e5764a-8dff-4786-9a3d-6092e6f86846",
+    "title": "Software MLM para la industria del e-learning",
+    "description": "Mejore la participación en el curso con una experiencia de aprendizaje interactiva.",
+    "icon": "fontawesome:faBookAtlas",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-27T04:34:46.987Z",
+    "updatedAt": "2026-01-27T04:34:46.984Z"
+  },
+  {
+    "id": "71e6acfb-1ecf-4ed4-b497-38c82a0d4393",
+    "title": "Software MLM per l'industria dell'e-learning",
+    "description": "Migliora il coinvolgimento del corso con un'esperienza di apprendimento interattiva.",
+    "icon": "fontawesome:faBookAtlas",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-27T04:34:49.619Z",
+    "updatedAt": "2026-01-27T04:34:49.618Z"
+  },
+  {
+    "id": "0d551425-490a-40b6-b774-d47de8cb79fa",
+    "title": "MLM-Software für die E-Learning-Branche",
+    "description": "Verbessern Sie das Kurs-Engagement mit einer interaktiven Lernerfahrung.",
+    "icon": "fontawesome:faBookAtlas",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-27T04:34:52.042Z",
+    "updatedAt": "2026-01-27T04:34:52.040Z"
+  },
+  {
+    "id": "4ecda1e3-c782-400c-b063-43c44c802d7d",
+    "title": "Software MLM para a Indústria de E-Learning",
+    "description": "Melhore o envolvimento do curso com uma experiência de aprendizagem interativa.",
+    "icon": "fontawesome:faBookAtlas",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-27T04:34:54.435Z",
+    "updatedAt": "2026-01-27T04:34:54.434Z"
+  },
+  {
+    "id": "a77aaa5a-a19f-440d-a5c1-a7a59267b7a5",
+    "title": "适用于电子学习行业的传销软件",
+    "description": "通过交互式学习体验增强课程参与度。",
+    "icon": "fontawesome:faBookAtlas",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-27T04:34:56.855Z",
+    "updatedAt": "2026-01-27T04:34:56.853Z"
+  },
+  {
+    "id": "334a5af0-e0e3-487c-b710-babe5e647dca",
+    "title": "Software MLM para la industria de TI",
+    "description": "Ofrezca un soporte excepcional y una productividad mejorada con funciones de primer nivel.",
+    "icon": "fontawesome:faDesktopAlt",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-27T04:34:59.187Z",
+    "updatedAt": "2026-01-27T04:34:59.186Z"
+  },
+  {
+    "id": "f9ddd421-4039-408b-9a7f-4db3d8ae1870",
+    "title": "Software MLM per l'industria IT",
+    "description": "Offri un supporto eccezionale e una maggiore produttività con funzionalità di prim' ordine.",
+    "icon": "fontawesome:faDesktopAlt",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-27T04:35:01.638Z",
+    "updatedAt": "2026-01-27T04:35:01.637Z"
+  },
+  {
+    "id": "bb824910-53e5-4064-9d6b-5ab4a7ef868f",
+    "title": "MLM-Software für die IT-Branche",
+    "description": "Bieten Sie außergewöhnlichen Support und gesteigerte Produktivität mit erstklassigen Funktionen.",
+    "icon": "fontawesome:faDesktopAlt",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-27T04:35:03.964Z",
+    "updatedAt": "2026-01-27T04:35:03.963Z"
+  },
+  {
+    "id": "1589ad46-4a36-44d3-9346-ab1ed1fffd8c",
+    "title": "Software de MLM para a indústria de TI",
+    "description": "Ofereça suporte excepcional e produtividade aprimorada com recursos de alto nível.",
+    "icon": "fontawesome:faDesktopAlt",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-27T04:35:06.254Z",
+    "updatedAt": "2026-01-27T04:35:06.252Z"
+  },
+  {
+    "id": "b1b41d08-8e53-4cb2-9fed-370bc489f4a1",
+    "title": "面向IT行业的传销软件",
+    "description": "通过一流的功能提供卓越的支持和更高的生产力。",
+    "icon": "fontawesome:faDesktopAlt",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-27T04:35:08.695Z",
+    "updatedAt": "2026-01-27T04:35:08.694Z"
+  },
+  {
+    "id": "d13c0760-7d36-474c-86ef-0e9cb7510ef3",
+    "title": "Software MLM para la industria de viajes",
+    "description": "Mejore cada paso de su recorrido del cliente con servicios personalizados.",
+    "icon": "remix:RiEBikeLine",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-27T04:35:11.288Z",
+    "updatedAt": "2026-01-27T04:35:11.287Z"
+  },
+  {
+    "id": "0ae60cd9-e8ea-4853-ba84-4cd855fab9d3",
+    "title": "Software MLM per l'industria dei viaggi",
+    "description": "Migliora ogni fase del percorso del cliente con servizi personalizzati.",
+    "icon": "remix:RiEBikeLine",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-27T04:35:13.751Z",
+    "updatedAt": "2026-01-27T04:35:13.749Z"
+  },
+  {
+    "id": "f1e6bbc8-e384-4328-89e9-42f2abca8f78",
+    "title": "MLM-Software für die Reisebranche",
+    "description": "Verbessern Sie jeden Schritt Ihrer Customer Journey mit personalisierten Services.",
+    "icon": "remix:RiEBikeLine",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-27T04:35:16.193Z",
+    "updatedAt": "2026-01-27T04:35:16.192Z"
+  },
+  {
+    "id": "c3eaaa06-9bef-453e-a5ff-d25b9ad52f8b",
+    "title": "Software MLM para a Indústria de Viagens",
+    "description": "Aprimore cada etapa da jornada do seu cliente com serviços personalizados.",
+    "icon": "remix:RiEBikeLine",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-27T04:35:18.451Z",
+    "updatedAt": "2026-01-27T04:35:18.450Z"
+  },
+  {
+    "id": "07ca2546-952b-401d-bdc6-a27734cd43cc",
+    "title": "适用于旅游业的传销软件",
+    "description": "通过个性化服务提升客户旅程的每一步。",
+    "icon": "remix:RiEBikeLine",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-27T04:35:20.637Z",
+    "updatedAt": "2026-01-27T04:35:20.636Z"
+  },
+  {
+    "id": "9842e327-098d-4085-8d8b-f6f87550e68d",
+    "title": "Software MLM para la industria del juego",
+    "description": "Crea una experiencia de juego inmersiva para mantener a tus clientes interesados de principio a fin.",
+    "icon": "fontawesome:faGamepad",
+    "showOnHomePage": false,
+    "locale": "es",
+    "createdAt": "2026-01-27T04:35:22.972Z",
+    "updatedAt": "2026-01-27T04:35:22.970Z"
+  },
+  {
+    "id": "b2d5f2cf-9eb9-4256-9692-ad32c66b2bd7",
+    "title": "Software MLM per l'industria del gioco",
+    "description": "Crea un'esperienza di gioco coinvolgente per coinvolgere i tuoi clienti dall'inizio alla fine.",
+    "icon": "fontawesome:faGamepad",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-27T04:35:25.307Z",
+    "updatedAt": "2026-01-27T04:35:25.306Z"
+  },
+  {
+    "id": "ebffb767-dad5-4445-9eaa-6059acc0b28c",
+    "title": "MLM-Software für die Gaming-Branche",
+    "description": "Schaffen Sie ein immersives Spielerlebnis, um Ihre Kunden von Anfang bis Ende zu begeistern.",
+    "icon": "fontawesome:faGamepad",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-27T04:35:27.567Z",
+    "updatedAt": "2026-01-27T04:35:27.565Z"
+  },
+  {
+    "id": "79fbf449-8518-4c8c-a98e-f6406a6a5ed8",
+    "title": "Software MLM para a indústria de jogos",
+    "description": "Crie uma experiência de jogo imersiva para manter seus clientes envolvidos do início ao fim.",
+    "icon": "fontawesome:faGamepad",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-27T04:35:30.124Z",
+    "updatedAt": "2026-01-27T04:35:30.124Z"
+  },
+  {
+    "id": "72eb7a65-86b9-4d32-9f24-4f841196690d",
+    "title": "适用于游戏行业的传销软件",
+    "description": "打造身临其境的游戏体验，从头到尾吸引顾客。",
+    "icon": "fontawesome:faGamepad",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-27T04:35:32.401Z",
+    "updatedAt": "2026-01-27T04:35:32.399Z"
+  },
+  {
+    "id": "a0232c47-a257-4f2c-a125-8b11222c73ac",
+    "title": "Software MLM per l'industria della formazione e del coaching professionale",
+    "description": "Aiuta i tuoi formatori e coach a generare un impatto duraturo sulla crescita della tua attività.",
+    "icon": "fontawesome:faPersonChalkboard",
+    "showOnHomePage": false,
+    "locale": "it",
+    "createdAt": "2026-01-27T08:44:15.966Z",
+    "updatedAt": "2026-01-27T08:44:15.966Z"
+  },
+  {
+    "id": "39f4db9b-8bd6-48c0-b7e4-a6f86f66f682",
+    "title": "MLM-Software für die professionelle Trainings- und Coaching-Branche",
+    "description": "Helfen Sie Ihren Trainern und Coaches, einen nachhaltigen Einfluss auf Ihr Geschäftswachstum zu haben.",
+    "icon": "fontawesome:faPersonChalkboard",
+    "showOnHomePage": false,
+    "locale": "de",
+    "createdAt": "2026-01-27T08:44:22.060Z",
+    "updatedAt": "2026-01-27T08:44:22.059Z"
+  },
+  {
+    "id": "f1f00963-7a87-49b2-abfe-7c781d62dd1d",
+    "title": "Software MLM para Formação Profissional e Indústria de Coaching",
+    "description": "Ajude os seus formadores e coaches a gerar um impacto duradouro no crescimento do seu negócio.",
+    "icon": "fontawesome:faPersonChalkboard",
+    "showOnHomePage": false,
+    "locale": "pt",
+    "createdAt": "2026-01-27T08:44:28.923Z",
+    "updatedAt": "2026-01-27T08:44:28.922Z"
+  },
+  {
+    "id": "ae05b814-0044-4082-bfd9-c88d5f93d0db",
+    "title": "用于专业培训和教练行业的传销软件",
+    "description": "帮助培训师和教练对您的业务增长产生持久影响。",
+    "icon": "fontawesome:faPersonChalkboard",
+    "showOnHomePage": false,
+    "locale": "zh",
+    "createdAt": "2026-01-27T08:44:35.398Z",
+    "updatedAt": "2026-01-27T08:44:35.397Z"
+  },
+  {
+    "id": "3567baae-7217-4135-8d69-7189d0eb41fa",
+    "title": "Software MLM per il settore assicurativo",
+    "description": "Garantire una gestione efficiente delle politiche e relazioni più solide con i clienti",
+    "icon": "remix:RiHandHeartFill",
+    "showOnHomePage": true,
+    "locale": "it",
+    "createdAt": "2026-01-23T04:47:58.249Z",
+    "updatedAt": "2026-02-14T10:49:19.720Z"
+  },
+  {
+    "id": "3e65d3c7-a4ba-4b79-a616-8f960a54bb32",
+    "title": "3MLM Software for Insurance Industry",
+    "description": "Ensure efficient policy management and stronger client relationships.",
+    "icon": "remix:RiHandHeartFill",
+    "showOnHomePage": true,
+    "locale": "en",
+    "createdAt": "2026-01-23T04:47:49.797Z",
+    "updatedAt": "2026-02-14T10:49:19.702Z"
+  },
+  {
+    "id": "5a4b30fb-47de-4a08-b28e-f3985f20a140",
+    "title": "MLM-Software für die Versicherungsbranche",
+    "description": "Sicherstellung eines effizienten Richtlinienmanagements und engerer Kundenbeziehungen.",
+    "icon": "remix:RiHandHeartFill",
+    "showOnHomePage": true,
+    "locale": "de",
+    "createdAt": "2026-01-23T04:48:03.355Z",
+    "updatedAt": "2026-02-14T10:49:19.720Z"
+  },
+  {
+    "id": "b5acec37-f686-4771-805f-911330cc552b",
+    "title": "Software MLM para a Indústria de Seguros",
+    "description": "Garantir uma gestão eficiente das políticas e relações mais fortes com os clientes.",
+    "icon": "remix:RiHandHeartFill",
+    "showOnHomePage": true,
+    "locale": "pt",
+    "createdAt": "2026-01-23T04:48:07.450Z",
+    "updatedAt": "2026-02-14T10:49:19.720Z"
+  },
+  {
+    "id": "62ce944c-7a26-41f1-b959-78ddfc0fee67",
+    "title": "Software MLM para la industria de seguros",
+    "description": "Garantizar una gestión eficiente de las políticas y relaciones más sólidas con los clientes.",
+    "icon": "remix:RiHandHeartFill",
+    "showOnHomePage": true,
+    "locale": "es",
+    "createdAt": "2026-01-23T04:47:54.040Z",
+    "updatedAt": "2026-02-14T10:49:19.720Z"
+  },
+  {
+    "id": "764513df-7a42-41c7-b4f1-e19ca662bc57",
+    "title": "保险业的传销软件",
+    "description": "确保有效的政策管理和更牢固的客户关系。",
+    "icon": "remix:RiHandHeartFill",
+    "showOnHomePage": true,
+    "locale": "zh",
+    "createdAt": "2026-01-23T04:48:12.466Z",
+    "updatedAt": "2026-02-14T10:49:19.720Z"
+  }
+]

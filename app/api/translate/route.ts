@@ -45,20 +45,26 @@ async function translateWithMyMemory(text: string, targetLang: string, sourceLan
     // Also handle if zh-CN is already passed (defensive check)
     const myMemorySourceLang = (sourceLang === 'zh' || sourceLang === 'zh-CN') ? 'zh-CN' : sourceLang;
     const myMemoryTargetLang = (targetLang === 'zh' || targetLang === 'zh-CN') ? 'zh-CN' : targetLang;
-    
+
     // For Chinese translations, MyMemory quality is often poor
     // Consider splitting long texts or using a better service
     if (targetLang === 'zh' || targetLang === 'zh-CN') {
       console.warn('[MyMemory] Translating to Chinese - quality may be lower. Consider using DeepL or Google Translate API for better results.');
     }
-    
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${myMemorySourceLang}|${myMemoryTargetLang}`;
-    
+
+    let url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${myMemorySourceLang}|${myMemoryTargetLang}`;
+
+    // Add email for higher limits if configured
+    const myMemoryEmail = process.env.MYMEMORY_EMAIL;
+    if (myMemoryEmail) {
+      url += `&de=${encodeURIComponent(myMemoryEmail)}`;
+    }
+
     // Check URL length - MyMemory has URL length limits (around 2000 chars)
     if (url.length > 2000) {
       throw new Error(`Text too long for MyMemory API (URL length: ${url.length} chars). MyMemory free tier has URL length limits. Please add DeepL API key (500K chars/month free) or Google Translate API key (500K chars/month free) to your .env file for better limits.`);
     }
-    
+
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'Cloud MLM Software',
@@ -77,7 +83,7 @@ async function translateWithMyMemory(text: string, targetLang: string, sourceLan
       }
       throw new Error(`Translation API request failed: ${response.statusText} (HTTP ${response.status})`);
     }
-    
+
     // Check if translation was successful
     if (data.responseStatus === 200 && data.responseData?.translatedText) {
       return data.responseData.translatedText;
@@ -97,7 +103,7 @@ async function translateWithMyMemory(text: string, targetLang: string, sourceLan
       }
       throw new Error(`Translation failed with 403 Forbidden. ${errorMsg || 'This may be due to daily quota exceeded (10K chars/day free limit). Please add DeepL or Google Translate API key for better limits.'}`);
     }
-    
+
     if (data.responseStatus === 429 || response.status === 429) {
       throw new Error('Rate limit exceeded. Too many requests. Please wait a few minutes before trying again.');
     }
@@ -107,7 +113,7 @@ async function translateWithMyMemory(text: string, targetLang: string, sourceLan
     if (errorMsg.toLowerCase().includes('quota') || errorMsg.toLowerCase().includes('limit')) {
       throw new Error(`Translation quota/limit exceeded: ${errorMsg}`);
     }
-    
+
     throw new Error(errorMsg || `Translation failed (Status: ${data.responseStatus || response.status || 'unknown'})`);
   } catch (error) {
     // Re-throw if it's already our formatted error
@@ -126,7 +132,7 @@ async function translateWithMyMemory(text: string, targetLang: string, sourceLan
  */
 async function translateWithDeepL(text: string, targetLang: string, sourceLang: string = 'en'): Promise<string> {
   const apiKey = process.env.DEEPL_API_KEY;
-  
+
   if (!apiKey) {
     throw new Error('DeepL API key not configured');
   }
@@ -135,7 +141,7 @@ async function translateWithDeepL(text: string, targetLang: string, sourceLang: 
     // DeepL uses uppercase language codes
     const targetLangUpper = DEEPL_LOCALE_MAP[targetLang] || targetLang.toUpperCase();
     const sourceLangUpper = DEEPL_LOCALE_MAP[sourceLang] || sourceLang.toUpperCase();
-    
+
     const response = await fetch('https://api-free.deepl.com/v2/translate', {
       method: 'POST',
       headers: {
@@ -157,7 +163,7 @@ async function translateWithDeepL(text: string, targetLang: string, sourceLang: 
       } catch {
         errorData = { message: errorText };
       }
-      
+
       if (response.status === 403) {
         throw new Error('DeepL API authentication failed. Please check your API key.');
       } else if (response.status === 456) {
@@ -165,12 +171,12 @@ async function translateWithDeepL(text: string, targetLang: string, sourceLang: 
       } else if (response.status === 429) {
         throw new Error('DeepL rate limit exceeded. Please wait a few minutes.');
       }
-      
+
       throw new Error(errorData.message || `DeepL API error (${response.status})`);
     }
 
     const data = await response.json();
-    
+
     if (data.translations?.[0]?.text) {
       return data.translations[0].text;
     }
@@ -187,7 +193,7 @@ async function translateWithDeepL(text: string, targetLang: string, sourceLang: 
  */
 async function translateWithGoogle(text: string, targetLang: string, sourceLang: string = 'en'): Promise<string> {
   const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY;
-  
+
   if (!apiKey) {
     throw new Error('Google Translate API key not configured');
   }
@@ -198,7 +204,7 @@ async function translateWithGoogle(text: string, targetLang: string, sourceLang:
     // Also handle if zh-CN is already passed (defensive check)
     const googleSourceLang = (sourceLang === 'zh' || sourceLang === 'zh-CN') ? 'zh-CN' : sourceLang;
     const googleTargetLang = (targetLang === 'zh' || targetLang === 'zh-CN') ? 'zh-CN' : targetLang;
-    
+
     const response = await fetch(
       `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
       {
@@ -221,7 +227,7 @@ async function translateWithGoogle(text: string, targetLang: string, sourceLang:
     }
 
     const data = await response.json();
-    
+
     if (data.data?.translations?.[0]?.translatedText) {
       return data.data.translations[0].translatedText;
     }
@@ -266,7 +272,7 @@ export async function POST(request: NextRequest) {
     // Try services in priority order: DeepL > Google > MyMemory
     // For Chinese, prioritize DeepL or Google for better quality
     const isChinese = targetLang === 'zh' || targetLang === 'zh-CN';
-    
+
     // DeepL API (best quality, 500K chars/month free) - especially good for Chinese
     if (process.env.DEEPL_API_KEY) {
       try {
@@ -327,15 +333,15 @@ export async function POST(request: NextRequest) {
       targetLocale,
       service: serviceUsed,
     };
-    
+
     if ((targetLocale === 'zh' || targetLocale === 'zh-CN') && serviceUsed === 'mymemory') {
       response.qualityWarning = 'Chinese translation quality may be lower with MyMemory. For better results, add DeepL API key (500K chars/month free) or Google Translate API key (500K chars/month free) to your .env file.';
     }
-    
+
     return NextResponse.json(response);
   } catch (error: any) {
     const errorMessage = error.message || 'Translation failed';
-    
+
     // Determine status code based on error type
     let statusCode = 500;
     if (errorMessage.toLowerCase().includes('quota') || errorMessage.toLowerCase().includes('exceeded')) {
@@ -343,7 +349,7 @@ export async function POST(request: NextRequest) {
     } else if (errorMessage.toLowerCase().includes('rate limit') || errorMessage.toLowerCase().includes('429')) {
       statusCode = 429; // Too Many Requests
     }
-    
+
     return NextResponse.json(
       {
         error: errorMessage,

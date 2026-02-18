@@ -17,12 +17,14 @@ function resolveLocale(lang: string): Locale {
 
 type EmailsPageProps = {
   params: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+  searchParams?: Promise<{ mid?: string }> | { mid?: string };
 };
 
-export default async function EmailsPage({ params }: EmailsPageProps) {
+export default async function EmailsPage({ params, searchParams }: EmailsPageProps) {
   const resolvedParams = params != null ? (params instanceof Promise ? await params : params) : { lang: i18n.defaultLocale as SupportedLocale };
   const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
-  const pageTitleData = await getModuleSubpageHeroDataBySlug(MODULE_SLUG, locale);
+  const resolvedSearch = searchParams != null ? (searchParams instanceof Promise ? await searchParams : searchParams) : undefined;
+  const pageTitleData = await getModuleSubpageHeroDataBySlug(MODULE_SLUG, locale, resolvedSearch?.mid);
   const contactHref = buildLocalizedPath("/contact", locale);
   const secondaryHref = DEMO_URL;
 

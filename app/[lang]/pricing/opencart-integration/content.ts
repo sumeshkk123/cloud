@@ -18,8 +18,8 @@ export const opencartIntegrationContent: PricingSubPageContent = {
     title: "OpenCart integration pricing tailored to your omnichannel growth.",
     description:
       "We combine commerce expertise with compensation science so every order, promotion, and payout stays in lockstep. Choose the integration package that matches your roadmap and compliance requirements.",
-    primaryCta: "Schedule integration consult",
-    secondaryCta: "Compare pricing catalogue",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Integration timeline",
@@ -224,8 +224,8 @@ export const opencartIntegrationContent: PricingSubPageContent = {
     heading: "Ready to connect OpenCart with Cloud MLM Software?",
     description:
       "Share your storefront roadmap, integrations, and timelines. We'll craft a pricing proposal, delivery plan, and success metrics tailored to your growth goals.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore pricing hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our team",
     cardBody:
       "Expect a discovery agenda and stakeholder checklist within one business day. We stay embedded through launch and optimisation.",

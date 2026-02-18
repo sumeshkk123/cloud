@@ -22,7 +22,10 @@ import {
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
-export const dynamic = "force-static";
+import { getMetaDetail } from "@/lib/api/meta-details";
+import { getIndustryPageTitleKey } from "@/lib/industries-subpage";
+
+export const dynamic = "force-dynamic";
 
 type IconType = ComponentType<{ className?: string }>;
 
@@ -132,15 +135,23 @@ const STRATEGIC_INSIGHTS: Insight[] = [
   }
 ];
 
+const FALLBACK_TITLE = "Investment Industry MLM Software";
+const FALLBACK_DESCRIPTION =
+  "Accelerate investment distribution with Cloud MLM Software—hybrid compensation, investor intelligence, and global-ready compliance in one platform.";
+const FALLBACK_KEYWORDS = "investment mlm software, financial network marketing, wealth management direct selling";
+
 export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
   const locale = resolveLocale(params.lang);
-  const title = "Investment Industry MLM Software";
-  const description =
-    "Accelerate investment distribution with Cloud MLM Software—hybrid compensation, investor intelligence, and global-ready compliance in one platform.";
+  const pageKey = getIndustryPageTitleKey("investment");
+  const metaData = await getMetaDetail(pageKey, locale);
+  const title = metaData?.title ?? FALLBACK_TITLE;
+  const description = metaData?.description ?? FALLBACK_DESCRIPTION;
+  const keywords = metaData?.keywords ?? FALLBACK_KEYWORDS;
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: buildLocalizedPath("/industries/investment", locale)
     },

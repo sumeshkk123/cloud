@@ -1,5 +1,6 @@
 import { Sparkles } from "lucide-react";
-import { HeroSection, type HeroMetric } from "@/components/frontend/common/hero-section";
+import { type HeroMetric } from "@/components/frontend/common/hero-section";
+import { PlansHeroWithDemo } from "@/components/frontend/plans/plans-hero-with-demo";
 import type { Locale } from "@/i18n-config";
 import { getPageTitle } from "@/lib/api/page-titles";
 import { getPlansContent } from "@/lib/plans";
@@ -8,6 +9,8 @@ interface PlansHeroSectionProps {
   locale: Locale;
   contactHref: string;
   compareHref: string;
+  /** Page name for hero enquiry (e.g. "mlm-plans"). Enquiry sent as "Hero section - {pageName}". */
+  pageName?: string;
   pageTitleData?: Awaited<ReturnType<typeof getPageTitle>> | null;
 }
 
@@ -15,6 +18,7 @@ export async function PlansHeroSection({
   locale,
   contactHref,
   compareHref,
+  pageName = "mlm-plans",
   pageTitleData: propPageTitleData
 }: PlansHeroSectionProps) {
   // Fetch page title data if not provided
@@ -74,24 +78,19 @@ export async function PlansHeroSection({
   ];
 
   return (
-    <HeroSection
+    <PlansHeroWithDemo
       badgeText={pageTitleData?.pagePill || t.badgeText}
       badgeIcon={<Sparkles className="h-4 w-4" aria-hidden />}
       beforeText={titleParts.beforeText}
       highlightText={titleParts.highlightText}
       afterText={titleParts.afterText}
       description={pageTitleData?.sectionSubtitle || t.description}
-      primaryCta={{
-        label: t.primaryCta,
-        href: contactHref,
-      }}
-      secondaryCta={{
-        label: t.secondaryCta,
-        href: compareHref,
-      }}
+      primaryCtaLabel={t.primaryCta}
+      secondaryCtaLabel={t.secondaryCta}
+      compareHref={compareHref}
       metrics={metrics}
-      centered={false}
-      disableHighlight={false}
+      pageName={pageName}
+      locale={locale}
     />
   );
 }

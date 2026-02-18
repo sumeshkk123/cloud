@@ -214,13 +214,76 @@ export async function getAllMlmPlanTranslations(id: string): Promise<MlmPlanReco
 /**
  * Generate a slug from a plan title
  */
-function generateSlug(title: string): string {
+export function generateSlug(title: string): string {
   return title
     .toLowerCase()
-    .replace(/^mlm\s+/i, '')
+    .replace(/^([0-9]+\s*)?mlm\s+/i, '')
     .replace(/\s+/g, '-')
     .replace(/&/g, 'and')
     .replace(/[^a-z0-9-]/g, '');
+}
+
+/**
+ * Find plan whose generated slug exactly matches or is a prefix of the canonical slug.
+ * E.g. plan title "Australian X-UP Plan" -> slug "australian-x-up-plan" matches canonical "australian-x-up-plan-mlm-software".
+ */
+function findPlanBySlugMatch(
+  plans: MlmPlanRecord[],
+  canonicalSlug: string
+): MlmPlanRecord | null {
+  const exact = plans.find((p) => generateSlug(p.title) === canonicalSlug);
+  if (exact) return exact;
+  const withPrefix = plans
+    .filter((p) => {
+      const derived = generateSlug(p.title);
+      return derived && canonicalSlug.startsWith(derived);
+    })
+    .sort((a, b) => generateSlug(b.title).length - generateSlug(a.title).length);
+  return withPrefix[0] ?? null;
+}
+
+/**
+ * Get a single plan by canonical route slug and locale.
+ * 1) Current locale list (exact then prefix slug match)
+ * 2) English plan -> groupId -> plan for requested locale
+ * 3) Any locale: all plans, slug match (so hero shows list data when e.g. only one locale has data)
+ */
+export async function getMlmPlanByCanonicalSlug(
+  canonicalSlug: string,
+  locale: string
+): Promise<MlmPlanRecord | null> {
+  const normalizedSlug = canonicalSlug.toLowerCase().trim();
+  try {
+    let localePlans = await listMlmPlans(locale);
+    if (locale !== 'en' && localePlans.length === 0) {
+      localePlans = await listMlmPlans('en');
+    }
+    const inLocale = findPlanBySlugMatch(localePlans, normalizedSlug);
+    if (inLocale) return inLocale;
+
+    const enPlans = await listMlmPlans('en');
+    const enPlan = findPlanBySlugMatch(enPlans, normalizedSlug);
+    if (enPlan?.groupId) {
+      const rows = await prisma.mlm_plans.findMany({
+        where: { groupId: enPlan.groupId, locale },
+        take: 1,
+      });
+      const plan = rows[0] as unknown as PlanDbRow | undefined;
+      if (plan) {
+        return {
+          ...plan,
+          subtitle: plan.subtitle ?? null,
+          features: parseFeatures(plan.features),
+        } as unknown as MlmPlanRecord;
+      }
+    }
+
+    const allPlans = await listMlmPlans();
+    return findPlanBySlugMatch(allPlans, normalizedSlug);
+  } catch (error) {
+    console.error('[getMlmPlanByCanonicalSlug]', error);
+    return null;
+  }
 }
 
 /**

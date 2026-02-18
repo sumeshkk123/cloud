@@ -40,112 +40,98 @@ function slugToPageName(slug: string): string {
     .join(' ');
 }
 
-/** Derive display label; use notes when source is contact/project-brief to show actual page (Module, Services, Contact). */
+/** Derive display label; show only the page name, removing prefixes like Module, Service, Demo, Hero, etc. */
 function getSourceLabel(source?: string, notes?: string | null) {
-  const s = (source || 'contact').trim();
-  const n = (notes || '').toLowerCase();
-  if (s.startsWith('module-')) {
-    const slug = s.replace('module-', '');
-    return slug ? `Module: ${slugToPageName(slug)}` : 'Module';
+  const s = (source || "contact").trim();
+  const n = (notes || "").toLowerCase();
+
+  // 0. Specific transformation requested by user: /services/path -> Services - slug
+  // Also handles Service - slug or Services - slug
+  const servicesPathMatch = s.match(/\/?(?:[a-z]{2}\/)?services\/([^/?]+)/i);
+  if (servicesPathMatch?.[1]) {
+    return `Services - ${servicesPathMatch[1]}`;
   }
-  if (s.startsWith('demo-')) return `Demo: ${s.replace('demo-', '')}`;
-  if (s === 'project-brief' && notes) {
-    if (n.includes('services page')) return 'Services';
-    if (n.includes('module page:')) {
-      const match = notes.match(/module page:\s*([^\s,]+)/i);
-      if (match?.[1]) return `Module: ${slugToPageName(match[1])}`;
-      return 'Modules';
-    }
-    if (n.includes('modules page') || n.includes('mlm software modules')) return 'Modules';
-    return 'Contact';
+
+  // If already in the target format, return as is
+  if (s.toLowerCase().startsWith("services - ")) return s;
+
+  // Helper to extract page name from bracketed or parenthetical formats: "Hero section (Page Name)"
+  const extractFromParentheses = (text: string) => {
+    const match = text.match(/\(([^)]+)\)/);
+    return match ? match[1] : text;
+  };
+
+  // 1. Check Module sources
+  if (s.startsWith("module-")) {
+    return slugToPageName(s.replace("module-", ""));
   }
-  if (s === 'project-brief') return 'Contact';
-  if (s === 'contact' && notes) {
-    if (n.includes('services page') || n.includes('enquiry from services')) return 'Services';
-    if (n.includes('module page:') || n.includes('enquiry from module')) {
+
+  // 2. Check Service sources (Handle old service- prefix)
+  if (s.startsWith("service-")) {
+    return `Services - ${s.replace("service-", "")}`;
+  }
+
+  // 3. Check Demo sources
+  if (s.startsWith("demo-")) {
+    return slugToPageName(s.replace("demo-", ""));
+  }
+
+  // 4. Handle "project-brief" or "contact" with page info in notes
+  if ((s === "project-brief" || s === "contact") && notes) {
+    if (n.includes("services page") || n.includes("enquiry from services")) return "Services";
+    if (n.includes("module page:") || n.includes("enquiry from module")) {
       const match = notes.match(/(?:module page|enquiry from module[^:]*):\s*([^\s,]+)/i);
-      if (match?.[1]) return `Module: ${slugToPageName(match[1])}`;
-      return 'Modules';
+      return match?.[1] ? slugToPageName(match[1]) : "Modules";
     }
-    if (n.includes('modules page') || n.includes('mlm software modules')) return 'Modules';
+    if (n.includes("modules page") || n.includes("mlm software modules")) return "Modules";
   }
-  if (s === 'payment-gateways-cta') return 'CTA - payment-gateways';
-  if (s === 'hero-section-payment-gateways') {
+
+  // 5. Handle "hero-section" and "cta-section"
+  if (s.includes("hero-section") || s.includes("cta-section")) {
     const pageMatch = notes?.match(/Page:\s*(.+?)(?:\s·|$)/i);
-    const page = pageMatch?.[1]?.trim();
-    return page ? `Hero section (${page})` : 'Hero section - payment-gateways';
+    const extractedPage = pageMatch?.[1]?.trim();
+
+    if (extractedPage) {
+      // If extracted page is a path, transform it
+      const pMatch = extractedPage.match(/\/?(?:[a-z]{2}\/)?services\/([^/?]+)/i);
+      if (pMatch?.[1]) return `Services - ${pMatch[1]}`;
+
+      // If starts with services-, transform to Services -
+      if (extractedPage.toLowerCase().startsWith("services-")) {
+        return `Services - ${extractedPage.slice(9)}`;
+      }
+
+      return extractedPage;
+    }
+
+    // Fallbacks for specific hero types
+    if (s === "hero-section-country") return "Country";
+    if (s === "hero-section-module" || s === "mlm-software-modules") return "Modules";
+    if (s === "hero-section-payment-gateways") return "Payment Gateways";
   }
-  if (s === 'hero-section-country') return 'Hero section - country';
-  if (s === 'hero-section-module' || s === 'mlm-software-modules') return 'Hero section - module';
-  if (s === 'hero-section' || s === 'cta-section') {
-    const pageMatch = notes?.match(/Page:\s*(.+?)(?:\s·|$)/i);
-    const page = pageMatch?.[1]?.trim();
-    const base = s === 'hero-section' ? 'Hero section' : 'CTA section';
-    return page ? `${base} (${page})` : base;
-  }
-  if (s.startsWith('service-')) {
-    const slug = s.replace('service-', '');
-    return slug ? `Service: ${slugToPageName(slug)}` : 'Service';
-  }
-  return sourceLabels[s] || s;
+
+  // 6. Handle specific CTA types
+  if (s === "payment-gateways-cta") return "Payment Gateways";
+
+  // 7. Final fallback
+  const label = sourceLabels[s] || s;
+  return extractFromParentheses(label);
+}
+
+function getSourceBadgeClasses(): string {
+  return "px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200";
 }
 
 function getWebsiteDisplay(value?: string | null): string {
-  if (!value?.trim()) return 'Cloud MLM'; // Submissions in this DB without sourceSite are from Cloud MLM
+  if (!value?.trim()) return "Cloud MLM"; // Submissions in this DB without sourceSite are from Cloud MLM
   const v = value.trim().toLowerCase();
-  if (v.includes('business') && (v.includes('mlm') || v.includes('mlmsoftware'))) {
-    return 'Business MLM';
+  if (v.includes("business") && (v.includes("mlm") || v.includes("mlmsoftware"))) {
+    return "Business MLM";
   }
-  if (v.includes('cloud') && (v.includes('mlm') || v.includes('mlmsoftware'))) {
-    return 'Cloud MLM';
+  if (v.includes("cloud") && (v.includes("mlm") || v.includes("mlmsoftware"))) {
+    return "Cloud MLM";
   }
   return value.trim();
-}
-
-function getSourceBadgeClasses(source?: string, notes?: string | null): string {
-  const s = (source || 'contact').trim();
-  const baseClasses = 'px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full';
-  const n = (notes || '').toLowerCase();
-  const fromNotes =
-    (s === 'project-brief' || s === 'contact') &&
-    (n.includes('services page') ||
-      n.includes('enquiry from services') ||
-      n.includes('module page') ||
-      n.includes('enquiry from module') ||
-      n.includes('modules page') ||
-      n.includes('mlm software modules'));
-  const effectiveSource = fromNotes
-    ? n.includes('services page') || n.includes('enquiry from services')
-      ? 'services'
-      : n.includes('module page') || n.includes('enquiry from module') || n.includes('modules page') || n.includes('mlm software modules')
-        ? 'mlm-software-modules'
-        : 'contact'
-    : s;
-  const isModuleStyle = effectiveSource === 'mlm-software-modules' || effectiveSource.startsWith('module-') || effectiveSource === 'hero-section-module';
-  if (isModuleStyle) {
-    return `${baseClasses} bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-sm`;
-  }
-  if (effectiveSource === 'hero-section-country') {
-    return `${baseClasses} bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-200`;
-  }
-  if (effectiveSource === 'payment-gateways-cta' || effectiveSource === 'hero-section-payment-gateways') {
-    return `${baseClasses} bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200`;
-  }
-  if (effectiveSource.startsWith('demo-')) {
-    return `${baseClasses} bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200`;
-  }
-  switch (effectiveSource) {
-    case 'contact':
-      return `${baseClasses} bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200`;
-    case 'pricing':
-      return `${baseClasses} bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200`;
-    case 'demo':
-      return `${baseClasses} bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200`;
-    case 'services':
-      return `${baseClasses} bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200`;
-    default:
-      return `${baseClasses} bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200`;
-  }
 }
 
 export function ContactSubmissionsTable({
@@ -252,7 +238,7 @@ export function ContactSubmissionsTable({
                       await navigator.clipboard.writeText(r.email);
                       setCopiedEmail(r.id);
                       setTimeout(() => setCopiedEmail(null), 2000);
-                    } catch {}
+                    } catch { }
                   }}
                   className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                   title="Copy email"
@@ -288,7 +274,7 @@ export function ContactSubmissionsTable({
           if (column.key === 'country') return <span>{r.country ?? '—'}</span>;
           if (column.key === 'source') {
             return (
-              <span className={getSourceBadgeClasses(r.source, r.notes)}>{getSourceLabel(r.source, r.notes)}</span>
+              <span className={getSourceBadgeClasses()}>{getSourceLabel(r.source, r.notes)}</span>
             );
           }
           if (column.key === 'date') return <span>{r.date ?? '—'}</span>;

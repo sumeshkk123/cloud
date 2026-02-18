@@ -51,6 +51,8 @@ export interface PricingSubPageLayoutProps {
   content: PricingSubPageContent;
   contactHref: string;
   secondaryHref: string;
+  onPrimaryCtaClick?: () => void;
+  onSecondaryCtaClick?: () => void;
   heroVariant?: "default" | "dark";
 }
 
@@ -58,6 +60,8 @@ export function PricingSubPageLayout({
   content,
   contactHref,
   secondaryHref,
+  onPrimaryCtaClick,
+  onSecondaryCtaClick,
   heroVariant = "default",
 }: PricingSubPageLayoutProps) {
   return (
@@ -66,6 +70,8 @@ export function PricingSubPageLayout({
         content={content.hero}
         contactHref={contactHref}
         secondaryHref={secondaryHref}
+        onPrimaryCtaClick={onPrimaryCtaClick}
+        onSecondaryCtaClick={onSecondaryCtaClick}
         variant={heroVariant}
       />
       {sortSections(content.sections).map((section) =>
@@ -76,6 +82,7 @@ export function PricingSubPageLayout({
         content={content.cta}
         contactHref={contactHref}
         secondaryHref={secondaryHref}
+        onPrimaryCtaClick={onPrimaryCtaClick}
       />
     </div>
   );

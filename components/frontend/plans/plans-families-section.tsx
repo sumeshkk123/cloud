@@ -1,12 +1,14 @@
 import React from "react";
 import type { Locale } from "@/i18n-config";
+import type { SupportedLocale } from "@/config/site";
 import * as RemixIcon from "@remixicon/react";
 import { Section } from "@/components/ui/section";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Typography } from "@/components/ui/typography";
 import { ReadMoreButton } from "@/components/ui/read-more-button";
-import { listMlmPlans } from "@/lib/api/mlm-plans";
-import { localizedHref } from "@/components/frontend/home/utils";
+import { listMlmPlans, generateSlug } from "@/lib/api/mlm-plans";
+import { getCanonicalSlugForPlanTitle } from "@/lib/mlm-plan-subpage-slugs";
+import { buildLocalizedPath } from "@/lib/locale-links";
 import { getCommonContent } from "@/lib/common";
 import { cn } from "@/lib/utils";
 
@@ -70,6 +72,11 @@ export async function PlansFamiliesSection({ locale }: PlansFamiliesSectionProps
                 }
 
                 const highlights = Array.isArray(plan.features) ? plan.features.slice(0, 4) : [];
+                const derivedSlug = generateSlug(plan.title);
+                const canonicalSlug = getCanonicalSlugForPlanTitle(plan.title, derivedSlug);
+                const planHref = canonicalSlug
+                  ? buildLocalizedPath(`/mlm-plan/${canonicalSlug}`, locale as SupportedLocale)
+                  : buildLocalizedPath("/mlm-plans", locale as SupportedLocale);
 
                 return (
                   <div
@@ -120,7 +127,7 @@ export async function PlansFamiliesSection({ locale }: PlansFamiliesSectionProps
                     {/* Footer with ReadMore Button */}
                     <div className="mt-auto flex items-center justify-end gap-4 border-t border-border/50 pt-4">
                       <ReadMoreButton
-                        href={localizedHref(locale, `/mlm-plans`)}
+                        href={planHref}
                         variant="default"
                       >
                         {exploreDetailsText}

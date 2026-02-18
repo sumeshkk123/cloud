@@ -21,8 +21,8 @@ export const wordpressCmsWebsiteContent: PricingSubPageContent = {
     title: "WordPress CMS website pricing with Cloud MLM Software expertise.",
     description:
       "Launch a fast, secure, and conversion-optimised WordPress experience that connects seamlessly to your Cloud MLM Software ecosystem. Our packages bundle strategy, design, engineering, and enablement.",
-    primaryCta: "Schedule pricing session",
-    secondaryCta: "Review services hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "WordPress launches delivered",
@@ -244,8 +244,8 @@ export const wordpressCmsWebsiteContent: PricingSubPageContent = {
     heading: "Ready to launch a WordPress site that converts?",
     description:
       "Share your goals, content requirements, and integration landscape. We'll deliver a pricing proposal and roadmap aligned to your vision.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore services hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our WordPress specialists",
     cardBody:
       "Expect a discovery agenda and content inventory checklist within one business day. We remain your partner through launch and optimisation.",

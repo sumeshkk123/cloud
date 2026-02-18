@@ -299,11 +299,6 @@ export function MetaDetailsForm({
                         required
                         disabled={isSaving || isLoading || isEditing}
                     />
-                    {isEditing && (
-                        <p className="text-xs text-gray-500 mt-1">
-                            Editing translations for: <span className="font-medium text-gray-700">{pageLabel}</span>
-                        </p>
-                    )}
                 </div>
 
                 {/* Locale Tabs */}
@@ -321,10 +316,10 @@ export function MetaDetailsForm({
                                     type="button"
                                     onClick={() => setActiveLocale(loc)}
                                     className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${isActive
-                                            ? 'border-blue-500 text-blue-600 bg-blue-50'
-                                            : hasContent
-                                                ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50'
-                                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                        ? 'border-blue-500 text-blue-600 bg-blue-50'
+                                        : hasContent
+                                            ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50'
+                                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                                         }`}
                                 >
                                     <div className="flex items-center gap-2">

@@ -2,7 +2,7 @@ export default {
   hero: {
     badgeText: "Plan Studio & compensation experts",
     description: "Model binary, unilevel, matrix, board, and hybrid plans with guided simulations, compliance guardrails, and launch playbooks tailored to every market.",
-    primaryCta: "Book a compensation workshop",
+    primaryCta: "Book a compensation plan",
     secondaryCta: "Compare pricing options",
     metrics: {
       planTemplates: {

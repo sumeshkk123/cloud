@@ -82,7 +82,8 @@ export function IndustriesListSection({
 
                     // Map backend data to ProgramLayer format
                     const mappedLayers: ProgramLayer[] = solutions.map((solution: any) => {
-                        const slug = generateSlug(solution.title);
+                        // Use stable slug from DB if available, fallback to legacy generation
+                        const slug = solution.slug || generateSlug(solution.title);
                         const pathSlug = getIndustryPathSlug(slug);
                         const href = buildLocalizedPath(`/industries/${pathSlug}`, locale as SupportedLocale);
                         const IconComponent = resolveIcon(solution.icon || null, Code);

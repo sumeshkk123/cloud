@@ -25,7 +25,10 @@ import {
   UsersThree
 } from "@phosphor-icons/react/dist/ssr";
 
-export const dynamic = "force-static";
+import { getMetaDetail } from "@/lib/api/meta-details";
+import { getIndustryPageTitleKey } from "@/lib/industries-subpage";
+
+export const dynamic = "force-dynamic";
 
 type IconType = ComponentType<{ className?: string }>;
 
@@ -152,15 +155,23 @@ const FEATURES: Feature[] = [
   }
 ];
 
+const FALLBACK_TITLE = "Cryptocurrency MLM Software";
+const FALLBACK_DESCRIPTION =
+  "Scale crypto MLM networks with Cloud MLM Software—secure wallet management, regulatory intelligence, and hybrid compensation automation.";
+const FALLBACK_KEYWORDS = "crypto mlm software, blockchain network marketing, token based mlm";
+
 export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
   const locale = resolveLocale(params.lang);
-  const title = "Cryptocurrency MLM Software";
-  const description =
-    "Scale crypto MLM networks with Cloud MLM Software—secure wallet management, regulatory intelligence, and hybrid compensation automation.";
+  const pageKey = getIndustryPageTitleKey("cryptocurrency");
+  const metaData = await getMetaDetail(pageKey, locale);
+  const title = metaData?.title ?? FALLBACK_TITLE;
+  const description = metaData?.description ?? FALLBACK_DESCRIPTION;
+  const keywords = metaData?.keywords ?? FALLBACK_KEYWORDS;
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: buildLocalizedPath("/industries/cryptocurrency", locale)
     },

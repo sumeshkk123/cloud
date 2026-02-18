@@ -1,200 +1,27 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import type { ComponentType } from "react";
+import { getMetaDetail } from "@/lib/api/meta-details";
+import { getIndustryPageTitleKey } from "@/lib/industries-subpage";
 
-import type { SupportedLocale } from "@/config/site";
-import { isSupportedLocale } from "@/lib/i18n-utils";
-import { buildLocalizedPath } from "@/lib/locale-links";
-import type { Locale } from "@/i18n-config";
-import { i18n } from "@/i18n-config";
-import { Button } from "@/components/ui/button";
-import {
-  ArrowUpRight,
-  BadgeCheck,
-  BarChart3,
-  BookOpen,
-  BrainCircuit,
-  Globe,
-  Layers3,
-  ShieldCheck,
-  Shuffle,
-  SignalHigh,
-  UsersRound
-} from "lucide-react";
-import {
-  ChalkboardTeacher,
-  CirclesThreePlus,
-  GraduationCap,
-  Lightning,
-  UsersFour
-} from "@phosphor-icons/react/dist/ssr";
+export const dynamic = "force-dynamic";
 
-export const dynamic = "force-static";
+// ... (existing types and constants)
 
-type IconType = ComponentType<{ className?: string }>;
-
-type Stat = {
-  value: string;
-  label: string;
-  detail: string;
-  icon: IconType;
-};
-
-type Challenge = {
-  title: string;
-  description: string;
-};
-
-type Solution = {
-  title: string;
-  description: string;
-  icon: IconType;
-};
-
-type Module = {
-  title: string;
-  summary: string;
-  icon: IconType;
-};
-
-type Sprint = {
-  stage: string;
-  focus: string;
-  description: string;
-};
-
-const HERO_STATS: Stat[] = [
-  {
-    value: "35%",
-    label: "increase in course completion",
-    detail: "Personalised nudges and affiliate mentorship programmes improve retention across self-paced journeys.",
-    icon: GraduationCap
-  },
-  {
-    value: "4x",
-    label: "faster partner onboarding",
-    detail: "Automated enrolment, compliance checklists, and LMS integrations accelerate go-live timelines.",
-    icon: BadgeCheck
-  },
-  {
-    value: "24/7",
-    label: "global learner support",
-    detail: "Unified ticketing and multilingual knowledge bases keep educators, mentors, and learners aligned.",
-    icon: UsersFour
-  }
-];
-
-const CHALLENGES: Challenge[] = [
-  {
-    title: "Crowded learning marketplaces",
-    description: "Differentiating course value, credentials, and partner incentives requires data-backed storytelling."
-  },
-  {
-    title: "Engagement drop-off",
-    description: "Maintaining momentum through long-form content demands automated reminders and personalised journeys."
-  },
-  {
-    title: "Scale without chaos",
-    description: "Growing enrolments, affiliates, and product lines stresses legacy finance, commission, and support systems."
-  }
-];
-
-const SOLUTIONS: Solution[] = [
-  {
-    title: "Adaptive compensation playbooks",
-    description:
-      "Launch Binary, Matrix, Unilevel, and hybrid plans tailored for course bundles, certification tracks, and community cohorts.",
-    icon: Shuffle
-  },
-  {
-    title: "Affiliate intelligence",
-    description:
-      "Give mentors, influencers, and resellers real-time dashboards with conversion analytics, commission visibility, and retention triggers.",
-    icon: BarChart3
-  },
-  {
-    title: "Learning experience governance",
-    description:
-      "Synchronise LMS, ecommerce, and marketing stacks to deliver consistent content, pricing, and credentialing workflows.",
-    icon: Layers3
-  },
-  {
-    title: "Global-ready infrastructure",
-    description:
-      "Operate across currencies, languages, and territories with compliance-ready payouts and localisation toolkits.",
-    icon: Globe
-  }
-];
-
-const PLATFORM_MODULES: Module[] = [
-  {
-    title: "Multi-currency & localisation",
-    summary: "Accept payments and reward commissions in the learner’s preferred currency without manual reconciliation.",
-    icon: SignalHigh
-  },
-  {
-    title: "Intelligent ticketing",
-    summary: "Route learner questions to mentors, capture sentiment, and monitor service-levels across channels.",
-    icon: Lightning
-  },
-  {
-    title: "Automated communications",
-    summary: "Trigger onboarding guides, completion reminders, and certification celebrations with sequenced email journeys.",
-    icon: ChalkboardTeacher
-  },
-  {
-    title: "Secure e-wallet",
-    summary: "Provide educators and affiliates with real-time commission balances, withdrawal rules, and audit-ready histories.",
-    icon: ShieldCheck
-  },
-  {
-    title: "Data resilience",
-    summary: "Protect content libraries and learner records with encrypted backups and role-based access controls.",
-    icon: BrainCircuit
-  },
-  {
-    title: "Mobile-first micro-learning",
-    summary: "Deliver bite-sized lessons, progress tracking, and push notifications through the Cloud MLM mobile app.",
-    icon: UsersRound
-  }
-];
-
-const DELIVERY_SPRINTS: Sprint[] = [
-  {
-    stage: "01",
-    focus: "Vision mapping",
-    description:
-      "Align on programme goals, course catalogue priorities, and the partner ecosystem supporting acquisition and retention."
-  },
-  {
-    stage: "02",
-    focus: "Experience design",
-    description:
-      "Shape learner journeys, mentor dashboards, and compensation logic with rapid prototyping across devices."
-  },
-  {
-    stage: "03",
-    focus: "Automation rollout",
-    description:
-      "Connect LMS, CRM, and finance systems, then activate notifications, payouts, and compliance reporting."
-  },
-  {
-    stage: "04",
-    focus: "Growth optimisation",
-    description:
-      "Monitor cohort outcomes, iterate incentives, and scale into new markets with insight-driven experimentation."
-  }
-];
+const FALLBACK_TITLE = "E-learning MLM Software";
+const FALLBACK_DESCRIPTION =
+  "Transform online education with Cloud MLM Software—adaptive compensation, affiliate intelligence, and global-ready automation for e-learning leaders.";
+const FALLBACK_KEYWORDS = "elearning mlm software, education network marketing, lms mlm integration";
 
 export async function generateMetadata({ params }: { params: { lang: SupportedLocale } }): Promise<Metadata> {
   const locale = resolveLocale(params.lang);
-  const title = "E-learning MLM Software";
-  const description =
-    "Transform online education with Cloud MLM Software—adaptive compensation, affiliate intelligence, and global-ready automation for e-learning leaders.";
+  const pageKey = getIndustryPageTitleKey("elearning");
+  const metaData = await getMetaDetail(pageKey, locale);
+  const title = metaData?.title ?? FALLBACK_TITLE;
+  const description = metaData?.description ?? FALLBACK_DESCRIPTION;
+  const keywords = metaData?.keywords ?? FALLBACK_KEYWORDS;
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: buildLocalizedPath("/industries/elearning", locale)
     },

@@ -8,7 +8,7 @@ export default function AdminPlansMetaPageTitlePage() {
     <div className="space-y-4">
       {/* Page Title */}
       <PageTitle
-        title="Plan Meta and Page Title"
+        title="Plan Meta Details"
         description="Manage meta details and page titles for the MLM plans page."
       />
 

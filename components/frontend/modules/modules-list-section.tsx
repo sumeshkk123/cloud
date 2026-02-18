@@ -94,8 +94,8 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
                                 module.slug && isModulesSubpageSlug(module.slug)
                                     ? module.slug
                                     : derivedFromTitle;
-                            // Always link email module to /emails (even if API returns wrong slug e.g. compensation-module)
-                            if (derivedFromTitle === "emails" || subSlug === "email-module" || subSlug === "emails") subSlug = "emails";
+                            // Always link email module to /emails
+                            if (derivedFromTitle === "emails" || subSlug === "emails") subSlug = "emails";
                             const href = subSlug
                                 ? buildLocalizedPath(`/${subSlug}`, locale)
                                 : buildLocalizedPath("/mlm-software-modules", locale);

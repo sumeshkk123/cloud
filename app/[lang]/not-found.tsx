@@ -10,7 +10,7 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 
 type NotFoundProps = {
-  params: { lang: SupportedLocale };
+  params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale } | null;
 };
 
 function resolveLocale(lang: string): Locale {
@@ -108,8 +108,10 @@ const translations: Record<Locale, {
   }
 };
 
-export default function NotFound({ params }: NotFoundProps) {
-  const locale = resolveLocale(params.lang);
+export default async function NotFound(props: NotFoundProps) {
+  const params = props?.params;
+  const resolved = params != null ? (params instanceof Promise ? await params : params) : null;
+  const locale = resolveLocale(resolved?.lang ?? i18n.defaultLocale);
   const t = translations[locale];
   const homeHref = buildLocalizedPath("/", locale);
   const featuresHref = buildLocalizedPath("/features", locale);

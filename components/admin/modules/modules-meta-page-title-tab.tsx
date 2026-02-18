@@ -111,16 +111,17 @@ export function ModulesMetaPageTitleTab() {
 
   const loadModulePages = async () => {
     try {
-      // Main page first, then sub-pages (same backend as frontend: meta_details for hero on /mlm-software-modules and /emails etc.)
-      const allPages: Array<{ value: string; label: string }> = [
-        { value: MODULE_PAGE_PREFIX, label: "MLM Software Modules (main)" },
-        ...(MODULES_SUBPAGE_SLUGS as readonly string[]).map((slug) => {
+      // Module subpages only; main MLM Software Modules page is managed in /admin/meta-details.
+      // Exclude email-module (removed; use "emails" for Email & Communications Module)
+      const emailModulePageValue = `${MODULE_PAGE_PREFIX}-email-module`;
+      const allPages: Array<{ value: string; label: string }> = (MODULES_SUBPAGE_SLUGS as readonly string[])
+        .map((slug) => {
           const value = `${MODULE_PAGE_PREFIX}-${slug}`;
           const meta = getModulesSubpageMeta(slug);
           const label = meta?.fallbackTitle ?? slug.replace(/-/g, ' ');
           return { value, label };
-        }),
-      ];
+        })
+        .filter((p) => p.value !== emailModulePageValue);
       allPages.sort((a, b) => a.label.localeCompare(b.label));
       setModulePages(allPages);
     } catch (error) {

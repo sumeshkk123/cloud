@@ -1,33 +1,20 @@
 import type { PageTitleRecord } from "@/lib/api/page-titles";
-import { getModuleBySubpageSlug } from "@/lib/api/modules";
+import { getModuleForSubpageFromList } from "@/lib/api/modules";
 
 const MODULE_PAGE_PREFIX = "mlm-software-modules";
 
 /**
- * Single source for module subpage hero data (page title + description in hero section).
- * Fetches from admin/modules (Edit Module — modules table) only.
- * Use this for all 17 module subpages; pass the canonical slug (e.g. "emails", "backup-manager").
- * Meta title/description come from admin/modules/meta-page-title via layout generateMetadata.
+ * Hero data for module subpages. Uses the SAME API data as the main page (listModules = GET /api/modules).
+ * Fetches the same list as mlm-software-modules, then picks the module by ?mid= or by slug.
+ * So inner page hero always shows the same title/description as the module card.
  */
 export async function getModuleSubpageHeroDataBySlug(
   slug: string,
-  locale: string
+  locale: string,
+  moduleId?: string | null
 ): Promise<PageTitleRecord | null> {
-  return getModuleSubpageHeroData(`${MODULE_PAGE_PREFIX}-${slug}`, locale);
-}
-
-/**
- * Fetches hero section data (visible page title and description) from admin/modules
- * (Edit Module — modules table). Prefer getModuleSubpageHeroDataBySlug(slug, locale) for module subpages.
- */
-export async function getModuleSubpageHeroData(
-  pageKey: string,
-  locale: string
-): Promise<PageTitleRecord | null> {
-  const subpageSlug = pageKey.startsWith(`${MODULE_PAGE_PREFIX}-`)
-    ? pageKey.slice(MODULE_PAGE_PREFIX.length + 1)
-    : pageKey;
-  const moduleRecord = await getModuleBySubpageSlug(subpageSlug, locale);
+  const pageKey = `${MODULE_PAGE_PREFIX}-${slug}`;
+  const moduleRecord = await getModuleForSubpageFromList(locale, slug, moduleId);
   if (!moduleRecord) return null;
   return {
     page: pageKey,
@@ -35,4 +22,17 @@ export async function getModuleSubpageHeroData(
     title: moduleRecord.title,
     sectionSubtitle: moduleRecord.description || undefined,
   };
+}
+
+/**
+ * Legacy: fetches hero by page key (strips prefix to get slug). Prefer getModuleSubpageHeroDataBySlug(slug, locale).
+ */
+export async function getModuleSubpageHeroData(
+  pageKey: string,
+  locale: string
+): Promise<PageTitleRecord | null> {
+  const slug = pageKey.startsWith(`${MODULE_PAGE_PREFIX}-`)
+    ? pageKey.slice(MODULE_PAGE_PREFIX.length + 1)
+    : pageKey;
+  return getModuleSubpageHeroDataBySlug(slug, locale, undefined);
 }

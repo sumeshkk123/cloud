@@ -1,0 +1,7 @@
+Fetching page http://localhost:3000/en/industries...
+Status: 200
+HTML Length: 136444
+Section 'Industries portfolio' NOT found
+Industry NOT found: Insurance
+Industry NOT found: Affiliate Marketing
+Found industry: Investment

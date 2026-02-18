@@ -9,8 +9,16 @@ const PAGE_KEY = "mlm-software-modules-genealogy";
 export async function generateMetadata(props: {
   params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 }): Promise<Metadata> {
-  const params = props?.params;
-  return getPageMetadata(params ?? null, "/genealogy", {
+  let resolved: { lang: SupportedLocale } | null = null;
+  try {
+    const params = props?.params;
+    resolved =
+      params != null ? (params instanceof Promise ? await params : params) : null;
+  } catch {
+    resolved = null;
+  }
+  const lang = resolved?.lang;
+  return getPageMetadata(lang != null ? { lang } : null, "/genealogy", {
     page: PAGE_KEY,
     fallbackTitle: "Genealogy Tree Module | Cloud MLM Software",
     fallbackDescription:

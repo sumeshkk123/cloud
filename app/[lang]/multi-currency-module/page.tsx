@@ -17,6 +17,7 @@ function resolveLocale(lang: string): Locale {
 
 type MultiCurrencyPageProps = {
   params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+  searchParams?: Promise<{ mid?: string }> | { mid?: string };
 };
 
 export default async function MultiCurrencyPage(props: MultiCurrencyPageProps) {
@@ -24,7 +25,8 @@ export default async function MultiCurrencyPage(props: MultiCurrencyPageProps) {
   const resolvedParams =
     params != null ? (params instanceof Promise ? await params : params) : null;
   const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
-  const pageTitleData = await getModuleSubpageHeroDataBySlug(MODULE_SLUG, locale);
+  const resolvedSearch = props?.searchParams != null ? (props.searchParams instanceof Promise ? await props.searchParams : props.searchParams) : undefined;
+  const pageTitleData = await getModuleSubpageHeroDataBySlug(MODULE_SLUG, locale, resolvedSearch?.mid);
   const contactHref = buildLocalizedPath("/contact", locale);
   const secondaryHref = DEMO_URL;
 

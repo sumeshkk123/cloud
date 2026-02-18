@@ -17,14 +17,21 @@ function resolveLocale(lang: string): Locale {
 
 type CustomerEngagementModulePageProps = {
   params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+  searchParams?: Promise<{ mid?: string }> | { mid?: string };
 };
 
 export default async function CustomerEngagementModulePage(props: CustomerEngagementModulePageProps) {
-  const params = props?.params;
-  const resolvedParams =
-    params != null ? (params instanceof Promise ? await params : params) : null;
+  let resolvedParams: { lang?: SupportedLocale } | null = null;
+  try {
+    const params = props?.params;
+    resolvedParams =
+      params != null ? (params instanceof Promise ? await params : params) : null;
+  } catch {
+    resolvedParams = null;
+  }
   const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
-  const pageTitleData = await getModuleSubpageHeroDataBySlug(MODULE_SLUG, locale);
+  // Hero title/description from Admin → Modules only (modules table), by slug so we always get the Customer Engagement module
+  const pageTitleData = await getModuleSubpageHeroDataBySlug(MODULE_SLUG, locale, undefined);
   const contactHref = buildLocalizedPath("/contact", locale);
 
   return (
