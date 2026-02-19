@@ -30,6 +30,14 @@ export function MlmCompanyIntroSection({ content }: MlmCompanyIntroSectionProps)
   return (
     <Section variant="muted" padding="lg">
       <div className="container">
+        <div className="mx-auto mb-8 max-w-3xl text-center">
+          <Typography variant="p" className="text-lg text-muted-foreground">
+            Explore detailed insights into {content.hero.title}, a leading player in the network marketing industry. 
+            This comprehensive profile covers the company's history, founding year, headquarters location, product offerings, 
+            compensation plan structure, and business opportunities for aspiring distributors. Whether you're looking to 
+            join this company or researching MLM opportunities, get all the essential information you need to make an informed decision.
+          </Typography>
+        </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {companyInfo.map((info, index) => (
             <Card key={index} className="border-border/60 bg-card/80">

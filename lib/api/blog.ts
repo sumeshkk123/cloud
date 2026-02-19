@@ -8,6 +8,7 @@
 import { prisma } from '@/lib/db/prisma';
 import { randomUUID } from 'crypto';
 import sanitizeHtml from 'sanitize-html';
+import { Prisma } from '@prisma/client';
 
 export interface BlogPostRecord {
   id: string;
@@ -23,6 +24,7 @@ export interface BlogPostRecord {
   metaTitle?: string | null;
   metaDescription?: string | null;
   metaKeywords?: string | null;
+  translationGroupId?: string | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -102,20 +104,155 @@ export function getBlogExcerpt(content: string | null | undefined, maxLength = 2
 
 export async function getAllBlogPosts(): Promise<BlogPostRecord[]> {
   try {
-    const results = await prisma.blog_posts.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 500,
-    });
+    // Use raw query to include translationGroupId field
+    type RawPost = {
+      id: string;
+      slug: string;
+      title: string;
+      description: string;
+      content: string;
+      date: Date;
+      image: string | null;
+      author: string | null;
+      locale: string;
+      published: boolean;
+      metaTitle: string | null;
+      metaDescription: string | null;
+      metaKeywords: string | null;
+      translationGroupId: string | null;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+
+    const results = await prisma.$queryRaw<RawPost[]>`
+      SELECT id, slug, title, description, content, date, image, author, locale, published,
+             "metaTitle", "metaDescription", "metaKeywords", "translationGroupId", "createdAt", "updatedAt"
+      FROM blog_posts 
+      ORDER BY "createdAt" DESC 
+      LIMIT 500
+    `;
+
     return results.map((r) => ({
-      ...r,
+      id: r.id,
+      slug: r.slug,
+      title: r.title,
+      description: r.description,
+      content: r.content,
+      date: r.date,
       image: r.image ?? undefined,
       author: r.author ?? undefined,
+      locale: r.locale,
+      published: r.published,
       metaTitle: r.metaTitle ?? undefined,
       metaDescription: r.metaDescription ?? undefined,
       metaKeywords: r.metaKeywords ?? undefined,
+      translationGroupId: r.translationGroupId ?? undefined,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
     }));
   } catch (error) {
     console.error('[getAllBlogPosts] Error:', error);
+    return [];
+  }
+}
+
+/**
+ * Get blog posts grouped by translation group for admin panel.
+ * Returns one entry per translation group (English posts preferred as primary).
+ * Each entry includes a 'translations' array showing available languages.
+ */
+export interface BlogPostWithTranslations extends BlogPostRecord {
+  translations: Array<{ locale: string; id: string }>;
+}
+
+export async function getBlogPostsGroupedByTranslation(): Promise<BlogPostWithTranslations[]> {
+  try {
+    // Use raw query to get English posts first (similar to testimonials pattern)
+    type RawPost = {
+      id: string;
+      slug: string;
+      title: string;
+      description: string;
+      content: string;
+      date: Date;
+      image: string | null;
+      author: string | null;
+      locale: string;
+      published: boolean;
+      metaTitle: string | null;
+      metaDescription: string | null;
+      metaKeywords: string | null;
+      translationGroupId: string | null;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+
+    // Get English posts
+    const englishPosts = await prisma.$queryRaw<RawPost[]>`
+      SELECT id, slug, title, description, content, date, image, author, locale, published, 
+             "metaTitle", "metaDescription", "metaKeywords", "translationGroupId", "createdAt", "updatedAt"
+      FROM blog_posts 
+      WHERE locale = 'en' 
+      ORDER BY "createdAt" DESC
+    `;
+
+    if (englishPosts.length === 0) return [];
+
+    // Get all English slugs
+    const slugs = englishPosts.map(p => p.slug);
+    
+    // Find all posts with matching slugs (translations)
+    const allPosts = await prisma.$queryRaw<RawPost[]>`
+      SELECT id, slug, title, description, content, date, image, author, locale, published, 
+             "metaTitle", "metaDescription", "metaKeywords", "translationGroupId", "createdAt", "updatedAt"
+      FROM blog_posts 
+      WHERE slug IN (${Prisma.join(slugs.map(s => Prisma.sql`${s}`), ', ')})
+      ORDER BY locale ASC
+    `;
+
+    // Build grouped results
+    const resultMap = new Map<string, BlogPostWithTranslations>();
+    
+    for (const post of englishPosts) {
+      const groupId = post.translationGroupId || post.slug;
+      resultMap.set(groupId, {
+        id: post.id,
+        slug: post.slug,
+        title: post.title,
+        description: post.description,
+        content: post.content,
+        date: post.date,
+        image: post.image ?? undefined,
+        author: post.author ?? undefined,
+        locale: post.locale,
+        published: post.published,
+        metaTitle: post.metaTitle ?? undefined,
+        metaDescription: post.metaDescription ?? undefined,
+        metaKeywords: post.metaKeywords ?? undefined,
+        translationGroupId: post.translationGroupId ?? undefined,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
+        translations: [{ locale: post.locale, id: post.id }],
+      });
+    }
+
+    // Add translations
+    for (const post of allPosts) {
+      if (post.locale === 'en') continue;
+      const groupId = post.translationGroupId || post.slug;
+      if (resultMap.has(groupId)) {
+        const existing = resultMap.get(groupId)!;
+        if (!existing.translations.find(t => t.locale === post.locale)) {
+          existing.translations.push({ locale: post.locale, id: post.id });
+        }
+      }
+    }
+
+    return Array.from(resultMap.values()).sort((a, b) => 
+      new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+  } catch (error) {
+    console.error('[getBlogPostsGroupedByTranslation] Error:', error);
     return [];
   }
 }
@@ -254,17 +391,44 @@ export async function updateBlogPost(
     if (payload.metaDescription !== undefined) updateData.metaDescription = payload.metaDescription ?? null;
     if (payload.metaKeywords !== undefined) updateData.metaKeywords = payload.metaKeywords ?? null;
 
-    const updated = await prisma.blog_posts.update({
+    // Use upsert to create translation if it doesn't exist
+    const existingPost = await prisma.blog_posts.findUnique({
       where: { id_locale: { id, locale } },
-      data: updateData as any,
     });
+
+    let result;
+    if (existingPost) {
+      // Update existing translation
+      result = await prisma.blog_posts.update({
+        where: { id_locale: { id, locale } },
+        data: updateData as any,
+      });
+    } else {
+      // Create new translation with same ID
+      const createData: Record<string, unknown> = {
+        id,
+        locale,
+        ...updateData,
+      };
+      // Ensure required fields have values
+      if (!updateData.slug) createData.slug = `blog-${locale}-${id.slice(0, 8)}`;
+      if (!updateData.title) createData.title = 'Untitled';
+      if (!updateData.description) createData.description = '';
+      if (!updateData.content) createData.content = '[]';
+      if (updateData.date === undefined) createData.date = new Date();
+      if (updateData.published === undefined) createData.published = false;
+
+      result = await prisma.blog_posts.create({
+        data: createData as any,
+      });
+    }
     return {
-      ...updated,
-      image: updated.image ?? undefined,
-      author: updated.author ?? undefined,
-      metaTitle: updated.metaTitle ?? undefined,
-      metaDescription: updated.metaDescription ?? undefined,
-      metaKeywords: updated.metaKeywords ?? undefined,
+      ...result,
+      image: result.image ?? undefined,
+      author: result.author ?? undefined,
+      metaTitle: result.metaTitle ?? undefined,
+      metaDescription: result.metaDescription ?? undefined,
+      metaKeywords: result.metaKeywords ?? undefined,
     };
   } catch (error) {
     if (error instanceof Error && /slug.*already (used|taken)/i.test(error.message)) {

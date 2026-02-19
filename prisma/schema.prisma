@@ -74,21 +74,22 @@ model homepage_content {
 }
 
 model blog_posts {
-  id              String
-  slug            String
-  title           String
-  description     String
-  content         String
-  date            DateTime @default(now())
-  image           String?
-  author          String?
-  locale          String   @default("en")
-  published       Boolean  @default(false)
-  metaTitle       String?
-  metaDescription String?
-  metaKeywords    String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id                String
+  slug              String
+  title             String
+  description       String
+  content           String
+  date              DateTime @default(now())
+  image             String?
+  author            String?
+  locale            String   @default("en")
+  published         Boolean  @default(false)
+  metaTitle         String?
+  metaDescription   String?
+  metaKeywords      String?
+  translationGroupId String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   @@id([id, locale])
   @@index([locale])

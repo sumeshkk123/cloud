@@ -5,6 +5,7 @@ import {
   getAllBlogPosts,
   getBlogPostsById,
   getBlogPost,
+  getBlogPostsGroupedByTranslation,
   createBlogPost,
   updateBlogPost,
   deleteBlogPost,
@@ -20,6 +21,15 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const locale = searchParams.get('locale');
+    const grouped = searchParams.get('grouped');
+
+    // Return grouped posts (one per translation group)
+    if (grouped === 'true') {
+      const posts = await getBlogPostsGroupedByTranslation();
+      return NextResponse.json(posts, {
+        headers: { 'Cache-Control': 'private, max-age=15, stale-while-revalidate=30' },
+      });
+    }
 
     if (id && locale) {
       const post = await getBlogPost(id, locale);
