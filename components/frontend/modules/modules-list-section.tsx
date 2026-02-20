@@ -8,7 +8,7 @@ import { resolveIcon } from "@/components/frontend/home/utils";
 import type { Locale } from "@/i18n-config";
 import { Section } from "@/components/ui/section";
 import { getModulesContent } from "@/lib/modules";
-import { getModuleSlugFromTitleOrId, isModulesSubpageSlug } from "@/lib/modules-subpage-slugs";
+import { getModuleSlugFromTitleOrId } from "@/lib/modules-subpage-slugs";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import { Typography } from "@/components/ui/typography";
 
@@ -89,10 +89,9 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
                     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         {modules.map((module) => {
                             const Icon = resolveIcon(module.image, Package);
-                            const subSlug =
-                                module.slug && isModulesSubpageSlug(module.slug)
-                                    ? module.slug
-                                    : getModuleSlugFromTitleOrId(module.title, module.id);
+                            const derivedFromTitle = getModuleSlugFromTitleOrId(module.title, module.id);
+                            const explicitSlug = module.slug?.trim() || null;
+                            const subSlug = explicitSlug || derivedFromTitle;
                             const href = subSlug
                                 ? buildLocalizedPath(`/${subSlug}`, locale)
                                 : buildLocalizedPath("/mlm-software-modules", locale);

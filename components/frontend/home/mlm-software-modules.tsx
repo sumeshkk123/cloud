@@ -13,9 +13,12 @@ import { isSupportedLocale } from "@/lib/i18n-utils";
 import { i18n } from "@/i18n-config";
 import { getModulesContent } from "@/lib/modules";
 import type { Locale } from "@/i18n-config";
+import { getModuleSlugFromTitleOrId } from "@/lib/modules-subpage-slugs";
+import { buildLocalizedPath } from "@/lib/locale-links";
 
 interface Module {
     id: string;
+    slug?: string | null;
     title: string;
     description: string;
     image?: string | null;
@@ -118,13 +121,19 @@ export function MlmSoftwareModules() {
                             <div className="mt-6 grid gap-3 sm:grid-cols-3">
                                 {modules.map((module) => {
                                     const Icon = resolveIcon(module.image, Package);
+                                    const explicitSlug = module.slug?.trim() || null;
+                                    const derivedSlug = getModuleSlugFromTitleOrId(module.title, module.id);
+                                    const subSlug = explicitSlug || derivedSlug;
+                                    const readMoreHref = subSlug
+                                        ? buildLocalizedPath(`/${subSlug}`, locale)
+                                        : buildLocalizedPath("/mlm-software-modules", locale);
                                     return (
                                         <ModuleCard
                                             key={module.id}
                                             icon={Icon}
                                             title={module.title}
                                             description={module.description}
-                                            readMoreHref="/mlm-software-modules/"
+                                            readMoreHref={readMoreHref}
                                         />
                                     );
                                 })}

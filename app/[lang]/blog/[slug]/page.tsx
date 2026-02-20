@@ -156,7 +156,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   };
 
   return (
-    <article className="min-h-screen bg-background">
+    <article className="min-h-screen bg-background blogInnerPage">
       <Script
         id="article-jsonld"
         type="application/ld+json"

@@ -20,6 +20,7 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'free-mlm-software-demo': 'free-mlm-software-demo',
     'pricing': 'pricing',
     'blog': 'blog',
+    'mlm-companies': 'mlm-companies',
     'press-release': 'press-release',
     'privacy': 'privacy',
     'refunds-and-cancellation': 'refunds-and-cancellation',
@@ -65,6 +66,11 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'precios': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'mlm-companies': 'mlm-companies',
+    // Blog subpage slugs for incoming URL resolution
+    'principales-empresas-de-multinivel': 'blog/top-mlm-companies',
+    'top-100-des-entreprises-mlm-dans-le-monde-en-2023': 'blog/top-mlm-companies',
+    'top-100-MLM-Unternehmen-der-Welt-im-Jahr2023': 'blog/top-mlm-companies',
     'comunicado-de-prensa': 'press-release',
     'press-release': 'press-release', // Fallback to English slug
     'politica-de-privacidad': 'privacy',
@@ -121,6 +127,7 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'tarifs': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'mlm-companies': 'mlm-companies',
     'communique-de-presse': 'press-release',
     'press-release': 'press-release', // Fallback to English slug
     'politique-de-confidentialite': 'privacy',
@@ -179,6 +186,7 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'prezzi': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'mlm-companies': 'mlm-companies',
     'comunicato-stampa': 'press-release',
     'press-release': 'press-release', // Fallback to English slug
     'informativa-sulla-privacy': 'privacy',
@@ -237,6 +245,7 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'preise': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'mlm-companies': 'mlm-companies',
     'pressemitteilung': 'press-release',
     'press-release': 'press-release', // Fallback to English slug
     'datenschutz': 'privacy',
@@ -293,6 +302,7 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'precos': 'pricing',
     'pricing': 'pricing',
     'blog': 'blog',
+    'mlm-companies': 'mlm-companies',
     'comunicado-imprensa': 'press-release',
     'press-release': 'press-release', // Fallback to English slug
     'politica-de-reembolso': 'refunds-and-cancellation',
@@ -350,6 +360,7 @@ export const pageSlugMap: Record<string, Record<string, string>> = {
     'ding-jia': 'pricing',
     'pricing': 'pricing',
     'bo-ke': 'blog',
+    'mlm-companies': 'mlm-companies',
     'blog': 'blog',
     'xin-wen-gao': 'press-release',
     'press-release': 'press-release', // Fallback to English slug
@@ -520,6 +531,15 @@ export const pageToSlugMap: Record<string, Record<string, string>> = {
     de: 'blog',
     pt: 'blog',
     zh: 'bo-ke',
+  },
+  'mlm-companies': {
+    en: 'mlm-companies',
+    es: 'mlm-companies',
+    fr: 'mlm-companies',
+    it: 'mlm-companies',
+    de: 'mlm-companies',
+    pt: 'mlm-companies',
+    zh: 'mlm-companies',
   },
   'resources': {
     en: 'resources',
@@ -735,7 +755,6 @@ export const modulesSubpageToSlugMap: Record<string, Record<string, string>> = {
   'multi-lingual-system': { en: 'multi-lingual-system', es: 'sistema-multilingue', fr: 'systeme-multilingue', it: 'sistema-multilingue', de: 'mehrsprachiges-system', pt: 'sistema-multilinguagem', zh: 'duo-yu-xi-tong' },
   'kyc-documentation': { en: 'kyc-documentation', es: 'documentacion-kyc', fr: 'documentation-kyc', it: 'documentazione-kyc', de: 'kyc-dokumentation', pt: 'documentacao-kyc', zh: 'kyc-wen-dang' },
   'backup-manager': { en: 'backup-manager', es: 'gestor-copias-seguridad', fr: 'gestionnaire-sauvegarde', it: 'gestore-backup', de: 'backup-manager', pt: 'gerenciador-backup', zh: 'bei-fen-guan-li' },
-  'email-module': { en: 'email-module', es: 'modulo-email', fr: 'module-email', it: 'modulo-email', de: 'e-mail-modul', pt: 'modulo-email', zh: 'you-jian-mo-kuai' },
 };
 
 // Merge module sub-page slugs into pageSlugMap and pageToSlugMap so middleware and buildLocalizedPath handle translated slugs
@@ -924,6 +943,50 @@ export function getPricingSubpageKeyFromSlug(segment: string): string | null {
 
 export function getSlugForPricingSubpage(page: string, locale: string): string | null {
   return pricingSubpageToSlugMap[page]?.[locale] ?? pricingSubpageToSlugMap[page]?.["en"] ?? null;
+}
+
+/**
+ * Blog sub-page slugs (second segment under /blog/)
+ * Page key -> locale -> slug
+ */
+export const blogSubpageToSlugMap: Record<string, Record<string, string>> = {
+  "top-mlm-companies": {
+    en: "top-mlm-companies",
+    es: "principales-empresas-de-multinivel",
+    fr: "top-100-des-entreprises-mlm-dans-le-monde-en-2023",
+    it: "top-100-des-entreprises-mlm-dans-le-monde-en-2023",
+    de: "top-100-MLM-Unternehmen-der-Welt-im-Jahr2023",
+    pt: "top-100-des-entreprises-mlm-dans-le-monde-en-2023",
+    zh: "top-100-des-entreprises-mlm-dans-le-monde-en-2023",
+  },
+};
+
+/** Locale -> slug (second segment) -> page key. Used to resolve URL to page. */
+const blogSubpageSlugToPageMap: Record<string, Record<string, string>> = (() => {
+  const out: Record<string, Record<string, string>> = {};
+  for (const [page, slugs] of Object.entries(blogSubpageToSlugMap)) {
+    for (const [loc, slug] of Object.entries(slugs)) {
+      if (!out[loc]) out[loc] = {};
+      out[loc][slug] = page;
+    }
+  }
+  return out;
+})();
+
+export function getBlogSubpageFromSlug(slug: string, locale: string): string | null {
+  return blogSubpageSlugToPageMap[locale]?.[slug] ?? blogSubpageSlugToPageMap["en"]?.[slug] ?? null;
+}
+
+export function getBlogSubpageKeyFromSlug(segment: string): string | null {
+  for (const loc of Object.keys(blogSubpageSlugToPageMap)) {
+    const page = blogSubpageSlugToPageMap[loc]?.[segment];
+    if (page) return page;
+  }
+  return null;
+}
+
+export function getSlugForBlogSubpage(page: string, locale: string): string | null {
+  return blogSubpageToSlugMap[page]?.[locale] ?? blogSubpageToSlugMap[page]?.["en"] ?? null;
 }
 
 /**

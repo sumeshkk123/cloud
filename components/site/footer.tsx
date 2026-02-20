@@ -10,6 +10,7 @@ import { Buildings, ChartLineUp, GlobeHemisphereEast, Handshake, Lightning, Shie
 import type { SupportedLocale } from "@/config/site";
 import { toAbsoluteUrl } from "@/lib/media";
 import { buildLocalizedPath, resolveHref } from "@/lib/locale-links";
+import { getPageFromSlug } from "@/lib/page-slugs";
 import { cn } from "@/lib/utils";
 import type { FooterBottomLink, FooterColumn, FooterContact, FooterCta } from "@/types/global";
 
@@ -927,7 +928,7 @@ function FooterButton({
   locale: SupportedLocale;
   variant: "primary" | "ghost";
 }) {
-  const resolved = resolveHref(link.href ?? null, locale);
+  const resolved = resolveIndustryAwareHref(link.href ?? null, locale);
   const button = (
     <Button
       variant={variant === "primary" ? "default" : "outline"}
@@ -953,7 +954,7 @@ function FooterButton({
 }
 
 function FooterLink({ link, locale, className, children }: { link: FooterBottomLink; locale: SupportedLocale; className?: string; children: ReactNode }) {
-  const resolved = resolveHref(link.href ?? null, locale);
+  const resolved = resolveIndustryAwareHref(link.href ?? null, locale);
   if (!link.href || resolved.external) {
     return (
       <a
@@ -971,4 +972,41 @@ function FooterLink({ link, locale, className, children }: { link: FooterBottomL
       {children}
     </Link>
   );
+}
+
+function resolveIndustryAwareHref(rawHref: string | null | undefined, locale: SupportedLocale) {
+  if (!rawHref) {
+    return resolveHref(rawHref ?? null, locale);
+  }
+
+  const rawPath = rawHref.startsWith("http://") || rawHref.startsWith("https://")
+    ? (() => {
+        try {
+          return new URL(rawHref).pathname;
+        } catch {
+          return rawHref;
+        }
+      })()
+    : rawHref;
+  const rawStripped = rawPath.replace(/^\/(?:en|es|fr|it|de|pt|zh|pt-pt|zh-hans)(?=\/|$)/, "");
+  const rawSegments = rawStripped.split("/").filter(Boolean);
+  const rawFirst = rawSegments[0] || "";
+  const rawPageId = getPageFromSlug(rawFirst, locale) || getPageFromSlug(rawFirst, "en");
+  if (rawStripped === "/industries" || rawStripped.startsWith("/industries/") || rawPageId === "industries") {
+    const rest = rawSegments.length > 1 ? `/${rawSegments.slice(1).join("/")}` : "";
+    return { href: `/industries${rest}`, external: false };
+  }
+
+  const resolved = resolveHref(rawHref ?? null, locale);
+  if (resolved.external) return resolved;
+
+  const stripped = resolved.href.replace(/^\/(?:en|es|fr|it|de|pt|zh|pt-pt|zh-hans)(?=\/|$)/, "");
+  const segments = stripped.split("/").filter(Boolean);
+  const first = segments[0] || "";
+  const pageId = getPageFromSlug(first, locale) || getPageFromSlug(first, "en");
+  if (stripped === "/industries" || stripped.startsWith("/industries/") || pageId === "industries") {
+    const rest = segments.length > 1 ? `/${segments.slice(1).join("/")}` : "";
+    return { href: `/industries${rest}`, external: false };
+  }
+  return resolved;
 }

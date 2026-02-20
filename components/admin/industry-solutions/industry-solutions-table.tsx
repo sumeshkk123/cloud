@@ -17,6 +17,7 @@ import { Sparkles } from 'lucide-react';
 
 interface IndustrySolutionRow {
   id: string;
+  slug: string;
   title: string;
   description: string;
   icon?: string;
@@ -57,14 +58,15 @@ export function IndustrySolutionsTable() {
       }
       const mapped: IndustrySolutionRow[] = Array.isArray(data)
         ? data.map((item: any) => ({
-            id: String(item.id),
-            title: String(item.title || ''),
-            description: String(item.description || ''),
-            icon: item.icon ? String(item.icon) : undefined,
-            locale: String(item.locale || 'en'),
-            showOnHomePage: Boolean(item.showOnHomePage ?? false),
-            availableLocales: item.availableLocales || [item.locale],
-          }))
+          id: String(item.id),
+          slug: String(item.slug || ''),
+          title: String(item.title || ''),
+          description: String(item.description || ''),
+          icon: item.icon ? String(item.icon) : undefined,
+          locale: String(item.locale || 'en'),
+          showOnHomePage: Boolean(item.showOnHomePage ?? false),
+          availableLocales: item.availableLocales || [item.locale],
+        }))
         : [];
       setItems(mapped);
       setCurrentPage(1);
@@ -93,6 +95,7 @@ export function IndustrySolutionsTable() {
 
   const columns = [
     { key: 'icon', label: 'Icon', className: 'w-24' },
+    { key: 'slug', label: 'Slug', className: 'w-32' },
     { key: 'title', label: 'Title', className: 'w-1/4' },
     { key: 'description', label: 'Description', className: 'w-2/4' },
     { key: 'languages', label: 'Languages', className: 'w-48' },
@@ -136,6 +139,9 @@ export function IndustrySolutionsTable() {
               </div>
             );
           }
+          if (column.key === 'slug') {
+            return <code className="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-gray-700 dark:text-gray-300">{row.slug}</code>;
+          }
           if (column.key === 'title') {
             return <span className="font-medium text-gray-900 dark:text-gray-100">{row.title}</span>;
           }
@@ -155,9 +161,8 @@ export function IndustrySolutionsTable() {
           if (column.key === 'showOnHomePage') {
             return (
               <span
-                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                  row.showOnHomePage ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
-                }`}
+                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${row.showOnHomePage ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+                  }`}
               >
                 {row.showOnHomePage ? 'On Home' : 'Hidden'}
               </span>
@@ -198,7 +203,7 @@ export function IndustrySolutionsTable() {
           setFormToast(null);
         }}
         title={editingId ? 'Edit Industry Solution' : 'Add Industry Solution'}
-        size="3xl"
+        size="4xl"
         isLoading={isFormLoading}
         footer={
           <div className="flex justify-end items-center gap-2">
@@ -228,7 +233,7 @@ export function IndustrySolutionsTable() {
       >
         <IndustrySolutionsForm
           solutionId={editingId}
-          onClose={() => {}}
+          onClose={() => { }}
           onSave={handleFormSave}
           onToastChange={setFormToast}
           onLoadingChange={setIsFormLoading}

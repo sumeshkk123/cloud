@@ -1,0 +1,12 @@
+Fetching from http://localhost:3000/api/industry-solutions?locale=en...
+Status: 200
+Received 17 items
+First item sample: {
+  "id": "3e65d3c7-a4ba-4b79-a616-8f960a54bb32",
+  "slug": "",
+  "title": "MLM Software for Insurance Industry",
+  "description": "Ensure efficient policy management and stronger client relationships.",
+  "icon": "remix:RiHandHeartFill",
+  "showOnHomePage": true,
+  "locale": "en"
+}

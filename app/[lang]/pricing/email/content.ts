@@ -20,8 +20,8 @@ export const emailContent: PricingSubPageContent = {
     title: "Email automation pricing built for Cloud MLM Software clients.",
     description:
       "Align brand storytelling, field enablement, and compliance. Our email engagements combine data orchestration, copy strategy, and optimisation so every message compounds growth.",
-    primaryCta: "Request pricing consult",
-    secondaryCta: "View automation demo",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Messages orchestrated",
@@ -225,8 +225,8 @@ export const emailContent: PricingSubPageContent = {
     heading: "Let's architect email that earns attention.",
     description:
       "Share your communication priorities and growth targets. We'll prepare a pricing proposal, timeline, and measurement plan aligned to your field reality.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore live demo",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our team",
     cardBody:
       "Expect a tailored agenda within one business day. We collaborate with your stakeholders to accelerate approvals and deliver measurable outcomes.",

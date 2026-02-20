@@ -22,8 +22,8 @@ export const privilegedUserSystemModuleContent: PricingSubPageContent = {
     title: "Privileged user system pricing aligned with enterprise-grade security.",
     description:
       "Protect executive, compliance, and partner activity without slowing your teams down. Cloud MLM Software packages governance, automation, and enablement so privileged access becomes a growth enabler, not a liability.",
-    primaryCta: "Book a security workshop",
-    secondaryCta: "Explore service catalog",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Privileged identities managed",
@@ -245,8 +245,8 @@ export const privilegedUserSystemModuleContent: PricingSubPageContent = {
     heading: "Ready to elevate privileged access control?",
     description:
       "Share your governance goals, regulatory timelines, and stakeholder map. We'll assemble a pricing proposal and implementation plan tailored to your risk posture.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore services catalog",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our security architects",
     cardBody:
       "Expect a discovery agenda and role inventory template within one business day. We'll partner through launch and continual optimisation.",

@@ -14,6 +14,7 @@ import {
   ModulesCtaSection
 } from "@/components/frontend/modules";
 import { getPageTitle } from "@/lib/api/page-titles";
+import { getModuleSubpageHeroData } from "@/lib/module-subpage-hero";
 import { getPageMetadata } from "@/components/frontend/common/page-metadata";
 import { getModulesContent } from "@/lib/modules";
 
@@ -60,8 +61,9 @@ export default async function ModulesPage(props: ModulesPageProps) {
   const pricingHref = "/pricing/";
   const demoHref = "/free-mlm-software-demo/";
 
-  // Fetch page title data from backend
-  const pageTitleData = await getPageTitle("mlm-software-modules", locale);
+  // Fetch hero data from same backend as subpages (Module Meta Details / meta_details); fallback to page_titles for main page
+  let pageTitleData = await getModuleSubpageHeroData("mlm-software-modules", locale);
+  if (!pageTitleData) pageTitleData = await getPageTitle("mlm-software-modules", locale);
 
   // Fetch modules content on server side (can't use require() in client components)
   const modulesContent = getModulesContent(locale);

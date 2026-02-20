@@ -1,0 +1,1736 @@
+--- ALL PAGE TITLES ---
+[
+  {
+    "id": "01c51686-133d-4b90-9e95-352a3fa33a81",
+    "page": "faq",
+    "locale": "es",
+    "title": "Respuestas para cada etapa de su viaje de Cloud MLM Software.",
+    "pagePill": "Conocimientos en los que puede confiar",
+    "sectionSubtitle": "Desde los plazos de implementación hasta los copilotos de IA, explore las preguntas más comunes que los clientes hacen a nuestros estrategas, ingenieros y equipos de éxito.",
+    "createdAt": "2026-01-21T05:19:27.330Z",
+    "updatedAt": "2026-01-21T05:22:49.553Z"
+  },
+  {
+    "id": "03be2d35-efdb-451f-8a6d-f20e6f7ed773",
+    "page": "mlm-software-modules",
+    "locale": "zh",
+    "title": "配置您的领域需要扩展的精确MLM软件模块。",
+    "pagePill": "软件模块构成",
+    "sectionSubtitle": "混合搭配薪酬、商务、营销、合规和分析模块，构建可随每次市场推出而扩展的统一平台。",
+    "createdAt": "2026-01-21T10:57:08.111Z",
+    "updatedAt": "2026-01-21T10:57:08.110Z"
+  },
+  {
+    "id": "087a3f7d-6a9a-4957-b919-a33b5be6386c",
+    "page": "industries",
+    "locale": "es",
+    "title": "Escale todas las redes de la industria con inteligencia, cumplimiento y diseño de experiencia.",
+    "pagePill": "Sistema operativo de la industria",
+    "sectionSubtitle": "Cloud MLM Software organiza marcas de bienestar, finanzas, estilo de vida y tecnología en una sola plataforma. Desde declaraciones reguladas hasta comercio impulsado por la comunidad, nuestros planes de la industria comprimen los plazos de lanzamiento y mantienen el liderazgo alineado con las señales de crecimiento.",
+    "createdAt": "2026-01-23T05:13:32.411Z",
+    "updatedAt": "2026-01-23T05:13:32.410Z"
+  },
+  {
+    "id": "0a69297c-ed51-4b70-a468-4024d8e4360b",
+    "page": "features",
+    "locale": "es",
+    "title": "Crea, automatiza y escala experiencias modernas de venta directa desde una sola plataforma.",
+    "pagePill": "Resumen de la plataforma",
+    "sectionSubtitle": "Cloud MLM Software unifica la compensación, el comercio, la habilitación, el cumplimiento y los copilotos de IA, por lo que cada equipo, desde ejecutivos hasta distribuidores, trabaja desde la misma verdad.",
+    "createdAt": "2026-01-21T05:50:59.503Z",
+    "updatedAt": "2026-01-21T06:00:19.446Z"
+  },
+  {
+    "id": "0c6b54ef-908b-427c-b98c-30fd39724ec7",
+    "page": "free-mlm-software-demo",
+    "locale": "it",
+    "title": "Prova il software Cloud MLM con i tuoi dati, i tuoi piani e i tuoi team",
+    "pagePill": "Demo guidata gratuita",
+    "sectionSubtitle": "Esplora compensi, automazione, analisi e copiloti di intelligenza artificiale in una sandbox sicura configurata appositamente per il tuo marchio di vendita diretta.",
+    "createdAt": "2026-01-28T11:29:49.030Z",
+    "updatedAt": "2026-01-28T11:29:49.029Z"
+  },
+  {
+    "id": "0c93b831-811b-4679-8729-adf437e385b7",
+    "page": "faq",
+    "locale": "it",
+    "title": "Risposte per ogni fase del percorso del tuo software Cloud MLM.",
+    "pagePill": "Conoscenza di cui ti puoi fidare",
+    "sectionSubtitle": "Dalle tempistiche di implementazione ai copiloti AI, esplora le domande più comuni che i clienti pongono ai nostri strateghi, ingegneri e team di successo.",
+    "createdAt": "2026-01-21T05:22:57.129Z",
+    "updatedAt": "2026-01-21T05:22:57.129Z"
+  },
+  {
+    "id": "0fbe1445-7cd7-4a2e-9f7f-d63943be1e50",
+    "page": "mlm-plans",
+    "locale": "pt",
+    "title": "Crie um plano de remuneração que o seu campo entenda e financie os fundos.",
+    "pagePill": "Plan Studio e especialistas em remuneração",
+    "sectionSubtitle": "Modele planos binários, unilevel, matriciais, de tabuleiro e híbridos com simulações guiadas, guardrails de conformidade e lance cartilhas personalizadas para todos os mercados.",
+    "createdAt": "2026-01-30T08:36:46.473Z",
+    "updatedAt": "2026-01-30T08:36:46.471Z"
+  },
+  {
+    "id": "18a4058b-d003-4f25-b5d7-9636cf5bb625",
+    "page": "free-mlm-software-demo",
+    "locale": "en",
+    "title": "Experience Cloud MLM Software with your data, your plans, and your teams",
+    "pagePill": "Free guided demo",
+    "sectionSubtitle": "Explore compensation, automation, analytics, and AI copilots in a secure sandbox configured specifically for your direct selling brand.",
+    "createdAt": "2026-01-28T11:16:05.275Z",
+    "updatedAt": "2026-01-28T11:28:47.330Z"
+  },
+  {
+    "id": "1cd6ebfe-cdf7-4898-b5c6-707f68cc5bf0",
+    "page": "free-mlm-software-demo",
+    "locale": "pt",
+    "title": "Experimente o Software Cloud MLM com os seus dados, planos e equipas",
+    "pagePill": "Demonstração guiada",
+    "sectionSubtitle": "Explore co-pilotos de compensação, automação, análise e IA numa sandbox segura configurada especificamente para a sua marca de venda direta.",
+    "createdAt": "2026-01-28T11:30:09.143Z",
+    "updatedAt": "2026-01-28T11:30:09.142Z"
+  },
+  {
+    "id": "1df7350a-0c37-4b3f-9f32-0ee17b754792",
+    "page": "services",
+    "locale": "es",
+    "title": "Lance, amplíe y optimice su programa de MLM con un socio especializado.",
+    "pagePill": "Entrega de servicio completo para equipos de venta directa",
+    "sectionSubtitle": "Los consultores, ingenieros y expertos en cumplimiento trabajan como un solo equipo para acelerar las implementaciones, modernizar los sistemas heredados y mantener las operaciones globales funcionando sin problemas.",
+    "createdAt": "2026-01-22T08:46:46.451Z",
+    "updatedAt": "2026-01-22T08:46:46.450Z"
+  },
+  {
+    "id": "2212e7f2-36f0-48d2-9c99-28a7cb019b03",
+    "page": "testimonials",
+    "locale": "it",
+    "title": "Voci dai team sul campo, finanziari e tecnologici che supportiamo.",
+    "pagePill": "Scelto da marchi ambiziosi",
+    "sectionSubtitle": "Queste testimonianze coprono categorie di prodotti, aree geografiche e modelli di business. Ciascuno di essi illustra in che modo il software Cloud MLM semplifica la compensazione, la conformità e i percorsi dei clienti.",
+    "createdAt": "2026-01-21T09:22:40.915Z",
+    "updatedAt": "2026-01-21T09:22:40.914Z"
+  },
+  {
+    "id": "26aded51-3147-4e95-9fcd-1daea79d0380",
+    "page": "home",
+    "locale": "pt",
+    "title": "Melhor software de MLM para empresas de marketing multinível mais inteligentes",
+    "pagePill": "Plataforma AI-first MLM",
+    "sectionSubtitle": "O Cloud MLM Software automatiza comissões, protege seus dados e ajuda equipes globais a lançar e dimensionar planos de remuneração com confiança.",
+    "createdAt": "2026-01-21T06:10:38.459Z",
+    "updatedAt": "2026-01-21T06:10:38.458Z"
+  },
+  {
+    "id": "296fea7b-ac46-4007-af09-afe1ba17d82f",
+    "page": "home",
+    "locale": "it",
+    "title": "Il miglior software MLM per attività di marketing multilivello più intelligenti",
+    "pagePill": "Piattaforma MLM AI-first",
+    "sectionSubtitle": "Cloud MLM Software automatizza le commissioni, protegge i tuoi dati e aiuta i team globali a lanciare e scalare i piani di compensazione in tutta sicurezza.",
+    "createdAt": "2026-01-21T06:10:21.617Z",
+    "updatedAt": "2026-01-21T06:10:21.616Z"
+  },
+  {
+    "id": "2a5c96f6-0fac-49f5-aff9-ad23bf795f8f",
+    "page": "services",
+    "locale": "it",
+    "title": "Lancia, ridimensiona e ottimizza il tuo programma MLM con un partner specializzato.",
+    "pagePill": "Consegna a servizio completo per i team di vendita diretta",
+    "sectionSubtitle": "Consulenti, ingegneri ed esperti di conformità lavorano come un unico team per accelerare le implementazioni, modernizzare i sistemi legacy e garantire il corretto funzionamento delle operazioni globali.",
+    "createdAt": "2026-01-22T08:46:53.102Z",
+    "updatedAt": "2026-01-22T08:46:53.102Z"
+  },
+  {
+    "id": "2aff2e12-666e-404c-91ed-096f485d11d1",
+    "page": "changelog",
+    "locale": "it",
+    "title": "Changelog Rimani aggiornato con le nostre ultime versioni e miglioramenti",
+    "pagePill": "Note sulla versione",
+    "sectionSubtitle": "Esplora l'evoluzione di Cloud MLM Software dal 2015 al 2025: rilasci annuali, guadagni di automazione e la nuova era nativa dell'IA.",
+    "createdAt": "2026-01-24T09:02:33.350Z",
+    "updatedAt": "2026-01-24T09:02:33.350Z"
+  },
+  {
+    "id": "39a6009e-28d1-4f3b-ba5e-8b24c626c8d7",
+    "page": "ai-copilot",
+    "locale": "pt",
+    "title": "Co-piloto de IA para o seu sucesso de MLM.",
+    "pagePill": "Soluções alimentadas por IA",
+    "sectionSubtitle": "Aproveite a inteligência artificial para simplificar suas operações de MLM, automatizar fluxos de trabalho e aprimorar a tomada de decisões com recursos inteligentes de copiloto.",
+    "createdAt": "2026-01-27T03:57:21.208Z",
+    "updatedAt": "2026-01-27T03:57:21.208Z"
+  },
+  {
+    "id": "437ea99c-f3ed-47de-999c-2044159fca92",
+    "page": "mlm-plans",
+    "locale": "en",
+    "title": "Build a compensation plan your field understands and finance trusts.",
+    "pagePill": "Plan Studio & compensation experts",
+    "sectionSubtitle": "Model binary, unilevel, matrix, board, and hybrid plans with guided simulations, compliance guardrails, and launch playbooks tailored to every market.",
+    "createdAt": "2026-01-30T04:25:59.967Z",
+    "updatedAt": "2026-01-30T04:25:59.966Z"
+  },
+  {
+    "id": "43819b4d-8bcb-404b-9628-9cec6551b118",
+    "page": "industries",
+    "locale": "en",
+    "title": "Scale every industry network with intelligence, compliance, and experience design.",
+    "pagePill": "Industry operating system",
+    "sectionSubtitle": "Cloud MLM Software orchestrates wellness, finance, lifestyle, and technology brands in one platform. From regulated statements to community-driven commerce, our industry blueprints compress launch timelines and keep leadership aligned on growth signals.",
+    "createdAt": "2026-01-23T05:13:22.842Z",
+    "updatedAt": "2026-01-23T05:13:22.841Z"
+  },
+  {
+    "id": "4505ea49-f5c4-4bdd-b6c4-083312cb685f",
+    "page": "testimonials",
+    "locale": "en",
+    "title": "Voices from the field, finance, and technology teams we support.",
+    "pagePill": "Trusted by ambitious brands",
+    "sectionSubtitle": "These testimonials span product categories, geographies, and business models. Each captures how Cloud MLM Software streamlines compensation, compliance, and customer journeys.",
+    "createdAt": "2026-01-21T09:22:12.148Z",
+    "updatedAt": "2026-01-21T09:22:12.148Z"
+  },
+  {
+    "id": "456795e8-0b52-4ba9-a626-538390b4fa1d",
+    "page": "industry-solutions/3mlm-software-for-insurance-industry",
+    "locale": "en",
+    "title": "2Insurance Industry MLM Software",
+    "pagePill": null,
+    "sectionSubtitle": "Modernise insurance distribution with Cloud MLM Software—compliance-first compensation, advisor enablement, and policyholder engagement built for growth.",
+    "createdAt": "2026-02-14T10:59:54.447Z",
+    "updatedAt": "2026-02-14T10:59:54.445Z"
+  },
+  {
+    "id": "468a9f6e-4851-4521-8c9c-db6179962d27",
+    "page": "mlm-plans",
+    "locale": "es",
+    "title": "Cree un plan de compensación que su campo entienda y financie fideicomisos.",
+    "pagePill": "Plan Studio Y expertos EN compensación",
+    "sectionSubtitle": "Modele planes binarios, uninivel, matriciales, de tablero e híbridos con simulaciones guiadas, barandas de cumplimiento y libros de estrategias de lanzamiento adaptados a cada mercado.",
+    "createdAt": "2026-01-30T08:36:10.104Z",
+    "updatedAt": "2026-01-30T08:36:10.102Z"
+  },
+  {
+    "id": "48590687-19b7-4e9d-9b61-942e97684906",
+    "page": "features",
+    "locale": "zh",
+    "title": "从一个平台构建、自动化和扩展现代直销体验。",
+    "pagePill": "平台概述",
+    "sectionSubtitle": "Cloud MLM Software统一了薪酬、商务、支持、合规和人工智能副驾驶，因此每个团队（从高管到分销商）的工作都遵循相同的事实。",
+    "createdAt": "2026-01-21T05:51:53.940Z",
+    "updatedAt": "2026-01-21T05:51:53.939Z"
+  },
+  {
+    "id": "49e85194-5bd5-42c3-a150-fefb8da8ebf4",
+    "page": "services",
+    "locale": "zh",
+    "title": "与专业合作伙伴一起启动、扩展和优化您的传销计划。",
+    "pagePill": "为直销团队提供全方位服务",
+    "sectionSubtitle": "顾问、工程师和合规专家齐心协力，加快实施速度，实现遗留系统的现代化，并保持全球运营的顺利进行。",
+    "createdAt": "2026-01-22T08:47:09.241Z",
+    "updatedAt": "2026-01-22T08:47:09.240Z"
+  },
+  {
+    "id": "50c3b258-7992-4310-845f-0386565e9269",
+    "page": "free-mlm-software-demo",
+    "locale": "es",
+    "title": "Experimente el software de MLM en la nube con sus datos, sus planes y sus equipos",
+    "pagePill": "Demostración guiada gratuita",
+    "sectionSubtitle": "Explora la compensación, la automatización, el análisis y los copilotos de IA en una caja de arena segura configurada específicamente para tu marca de venta directa.",
+    "createdAt": "2026-01-28T11:29:23.956Z",
+    "updatedAt": "2026-01-28T11:29:23.953Z"
+  },
+  {
+    "id": "5803acc3-6b34-4418-9dab-b64382e40de0",
+    "page": "mlm-plans",
+    "locale": "de",
+    "title": "Erstellen Sie einen Vergütungsplan, den Ihr Bereich versteht, und finanzieren Sie Trusts.",
+    "pagePill": "Plan Studio & Vergütungsexperten",
+    "sectionSubtitle": "Modellieren Sie Binär-, Unilevel-, Matrix-, Board- und Hybridpläne mit geführten Simulationen, Compliance-Leitplanken und Playbooks für die Einführung, die auf jeden Markt zugeschnitten sind.",
+    "createdAt": "2026-01-30T08:36:37.758Z",
+    "updatedAt": "2026-01-30T08:36:37.756Z"
+  },
+  {
+    "id": "59481d58-8da9-4dd1-89f0-5963cd424e10",
+    "page": "home",
+    "locale": "es",
+    "title": "El mejor software de MLM para negocios de marketing multinivel más inteligentes",
+    "pagePill": "Plataforma MLM AI-first",
+    "sectionSubtitle": "Cloud MLM Software automatiza las comisiones, protege sus datos y ayuda a los equipos globales a lanzar y escalar planes de compensación con confianza.",
+    "createdAt": "2026-01-21T06:10:12.315Z",
+    "updatedAt": "2026-01-21T06:10:12.314Z"
+  },
+  {
+    "id": "5dd248c5-7c60-4b7b-86e2-d585dcfcd09f",
+    "page": "mlm-software-modules",
+    "locale": "de",
+    "title": "Konfigurieren Sie die genauen MLM-Softwaremodule, die Ihr Bereich benötigt, um zu wachsen.",
+    "pagePill": "Software Module",
+    "sectionSubtitle": "Kombinieren Sie Vergütungs-, Handels-, Marketing-, Compliance- und Analysemodule, um eine einheitliche Plattform zu schaffen, die mit jeder Markteinführung skaliert werden kann.",
+    "createdAt": "2026-01-21T10:56:37.004Z",
+    "updatedAt": "2026-01-21T10:56:53.119Z"
+  },
+  {
+    "id": "5df39a1f-afc7-4ab9-b4e6-536ca14f16d4",
+    "page": "blog",
+    "locale": "en",
+    "title": "Insight-led MLM blogs for leaders who build trusted, scalable networks.",
+    "pagePill": "Cloud MLM Software editorial desk",
+    "sectionSubtitle": "Our editorial team distils product innovation, compliance research, and growth playbooks into guidance your organisation can act on today.",
+    "createdAt": "2026-02-02T10:09:43.865Z",
+    "updatedAt": "2026-02-02T10:09:43.864Z"
+  },
+  {
+    "id": "5df3b8ee-dedb-4903-8035-8bd491e32d2e",
+    "page": "mlm-plans",
+    "locale": "it",
+    "title": "Costruisci un piano di compensazione che il tuo settore comprende e finanzia i trust.",
+    "pagePill": "Esperti di Plan Studio & Compensation",
+    "sectionSubtitle": "Modella piani binari, unilevel, a matrice, a schede e ibridi con simulazioni guidate, guardrail di conformità e playbook di lancio su misura per ogni mercato.",
+    "createdAt": "2026-01-30T08:36:32.022Z",
+    "updatedAt": "2026-01-30T08:36:32.021Z"
+  },
+  {
+    "id": "5e3c443e-f08a-424e-bacd-58b15b831603",
+    "page": "home",
+    "locale": "zh",
+    "title": "适用于更智能的多层次营销业务的最佳传销软件",
+    "pagePill": "人工智能优先的传销平台",
+    "sectionSubtitle": "Cloud MLM Software自动化佣金，保护您的数据，并帮助全球团队自信地启动和扩展薪酬计划。",
+    "createdAt": "2026-01-21T06:10:45.526Z",
+    "updatedAt": "2026-01-21T07:27:38.494Z"
+  },
+  {
+    "id": "61bfd7ac-d46d-45cd-a5ed-df85110f86b0",
+    "page": "testimonials",
+    "locale": "de",
+    "title": "Stimmen aus den Bereichen Außendienst, Finanzen und Technologie, die wir unterstützen.",
+    "pagePill": "Ehrgeizige Marken vertrauen darauf",
+    "sectionSubtitle": "Diese Testimonials umfassen Produktkategorien, Regionen und Geschäftsmodelle. Jeder erfasst, wie Cloud MLM Software Vergütung, Compliance und Customer Journeys rationalisiert.",
+    "createdAt": "2026-01-21T09:22:47.953Z",
+    "updatedAt": "2026-01-21T09:22:47.952Z"
+  },
+  {
+    "id": "6233b091-0c4c-4f46-a5fb-1e9532b8ba08",
+    "page": "changelog",
+    "locale": "de",
+    "title": "Änderungsprotokoll Bleiben Sie mit unseren neuesten Versionen und Verbesserungen auf dem Laufenden",
+    "pagePill": "Versionshinweise",
+    "sectionSubtitle": "Entdecken Sie die Entwicklung von Cloud MLM Software von 2015 bis 2025: jährliche Veröffentlichungen, Automatisierungsgewinne und die neue KI-native Ära.",
+    "createdAt": "2026-01-24T09:02:38.312Z",
+    "updatedAt": "2026-01-24T09:02:38.312Z"
+  },
+  {
+    "id": "651d3844-d808-4479-b3a0-f9e035929ff1",
+    "page": "free-mlm-software-demo",
+    "locale": "de",
+    "title": "Erleben Sie die Cloud-MLM-Software mit Ihren Daten, Ihren Plänen und Ihren Teams",
+    "pagePill": "Kostenlose geführte Demo",
+    "sectionSubtitle": "Erkunden Sie Vergütungs-, Automatisierungs-, Analyse- und KI-Copiloten in einer sicheren Sandbox, die speziell für Ihre Direktvertriebsmarke konfiguriert ist.",
+    "createdAt": "2026-01-28T11:30:00.862Z",
+    "updatedAt": "2026-01-28T11:30:00.859Z"
+  },
+  {
+    "id": "65e1605d-0100-4801-80d3-15def091c0d7",
+    "page": "mlm-software-modules",
+    "locale": "pt",
+    "title": "Configure os módulos de software MLM exatos que o seu campo precisa para crescer.",
+    "pagePill": "Módulos de software MLM",
+    "sectionSubtitle": "Misture e combine módulos de remuneração, comércio, marketing, conformidade e análise para criar uma plataforma unificada que se expande a cada lançamento no mercado.",
+    "createdAt": "2026-01-21T10:57:01.820Z",
+    "updatedAt": "2026-01-21T10:57:01.820Z"
+  },
+  {
+    "id": "66caea40-7392-4d42-890a-cf4bad81fc58",
+    "page": "mlm-plans",
+    "locale": "zh",
+    "title": "构建您所在领域了解并为信托提供资金的薪酬计划。",
+    "pagePill": "Plan Studio和薪酬专家",
+    "sectionSubtitle": "通过引导模拟、合规护栏和针对每个市场量身定制的发布剧本，为二进制、单级别、矩阵、板和混合计划建模。",
+    "createdAt": "2026-01-30T08:36:55.584Z",
+    "updatedAt": "2026-01-30T08:36:55.582Z"
+  },
+  {
+    "id": "6d9203dc-a6e1-4699-aeca-5426fb6ec769",
+    "page": "bitcoin-cryptocurrency-mlm-software",
+    "locale": "en",
+    "title": "Bitcoin & Cryptocurrency MLM Software",
+    "pagePill": "Bitcoin & Cryptocurrency",
+    "sectionSubtitle": "Run your MLM or direct selling business with crypto payouts and multi-currency support. Cloud MLM Software supports Bitcoin and cryptocurrency integration for commissions, e-wallets, and compliant reporting.",
+    "createdAt": "2026-02-13T08:26:06.105Z",
+    "updatedAt": "2026-02-13T08:26:19.001Z"
+  },
+  {
+    "id": "7004782d-1052-4b6e-80dd-be466b8a734d",
+    "page": "ai-copilot",
+    "locale": "es",
+    "title": "Copiloto de IA para tu éxito en MLM.",
+    "pagePill": "Soluciones impulsadas por la IA",
+    "sectionSubtitle": "Aproveche la inteligencia artificial para agilizar sus operaciones de MLM, automatizar los flujos de trabajo y mejorar la toma de decisiones con funciones inteligentes de copiloto.",
+    "createdAt": "2026-01-27T03:56:48.176Z",
+    "updatedAt": "2026-01-27T03:56:48.174Z"
+  },
+  {
+    "id": "734dd44e-2cb3-4fa0-8c23-3a4d33fc906b",
+    "page": "changelog",
+    "locale": "es",
+    "title": "Registro de cambios Manténgase actualizado con nuestras últimas versiones y mejoras",
+    "pagePill": "Notas de la versión",
+    "sectionSubtitle": "Explore la evolución de Cloud MLM Software de 2015 a 2025: lanzamientos anuales, ganancias de automatización y la nueva era nativa de la IA.",
+    "createdAt": "2026-01-24T09:02:27.574Z",
+    "updatedAt": "2026-01-24T09:02:27.573Z"
+  },
+  {
+    "id": "73d51d4d-ca95-4f67-860f-09e5e01ad075",
+    "page": "industries",
+    "locale": "zh",
+    "title": "通过智能、合规和体验设计扩展每个行业网络。",
+    "pagePill": "行业操作系统",
+    "sectionSubtitle": "Cloud MLM Software在一个平台上协调健康、财务、生活方式和技术品牌。从受监管的声明到社区驱动的商业，我们的行业蓝图压缩了发布时间表，并使领导层与增长信号保持一致。",
+    "createdAt": "2026-01-23T05:13:53.574Z",
+    "updatedAt": "2026-01-23T05:13:53.573Z"
+  },
+  {
+    "id": "7661b971-3cae-40a6-a02a-41595836c976",
+    "page": "faq",
+    "locale": "de",
+    "title": "Antworten für jede Phase Ihrer Cloud-MLM-Software-Reise.",
+    "pagePill": "Wissen, dem Sie vertrauen können",
+    "sectionSubtitle": "Von Implementierungszeitplänen bis hin zu KI-Copiloten - erkunden Sie die häufigsten Fragen, die Kunden unseren Strategen, Ingenieuren und Erfolgsteams stellen.",
+    "createdAt": "2026-01-21T05:23:03.478Z",
+    "updatedAt": "2026-01-21T05:23:03.478Z"
+  },
+  {
+    "id": "7721a3e3-e0ee-4089-bd3e-9b24c4d892fc",
+    "page": "mlm-software-modules",
+    "locale": "it",
+    "title": "Configura esattamente i moduli software MLM di cui il tuo campo ha bisogno per crescere.",
+    "pagePill": "MODULI SOFTWARE",
+    "sectionSubtitle": "Combina i moduli di compensazione, commercio, marketing, conformità e analisi per costruire una piattaforma unificata che si adatti a ogni lancio sul mercato.",
+    "createdAt": "2026-01-21T10:55:59.447Z",
+    "updatedAt": "2026-01-21T10:55:59.446Z"
+  },
+  {
+    "id": "7dc733ff-b4ff-45aa-96f0-ab1ed6e94ac1",
+    "page": "changelog",
+    "locale": "pt",
+    "title": "Changelog Mantenha-se atualizado com os nossos últimos lançamentos e melhorias",
+    "pagePill": "Notas de lançamento",
+    "sectionSubtitle": "Explore a evolução do Cloud MLM Software de 2015 a 2025: lançamentos anuais, ganhos de automação e a nova era nativa da IA.",
+    "createdAt": "2026-01-24T09:02:43.145Z",
+    "updatedAt": "2026-01-24T09:02:43.145Z"
+  },
+  {
+    "id": "8367dac8-56d5-4666-ae35-af16a48fbdd6",
+    "page": "features",
+    "locale": "it",
+    "title": "Crea, automatizza e scala le moderne esperienze di vendita diretta da un'unica piattaforma.",
+    "pagePill": "Generalità",
+    "sectionSubtitle": "Cloud MLM Software unifica i compensi, il commercio, l'abilitazione, la conformità e i copiloti di intelligenza artificiale in modo che ogni team, dai dirigenti ai distributori, lavori partendo dalla stessa verità.",
+    "createdAt": "2026-01-21T05:51:32.622Z",
+    "updatedAt": "2026-01-21T06:00:26.196Z"
+  },
+  {
+    "id": "8531c237-4eff-42ac-9122-9466f038edc5",
+    "page": "blog",
+    "locale": "pt",
+    "title": "Blogs de MLM orientados por insights para líderes que constroem redes confiáveis e escaláveis.",
+    "pagePill": "Mesa editorial do Cloud MLM Software",
+    "sectionSubtitle": "A nossa equipa editorial transforma a inovação de produtos, a pesquisa de conformidade e os manuais de crescimento em orientações sobre as quais a sua organização pode agir hoje.",
+    "createdAt": "2026-02-02T10:10:18.746Z",
+    "updatedAt": "2026-02-02T10:10:18.745Z"
+  },
+  {
+    "id": "8771dd2b-e808-43fb-a248-e3b4adc075ff",
+    "page": "industries",
+    "locale": "it",
+    "title": "Scala ogni rete di settore con intelligenza, conformità ed esperienza di progettazione.",
+    "pagePill": "Sistema operativo di settore",
+    "sectionSubtitle": "Cloud MLM Software orchestra marchi di benessere, finanza, lifestyle e tecnologia in un'unica piattaforma. Dalle dichiarazioni regolamentate al commercio guidato dalla comunità, i nostri progetti di settore comprimono le tempistiche di lancio e mantengono la leadership allineata sui segnali di crescita.",
+    "createdAt": "2026-01-23T05:13:38.023Z",
+    "updatedAt": "2026-01-23T05:13:38.023Z"
+  },
+  {
+    "id": "931cda5d-d0bc-4925-92cb-eebde55bb085",
+    "page": "blog",
+    "locale": "de",
+    "title": "Insight-geführte MLM-Blogs für Führungskräfte, die vertrauenswürdige, skalierbare Netzwerke aufbauen.",
+    "pagePill": "Redaktion Cloud MLM Software",
+    "sectionSubtitle": "Unser Redaktionsteam destilliert Produktinnovation, Compliance-Forschung und Wachstums-Playbooks in Leitlinien, nach denen Ihr Unternehmen heute handeln kann.",
+    "createdAt": "2026-02-02T10:10:12.842Z",
+    "updatedAt": "2026-02-02T10:10:12.841Z"
+  },
+  {
+    "id": "94caa160-fe14-451d-9935-ab3a6b16b935",
+    "page": "changelog",
+    "locale": "zh",
+    "title": "更新日志通过我们的最新版本和改进保持更新",
+    "pagePill": "更新说明",
+    "sectionSubtitle": "探索Cloud MLM Software从2015年到2025年的演变：年度版本、自动化收益和新的人工智能原生时代。",
+    "createdAt": "2026-01-24T09:02:49.714Z",
+    "updatedAt": "2026-01-24T09:02:49.713Z"
+  },
+  {
+    "id": "95cee944-bd85-4a08-a823-55ae813341ef",
+    "page": "blog",
+    "locale": "es",
+    "title": "Blogs de MLM dirigidos por Insight para líderes que construyen redes confiables y escalables.",
+    "pagePill": "Escritorio editorial de Cloud MLM Software",
+    "sectionSubtitle": "Nuestro equipo editorial destila la innovación de productos, la investigación de cumplimiento y los manuales de estrategias de crecimiento en una guía sobre la que su organización puede actuar hoy.",
+    "createdAt": "2026-02-02T10:09:55.821Z",
+    "updatedAt": "2026-02-02T10:09:55.820Z"
+  },
+  {
+    "id": "96454869-7f98-4107-be94-0bd8d5e1d555",
+    "page": "services",
+    "locale": "pt",
+    "title": "Lance, dimensione e otimize o seu programa de MLM com um parceiro especializado.",
+    "pagePill": "Entrega de serviço completo para equipas de vendas diretas",
+    "sectionSubtitle": "Consultores, engenheiros e especialistas em conformidade trabalham como uma equipe para acelerar as implementações, modernizar os sistemas legados e manter as operações globais funcionando sem problemas.",
+    "createdAt": "2026-01-22T08:47:03.272Z",
+    "updatedAt": "2026-01-22T08:47:03.271Z"
+  },
+  {
+    "id": "a0923ab1-1d81-4eda-a92d-1d4d5f94b2e5",
+    "page": "industries",
+    "locale": "de",
+    "title": "Skalieren Sie jedes Branchennetzwerk mit Intelligenz, Compliance und Experience Design.",
+    "pagePill": "Branchen-Betriebssystem",
+    "sectionSubtitle": "Die Cloud MLM-Software orchestriert Wellness-, Finanz-, Lifestyle- und Technologie-Marken in einer Plattform. Von regulierten Aussagen bis hin zu Community-basiertem Handel - unsere Branchenpläne komprimieren die Startzeitpläne und halten die Führung auf Wachstumssignale ausgerichtet.",
+    "createdAt": "2026-01-23T05:13:43.536Z",
+    "updatedAt": "2026-01-23T05:13:43.535Z"
+  },
+  {
+    "id": "af90a1a7-fcf6-4aee-a1f0-782a20a365ec",
+    "page": "faq",
+    "locale": "en",
+    "title": "Answers for every stage of your Cloud MLM Software journey.",
+    "pagePill": "Knowledge you can trust",
+    "sectionSubtitle": "From implementation timelines to AI copilots, explore the most common questions customers ask our strategists, engineers, and success teams.",
+    "createdAt": "2026-01-21T04:56:01.716Z",
+    "updatedAt": "2026-01-21T05:32:55.842Z"
+  },
+  {
+    "id": "b068b1e2-7ec5-4c47-97b5-ac14ba939792",
+    "page": "mlm-software-modules",
+    "locale": "en",
+    "title": "Configure the exact MLM software modules your field needs to grow.",
+    "pagePill": "MLM software modules",
+    "sectionSubtitle": "Mix and match compensation, commerce, marketing, compliance, and analytics modules to build a unified platform that scales with every market launch.",
+    "createdAt": "2026-01-21T10:55:09.864Z",
+    "updatedAt": "2026-01-21T10:55:09.863Z"
+  },
+  {
+    "id": "be33738b-613c-4af7-ac38-560a29781315",
+    "page": "free-mlm-software-demo",
+    "locale": "zh",
+    "title": "使用您的数据、计划和团队体验云MLM软件",
+    "pagePill": "免费导览演示",
+    "sectionSubtitle": "在专为您的直销品牌配置的安全沙箱中探索薪酬、自动化、分析和人工智能副驾驶。",
+    "createdAt": "2026-01-28T11:30:14.693Z",
+    "updatedAt": "2026-01-28T11:30:14.692Z"
+  },
+  {
+    "id": "c0e96b18-c06a-4641-a0e1-13fb440abc09",
+    "page": "ai-copilot",
+    "locale": "zh",
+    "title": "人工智能副驾驶，助您成功实现传销。",
+    "pagePill": "AI 驱动的解决方案",
+    "sectionSubtitle": "利用人工智能，通过智能副驾驶功能简化您的传销运营、自动化工作流程并增强决策。",
+    "createdAt": "2026-01-27T03:57:07.992Z",
+    "updatedAt": "2026-01-27T03:57:07.991Z"
+  },
+  {
+    "id": "c22ac1ec-aa0d-47d5-881d-a5e88f3a09fd",
+    "page": "faq",
+    "locale": "pt",
+    "title": "Respostas para cada etapa da sua jornada de Software de MLM em Nuvem.",
+    "pagePill": "Conhecimento em que pode confiar",
+    "sectionSubtitle": "De cronogramas de implementação a copilotos de IA, explore as perguntas mais comuns que os clientes fazem aos nossos estrategistas, engenheiros e equipes de sucesso.",
+    "createdAt": "2026-01-21T05:23:09.144Z",
+    "updatedAt": "2026-01-21T05:23:09.143Z"
+  },
+  {
+    "id": "c49fb149-f806-4b63-b0e8-f43044f7348e",
+    "page": "services",
+    "locale": "de",
+    "title": "Starten, skalieren und optimieren Sie Ihr MLM-Programm mit einem spezialisierten Partner.",
+    "pagePill": "Full-Service-Lieferung für Direktvertriebsteams",
+    "sectionSubtitle": "Berater, Ingenieure und Compliance-Experten arbeiten als ein Team zusammen, um Implementierungen zu beschleunigen, Legacy-Systeme zu modernisieren und den reibungslosen Ablauf globaler Abläufe zu gewährleisten.",
+    "createdAt": "2026-01-22T08:46:57.513Z",
+    "updatedAt": "2026-01-22T08:46:57.512Z"
+  },
+  {
+    "id": "c96d904d-3748-43e5-8424-176e3f0e25ca",
+    "page": "faq",
+    "locale": "zh",
+    "title": "为您的云MLM软件之旅的每个阶段提供答案。",
+    "pagePill": "值得信赖的知识",
+    "sectionSubtitle": "从实施时间表到人工智能副驾驶，探索客户向我们的策略师、工程师和成功团队提出的最常见问题。",
+    "createdAt": "2026-01-21T05:23:14.646Z",
+    "updatedAt": "2026-01-21T05:23:14.645Z"
+  },
+  {
+    "id": "d06a037b-84c5-42ac-af91-7db94fed2ea8",
+    "page": "ai-copilot",
+    "locale": "de",
+    "title": "KI-Copilot für Ihren MLM-Erfolg.",
+    "pagePill": "KI-gestützte Lösungen",
+    "sectionSubtitle": "Nutzen Sie künstliche Intelligenz, um Ihre MLM-Abläufe zu rationalisieren, Workflows zu automatisieren und die Entscheidungsfindung mit intelligenten Co-Pilot-Funktionen zu verbessern.",
+    "createdAt": "2026-01-27T03:56:58.641Z",
+    "updatedAt": "2026-01-27T03:56:58.641Z"
+  },
+  {
+    "id": "d30b7660-d28a-45dd-9db4-2a5492ac5ae9",
+    "page": "ai-copilot",
+    "locale": "en",
+    "title": "AI Co-pilot for your MLM success.",
+    "pagePill": "AI-Powered Solutions",
+    "sectionSubtitle": "Leverage artificial intelligence to streamline your MLM operations, automate workflows, and enhance decision-making with intelligent co-pilot features.",
+    "createdAt": "2026-01-24T10:33:57.830Z",
+    "updatedAt": "2026-01-24T10:33:57.829Z"
+  },
+  {
+    "id": "da19a522-abe1-41ba-8447-bd6c85376408",
+    "page": "industries",
+    "locale": "pt",
+    "title": "Dimensione todas as redes do setor com inteligência, conformidade e design de experiência.",
+    "pagePill": "Sistema operacional da indústria",
+    "sectionSubtitle": "O Cloud MLM Software orquestra marcas de bem-estar, finanças, estilo de vida e tecnologia em uma única plataforma. De declarações regulamentadas ao comércio voltado para a comunidade, nossos planos do setor comprimem os cronogramas de lançamento e mantêm a liderança alinhada aos sinais de crescimento.",
+    "createdAt": "2026-01-23T05:13:48.543Z",
+    "updatedAt": "2026-01-23T05:13:48.542Z"
+  },
+  {
+    "id": "da80d61e-4b6a-425b-8d4b-12164f259c44",
+    "page": "blog",
+    "locale": "zh",
+    "title": "以洞察力为导向的传销博客，面向构建可信赖、可扩展网络的领导者。",
+    "pagePill": "Cloud MLM软件编辑部",
+    "sectionSubtitle": "我们的编辑团队将产品创新、合规研究和增长攻略提炼成您的组织可以立即采取行动的指导方针。",
+    "createdAt": "2026-02-02T10:10:25.330Z",
+    "updatedAt": "2026-02-02T10:10:25.329Z"
+  },
+  {
+    "id": "dd70f566-b093-4d4f-8563-ef8b70f76137",
+    "page": "home",
+    "locale": "en",
+    "title": "Best MLM Software for smarter multi-level marketing businesses",
+    "pagePill": "AI-first MLM platform",
+    "sectionSubtitle": "Cloud MLM Software automates commissions, protects your data, and helps global teams launch and scale compensation plans with confidence.",
+    "createdAt": "2026-01-21T06:09:13.625Z",
+    "updatedAt": "2026-01-21T06:31:52.334Z"
+  },
+  {
+    "id": "de095e0e-b2c2-4841-8a5a-29a5f1423237",
+    "page": "testimonials",
+    "locale": "es",
+    "title": "Voces de los equipos de campo, finanzas y tecnología a los que apoyamos.",
+    "pagePill": "Con la confianza de marcas ambiciosas",
+    "sectionSubtitle": "Estos testimonios abarcan categorías de productos, geografías y modelos de negocio. Cada uno captura cómo Cloud MLM Software agiliza la compensación, el cumplimiento y los viajes de los clientes.",
+    "createdAt": "2026-01-21T09:22:28.969Z",
+    "updatedAt": "2026-01-21T09:22:28.969Z"
+  },
+  {
+    "id": "e0142510-a487-4e5b-beb3-60f9c5a70d6f",
+    "page": "blog",
+    "locale": "it",
+    "title": "Blog MLM guidati da Insight per leader che costruiscono reti affidabili e scalabili.",
+    "pagePill": "Redazione Cloud MLM Software",
+    "sectionSubtitle": "Il nostro team editoriale sintetizza l'innovazione del prodotto, la ricerca sulla conformità e i playbook sulla crescita in una guida su cui la tua organizzazione può agire oggi.",
+    "createdAt": "2026-02-02T10:10:04.740Z",
+    "updatedAt": "2026-02-02T10:10:04.739Z"
+  },
+  {
+    "id": "e30f0701-ad97-48ee-b61a-b6e0e599420f",
+    "page": "features",
+    "locale": "de",
+    "title": "Erstellen, automatisieren und skalieren Sie moderne Direktverkaufserlebnisse von einer Plattform aus.",
+    "pagePill": "Plattform-Übersicht",
+    "sectionSubtitle": "Cloud MLM Software vereint Vergütungs-, Handels-, Enablement-, Compliance- und KI-Copilots, sodass jedes Team - von Führungskräften bis hin zu Distributoren - nach der gleichen Wahrheit arbeitet.",
+    "createdAt": "2026-01-21T05:51:38.733Z",
+    "updatedAt": "2026-01-21T05:51:38.733Z"
+  },
+  {
+    "id": "e7e1c96e-ab44-4522-97b1-07d093a015ee",
+    "page": "features",
+    "locale": "pt",
+    "title": "Crie, automatize e dimensione experiências modernas de venda direta a partir de uma única plataforma.",
+    "pagePill": "I. Visão geral da plataforma",
+    "sectionSubtitle": "O Cloud MLM Software unifica a remuneração, o comércio, a capacitação, a conformidade e os copilotos de IA para que todas as equipes - de executivos a distribuidores - trabalhem com a mesma verdade.",
+    "createdAt": "2026-01-21T05:51:46.003Z",
+    "updatedAt": "2026-01-21T05:51:46.002Z"
+  },
+  {
+    "id": "e96911c4-7c3b-4cdd-a919-b83f3134dab7",
+    "page": "changelog",
+    "locale": "en",
+    "title": "Changelog Stay updated with our latest releases and improvements",
+    "pagePill": "Release notes",
+    "sectionSubtitle": "Explore Cloud MLM Software's evolution from 2015 to 2025: yearly releases, automation gains, and the new AI-native era.",
+    "createdAt": "2026-01-24T09:02:13.972Z",
+    "updatedAt": "2026-01-24T09:02:13.971Z"
+  },
+  {
+    "id": "edca85de-1932-4804-a006-4a49d7ba5415",
+    "page": "services",
+    "locale": "en",
+    "title": "Launch, scale, and optimise your MLM programme with a specialist partner.",
+    "pagePill": "Full-service delivery for direct selling teams",
+    "sectionSubtitle": "Consultants, engineers, and compliance experts work as one team to accelerate implementations, modernise legacy systems, and keep global operations running smoothly.",
+    "createdAt": "2026-01-22T08:46:37.299Z",
+    "updatedAt": "2026-01-22T08:46:37.297Z"
+  },
+  {
+    "id": "f106ebce-7de2-453c-a208-06b37c3666be",
+    "page": "features",
+    "locale": "en",
+    "title": "Build, automate, and scale modern direct selling experiences from one platform.",
+    "pagePill": "Platform overview",
+    "sectionSubtitle": "Cloud MLM Software unifies compensation, commerce, enablement, compliance, and AI copilots so every team—from executives to distributors—works from the same truth.",
+    "createdAt": "2026-01-21T05:50:51.645Z",
+    "updatedAt": "2026-01-27T08:40:34.590Z"
+  },
+  {
+    "id": "f4e87bc8-6df2-4b13-9c43-c0acce5cc1f1",
+    "page": "testimonials",
+    "locale": "pt",
+    "title": "Vozes das equipas de campo, finanças e tecnologia que apoiamos.",
+    "pagePill": "Confiado por marcas ambiciosas",
+    "sectionSubtitle": "Esses depoimentos abrangem categorias de produtos, geografias e modelos de negócios. Cada um captura como o Cloud MLM Software simplifica a remuneração, a conformidade e as jornadas do cliente.",
+    "createdAt": "2026-01-21T09:22:55.050Z",
+    "updatedAt": "2026-01-21T09:22:55.050Z"
+  },
+  {
+    "id": "f7d34a5a-7c51-41a4-a41c-8e991caca301",
+    "page": "mlm-software-modules",
+    "locale": "es",
+    "title": "Configure los módulos de software MLM exactos que su campo necesita para crecer.",
+    "pagePill": "Módulos de software",
+    "sectionSubtitle": "Mezcle y combine módulos de compensación, comercio, marketing, cumplimiento y análisis para crear una plataforma unificada que se amplíe con cada lanzamiento al mercado.",
+    "createdAt": "2026-01-21T10:55:50.104Z",
+    "updatedAt": "2026-01-21T10:55:50.103Z"
+  },
+  {
+    "id": "fc931946-298e-4228-82ee-42b1c1c61510",
+    "page": "ai-copilot",
+    "locale": "it",
+    "title": "Copilota AI per il tuo successo MLM.",
+    "pagePill": "Soluzioni potenziate dall'AI",
+    "sectionSubtitle": "Sfrutta l'intelligenza artificiale per semplificare le operazioni di MLM, automatizzare i flussi di lavoro e migliorare il processo decisionale con funzionalità di copilota intelligente.",
+    "createdAt": "2026-01-27T03:56:53.824Z",
+    "updatedAt": "2026-01-27T03:56:53.822Z"
+  },
+  {
+    "id": "ff31b28f-4c73-4f83-a656-92e8273a80df",
+    "page": "home",
+    "locale": "de",
+    "title": "Beste MLM-Software für intelligentere Multi-Level-Marketing-Unternehmen",
+    "pagePill": "AI-first MLM-Plattform",
+    "sectionSubtitle": "Cloud MLM Software automatisiert Provisionen, schützt Ihre Daten und hilft globalen Teams, Vergütungspläne mit Vertrauen zu starten und zu skalieren.",
+    "createdAt": "2026-01-21T06:10:29.902Z",
+    "updatedAt": "2026-01-21T06:10:29.901Z"
+  }
+]
+--- ALL META DETAILS ---
+[
+  {
+    "id": "01991c12-8597-4779-8cc0-6fbfc3a58afc",
+    "page": "blog",
+    "locale": "zh",
+    "title": "传销软件|促进增长的最佳网络营销工具",
+    "description": "借助云MLM软件实现增长：面向网络营销业务的人工智能驱动、可扩展、安全的MLM平台。免费演示和透明定价！立即开始。",
+    "keywords": "最好的mlm软件， mlm软件，美国最好的mlm软件，美国mlm软件，前5个mlm软件",
+    "createdAt": "2026-02-02T10:15:32.826Z",
+    "updatedAt": "2026-02-02T10:15:32.825Z"
+  },
+  {
+    "id": "043cdf88-cbac-4e52-8fbb-ad1c6fbf1c0c",
+    "page": "mlm-plans",
+    "locale": "de",
+    "title": "Die besten MLM-Pläne erklärt: Wählen Sie den richtigen Plan für Ihre Ziele.",
+    "description": "Entdecken Sie die besten MLM-Pläne, die für den Geschäftserfolg entwickelt wurden. Vergleichen Sie Binär-, Matrix- und Unilevel-Pläne, um die beste Lösung für Ihre Ziele zu finden.",
+    "keywords": "beste mlm-software in den usa",
+    "createdAt": "2026-01-30T08:35:24.658Z",
+    "updatedAt": "2026-01-30T08:35:24.657Z"
+  },
+  {
+    "id": "060d0035-1737-47d7-8a10-84534e400ccd",
+    "page": "contact",
+    "locale": "es",
+    "title": "Contáctenos | Software MLM en la nube",
+    "description": "Póngase en contacto con nosotros para cualquier consulta o asistencia. Nuestro amable equipo está listo para proporcionarte la información que necesitas. ¡Ponte en contacto!",
+    "keywords": "mejor software mlm",
+    "createdAt": "2026-01-28T10:01:23.321Z",
+    "updatedAt": "2026-01-28T10:01:23.320Z"
+  },
+  {
+    "id": "07307956-3ee7-4d98-a0a9-23b7ff5081b6",
+    "page": "industries",
+    "locale": "pt",
+    "title": "Software MLM para diversas indústrias | Soluções escaláveis",
+    "description": "Explore soluções de software de MLM específicas do setor, projetadas para apoiar o crescimento em setores como seguros, finanças e muito mais.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-23T05:10:07.216Z",
+    "updatedAt": "2026-01-23T05:10:07.215Z"
+  },
+  {
+    "id": "0aaf156f-f1cd-4053-ae72-d0d3b0abfc0c",
+    "page": "testimonials",
+    "locale": "es",
+    "title": "Testimonios | Software MLM en la nube",
+    "description": "Lea las valiosas reseñas de nuestros clientes sobre el software de MLM en la nube, esto le ayuda a comprender por qué nos convertimos en los mejores en la industria de MLM.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-21T09:24:10.259Z",
+    "updatedAt": "2026-01-21T09:24:10.258Z"
+  },
+  {
+    "id": "0dd057d5-b251-4006-84b8-2c284dbb278a",
+    "page": "bitcoin-cryptocurrency-mlm-software",
+    "locale": "en",
+    "title": "Bitcoin & Cryptocurrency MLM Software",
+    "description": "Run your MLM or direct selling business with crypto payouts and multi-currency support. Cloud MLM Software supports Bitcoin and cryptocurrency integration for commissions, e-wallets, and compliant reporting.",
+    "keywords": "Bitcoin MLM software, cryptocurrency MLM, crypto payouts, multi-currency MLM, Cloud MLM Software",
+    "createdAt": "2026-02-13T08:28:33.817Z",
+    "updatedAt": "2026-02-13T08:28:55.266Z"
+  },
+  {
+    "id": "0ef2c6ca-ff79-4a09-8737-9104303869e0",
+    "page": "mlm-software-modules-e-voucher",
+    "locale": "en",
+    "title": "E-Voucher For MLM Software | Cloud MLM Software",
+    "description": "Digital vouchers and gift cards for rewards, incentives, and promotions. Part of Cloud MLM Software modules.",
+    "keywords": "MLM e-voucher, digital voucher module, Cloud MLM Software vouchers",
+    "createdAt": "2026-02-14T03:23:07.722Z",
+    "updatedAt": "2026-02-14T03:23:25.065Z"
+  },
+  {
+    "id": "10fc3ead-2712-4d02-bef6-b848b4ee410a",
+    "page": "mlm-software-modules-compliance-modules",
+    "locale": "en",
+    "title": "Compliance Module | Cloud MLM Software",
+    "description": "Compliance and governance module for MLM: consent, audit trails, and regional rules. Part of Cloud MLM Software modules.",
+    "keywords": "MLM compliance module, governance module, Cloud MLM Software compliance",
+    "createdAt": "2026-02-14T03:59:40.378Z",
+    "updatedAt": "2026-02-14T04:02:02.750Z"
+  },
+  {
+    "id": "116a68a3-5291-4991-af2b-285194b0d795",
+    "page": "services/compensation-plan-audit",
+    "locale": "en",
+    "title": "MLM Compensation Plan Audit Services | Cloud MLM Software",
+    "description": "Partner with the leading MLM software provider to audit, optimise, and future-proof your compensation plan with strategic, financial, and compliance intelligence.",
+    "keywords": "compensation plan audit, MLM plan audit, compensation strategy, Cloud MLM Software",
+    "createdAt": "2026-02-13T09:47:53.591Z",
+    "updatedAt": "2026-02-13T09:48:10.985Z"
+  },
+  {
+    "id": "11fd3100-3a92-49e2-a431-f74e32fc1486",
+    "page": "testimonials",
+    "locale": "it",
+    "title": "Testimonianze | Cloud MLM Software",
+    "description": "Leggi le preziose recensioni dei nostri clienti sul software MLM cloud, questo ti aiuta a capire perché diventiamo i migliori nel settore MLM.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-21T09:24:18.992Z",
+    "updatedAt": "2026-01-21T09:24:18.991Z"
+  },
+  {
+    "id": "165b0304-8198-41a9-86a9-bdfd4d3b9141",
+    "page": "mlm-software-modules",
+    "locale": "zh",
+    "title": "传销软件模块|云传销软件",
+    "description": "借助用户友好的传销软件模块转变您的业务战略。简化运营并提高利润。",
+    "keywords": "mlm软件",
+    "createdAt": "2026-01-21T11:08:21.187Z",
+    "updatedAt": "2026-01-21T11:08:21.186Z"
+  },
+  {
+    "id": "17b5d999-fa2d-41b7-adad-1f612623197e",
+    "page": "blog",
+    "locale": "it",
+    "title": "Software MLM | I migliori strumenti di Network Marketing per la crescita",
+    "description": "Crescere con il software Cloud MLM: piattaforma MLM basata su intelligenza artificiale, scalabile e sicura per le attività di network marketing. Demo gratuita e prezzi trasparenti! Inizia oggi.",
+    "keywords": "miglior software mlm, software mlm, miglior software mlm negli USA, software mlm negli USA, software top 5 mlm",
+    "createdAt": "2026-02-02T10:15:05.517Z",
+    "updatedAt": "2026-02-02T10:15:05.516Z"
+  },
+  {
+    "id": "194f6c73-6bbb-4a69-9870-f19d89f7cc71",
+    "page": "industries",
+    "locale": "es",
+    "title": "Software MLM para diversas industrias | Soluciones escalables",
+    "description": "Explore soluciones de software de MLM específicas de la industria diseñadas para respaldar el crecimiento en sectores como seguros, finanzas y más.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-23T05:09:49.714Z",
+    "updatedAt": "2026-01-23T05:09:49.713Z"
+  },
+  {
+    "id": "19cd2056-0b3b-4f16-9fbf-a531e1f02387",
+    "page": "home",
+    "locale": "es",
+    "title": "Software MLM | Las mejores herramientas de mercadeo en red para el crecimiento",
+    "description": "Crezca con el software de MLM en la nube: plataforma de MLM segura, escalable y potenciada por IA para negocios de mercadeo en red. ¡Demostración gratuita y precios transparentes! Empieza hoy mismo.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-21T08:30:15.889Z",
+    "updatedAt": "2026-01-21T08:30:15.888Z"
+  },
+  {
+    "id": "1dc2d4d0-7a98-4440-a51e-03e5cc775c7c",
+    "page": "mlm-software-modules",
+    "locale": "en",
+    "title": "MLM Software Modules | Cloud MLM Software",
+    "description": "Transform your business strategy with user-friendly MLM software modules. Streamline operations and increase profits.",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-21T11:07:39.835Z",
+    "updatedAt": "2026-01-21T11:07:39.834Z"
+  },
+  {
+    "id": "226f223a-034e-4a38-be48-2feb56df3200",
+    "page": "ai-copilot",
+    "locale": "es",
+    "title": "Copiloto de IA para software MLM | Automatización inteligente | Cloud MLM",
+    "description": "Transforma tus operaciones de MLM con funciones de copiloto impulsadas por IA. Automatiza los flujos de trabajo, mejora la toma de decisiones y acelera el crecimiento con la asistencia inteligente de IA. Explore el copiloto de lanzamiento de IA, la infraestructura lista para todo el mundo y las herramientas de adopción de campo.",
+    "keywords": "Copiloto de IA, IA de MLM, MLM de inteligencia artificial, automatización de IA, software de MLM inteligente, MLM impulsado por IA, automatización de MLM, implementación de IA, funciones de IA de MLM, copiloto inteligente, copiloto de lanzamiento de IA, IA de software de MLM, IA de marketing de red, automatización de flujo de trabajo de MLM, MLM impulsado por IA",
+    "createdAt": "2026-01-27T08:41:42.991Z",
+    "updatedAt": "2026-01-27T08:41:42.990Z"
+  },
+  {
+    "id": "22fb807b-1e8f-49c4-93f5-e04929acb4a9",
+    "page": "home",
+    "locale": "zh",
+    "title": "传销软件|促进增长的最佳网络营销工具",
+    "description": "借助云MLM软件实现增长：面向网络营销业务的人工智能驱动、可扩展、安全的MLM平台。免费演示和透明定价！立即开始。",
+    "keywords": "mlm软件",
+    "createdAt": "2026-01-21T08:30:43.611Z",
+    "updatedAt": "2026-01-21T08:30:43.608Z"
+  },
+  {
+    "id": "255fd678-662d-4b86-a3f3-42333081f335",
+    "page": "home",
+    "locale": "en",
+    "title": "MLM Software | Best Network Marketing Tools for Growth",
+    "description": "Grow with Cloud MLM Software: AI-powered, scalable, secure MLM platform for network marketing business. Free demo & transparent pricing! Start today.",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-21T08:30:06.889Z",
+    "updatedAt": "2026-01-21T08:30:06.888Z"
+  },
+  {
+    "id": "25afd587-5b65-4ff1-88cd-291e747edea1",
+    "page": "faq",
+    "locale": "zh",
+    "title": "关于传销软件的常见问题",
+    "description": "这些是有关云MLM软件的常见问题，这将帮助您解决有关我们的产品、服务、价格等的所有疑问。",
+    "keywords": "mlm软件常见问题",
+    "createdAt": "2026-01-21T07:29:50.644Z",
+    "updatedAt": "2026-01-21T07:29:50.644Z"
+  },
+  {
+    "id": "273a55a4-db26-4a22-b962-05b50c3c8824",
+    "page": "mlm-plans",
+    "locale": "it",
+    "title": "Spiegazione dei principali piani MLM: scegli il piano giusto per i tuoi obiettivi.",
+    "description": "Esplora i migliori piani MLM progettati per il successo aziendale. Confronta i piani Binary, Matrix e Unilevel per trovare la soluzione migliore per i tuoi obiettivi.",
+    "keywords": "miglior software mlm negli Stati Uniti",
+    "createdAt": "2026-01-30T08:35:18.471Z",
+    "updatedAt": "2026-01-30T08:35:18.470Z"
+  },
+  {
+    "id": "275a75da-ab2f-416a-b601-c3be39dc41aa",
+    "page": "services",
+    "locale": "fr",
+    "title": "Meilleurs services logiciels MLM pour la croissance des entreprises",
+    "description": "Simplifiez votre entreprise avec de puissants services logiciels MLM. Suivez les ventes, gérez les équipes et stimulez la croissance sans effort. Découvrez nos solutions dès aujourd'hui !",
+    "keywords": "logiciel mlm",
+    "createdAt": "2026-02-14T04:21:34.263Z",
+    "updatedAt": "2026-02-14T04:21:34.261Z"
+  },
+  {
+    "id": "2ad179bc-a397-4684-b861-829c98b2bdcc",
+    "page": "blog",
+    "locale": "es",
+    "title": "Software MLM | Las mejores herramientas de mercadeo en red para el crecimiento",
+    "description": "Crezca con el software de MLM en la nube: plataforma de MLM segura, escalable y potenciada por IA para negocios de mercadeo en red. ¡Demostración gratuita y precios transparentes! Empieza hoy mismo.",
+    "keywords": "mejor software mlm, software mlm, mejor software mlm en Estados Unidos, software mlm en Estados Unidos, software top 5 mlm",
+    "createdAt": "2026-02-02T10:14:56.934Z",
+    "updatedAt": "2026-02-02T10:14:56.932Z"
+  },
+  {
+    "id": "2c831b5f-998a-49cc-91db-8469eb63d4ce",
+    "page": "free-mlm-software-demo",
+    "locale": "de",
+    "title": "Kostenlose MLM-Software-Demo für alle Pläne",
+    "description": "Testen Sie die kostenlose MLM-Software-Demo und erleben Sie die Vorteile unserer MLM-Pläne. Erhalten Sie Einblicke in die Verbesserung der Effizienz und die Steigerung des Umsatzes.",
+    "keywords": "beste mlm-software in den usa",
+    "createdAt": "2026-01-28T11:23:13.099Z",
+    "updatedAt": "2026-01-28T11:23:13.098Z"
+  },
+  {
+    "id": "2e68a87f-6ecc-4534-8d3b-1af30d4a8c8a",
+    "page": "contact",
+    "locale": "de",
+    "title": "Kontaktieren Sie uns | Cloud MLM Software",
+    "description": "Kontaktieren Sie uns für Anfragen oder Unterstützung. Unser freundliches Team steht bereit, um Ihnen die Informationen zu geben, die Sie benötigen. Kontaktieren Sie uns!",
+    "keywords": "beste mlm-software",
+    "createdAt": "2026-01-28T10:02:09.244Z",
+    "updatedAt": "2026-01-28T10:02:09.243Z"
+  },
+  {
+    "id": "2f6eb40d-3757-401a-b1f7-1b32e6a495c8",
+    "page": "free-mlm-software-demo",
+    "locale": "zh",
+    "title": "适用于所有套餐的免费MLM软件演示",
+    "description": "试用免费的MLM软件演示，体验我们的MLM计划的好处。获取有关提高效率和推动销售的见解。",
+    "keywords": "美国最好的mlm软件",
+    "createdAt": "2026-01-28T11:28:55.883Z",
+    "updatedAt": "2026-01-28T11:28:55.882Z"
+  },
+  {
+    "id": "3075ce38-b328-4d78-a723-5477b1e22b6f",
+    "page": "mlm-software-modules",
+    "locale": "de",
+    "title": "MLM-Softwaremodule | Cloud MLM-Software",
+    "description": "Transformieren Sie Ihre Geschäftsstrategie mit benutzerfreundlichen MLM-Softwaremodulen. Rationalisieren Sie den Betrieb und steigern Sie den Gewinn.",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-21T11:08:06.907Z",
+    "updatedAt": "2026-01-21T11:08:06.906Z"
+  },
+  {
+    "id": "319ae369-32e9-48f2-9e39-129646a2d4ef",
+    "page": "free-mlm-software-demo",
+    "locale": "es",
+    "title": "Demostración gratuita de software MLM para todos los planes",
+    "description": "Pruebe la demostración gratuita de software de MLM y experimente los beneficios de nuestros planes de MLM. Obtenga información sobre cómo mejorar la eficiencia e impulsar las ventas.",
+    "keywords": "mejor software mlm en Estados Unidos",
+    "createdAt": "2026-01-28T11:22:40.130Z",
+    "updatedAt": "2026-01-28T11:22:40.128Z"
+  },
+  {
+    "id": "32845b57-5926-4231-9308-c9c38db11b06",
+    "page": "faq",
+    "locale": "en",
+    "title": "Frequent questions about MLM software",
+    "description": "These are the frequently asked questions about Cloud MLM Software, this will help you to solve all doubts about our product, service, price, etc.",
+    "keywords": "mlm software faq",
+    "createdAt": "2026-01-21T06:56:25.616Z",
+    "updatedAt": "2026-01-21T06:56:25.615Z"
+  },
+  {
+    "id": "34f65a8a-411c-4dc1-b939-cc10146109d3",
+    "page": "mlm-software-modules-ecommerce-module",
+    "locale": "en",
+    "title": "E-Commerce Module | Cloud MLM Software",
+    "description": "E-commerce and order management module for direct selling. Catalogs, carts, and fulfilment within Cloud MLM Software.",
+    "keywords": "MLM ecommerce module, order management, Cloud MLM Software ecommerce",
+    "createdAt": "2026-02-14T04:14:05.698Z",
+    "updatedAt": "2026-02-14T04:15:47.369Z"
+  },
+  {
+    "id": "35e95097-103f-4a0d-8e81-58b5769791ab",
+    "page": "testimonials",
+    "locale": "en",
+    "title": "Testimonials | Cloud MLM Software",
+    "description": "Read the valuable reviews of our clients about cloud MLM software, this helps you understand why we become the best in the MLM industry.",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-21T09:24:03.073Z",
+    "updatedAt": "2026-01-21T09:24:03.072Z"
+  },
+  {
+    "id": "36db90f9-88ad-4d50-a4ca-ba2f6e303da2",
+    "page": "features",
+    "locale": "es",
+    "title": "Las mejores funciones de software de MLM para su negocio",
+    "description": "Explore las funciones de MLM impulsadas por IA de Cloud MLM diseñadas para su éxito. Simplifique el seguimiento, mejore la comunicación y haga crecer su red.",
+    "keywords": "Las mejores funciones de software de MLM para su negocio",
+    "createdAt": "2026-01-27T08:41:13.012Z",
+    "updatedAt": "2026-01-27T08:41:13.011Z"
+  },
+  {
+    "id": "37f307dc-83e9-416d-8b8a-fb87d8652ea6",
+    "page": "ai-copilot",
+    "locale": "it",
+    "title": "Co-pilota AI per software MLM | Automazione intelligente | Cloud MLM",
+    "description": "Trasforma le tue operazioni MLM con funzionalità di copilota basate sull'intelligenza artificiale. Automatizza i flussi di lavoro, migliora il processo decisionale e accelera la crescita con l'assistenza intelligente dell'IA. Esplora il co-pilota di lancio dell'IA, l'infrastruttura pronta per il mondo e gli strumenti di adozione sul campo.",
+    "keywords": "Co-pilota AI, MLM AI, intelligenza artificiale MLM, automazione AI, software MLM intelligente, MLM basato su AI, automazione MLM, implementazione AI, funzionalità MLM AI, co-pilota intelligente, co-pilota di lancio AI, software MLM AI, network marketing AI, automazione del flusso di lavoro MLM, MLM basato su AI",
+    "createdAt": "2026-01-27T08:41:48.999Z",
+    "updatedAt": "2026-01-27T08:41:48.999Z"
+  },
+  {
+    "id": "3d9792e1-35f8-4494-b656-086b58071002",
+    "page": "mlm-software-modules-multi-currency-module",
+    "locale": "en",
+    "title": "multi-currency-module - Cloud MLM Software",
+    "description": "Design and run compensation plans with the Cloud MLM Software compensation module. Binary, unilevel, matrix, and custom structures.",
+    "keywords": "MLM compensation module, commission module, Cloud MLM Software compensation, multi-currency-module",
+    "createdAt": "2026-02-14T03:03:22.135Z",
+    "updatedAt": "2026-02-14T03:07:15.604Z"
+  },
+  {
+    "id": "3e02a6e3-798e-4657-9ef3-0aa550356216",
+    "page": "blog",
+    "locale": "en",
+    "title": "MLM Software | Best Network Marketing Tools for Growth",
+    "description": "Grow with Cloud MLM Software: AI-powered, scalable, secure MLM platform for network marketing business. Free demo & transparent pricing! Start today.",
+    "keywords": "best mlm software, mlm software, best mlm software in usa, mlm software in usa, top 5 mlm software",
+    "createdAt": "2026-02-02T10:14:04.419Z",
+    "updatedAt": "2026-02-02T10:14:04.418Z"
+  },
+  {
+    "id": "3f7e7b3a-cae7-4e38-9450-7f82747590ee",
+    "page": "services/woocommerce-integration-with-cloud-mlm-software",
+    "locale": "en",
+    "title": "WooCommerce integration with Cloud MLM Software",
+    "description": "Cloud MLM Software offers seamless integration with WordPress and WooCommerce. Combine MLM management with the flexibility of WordPress. Automated commissions, real-time sync, and 24/7 support.",
+    "keywords": "WooCommerce MLM integration, WordPress MLM software, WooCommerce Cloud MLM, WordPress integration, Cloud MLM Software",
+    "createdAt": "2026-02-13T08:46:17.775Z",
+    "updatedAt": "2026-02-14T04:22:39.416Z"
+  },
+  {
+    "id": "3fc9f405-a2a9-4784-a7a8-08c548ef7724",
+    "page": "industry-solutions/mlm-software-for-insurance-industry",
+    "locale": "en",
+    "title": "2Insurance Industry MLM Software",
+    "description": "Explore top MLM plans designed for business success. Compare Binary, Matrix, and Unilevel plans to find the best fit for your goals.",
+    "keywords": "best mlm software in usa",
+    "createdAt": "2026-02-14T10:21:11.738Z",
+    "updatedAt": "2026-02-14T10:52:27.282Z"
+  },
+  {
+    "id": "41844faf-7d3b-4012-bb60-d2a708d8c543",
+    "page": "mlm-software-modules",
+    "locale": "it",
+    "title": "Moduli software MLM | Software Cloud MLM",
+    "description": "Trasforma la tua strategia aziendale con moduli software MLM intuitivi. Semplifica le operazioni e aumenta i profitti.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-21T11:07:55.077Z",
+    "updatedAt": "2026-01-21T11:07:55.077Z"
+  },
+  {
+    "id": "456002d4-e1ea-433c-976d-d2a18ee5faf5",
+    "page": "mlm-consulting",
+    "locale": "en",
+    "title": "MLM Consulting Services: Get Results with Proven Tips | Cloud MLM Software",
+    "description": "Improve your online presence with Cloud MLM Software Solutions' web development services. We develop responsive, dynamic, and user-friendly websites that suit your business goals.",
+    "keywords": "content=&quot;Web development, MLM website development, responsive websites, Cloud MLM Software&quot;",
+    "createdAt": "2026-02-13T09:01:43.885Z",
+    "updatedAt": "2026-02-13T09:09:39.614Z"
+  },
+  {
+    "id": "460fd756-efa9-488f-a2ad-232ffd73db69",
+    "page": "services",
+    "locale": "de",
+    "title": "Top MLM Software Services für Geschäftswachstum",
+    "description": "Vereinfachen Sie Ihr Geschäft mit leistungsstarken MLM-Software-Services. Verfolgen Sie Verkäufe, verwalten Sie Teams und treiben Sie mühelos das Wachstum voran. Entdecken Sie noch heute unsere Lösungen!",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-22T08:44:27.643Z",
+    "updatedAt": "2026-02-14T04:21:34.301Z"
+  },
+  {
+    "id": "4a2a01ae-66a8-4eb9-a1f0-c530f2c7c384",
+    "page": "industries",
+    "locale": "en",
+    "title": "MLM Software for Diverse Industries | Scalable Solutions",
+    "description": "Explore industry-specific MLM software solutions designed to support growth across sectors like insurance, finance, and more.",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-23T05:09:38.006Z",
+    "updatedAt": "2026-01-23T05:09:38.005Z"
+  },
+  {
+    "id": "4c365240-44ce-4f53-a50f-738d355a1005",
+    "page": "blog",
+    "locale": "de",
+    "title": "MLM-Software | Beste Network-Marketing-Tools für Wachstum",
+    "description": "Wachsen Sie mit der Cloud-MLM-Software: KI-gestützte, skalierbare, sichere MLM-Plattform für Network-Marketing-Unternehmen. Kostenlose Demo & transparente Preise! Starte noch heute.",
+    "keywords": "beste mlm software, mlm software, beste mlm software in usa, mlm software in usa, top 5 mlm software",
+    "createdAt": "2026-02-02T10:15:15.229Z",
+    "updatedAt": "2026-02-02T10:15:15.228Z"
+  },
+  {
+    "id": "4efd18d0-749c-48db-9dbc-d91de9b14f0d",
+    "page": "services/e-commerce-integration",
+    "locale": "en",
+    "title": "E-Commerce Integration Services | Seamless Online Solutions | Cloud MLM Software",
+    "description": "Cloud MLM Software is bundled with core modules to integrate with various e-commerce solutions. Expert team for WordPress, WooCommerce, OpenCart, Magento, and Shopify integration with MLM software.",
+    "keywords": "e-commerce integration, MLM software integration, WooCommerce MLM, Shopify MLM, Magento MLM, OpenCart MLM, Cloud MLM Software",
+    "createdAt": "2026-02-13T08:44:53.980Z",
+    "updatedAt": "2026-02-13T08:45:02.346Z"
+  },
+  {
+    "id": "4f8124d4-9bf1-486c-a086-cb129c08447b",
+    "page": "home",
+    "locale": "de",
+    "title": "MLM-Software | Beste Network-Marketing-Tools für Wachstum",
+    "description": "Wachsen Sie mit der Cloud-MLM-Software: KI-gestützte, skalierbare, sichere MLM-Plattform für Network-Marketing-Unternehmen. Kostenlose Demo & transparente Preise! Starte noch heute.",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-21T08:30:29.509Z",
+    "updatedAt": "2026-01-21T08:30:29.508Z"
+  },
+  {
+    "id": "50395e8f-d693-4186-99b1-9fc626415973",
+    "page": "services",
+    "locale": "pt",
+    "title": "Principais serviços de software de MLM para o crescimento dos negócios",
+    "description": "Simplifique o seu negócio com poderosos serviços de software MLM. Acompanhe as vendas, faça a gestão das equipas e impulsione o crescimento sem esforço. Explore as nossas soluções hoje!",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-22T08:44:33.506Z",
+    "updatedAt": "2026-02-14T04:21:34.323Z"
+  },
+  {
+    "id": "527bd6f2-4182-49bf-8cb7-6a5981feda56",
+    "page": "changelog",
+    "locale": "it",
+    "title": "Changelog | Software MLM cloud",
+    "description": "Resta aggiornato con il nostro changelog! Scopri nuove funzionalità, miglioramenti e correzioni per migliorare la tua esperienza. Torna a trovarci per gli ultimi aggiornamenti",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-24T09:18:05.978Z",
+    "updatedAt": "2026-01-24T09:18:05.970Z"
+  },
+  {
+    "id": "538c66cc-2c39-4d98-873e-ac7de2dcf939",
+    "page": "mlm-software-modules",
+    "locale": "es",
+    "title": "Módulos de software MLM | Software MLM en la nube",
+    "description": "Transforma tu estrategia de negocio con módulos de software MLM fáciles de usar. Agilice las operaciones y aumente las ganancias.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-21T11:07:46.992Z",
+    "updatedAt": "2026-01-21T11:07:46.992Z"
+  },
+  {
+    "id": "53ef75a5-7090-4af6-bbf2-b7a65750744d",
+    "page": "mlm-software-modules-backup-manager",
+    "locale": "en",
+    "title": "Backup Manager Module | Cloud MLM Software",
+    "description": "Automated backups and recovery for your MLM data. Part of Cloud MLM Software modules.",
+    "keywords": "MLM backup, backup manager module, Cloud MLM Software backup",
+    "createdAt": "2026-02-13T11:42:23.063Z",
+    "updatedAt": "2026-02-14T02:55:34.253Z"
+  },
+  {
+    "id": "55b7b695-9cae-4e55-8488-5b17709ef48e",
+    "page": "mlm-software-modules-multi-lingual-system",
+    "locale": "en",
+    "title": "Multi-Lingual System | Cloud MLM Software",
+    "description": "Multi-language and localization for your MLM platform. Part of Cloud MLM Software modules.",
+    "keywords": "MLM multi-lingual, localization module, Cloud MLM Software languages",
+    "createdAt": "2026-02-14T03:01:21.584Z",
+    "updatedAt": "2026-02-14T03:01:51.874Z"
+  },
+  {
+    "id": "56b2a150-1b54-43f8-bddc-30d498ce5a35",
+    "page": "blog",
+    "locale": "pt",
+    "title": "Software MLM | Melhores Ferramentas de Marketing de Rede para o Crescimento",
+    "description": "Cresça com o software Cloud MLM: plataforma MLM segura, escalável e baseada em IA para negócios de marketing de rede. Demonstração gratuita e preços transparentes! Comece hoje.",
+    "keywords": "melhor software mlm, software mlm, melhor software mlm nos EUA, software mlm nos EUA, software top 5 mlm",
+    "createdAt": "2026-02-02T10:15:23.827Z",
+    "updatedAt": "2026-02-02T10:15:23.826Z"
+  },
+  {
+    "id": "59a386d1-98b0-417b-9a9a-d2a4fe08264f",
+    "page": "services",
+    "locale": "en",
+    "title": "Top MLM Software Services for Business Growth",
+    "description": "Simplify your business with powerful MLM software services. Track sales, manage teams, and drive growth effortlessly. Explore our solutions today!",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-22T08:43:57.139Z",
+    "updatedAt": "2026-02-14T04:21:34.217Z"
+  },
+  {
+    "id": "5a69f019-894e-4bbe-b90c-5f3f9aead246",
+    "page": "mlm-software-modules-analytics",
+    "locale": "en",
+    "title": "Analytics & Reporting Module | Cloud MLM Software",
+    "description": "Analytics and reporting module for MLM: dashboards, KPIs, and exports. Part of Cloud MLM Software modules.",
+    "keywords": "MLM analytics module, reporting module, Cloud MLM Software analytics",
+    "createdAt": "2026-02-14T03:28:42.730Z",
+    "updatedAt": "2026-02-14T10:58:13.781Z"
+  },
+  {
+    "id": "5b91907b-4c0c-4554-84c6-d141abdf5152",
+    "page": "mlm-software-modules",
+    "locale": "pt",
+    "title": "Módulos de Software MLM | Software de MLM em Nuvem",
+    "description": "Transforme a sua estratégia de negócios com módulos de software de MLM fáceis de usar. Agilize as operações e aumente os lucros.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-21T11:08:14.960Z",
+    "updatedAt": "2026-01-21T11:08:14.959Z"
+  },
+  {
+    "id": "5fa76ac2-3e5a-489f-9d36-5ca4401d850b",
+    "page": "contact",
+    "locale": "pt",
+    "title": "Contacte-nos | Cloud MLM Software",
+    "description": "Contacte-nos para quaisquer dúvidas ou apoio. A nossa simpática equipa está pronta para fornecer as informações de que precisa. Contacte-nos!",
+    "keywords": "melhor software mlm",
+    "createdAt": "2026-01-28T10:02:17.844Z",
+    "updatedAt": "2026-01-28T10:02:17.843Z"
+  },
+  {
+    "id": "61e1bf4f-a4a9-4119-8391-0cb72895097c",
+    "page": "services/woocommerce-integration-with-cloud-mlm-software",
+    "locale": "fr",
+    "title": "Intégration de WooCommerce avec le logiciel Cloud MLM",
+    "description": "Cloud MLM Software offre une intégration transparente avec WordPress et WooCommerce. Combinez la gestion MLM avec la flexibilité de WordPress. Commissions automatisées, synchronisation en temps réel et assistance 24h/24 et 7j/7.",
+    "keywords": "Intégration WooCommerce MLM, logiciel WordPress MLM, WooCommerce Cloud MLM, intégration WordPress, logiciel Cloud MLM",
+    "createdAt": "2026-02-14T04:22:39.462Z",
+    "updatedAt": "2026-02-14T04:22:39.458Z"
+  },
+  {
+    "id": "6259f8d9-2d43-4817-a1e2-0192f6d73621",
+    "page": "mlm-software-modules-auto-responder",
+    "locale": "en",
+    "title": "Auto Responder Module | Cloud MLM Software",
+    "description": "Automated email and message sequences for onboarding and engagement. Part of Cloud MLM Software modules.",
+    "keywords": "MLM auto responder, autoresponder module, Cloud MLM Software automation",
+    "createdAt": "2026-02-14T03:08:09.398Z",
+    "updatedAt": "2026-02-14T03:08:25.852Z"
+  },
+  {
+    "id": "6c8364d6-94c1-4cff-88cf-91041ecae2b8",
+    "page": "free-mlm-software-demo",
+    "locale": "pt",
+    "title": "Demonstração gratuita de software MLM para todos os planos",
+    "description": "Experimente a demonstração gratuita do software MLM e experimente os benefícios dos nossos planos MLM. Obtenha informações sobre como melhorar a eficiência e impulsionar as vendas.",
+    "keywords": "melhor software mlm nos EUA",
+    "createdAt": "2026-01-28T11:24:11.769Z",
+    "updatedAt": "2026-01-28T11:24:11.768Z"
+  },
+  {
+    "id": "6ef62d3b-a63c-46bb-8567-ebaeb1d9275c",
+    "page": "contact",
+    "locale": "en",
+    "title": "Contact Us | Cloud MLM Software",
+    "description": "Contact us for any inquiries or support. Our friendly team is ready to provide the information you need.Get in touch!",
+    "keywords": "best mlm software",
+    "createdAt": "2026-01-28T10:00:55.829Z",
+    "updatedAt": "2026-01-28T10:00:55.828Z"
+  },
+  {
+    "id": "772e0790-c021-4ca5-8f76-123c0a8f9571",
+    "page": "ai-copilot",
+    "locale": "en",
+    "title": "AI Co-pilot for MLM Software | Intelligent Automation | Cloud MLM",
+    "description": "Transform your MLM operations with AI-powered co-pilot features. Automate workflows, enhance decision-making, and accelerate growth with intelligent AI assistance. Explore AI launch co-pilot, global-ready infrastructure, and field adoption tools.",
+    "keywords": "AI co-pilot, MLM AI, artificial intelligence MLM, AI automation, intelligent MLM software, AI-powered MLM, MLM automation, AI implementation, MLM AI features, intelligent co-pilot, AI launch co-pilot, MLM software AI, network marketing AI, MLM workflow automation, AI-driven MLM",
+    "createdAt": "2026-01-24T10:43:54.666Z",
+    "updatedAt": "2026-01-24T10:43:54.665Z"
+  },
+  {
+    "id": "7906b50f-9b74-4231-b733-20e1b69242ed",
+    "page": "services/web-development",
+    "locale": "en",
+    "title": "Web Development Services | Build Modern and Scalable Websites | Cloud MLM Software",
+    "description": "Improve your online presence with Cloud MLM Software Solutions' web development services. We develop responsive, dynamic, and user-friendly websites that suit your business goals.",
+    "keywords": "content=\"Web development, MLM website development, responsive websites, Cloud MLM Software\"",
+    "createdAt": "2026-02-13T08:59:20.232Z",
+    "updatedAt": "2026-02-13T09:00:09.911Z"
+  },
+  {
+    "id": "801d4bca-a014-4fe3-995d-1277288bf420",
+    "page": "mlm-software-modules-mass-email-sending-module",
+    "locale": "en",
+    "title": "Mass Email Sending Module | Cloud MLM Software",
+    "description": "Send bulk emails, campaigns, and automated sequences to your network. Part of Cloud MLM Software modules.",
+    "keywords": "MLM mass email, bulk email module, Cloud MLM Software email campaigns",
+    "createdAt": "2026-02-14T03:25:46.624Z",
+    "updatedAt": "2026-02-14T03:26:22.404Z"
+  },
+  {
+    "id": "80e20025-4c24-4f33-97fa-d355869efcfc",
+    "page": "cryptocurrency-mlm-software",
+    "locale": "en",
+    "title": "Cryptocurrency MLM Software | Cloud MLM Software",
+    "description": "Launch token-ready MLM programmes with secure custody, automated compliance, and AI copilots from Cloud MLM Software.",
+    "keywords": "Cryptocurrency MLM software, crypto MLM, token rewards, AI copilots, Cloud MLM Software",
+    "createdAt": "2026-02-13T08:22:24.428Z",
+    "updatedAt": "2026-02-13T08:23:52.038Z"
+  },
+  {
+    "id": "814902f4-56b2-4340-b05a-e0302c8b3900",
+    "page": "ai-copilot",
+    "locale": "pt",
+    "title": "Co-piloto de IA para Software MLM | Automação Inteligente | Cloud MLM",
+    "description": "Transforme suas operações de MLM com recursos de copiloto alimentados por IA. Automatize fluxos de trabalho, melhore a tomada de decisões e acelere o crescimento com assistência inteligente de IA. Explore o copiloto de lançamento de IA, a infraestrutura pronta para o mundo e as ferramentas de adoção de campo.",
+    "keywords": "Copiloto de IA, IA de MLM, MLM de inteligência artificial, automação de IA, software MLM inteligente, MLM alimentado por IA, automação de MLM, implementação de IA, recursos de IA de MLM, copiloto inteligente, copiloto de lançamento de IA, IA de software de MLM, IA de marketing de rede, automação de fluxo de trabalho de MLM, MLM orientado por IA",
+    "createdAt": "2026-01-27T08:41:58.348Z",
+    "updatedAt": "2026-01-27T08:41:58.348Z"
+  },
+  {
+    "id": "8577aecc-ce3c-4d73-bc00-2363aa33f8a0",
+    "page": "mlm-software-modules-ticket-system",
+    "locale": "en",
+    "title": "Ticket System Module for MLM Software | Cloud MLM Software",
+    "description": "Support ticket system for distributors and customers. Part of Cloud MLM Software modules.",
+    "keywords": "MLM ticket system, support module, Cloud MLM Software tickets",
+    "createdAt": "2026-02-14T03:19:38.628Z",
+    "updatedAt": "2026-02-14T03:20:10.331Z"
+  },
+  {
+    "id": "860b9d77-3e3c-4516-bc7a-e62186662e2b",
+    "page": "mlm-software-modules-marketing-automation",
+    "locale": "en",
+    "title": "Marketing Automation Module | Cloud MLM Software",
+    "description": "Marketing automation module for MLM: campaigns, segments, and analytics. Part of Cloud MLM Software modules.",
+    "keywords": "MLM marketing automation, campaign module, Cloud MLM Software marketing",
+    "createdAt": "2026-02-14T03:47:42.901Z",
+    "updatedAt": "2026-02-14T03:50:08.982Z"
+  },
+  {
+    "id": "87cd577d-b338-4e20-a999-9b3b1aa0f8d3",
+    "page": "changelog",
+    "locale": "zh",
+    "title": "更新日志| Cloud MLM软件",
+    "description": "使用我们的更新日志随时了解最新动态！探索新功能、改进和修复，提升您的体验。请稍后查看最新动态",
+    "keywords": "mlm软件",
+    "createdAt": "2026-01-24T09:04:32.082Z",
+    "updatedAt": "2026-01-24T09:04:32.081Z"
+  },
+  {
+    "id": "89a43e00-a54d-4d89-997d-9aec57d4adf4",
+    "page": "changelog",
+    "locale": "es",
+    "title": "Registro de cambios | Software MLM en la nube",
+    "description": "¡Manténgase actualizado con nuestro registro de cambios! Descubrí nuevas funciones, mejoras y mejoras para mejorar tu experiencia. Vuelve a consultar las últimas novedades",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-24T09:03:57.220Z",
+    "updatedAt": "2026-01-24T09:03:57.219Z"
+  },
+  {
+    "id": "89b0d38d-aece-45fb-bdca-290d86479e49",
+    "page": "mlm-plan/australian-x-up-plan-mlm-software",
+    "locale": "en",
+    "title": "Australian X-UP MLM Plan – Maximize Your Network Success",
+    "description": "The MLM Australian X-Up Plan is a modified version of the traditional multi-level marketing plan, designed to enhance earnings and incentivize member recruitment. Cloud MLM Software offers tailored Australian X-UP Plan MLM Software with powerful features.",
+    "keywords": "Australian X-UP MLM plan,MLM pass-up compensation,Cloud MLM Software plan design,Australian MLM plan software,X-UP plan automation",
+    "createdAt": "2026-02-14T09:11:09.844Z",
+    "updatedAt": "2026-02-14T10:09:38.664Z"
+  },
+  {
+    "id": "8cc54a02-9760-4dc1-9436-73ef51aea04b",
+    "page": "services",
+    "locale": "it",
+    "title": "I migliori servizi software MLM per la crescita aziendale",
+    "description": "Semplifica la tua attività con potenti servizi software MLM. Monitora le vendite, gestisci i team e promuovi la crescita senza sforzo. Scopri subito le nostre soluzioni!",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-22T08:44:22.233Z",
+    "updatedAt": "2026-02-14T04:21:34.280Z"
+  },
+  {
+    "id": "8d4f3b34-71bb-4510-97be-674bde63f934",
+    "page": "ai-copilot",
+    "locale": "de",
+    "title": "KI-Copilot für MLM-Software | Intelligente Automatisierung | Cloud-MLM",
+    "description": "Transformieren Sie Ihre MLM-Operationen mit KI-gestützten Co-Pilot-Funktionen. Automatisieren Sie Workflows, verbessern Sie die Entscheidungsfindung und beschleunigen Sie das Wachstum mit intelligenter KI-Unterstützung. Entdecken Sie den Co-Piloten für die Einführung von KI, die global einsatzbereite Infrastruktur und die Tools für die Einführung vor Ort.",
+    "keywords": "KI-Copilot, MLM-KI, künstliche Intelligenz MLM, KI-Automatisierung, intelligente MLM-Software, KI-gestütztes MLM, MLM-Automatisierung, KI-Implementierung, MLM-KI-Funktionen, intelligenter Co-Pilot, KI-Start-Copilot, MLM-Software-KI, Netzwerkmarketing-KI, MLM-Workflow-Automatisierung, KI-gesteuertes MLM",
+    "createdAt": "2026-01-27T08:41:53.980Z",
+    "updatedAt": "2026-01-27T08:41:53.980Z"
+  },
+  {
+    "id": "8f59f31b-646f-4d00-a836-41c3ac873733",
+    "page": "testimonials",
+    "locale": "de",
+    "title": "Referenzen | Cloud MLM Software",
+    "description": "Lesen Sie die wertvollen Bewertungen unserer Kunden über Cloud-MLM-Software. Dies hilft Ihnen zu verstehen, warum wir die Besten in der MLM-Branche werden.",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-21T09:24:37.494Z",
+    "updatedAt": "2026-01-21T09:24:37.493Z"
+  },
+  {
+    "id": "93731471-1898-49f5-a4bf-a78447185587",
+    "page": "features",
+    "locale": "zh",
+    "title": "适合您业务的最佳MLM软件功能",
+    "description": "探索专为您的成功而设计的Cloud MLM的人工智能驱动的MLM功能。简化跟踪、增强沟通并扩展您的网络。",
+    "keywords": "适合您业务的最佳MLM软件功能",
+    "createdAt": "2026-01-27T08:41:32.848Z",
+    "updatedAt": "2026-01-27T08:41:32.847Z"
+  },
+  {
+    "id": "9443558b-a58b-4b40-978d-e4d776efaf82",
+    "page": "industries",
+    "locale": "zh",
+    "title": "适用于不同行业的传销软件|可扩展解决方案",
+    "description": "探索特定行业的传销软件解决方案，旨在支持保险、金融等行业的增长。",
+    "keywords": "mlm软件",
+    "createdAt": "2026-01-23T05:10:15.209Z",
+    "updatedAt": "2026-01-23T05:10:15.207Z"
+  },
+  {
+    "id": "9a5e49b4-0691-4a61-ad92-4ee85d127d72",
+    "page": "contact",
+    "locale": "zh",
+    "title": "联系我们| Cloud MLM软件",
+    "description": "如有任何疑问或支持，请联系我们。我们友好的团队随时为您提供所需信息。请联系我们！",
+    "keywords": "最好的mlm软件",
+    "createdAt": "2026-01-28T10:02:26.917Z",
+    "updatedAt": "2026-01-28T10:02:26.914Z"
+  },
+  {
+    "id": "9ad563ee-b174-4e66-b455-eabbb63cd9fa",
+    "page": "free-mlm-software-demo",
+    "locale": "en",
+    "title": "Free MLM Software Demo For All Plans",
+    "description": "Try out free MLM software demo and experience the benefits of our MLM plans. Get insights on improving efficiency and driving sales.",
+    "keywords": "best mlm software in usa",
+    "createdAt": "2026-01-28T11:28:07.564Z",
+    "updatedAt": "2026-01-28T11:28:07.562Z"
+  },
+  {
+    "id": "9f77c8d3-f793-44e6-89b9-4070b0948734",
+    "page": "industries",
+    "locale": "de",
+    "title": "MLM-Software für verschiedene Branchen | Skalierbare Lösungen",
+    "description": "Entdecken Sie branchenspezifische MLM-Softwarelösungen, die das Wachstum in Branchen wie Versicherungen, Finanzen und mehr unterstützen.",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-23T05:10:02.112Z",
+    "updatedAt": "2026-01-23T05:10:02.112Z"
+  },
+  {
+    "id": "a1d6f4c0-250b-4d07-8b52-686f91cfdaf0",
+    "page": "faq",
+    "locale": "it",
+    "title": "Domande frequenti sul software MLM",
+    "description": "Queste sono le domande più frequenti sul software Cloud MLM, questo ti aiuterà a risolvere tutti i dubbi sul nostro prodotto, servizio, prezzo, ecc.",
+    "keywords": "faq software mlm",
+    "createdAt": "2026-01-21T06:56:45.859Z",
+    "updatedAt": "2026-01-21T06:57:57.702Z"
+  },
+  {
+    "id": "a2cbaf63-8055-421d-9b30-d85ba10b30a8",
+    "page": "features",
+    "locale": "it",
+    "title": "Le migliori funzionalità del software MLM per la tua azienda",
+    "description": "Esplora le funzionalità MLM basate sull'intelligenza artificiale di Cloud MLM progettate per il tuo successo. Semplifica il monitoraggio, migliora la comunicazione e fai crescere la tua rete.",
+    "keywords": "Le migliori funzionalità del software MLM per la tua azienda",
+    "createdAt": "2026-01-27T08:41:18.576Z",
+    "updatedAt": "2026-01-27T08:41:18.576Z"
+  },
+  {
+    "id": "a82864f1-4b21-4b2e-9e73-34b2066f9e71",
+    "page": "mlm-plans",
+    "locale": "pt",
+    "title": "Principais planos de MMN explicados: escolha o plano certo para os seus objetivos.",
+    "description": "Explore os principais planos de MLM projetados para o sucesso dos negócios. Compare os planos binários, matriciais e de nível único para encontrar a melhor opção para seus objetivos.",
+    "keywords": "melhor software mlm nos EUA",
+    "createdAt": "2026-01-30T08:35:30.631Z",
+    "updatedAt": "2026-01-30T08:35:30.630Z"
+  },
+  {
+    "id": "aabce9b1-df33-41d0-8545-90fb01a48f51",
+    "page": "mlm-software-modules-customer-engagement-module",
+    "locale": "en",
+    "title": "Customer Engagement Module | Cloud MLM Software",
+    "description": "Customer and distributor engagement module: support, loyalty, and journeys. Part of Cloud MLM Software modules.",
+    "keywords": "MLM customer engagement, support module, Cloud MLM Software engagement",
+    "createdAt": "2026-02-14T04:03:06.048Z",
+    "updatedAt": "2026-02-14T04:12:27.073Z"
+  },
+  {
+    "id": "aef3f063-448f-473a-bc90-21a2e490cdb8",
+    "page": "services/woocommerce-integration-with-cloud-mlm-software",
+    "locale": "es",
+    "title": "Integración de WooCommerce con Cloud MLM Software",
+    "description": "Cloud MLM Software ofrece una integración perfecta con WordPress y WooCommerce. Combina la gestión de MLM con la flexibilidad de WordPress. Comisiones automatizadas, sincronización en tiempo real y soporte 24/7.",
+    "keywords": "Integración WooCommerce MLM, software WordPress MLM, WooCommerce Cloud MLM, integración WordPress, software Cloud MLM",
+    "createdAt": "2026-02-14T04:21:56.330Z",
+    "updatedAt": "2026-02-14T04:22:39.435Z"
+  },
+  {
+    "id": "b0f8cebf-dfde-4372-86b6-3c6c0a23b496",
+    "page": "changelog",
+    "locale": "pt",
+    "title": "Changelog | Software Cloud MLM",
+    "description": "Mantenha-se atualizado com o nosso changelog! Descubra novas funcionalidades, melhorias e correções para melhorar a sua experiência. Volte para ver as atualizações mais recentes",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-24T09:04:15.969Z",
+    "updatedAt": "2026-01-24T09:04:15.969Z"
+  },
+  {
+    "id": "b5ed0861-2ddc-47e9-801a-5e65b35cdede",
+    "page": "mlm-software-modules-e-wallet",
+    "locale": "en",
+    "title": "E-Wallet Module for MLM Software | Cloud MLM Software",
+    "description": "Digital wallet for commissions, payouts, and in-network transactions. Part of Cloud MLM Software modules.",
+    "keywords": "MLM e-wallet, digital wallet module, Cloud MLM Software wallet",
+    "createdAt": "2026-02-14T03:21:41.266Z",
+    "updatedAt": "2026-02-14T03:22:16.400Z"
+  },
+  {
+    "id": "b6e0ea1f-1a6f-4870-b66a-566681f369be",
+    "page": "mlm-software-modules-genealogy",
+    "locale": "en",
+    "title": "Genealogy Tree Module | Cloud MLM Software",
+    "description": "Genealogy and network tree module for MLM. Visualise and manage distributor networks. Part of Cloud MLM Software modules.",
+    "keywords": "MLM genealogy module, network tree, Cloud MLM Software genealogy",
+    "createdAt": "2026-02-14T03:51:14.891Z",
+    "updatedAt": "2026-02-14T03:56:00.985Z"
+  },
+  {
+    "id": "ba419e2b-720e-4666-b1e2-c43bc505d153",
+    "page": "services",
+    "locale": "es",
+    "title": "Los mejores servicios de software de MLM para el crecimiento empresarial",
+    "description": "Simplifique su negocio con potentes servicios de software de MLM. Haz un seguimiento de las ventas, gestiona equipos e impulsa el crecimiento sin esfuerzo. ¡Explore nuestras soluciones hoy mismo!",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-22T08:44:07.606Z",
+    "updatedAt": "2026-02-14T04:21:34.238Z"
+  },
+  {
+    "id": "beefe062-a583-49c9-a121-cf7be18e321e",
+    "page": "home",
+    "locale": "pt",
+    "title": "Software MLM | Melhores Ferramentas de Marketing de Rede para o Crescimento",
+    "description": "Cresça com o software Cloud MLM: plataforma MLM segura, escalável e baseada em IA para negócios de marketing de rede. Demonstração gratuita e preços transparentes! Comece hoje.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-21T08:30:36.622Z",
+    "updatedAt": "2026-01-21T08:30:36.622Z"
+  },
+  {
+    "id": "bf9b285b-422e-4c18-8b83-855d36041029",
+    "page": "home",
+    "locale": "it",
+    "title": "Software MLM | I migliori strumenti di Network Marketing per la crescita",
+    "description": "Crescere con il software Cloud MLM: piattaforma MLM basata su intelligenza artificiale, scalabile e sicura per le attività di network marketing. Demo gratuita e prezzi trasparenti! Inizia oggi.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-21T08:30:55.226Z",
+    "updatedAt": "2026-01-21T08:30:55.226Z"
+  },
+  {
+    "id": "bfa00ac0-d3f5-4375-b3ee-04773d7e617d",
+    "page": "faq",
+    "locale": "de",
+    "title": "Häufige Fragen zur MLM-Software",
+    "description": "Dies sind die häufig gestellten Fragen zur Cloud MLM-Software. Dies wird Ihnen helfen, alle Zweifel an unserem Produkt, Service, Preis usw. zu lösen.",
+    "keywords": "mlm software faq",
+    "createdAt": "2026-01-21T06:58:06.859Z",
+    "updatedAt": "2026-01-21T06:58:06.858Z"
+  },
+  {
+    "id": "bfa9de76-737c-447e-a650-d3f54ed3c0be",
+    "page": "industries",
+    "locale": "it",
+    "title": "Software MLM per diversi settori | Soluzioni scalabili",
+    "description": "Esplora le soluzioni software MLM specifiche del settore progettate per supportare la crescita in settori come assicurazioni, finanza e altro ancora.",
+    "keywords": "software mlm",
+    "createdAt": "2026-01-23T05:09:56.317Z",
+    "updatedAt": "2026-01-23T05:09:56.317Z"
+  },
+  {
+    "id": "c20c302b-00cf-48c7-9130-5c67570481b3",
+    "page": "services/opencart-development",
+    "locale": "en",
+    "title": "Opencart Development Services | Cloud MLM Software",
+    "description": "Cloud MLM provides smart Opencart Development Services to accomplish business tasks easily, improve store performance, and better satisfy your clients' requirements.",
+    "keywords": "Opencart development, e-commerce OpenCart, MLM OpenCart integration, Cloud MLM Software",
+    "createdAt": "2026-02-13T08:47:44.813Z",
+    "updatedAt": "2026-02-13T08:47:51.601Z"
+  },
+  {
+    "id": "c3738ed8-3878-47ab-ae2b-552e5c64137e",
+    "page": "mlm-software-modules-emails",
+    "locale": "en",
+    "title": "Email & Communications Module | Cloud MLM Software",
+    "description": "Email automation and communications module for MLM: lifecycle journeys, governance, and performance visibility. Part of Cloud MLM Software modules.",
+    "keywords": "MLM email module, marketing automation module, Cloud MLM Software emails",
+    "createdAt": "2026-02-14T03:35:40.139Z",
+    "updatedAt": "2026-02-14T03:46:44.083Z"
+  },
+  {
+    "id": "c435276f-1343-47b2-8103-5cd6be12a6e9",
+    "page": "features",
+    "locale": "de",
+    "title": "Die besten MLM-Softwarefunktionen für Ihr Unternehmen",
+    "description": "Entdecken Sie die KI-gesteuerten MLM-Funktionen von Cloud MLM, die für Ihren Erfolg entwickelt wurden. Vereinfachen Sie die Nachverfolgung, verbessern Sie die Kommunikation und erweitern Sie Ihr Netzwerk.",
+    "keywords": "Die besten MLM-Softwarefunktionen für Ihr Unternehmen",
+    "createdAt": "2026-01-27T08:41:23.208Z",
+    "updatedAt": "2026-01-27T08:41:23.208Z"
+  },
+  {
+    "id": "c58bda81-5808-4e5d-8ab6-e06bbbda9abe",
+    "page": "industry-solutions/3mlm-software-for-insurance-industry",
+    "locale": "en",
+    "title": "2Insurance Industry MLM Software",
+    "description": "Modernise insurance distribution with Cloud MLM Software—compliance-first compensation, advisor enablement, and policyholder engagement built for growth.",
+    "keywords": "insurance mlm software, insurance agency software, mlm for insurance agents",
+    "createdAt": "2026-02-14T10:59:54.483Z",
+    "updatedAt": "2026-02-14T10:59:54.482Z"
+  },
+  {
+    "id": "cd4e244a-d375-4ac4-a51a-8fe530f1b3a3",
+    "page": "services",
+    "locale": "zh",
+    "title": "面向业务增长的顶级传销软件服务",
+    "description": "借助强大的MLM软件服务简化您的业务。轻松跟踪销售情况、管理团队并推动增长。立即探索我们的解决方案！",
+    "keywords": "mlm软件",
+    "createdAt": "2026-01-22T08:44:39.260Z",
+    "updatedAt": "2026-02-14T04:21:34.343Z"
+  },
+  {
+    "id": "cd56fd5f-9ddc-4bef-bc0a-6a8add1a7e75",
+    "page": "mlm-software-modules-kyc-documentation",
+    "locale": "en",
+    "title": "Secure KYC Documentation Module | Simplify Verification",
+    "description": "KYC documentation for new joinings and account refresh. Prevent fraud, verify members with identity proof, and keep your MLM business compliant. Cloud MLM Software.",
+    "keywords": "MLM KYC, KYC documentation, Cloud MLM Software compliance, KYC verification, identity verification MLM",
+    "createdAt": "2026-02-14T02:57:42.158Z",
+    "updatedAt": "2026-02-14T02:57:52.019Z"
+  },
+  {
+    "id": "cf187d35-46d9-4305-b928-3106068b7c80",
+    "page": "faq",
+    "locale": "es",
+    "title": "Preguntas frecuentes sobre el software de MLM",
+    "description": "Estas son las preguntas más frecuentes sobre Cloud MLM Software, esto te ayudará a resolver todas las dudas sobre nuestro producto, servicio, precio, etc.",
+    "keywords": "faq software mlm",
+    "createdAt": "2026-01-21T06:56:37.366Z",
+    "updatedAt": "2026-01-21T06:56:37.365Z"
+  },
+  {
+    "id": "cfb32578-be9b-48e4-a081-08b1c8502c8b",
+    "page": "mlm-software-modules-compensation-module",
+    "locale": "en",
+    "title": "Compensation Plan Module | Cloud MLM Software",
+    "description": "Design and run compensation plans with the Cloud MLM Software compensation module. Binary, unilevel, matrix, and custom structures.",
+    "keywords": "MLM compensation module, commission module, Cloud MLM Software compensation",
+    "createdAt": "2026-02-14T03:57:36.377Z",
+    "updatedAt": "2026-02-14T03:58:39.794Z"
+  },
+  {
+    "id": "cmlm65sci0000ll0lgd5qdztl",
+    "page": "industry-solutions-affiliate-marketing",
+    "locale": "en",
+    "title": "TEST: Affiliate Marketing MLM Software",
+    "description": "TEST: This is a dynamic description fetched from meta_details table.",
+    "keywords": "test, affiliate, mlm, dynamic",
+    "createdAt": "2026-02-14T10:24:02.754Z",
+    "updatedAt": "2026-02-14T10:24:02.754Z"
+  },
+  {
+    "id": "d215aea1-7201-4fdc-924e-339b3d40ff7d",
+    "page": "features",
+    "locale": "pt",
+    "title": "Melhores recursos de software de MLM para o seu negócio",
+    "description": "Explore os recursos de MLM orientados por IA do Cloud MLM projetados para o seu sucesso. Simplifique o rastreamento, melhore a comunicação e aumente a sua rede.",
+    "keywords": "Melhores recursos de software de MLM para o seu negócio",
+    "createdAt": "2026-01-27T08:41:28.064Z",
+    "updatedAt": "2026-01-27T08:41:28.063Z"
+  },
+  {
+    "id": "d406d072-de29-4143-98d6-f0fb3e1f39bc",
+    "page": "mlm-plans",
+    "locale": "zh",
+    "title": "顶级传销计划说明：为您的目标选择正确的计划。",
+    "description": "探索专为企业成功而设计的顶级传销计划。比较Binary、Matrix和Unilevel方案，找到最适合您目标的方案。",
+    "keywords": "美国最好的mlm软件",
+    "createdAt": "2026-01-30T08:35:38.629Z",
+    "updatedAt": "2026-01-30T08:35:38.628Z"
+  },
+  {
+    "id": "d4faa475-5027-41af-9bbe-1196e9382d2a",
+    "page": "changelog",
+    "locale": "en",
+    "title": "Changelog | Cloud MLM Software",
+    "description": "Stay updated with our changelog! Discover new features, improvements, and fixes to enhance your experience. Check back for the latest updates",
+    "keywords": "mlm software",
+    "createdAt": "2026-01-24T09:03:45.031Z",
+    "updatedAt": "2026-01-24T09:03:45.030Z"
+  }
+]

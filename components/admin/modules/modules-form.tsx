@@ -17,6 +17,7 @@ const locales = supportedLocales;
 
 interface ModuleTranslation {
     locale: string;
+    slug: string;
     title: string;
     description: string;
     image: string;
@@ -55,6 +56,7 @@ export function ModulesForm({
         locales.forEach((loc) => {
             initial[loc] = {
                 locale: loc,
+                slug: '',
                 title: '',
                 description: '',
                 image: '',
@@ -108,6 +110,7 @@ export function ModulesForm({
             locales.forEach((loc) => {
                 reset[loc] = {
                     locale: loc,
+                    slug: '',
                     title: '',
                     description: '',
                     image: '',
@@ -179,6 +182,7 @@ export function ModulesForm({
                 if (existing) {
                     loaded[loc] = {
                         locale: loc,
+                        slug: String(existing.slug || ''),
                         title: String(existing.title || ''),
                         description: String(existing.description || ''),
                         image: String(existing.image || sharedImage || ''),
@@ -190,6 +194,7 @@ export function ModulesForm({
                 } else {
                     loaded[loc] = {
                         locale: loc,
+                        slug: '',
                         title: '',
                         description: '',
                         image: String(sharedImage || ''),
@@ -243,7 +248,7 @@ export function ModulesForm({
         }
     };
 
-    const updateTranslation = (locale: string, field: 'title' | 'description' | 'image' | 'showOnHomePage', value: string | boolean) => {
+    const updateTranslation = (locale: string, field: 'slug' | 'title' | 'description' | 'image' | 'showOnHomePage', value: string | boolean) => {
         setTranslations((prev) => {
             const updated = {
                 ...prev,
@@ -349,6 +354,7 @@ export function ModulesForm({
         const trimmedTitle = current.title.trim();
         const trimmedDescription = current.description.trim();
         const trimmedIcon = current.image.trim();
+        const trimmedSlug = current.slug.trim();
 
         if (!trimmedTitle || !trimmedDescription || !trimmedIcon) {
             const missingFields = [];
@@ -380,6 +386,7 @@ export function ModulesForm({
                         image: trimmedIcon,
                         showOnHomePage: current.showOnHomePage,
                         locale: 'en',
+                        slug: trimmedSlug || undefined,
                     }),
                 });
                 const payload = await res.json();
@@ -417,6 +424,7 @@ export function ModulesForm({
                     image: trimmedIcon,
                     showOnHomePage: current.showOnHomePage,
                     locale: activeTab,
+                    slug: trimmedSlug || undefined,
                 }),
             });
             const payload = await res.json();
@@ -461,6 +469,7 @@ export function ModulesForm({
         title: '',
         description: '',
         image: '',
+        slug: '',
         showOnHomePage: false,
         exists: false,
     };
@@ -537,6 +546,21 @@ export function ModulesForm({
 
             {/* Form Fields */}
             <div className="space-y-4">
+                <div>
+                    <FieldLabel htmlFor="moduleSlug">
+                        Page slug
+                    </FieldLabel>
+                    <Input
+                        id="moduleSlug"
+                        value={current.slug}
+                        onChange={(e) => updateTranslation(activeTab, 'slug', e.target.value)}
+                        placeholder="e.g. backup-manager, emails"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                        Links this module to the page URL. Set to &quot;backup-manager&quot; for /backup-manager, &quot;emails&quot; for /emails, etc. Leave empty to match by title only.
+                    </p>
+                </div>
+
                 <div>
                     <FieldLabel htmlFor="icon" required>
                         Icon

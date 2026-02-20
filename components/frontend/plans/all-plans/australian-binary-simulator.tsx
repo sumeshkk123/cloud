@@ -210,63 +210,65 @@ export default function AustralianBinarySimulator({ className }: AustralianBinar
           Visualise how leg production, matched cycles, and carryover reserves respond to distributor activity.
         </p>
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 
-      <dl className="grid gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 dark:border-white/10 dark:bg-white/5">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <LineChart className="h-4 w-4 text-primary" aria-hidden />
-            Matched cycles
-          </div>
-          <span className="text-sm font-semibold text-foreground dark:text-white">{stats.matchedPairs}</span>
-        </div>
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Users className="h-4 w-4 text-primary" aria-hidden />
-            Activation rate
-          </div>
-          <span className="text-sm font-semibold text-foreground dark:text-white">{stats.activationRate}%</span>
-        </div>
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <TrendingUp className="h-4 w-4 text-primary" aria-hidden />
-            Payout volume
-          </div>
-          <span className="text-sm font-semibold text-foreground dark:text-white">{currencyFormatter.format(stats.payoutVolume)}</span>
-        </div>
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Activity className="h-4 w-4 text-primary" aria-hidden />
-            Flush risk
-          </div>
-          <span className="text-sm font-semibold text-foreground dark:text-white">{stats.flushRisk}%</span>
-        </div>
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <ShieldCheck className="h-4 w-4 text-primary" aria-hidden />
-            Cycle completion (days)
-          </div>
-          <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cycleDays}</span>
-        </div>
-      </dl>
-
-      <div className="grid gap-3">
-        {stats.timeline.map((step) => (
-          <div
-            key={step.label}
-            className={cn(
-              "flex items-start gap-3 rounded-2xl border border-border/60 p-3 text-sm dark:border-white/10",
-              step.highlighted
-                ? "bg-primary/10 text-foreground dark:bg-primary/20"
-                : "bg-background/80 text-muted-foreground dark:bg-white/5"
-            )}
-          >
-            <ArrowRight className="mt-1 h-4 w-4 text-primary" aria-hidden />
-            <div>
-              <p className="font-semibold">{step.value}</p>
-              <p className="text-xs text-muted-foreground dark:text-white/70">{step.hint}</p>
+        <dl className="grid gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 dark:border-white/10 dark:bg-white/5">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <LineChart className="h-4 w-4 text-primary" aria-hidden />
+              Matched cycles
             </div>
+            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.matchedPairs}</span>
           </div>
-        ))}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Users className="h-4 w-4 text-primary" aria-hidden />
+              Activation rate
+            </div>
+            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.activationRate}%</span>
+          </div>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <TrendingUp className="h-4 w-4 text-primary" aria-hidden />
+              Payout volume
+            </div>
+            <span className="text-sm font-semibold text-foreground dark:text-white">{currencyFormatter.format(stats.payoutVolume)}</span>
+          </div>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Activity className="h-4 w-4 text-primary" aria-hidden />
+              Flush risk
+            </div>
+            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.flushRisk}%</span>
+          </div>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <ShieldCheck className="h-4 w-4 text-primary" aria-hidden />
+              Cycle completion (days)
+            </div>
+            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cycleDays}</span>
+          </div>
+        </dl>
+
+        <div className="grid gap-3">
+          {stats.timeline.map((step) => (
+            <div
+              key={step.label}
+              className={cn(
+                "flex items-start gap-3 rounded-2xl border border-border/60 p-3 text-sm dark:border-white/10",
+                step.highlighted
+                  ? "bg-primary/10 text-foreground dark:bg-primary/20"
+                  : "bg-background/80 text-muted-foreground dark:bg-white/5"
+              )}
+            >
+              <ArrowRight className="mt-1 h-4 w-4 text-primary" aria-hidden />
+              <div>
+                <p className="font-semibold">{step.value}</p>
+                <p className="text-xs text-muted-foreground dark:text-white/70">{step.hint}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

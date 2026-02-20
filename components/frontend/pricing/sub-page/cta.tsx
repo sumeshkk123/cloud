@@ -8,9 +8,15 @@ interface PricingSubPageCtaProps {
   content: PricingSubCta;
   contactHref: string;
   secondaryHref: string;
+  onPrimaryCtaClick?: () => void;
 }
 
-export function PricingSubPageCta({ content, contactHref, secondaryHref }: PricingSubPageCtaProps) {
+export function PricingSubPageCta({
+  content,
+  contactHref,
+  secondaryHref,
+  onPrimaryCtaClick,
+}: PricingSubPageCtaProps) {
   return (
     <Section padding="lg" variant="gradient" containerClassName="space-y-10">
       <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-primary via-blue-500 via-purple-500 to-pink-500 p-10 text-white shadow-xl transition-all duration-300 hover:shadow-2xl md:p-12">
@@ -79,16 +85,32 @@ export function PricingSubPageCta({ content, contactHref, secondaryHref }: Prici
               </div>
             )}
             <div className="flex flex-wrap gap-3">
-              <Button
-                asChild
-                size="lg"
-                className="rounded-xl bg-white px-6 py-6 text-base font-semibold text-primary shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/95 hover:shadow-xl"
-              >
-                <Link href={contactHref} className="flex items-center gap-2">
-                  {content.primaryCta}
-                  <ArrowUpRight className="h-4 w-4" aria-hidden />
-                </Link>
-              </Button>
+              {onPrimaryCtaClick ? (
+                <Button
+                  size="lg"
+                  className="rounded-xl bg-white px-6 py-6 text-base font-semibold text-primary shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/95 hover:shadow-xl cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onPrimaryCtaClick();
+                  }}
+                >
+                  <span className="flex items-center gap-2">
+                    {content.primaryCta}
+                    <ArrowUpRight className="h-4 w-4" aria-hidden />
+                  </span>
+                </Button>
+              ) : (
+                <Button
+                  asChild
+                  size="lg"
+                  className="rounded-xl bg-white px-6 py-6 text-base font-semibold text-primary shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/95 hover:shadow-xl"
+                >
+                  <Link href={contactHref} className="flex items-center gap-2">
+                    {content.primaryCta}
+                    <ArrowUpRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                </Button>
+              )}
               <Button
                 asChild
                 variant="outline"

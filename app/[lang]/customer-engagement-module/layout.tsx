@@ -9,8 +9,16 @@ const PAGE_KEY = "mlm-software-modules-customer-engagement-module";
 export async function generateMetadata(props: {
   params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
 }): Promise<Metadata> {
-  const params = props?.params;
-  return getPageMetadata(params ?? null, "/customer-engagement-module", {
+  let resolved: { lang: SupportedLocale } | null = null;
+  try {
+    const params = props?.params;
+    resolved =
+      params != null ? (params instanceof Promise ? await params : params) : null;
+  } catch {
+    resolved = null;
+  }
+  const lang = resolved?.lang;
+  return getPageMetadata(lang != null ? { lang } : null, "/customer-engagement-module", {
     page: PAGE_KEY,
     fallbackTitle: "Customer Engagement Module | Cloud MLM Software",
     fallbackDescription:

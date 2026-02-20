@@ -19,13 +19,13 @@ import {
 } from '@/lib/services-subpage-slugs';
 
 interface CombinedRow {
-    page: string;
-    locale: string;
-    metaTitle: string;
-    metaDescription: string;
-    metaKeywords: string;
-    availableLocales?: string[];
-    updatedAt?: Date | string;
+  page: string;
+  locale: string;
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
+  availableLocales?: string[];
+  updatedAt?: Date | string;
 }
 
 const SERVICE_PAGE_PREFIX = 'services';
@@ -125,11 +125,11 @@ export function ServicesMetaPageTitleTab() {
 
   const loadAllData = async () => {
     if (servicePages.length === 0) return;
-    
+
     try {
       setIsLoading(true);
       const allData: CombinedRow[] = [];
-      
+
       // Load data for all service pages (including main services page)
       for (const pageOption of servicePages) {
         const page = pageOption.value;
@@ -138,10 +138,10 @@ export function ServicesMetaPageTitleTab() {
           cache: 'no-store',
         });
         const metaData = metaRes.ok ? await metaRes.json() : [];
-        
+
         const combinedMap = new Map<string, CombinedRow>();
         const locales = new Set<string>();
-        
+
         if (Array.isArray(metaData)) {
           metaData.forEach((item: any) => {
             if (item.page === page) {
@@ -164,12 +164,15 @@ export function ServicesMetaPageTitleTab() {
             }
           });
         }
-        
+
         const allLocales = Array.from(locales);
-        combinedMap.forEach((row) => {
-          row.availableLocales = allLocales;
-          allData.push(row);
-        });
+        const enRow = combinedMap.get('en');
+        const rowToDisplay = enRow || combinedMap.get(allLocales[0]);
+
+        if (rowToDisplay) {
+          rowToDisplay.availableLocales = allLocales;
+          allData.push(rowToDisplay);
+        }
       }
 
       setTableData(allData);
@@ -197,14 +200,14 @@ export function ServicesMetaPageTitleTab() {
 
   const handleDelete = async () => {
     if (!pageToDelete) return;
-    
+
     try {
       setIsDeleting(true);
-      
+
       await fetch(`/api/admin/meta-details?page=${encodeURIComponent(pageToDelete)}&locale=${localeToDelete}`, {
         method: 'DELETE',
       });
-      
+
       showToast('Deleted successfully.', 'success');
       setDeleteConfirmOpen(false);
       setPageToDelete(null);

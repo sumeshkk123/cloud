@@ -21,8 +21,8 @@ export const supportTicketSystemModuleForMlmSoftwareContent: PricingSubPageConte
     title: "Support ticket system pricing that elevates every interaction.",
     description:
       "Cloud MLM Software connects distributors, customers, and agents with automation, analytics, and thoughtful UX. Choose the module tier that matches your service ambitions.",
-    primaryCta: "Book a support strategy call",
-    secondaryCta: "Explore services hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Tickets resolved monthly",
@@ -244,8 +244,8 @@ export const supportTicketSystemModuleForMlmSoftwareContent: PricingSubPageConte
     heading: "Ready to transform support into a growth lever?",
     description:
       "Share your service goals, channels, and integration needs. We'll design a pricing proposal and delivery plan tailored to your teams.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore services hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our support module specialists",
     cardBody:
       "Expect a discovery agenda and support operations checklist within one business day. We stay engaged through launch and continuous improvement.",

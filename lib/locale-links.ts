@@ -5,11 +5,18 @@ import {
   getPageFromSlug,
   getPricingSubpageKeyFromSlug,
   getSlugForPricingSubpage,
+  getBlogSubpageKeyFromSlug,
+  getSlugForBlogSubpage,
 } from "@/lib/page-slugs";
 import {
   getServiceSubpageKeyFromSlug,
   getSlugForServiceSubpage,
 } from "@/lib/services-subpage-slugs";
+import {
+  MLM_PLAN_SEGMENT,
+  getPlanSubpageCanonicalFromSlug,
+  getSlugForPlanSubpage,
+} from "@/lib/mlm-plan-subpage-slugs";
 
 const ORIGIN = siteBaseConfig.url.replace(/\/$/, "");
 
@@ -46,6 +53,12 @@ export function resolveHref(rawHref: string | null | undefined, locale: Supporte
 
 // Cache for page ID lookups to avoid repeated iterations
 const pageIdCache = new Map<string, string | null>();
+
+function getUrlLocale(locale: SupportedLocale): string {
+  if (locale === "pt") return "pt-pt";
+  if (locale === "zh") return "zh-hans";
+  return locale;
+}
 
 export function buildLocalizedPath(path: string, locale: SupportedLocale): string {
   const { pathname, search, hash } = normalizePath(path);
@@ -119,13 +132,38 @@ export function buildLocalizedPath(path: string, locale: SupportedLocale): strin
           const rest = pathSegments.slice(2);
           remainingPath = rest.length ? `${translatedSecond}/${rest.join("/")}` : translatedSecond;
         }
+        // Translate blog sub-page second segment (e.g. top-mlm-companies -> principales-empresas-de-multinivel for es)
+        if (pageId === "blog" && pathSegments.length >= 2) {
+          const secondSegment = pathSegments[1];
+          const blogKey = getBlogSubpageKeyFromSlug(secondSegment) ?? secondSegment;
+          const translatedSecond = getSlugForBlogSubpage(blogKey, locale);
+          if (translatedSecond) {
+            const rest = pathSegments.slice(2);
+            remainingPath = rest.length ? `${translatedSecond}/${rest.join("/")}` : translatedSecond;
+          }
+        }
         const fullPath = `/${translatedSlug}${remainingPath ? `/${remainingPath}` : ""}`;
 
-        if (locale === (i18n.defaultLocale as SupportedLocale)) {
+        const urlLocale = getUrlLocale(locale);
+
+        if (urlLocale === (i18n.defaultLocale as SupportedLocale)) {
           return `${fullPath}${search}${hash}`;
         }
-        return `/${locale}${fullPath}${search}${hash}`;
+        return `/${urlLocale}${fullPath}${search}${hash}`;
       }
+    }
+  }
+
+  // MLM plan subpages: translate second segment (e.g. /mlm-plan/australian-x-up-plan-mlm-software -> /es/mlm-plan/software-australiano-de-mlm-del-plan-x-up)
+  if (pathSegments.length >= 2 && pathSegments[0] === MLM_PLAN_SEGMENT) {
+    const canonicalSlug = getPlanSubpageCanonicalFromSlug(pathSegments[1]);
+    if (canonicalSlug) {
+      const translatedSecond = getSlugForPlanSubpage(canonicalSlug, locale);
+      const fullPath = `/${MLM_PLAN_SEGMENT}/${translatedSecond}`;
+      if (locale === (i18n.defaultLocale as SupportedLocale)) {
+        return `${fullPath}${search}${hash}`;
+      }
+      return `/${getUrlLocale(locale)}${fullPath}${search}${hash}`;
     }
   }
   
@@ -134,7 +172,11 @@ export function buildLocalizedPath(path: string, locale: SupportedLocale): strin
     const basePath = normalized === "" ? "/" : normalized;
     return `${basePath}${search}${hash}`;
   }
-  return `/${locale}${normalized}${search}${hash}`;
+  return `/${getUrlLocale(locale)}${normalized}${search}${hash}`;
+}
+
+export function getModulesUrlLocale(locale: SupportedLocale): string {
+  return getUrlLocale(locale);
 }
 
 export function parseLocaleFromHref(href: string): SupportedLocale | null {
@@ -144,7 +186,9 @@ export function parseLocaleFromHref(href: string): SupportedLocale | null {
     if (segments.length === 0) {
       return i18n.defaultLocale as SupportedLocale;
     }
-    const maybeLocale = segments[0];
+    const maybeLocaleRaw = segments[0];
+    const maybeLocale =
+      maybeLocaleRaw === "pt-pt" ? "pt" : maybeLocaleRaw === "zh-hans" ? "zh" : maybeLocaleRaw;
     if (supportedLocales.includes(maybeLocale as SupportedLocale)) {
       return maybeLocale as SupportedLocale;
     }
@@ -157,7 +201,10 @@ export function parseLocaleFromHref(href: string): SupportedLocale | null {
 
 function stripLocaleFromPath(pathname: string): string {
   const segments = pathname.split("/").filter(Boolean);
-  if (segments.length > 0 && supportedLocales.includes(segments[0] as SupportedLocale)) {
+  const firstSegment = segments[0];
+  // Map locale aliases to internal codes
+  const mappedLocale = firstSegment === "pt-pt" ? "pt" : firstSegment === "zh-hans" ? "zh" : firstSegment;
+  if (segments.length > 0 && supportedLocales.includes(mappedLocale as SupportedLocale)) {
     segments.shift();
   }
   return `/${segments.join("/")}`.replace(/\/+/g, "/");

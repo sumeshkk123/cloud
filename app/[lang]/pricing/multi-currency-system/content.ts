@@ -19,8 +19,8 @@ export const multiCurrencySystemContent: PricingSubPageContent = {
     title: "Multi-currency system pricing with enterprise guardrails.",
     description:
       "Confidently expand into new markets without manual spreadsheets. Cloud MLM Software's multi-currency engagements blend FX automation, compliance, and analytics so payouts stay accurate and on time.",
-    primaryCta: "Request pricing workshop",
-    secondaryCta: "Compare pricing catalogue",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Currencies orchestrated",
@@ -225,8 +225,8 @@ export const multiCurrencySystemContent: PricingSubPageContent = {
     heading: "Ready to modernise multi-currency operations?",
     description:
       "Share your market expansion goals, treasury policies, and timelines. We'll produce a pricing proposal and implementation plan aligned to leadership priorities.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore pricing hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our team",
     cardBody:
       "Expect a discovery agenda and stakeholder checklist within one business day. Cloud MLM Software stays engaged through launch and optimisation.",

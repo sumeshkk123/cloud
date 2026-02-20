@@ -20,8 +20,8 @@ export const paymentGatewayIntegrationContent: PricingSubPageContent = {
     title: "Payment gateway integration pricing engineered for compliance and scale.",
     description:
       "Cloud MLM Software brings payment acceptance, risk controls, and finance automation together. Pick the engagement that aligns with your expansion plans and regulatory obligations.",
-    primaryCta: "Request pricing consult",
-    secondaryCta: "Explore pricing hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Gateways orchestrated",
@@ -225,8 +225,8 @@ export const paymentGatewayIntegrationContent: PricingSubPageContent = {
     heading: "Ready to modernise payment acceptance?",
     description:
       "Share your gateway stack, markets, and compliance priorities. We'll assemble a pricing proposal and roadmap built for your treasury strategy.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Compare pricing options",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our team",
     cardBody:
       "Expect a discovery agenda and integration checklist within one business day. We partner end-to-end—from blueprint to optimisation.",

@@ -26,6 +26,22 @@ interface MetaDetailsRow {
 
 const ITEMS_PER_PAGE = 20;
 
+/** Section subpages (inner pages) are managed in their own admin (modules, services, plans, industry-solutions, features meta-page-title). Exclude only those; show main pages (e.g. MLM Plans (main), MLM Software Modules (main)) in Meta Details. */
+function isSectionManagedSubpage(page: string): boolean {
+  if (!page) return false;
+  // Plan inner pages: mlm-plan/slug (exclude). Main: mlm-plans (include).
+  if (page.startsWith('mlm-plan/')) return true;
+  // Module subpages: mlm-software-modules-* or mlm-software-modules/* (exclude). Main: mlm-software-modules (include).
+  if (page !== 'mlm-software-modules' && page.startsWith('mlm-software-modules')) return true;
+  // Service subpages: services/* (exclude). Main: services (include).
+  if (page.startsWith('services/')) return true;
+  // Industry solution subpages: industry-solutions/* (exclude). Main: industry-solutions (include).
+  if (page.startsWith('industry-solutions/')) return true;
+  // Feature pages: mlm-software-feature/* (exclude; no single "main" key).
+  if (page.startsWith('mlm-software-feature/')) return true;
+  return false;
+}
+
 export function MetaDetailsTable() {
     const { showToast, ToastComponent } = useToast();
     const [metaDetails, setMetaDetails] = useState<MetaDetailsRow[]>([]);
@@ -66,12 +82,15 @@ export function MetaDetailsTable() {
                 return;
             }
 
+            // Exclude only section subpages; show main pages (mlm-plans, mlm-software-modules, services, industry-solutions) here
+            const filteredData = data.filter((item: { page?: string }) => !isSectionManagedSubpage(String(item.page || '')));
+
             // Optimized: Process data more efficiently
             const pageMap = new Map<string, MetaDetailsRow>();
             const pageCreatedAtMap = new Map<string, number>();
 
             // Single pass through data
-            for (const item of data) {
+            for (const item of filteredData) {
                 const pageKey = String(item.page || '');
                 if (!pageKey) continue;
 

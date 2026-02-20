@@ -19,12 +19,6 @@ interface MetaFormData {
     keywords: string;
 }
 
-interface PageTitleFormData {
-    title: string;
-    pagePill: string;
-    sectionSubtitle: string;
-}
-
 interface ModulesMetaPageTitleFormProps {
     initialPage?: string;
     initialLocale?: string;
@@ -61,22 +55,10 @@ export function ModulesMetaPageTitleForm({
         });
         return initial;
     });
-    const [pageTitleFormData, setPageTitleFormData] = useState<Record<string, PageTitleFormData>>(() => {
-        const initial: Record<string, PageTitleFormData> = {};
-        locales.forEach((loc) => {
-            initial[loc] = {
-                title: '',
-                pagePill: '',
-                sectionSubtitle: '',
-            };
-        });
-        return initial;
-    });
     const [isLoading, setIsLoading] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [isTranslating, setIsTranslating] = useState(false);
     const [metaSavedLocales, setMetaSavedLocales] = useState<Set<string>>(new Set());
-    const [pageTitleSavedLocales, setPageTitleSavedLocales] = useState<Set<string>>(new Set());
 
     useEffect(() => {
         if (onToastChange) {
@@ -100,35 +82,23 @@ export function ModulesMetaPageTitleForm({
 
     const loadAllData = async () => {
         if (!formPage) return;
-        
+
         try {
             setIsLoading(true);
-            
+
             const metaPromises = locales.map(locale =>
                 fetch(`/api/admin/meta-details?page=${encodeURIComponent(formPage)}&locale=${locale}`, {
                     cache: 'no-store',
                 }).then(res => res.ok ? res.json() : null)
             );
 
-            const pageTitlePromises = locales.map(locale =>
-                fetch(`/api/admin/page-titles?page=${encodeURIComponent(formPage)}&locale=${locale}`, {
-                    cache: 'no-store',
-                }).then(res => res.ok ? res.json() : null)
-            );
-
-            const [metaResults, pageTitleResults] = await Promise.all([
-                Promise.all(metaPromises),
-                Promise.all(pageTitlePromises)
-            ]);
+            const metaResults = await Promise.all(metaPromises);
 
             const newMetaData: Record<string, MetaFormData> = {};
-            const newPageTitleData: Record<string, PageTitleFormData> = {};
             const metaSaved = new Set<string>();
-            const pageTitleSaved = new Set<string>();
 
             locales.forEach((locale, index) => {
                 const metaResult = metaResults[index];
-                const pageTitleResult = pageTitleResults[index];
 
                 if (metaResult && (metaResult.title || metaResult.description || metaResult.keywords)) {
                     newMetaData[locale] = {
@@ -144,40 +114,21 @@ export function ModulesMetaPageTitleForm({
                         keywords: '',
                     };
                 }
-
-                if (pageTitleResult && (pageTitleResult.title || pageTitleResult.pagePill || pageTitleResult.sectionSubtitle)) {
-                    newPageTitleData[locale] = {
-                        title: String(pageTitleResult.title || ''),
-                        pagePill: String(pageTitleResult.pagePill || ''),
-                        sectionSubtitle: String(pageTitleResult.sectionSubtitle || ''),
-                    };
-                    pageTitleSaved.add(locale);
-                } else {
-                    newPageTitleData[locale] = {
-                        title: '',
-                        pagePill: '',
-                        sectionSubtitle: '',
-                    };
-                }
             });
 
             setMetaFormData(newMetaData);
-            setPageTitleFormData(newPageTitleData);
             setMetaSavedLocales(metaSaved);
-            setPageTitleSavedLocales(pageTitleSaved);
 
-            if (initialLocale && (metaSaved.has(initialLocale) || pageTitleSaved.has(initialLocale))) {
+            if (initialLocale && metaSaved.has(initialLocale)) {
                 setActiveLocale(initialLocale);
             } else if (metaSaved.size > 0) {
                 setActiveLocale(Array.from(metaSaved)[0]);
-            } else if (pageTitleSaved.size > 0) {
-                setActiveLocale(Array.from(pageTitleSaved)[0]);
             } else {
                 setActiveLocale(initialLocale || 'en');
             }
         } catch (error) {
             console.error('Error loading data:', error);
-            showToast('Failed to load meta details and page titles.', 'error');
+            showToast('Failed to load meta details.', 'error');
         } finally {
             setIsLoading(false);
         }
@@ -193,16 +144,6 @@ export function ModulesMetaPageTitleForm({
         }));
     };
 
-    const updatePageTitleField = (locale: string, field: keyof PageTitleFormData, value: string) => {
-        setPageTitleFormData((prev) => ({
-            ...prev,
-            [locale]: {
-                ...prev[locale],
-                [field]: value,
-            },
-        }));
-    };
-
     const autoTranslate = async () => {
         if (activeLocale === 'en') {
             showToast('English is the source language.', 'info');
@@ -210,9 +151,8 @@ export function ModulesMetaPageTitleForm({
         }
 
         const englishMeta = metaFormData['en'];
-        const englishPageTitle = pageTitleFormData['en'];
 
-        if (!englishMeta.title && !englishMeta.description && !englishPageTitle.title) {
+        if (!englishMeta.title && !englishMeta.description && !englishMeta.keywords) {
             showToast('Please fill in English content first.', 'warning');
             return;
         }
@@ -232,21 +172,15 @@ export function ModulesMetaPageTitleForm({
                 return data.translatedText ?? text;
             };
 
-            const [translatedMetaTitle, translatedMetaDesc, translatedKeywords, translatedPageTitle, translatedPill, translatedSubtitle] = await Promise.all([
+            const [translatedMetaTitle, translatedMetaDesc, translatedKeywords] = await Promise.all([
                 translateText(englishMeta.title),
                 translateText(englishMeta.description),
                 translateText(englishMeta.keywords),
-                translateText(englishPageTitle.title),
-                translateText(englishPageTitle.pagePill),
-                translateText(englishPageTitle.sectionSubtitle),
             ]);
 
             updateMetaField(activeLocale, 'title', translatedMetaTitle);
             updateMetaField(activeLocale, 'description', translatedMetaDesc);
             updateMetaField(activeLocale, 'keywords', translatedKeywords);
-            updatePageTitleField(activeLocale, 'title', translatedPageTitle);
-            updatePageTitleField(activeLocale, 'pagePill', translatedPill);
-            updatePageTitleField(activeLocale, 'sectionSubtitle', translatedSubtitle);
 
             showToast('Translation completed.', 'success');
         } catch (error) {
@@ -269,10 +203,8 @@ export function ModulesMetaPageTitleForm({
 
             for (const locale of locales) {
                 const meta = metaFormData[locale];
-                const pageTitle = pageTitleFormData[locale];
 
                 const hasMeta = meta.title || meta.description || meta.keywords;
-                const hasPageTitle = pageTitle.title || pageTitle.pagePill || pageTitle.sectionSubtitle;
 
                 if (hasMeta) {
                     const metaRes = await fetch('/api/admin/meta-details', {
@@ -291,24 +223,6 @@ export function ModulesMetaPageTitleForm({
                         setMetaSavedLocales((prev) => new Set([...prev, locale]));
                     }
                 }
-
-                if (hasPageTitle) {
-                    const pageTitleRes = await fetch('/api/admin/page-titles', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            page: formPage,
-                            locale,
-                            title: pageTitle.title,
-                            pagePill: pageTitle.pagePill,
-                            sectionSubtitle: pageTitle.sectionSubtitle,
-                        }),
-                    });
-
-                    if (pageTitleRes.ok) {
-                        setPageTitleSavedLocales((prev) => new Set([...prev, locale]));
-                    }
-                }
             }
 
             showToast('Saved successfully.', 'success');
@@ -322,7 +236,6 @@ export function ModulesMetaPageTitleForm({
     };
 
     const currentMeta = metaFormData[activeLocale] || { title: '', description: '', keywords: '' };
-    const currentPageTitle = pageTitleFormData[activeLocale] || { title: '', pagePill: '', sectionSubtitle: '' };
 
     if (isLoading) {
         return <Loader />;
@@ -351,11 +264,6 @@ export function ModulesMetaPageTitleForm({
                     required
                     disabled={isSaving || isLoading || isEditing}
                 />
-                {isEditing && (
-                    <p className="text-xs text-gray-500 mt-1">
-                        Editing translations for: <span className="font-medium text-gray-700">{formPage}</span>
-                    </p>
-                )}
             </div>
 
             <div className="border-b border-gray-200 dark:border-gray-700">
@@ -363,23 +271,20 @@ export function ModulesMetaPageTitleForm({
                     {locales.map((locale) => {
                         const isActive = activeLocale === locale;
                         const localeMeta = metaFormData[locale];
-                        const localePageTitle = pageTitleFormData[locale];
-                        const hasContent = (localeMeta.title?.trim() || localeMeta.description?.trim() || localeMeta.keywords?.trim()) ||
-                                         (localePageTitle.title?.trim() || localePageTitle.pagePill?.trim() || localePageTitle.sectionSubtitle?.trim());
-                        const exists = metaSavedLocales.has(locale) || pageTitleSavedLocales.has(locale);
+                        const hasContent = localeMeta.title?.trim() || localeMeta.description?.trim() || localeMeta.keywords?.trim();
+                        const exists = metaSavedLocales.has(locale);
 
                         return (
                             <button
                                 key={locale}
                                 type="button"
                                 onClick={() => setActiveLocale(locale)}
-                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${
-                                    isActive
+                                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${isActive
                                         ? 'border-blue-500 text-blue-600 bg-blue-50 dark:bg-blue-900/20'
                                         : hasContent
                                             ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50 dark:bg-green-900/10'
                                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                                }`}
+                                    }`}
                             >
                                 <div className="flex items-center gap-2">
                                     <span>{localeNames[locale as keyof typeof localeNames] ?? locale}</span>
@@ -416,7 +321,7 @@ export function ModulesMetaPageTitleForm({
 
             <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Meta Details</h3>
-                
+
                 <div className="space-y-4">
                     <div>
                         <FieldLabel htmlFor="meta-title">Meta Title</FieldLabel>
@@ -451,48 +356,6 @@ export function ModulesMetaPageTitleForm({
                             disabled={isSaving || isLoading || isTranslating}
                         />
                         <p className="text-xs text-gray-500 mt-1">Separate keywords with commas</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="border-t border-gray-200 dark:border-gray-700 my-6"></div>
-
-            <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Page Title</h3>
-                
-                <div className="space-y-4">
-                    <div>
-                        <FieldLabel htmlFor="page-pill">Page Pill</FieldLabel>
-                        <Input
-                            id="page-pill"
-                            value={currentPageTitle.pagePill}
-                            onChange={(e) => updatePageTitleField(activeLocale, 'pagePill', e.target.value)}
-                            placeholder="Enter page pill"
-                            disabled={isSaving || isLoading || isTranslating}
-                        />
-                    </div>
-
-                    <div>
-                        <FieldLabel htmlFor="page-title">Page Title</FieldLabel>
-                        <Input
-                            id="page-title"
-                            value={currentPageTitle.title}
-                            onChange={(e) => updatePageTitleField(activeLocale, 'title', e.target.value)}
-                            placeholder="Enter page title"
-                            disabled={isSaving || isLoading || isTranslating}
-                        />
-                    </div>
-
-                    <div>
-                        <FieldLabel htmlFor="section-subtitle">Section Subtitle</FieldLabel>
-                        <Textarea
-                            id="section-subtitle"
-                            value={currentPageTitle.sectionSubtitle}
-                            onChange={(e) => updatePageTitleField(activeLocale, 'sectionSubtitle', e.target.value)}
-                            placeholder="Enter section subtitle"
-                            rows={3}
-                            disabled={isSaving || isLoading || isTranslating}
-                        />
                     </div>
                 </div>
             </div>

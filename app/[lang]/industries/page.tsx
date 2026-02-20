@@ -6,7 +6,8 @@ import { isSupportedLocale } from "@/lib/i18n-utils";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
-import { getPageTitle } from "@/lib/api/page-titles";
+import { getMetaDetail } from "@/lib/api/meta-details";
+import type { PageTitleRecord } from "@/lib/api/page-titles";
 import {
   IndustriesHeroSection,
   IndustriesPortfolioSection,
@@ -119,7 +120,7 @@ export async function generateMetadata({ params }: { params: { lang: SupportedLo
 
   const { getPageKeywords } = await import("@/lib/seo-keywords");
   const resolvedParams = params instanceof Promise ? await params : params;
-  
+
   return getPageMetadata(
     params,
     "/industries",
@@ -142,13 +143,21 @@ export default async function IndustriesPage({ params }: IndustriesPageProps) {
   const pricingHref = buildLocalizedPath("/pricing", locale);
   const storiesHref = buildLocalizedPath("/resources/customers", locale);
 
-  // Fetch page title data from backend for industries page
-  let pageTitleData = null;
+  // Fetch meta details for industries page
+  let pageTitleData: PageTitleRecord | null = null;
   try {
-    pageTitleData = await getPageTitle("industries", locale);
+    const metaData = await getMetaDetail("industries", locale);
+    if (metaData) {
+      pageTitleData = {
+        page: "industries",
+        locale: locale,
+        title: metaData.title,
+        pagePill: undefined,
+        sectionSubtitle: metaData.description
+      };
+    }
   } catch (error) {
-    console.error('[IndustriesPage] Error fetching page title data:', error);
-    pageTitleData = null;
+    console.error('[IndustriesPage] Error fetching meta data:', error);
   }
 
   return (

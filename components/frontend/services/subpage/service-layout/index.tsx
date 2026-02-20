@@ -66,7 +66,7 @@ export function ServiceSubpageLayout({
   const openDemoModal = () => setDemoModalOpen(true);
   const closeDemoModal = () => setDemoModalOpen(false);
 
-  const heroModalSource = serviceSlug ? `service-${serviceSlug}` : "hero-section";
+  const heroModalSource = serviceSlug ? `Services - ${serviceSlug}` : "hero-section";
   const heroModalNotes = serviceSlug
     ? `service - ${serviceSlugToEnquiryLabel(serviceSlug)}`
     : "hero section";
@@ -90,7 +90,7 @@ export function ServiceSubpageLayout({
         subheading={`From: ${hero.title}`}
         source={heroModalSource}
         notes={heroModalNotes}
-        sourcePage={serviceSlug ? `services-${serviceSlug}` : pathname || undefined}
+        sourcePage={serviceSlug ? `Services - ${serviceSlug}` : pathname || undefined}
         locale={locale}
         onSuccess={(message) => showToast(message, "success")}
         onError={(message) => showToast(message, "error")}

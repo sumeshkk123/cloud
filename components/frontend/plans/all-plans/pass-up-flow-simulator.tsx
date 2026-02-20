@@ -12,6 +12,7 @@ import {
   Rocket,
   Users
 } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 type PassUpFlowSimulatorProps = {
   className?: string;
@@ -503,9 +504,9 @@ export default function PassUpFlowSimulator({
         matrixWidth === 1
           ? matrixDepth
           : Math.max(
-              Math.round((Math.pow(matrixWidth, matrixDepth) - 1) / (matrixWidth - 1)),
-              matrixDepth
-            );
+            Math.round((Math.pow(matrixWidth, matrixDepth) - 1) / (matrixWidth - 1)),
+            matrixDepth
+          );
       const seatsFilled = Math.min(entrants, matrixCapacity);
       const fillRate = matrixCapacity === 0 ? 0 : Math.round((seatsFilled / matrixCapacity) * 100);
       const cyclesCompleted = matrixCapacity === 0 ? 0 : Math.floor(entrants / matrixCapacity);
@@ -965,22 +966,22 @@ export default function PassUpFlowSimulator({
             spilloverQueue={stats.spilloverQueue}
           />
         )}
-      {stats.variant === "click" && (
-        <ClickFlowDiagram
-          totalClicks={stats.totalClicks}
-          qualifyingClicks={stats.qualifyingClicks}
-          conversions={stats.conversions}
-          conversionRate={stats.conversionRate}
-        />
-      )}
-      {stats.variant === "emgoldex" && (
-        <EmgoldexDiagram
-          slots={stats.boardSlots}
-          payout={stats.expectedPayout}
-          reinvestmentRate={stats.reinvestmentRate}
-          leadershipBonus={stats.leadershipBonus}
-        />
-      )}
+        {stats.variant === "click" && (
+          <ClickFlowDiagram
+            totalClicks={stats.totalClicks}
+            qualifyingClicks={stats.qualifyingClicks}
+            conversions={stats.conversions}
+            conversionRate={stats.conversionRate}
+          />
+        )}
+        {stats.variant === "emgoldex" && (
+          <EmgoldexDiagram
+            slots={stats.boardSlots}
+            payout={stats.expectedPayout}
+            reinvestmentRate={stats.reinvestmentRate}
+            leadershipBonus={stats.leadershipBonus}
+          />
+        )}
         {stats.variant === "crowd" && (
           <CrowdFlowDiagram
             goal={stats.campaignGoal}
@@ -1003,288 +1004,293 @@ export default function PassUpFlowSimulator({
         <p className="text-xs text-muted-foreground">{copy.diagramCaption}</p>
       </div>
 
-      {stats.variant === "pass-up" && (
-        <dl className="grid gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 dark:border-white/10 dark:bg-white/5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4 text-primary" aria-hidden />
-              Pass-ups routed
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.passUpsRouted}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
-              Cycle completion (days)
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cycleDays}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <LineChart className="h-4 w-4 text-primary" aria-hidden />
-              Payout volume
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">
-              {formatter.format(stats.payoutVolume)}
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Rocket className="h-4 w-4 text-primary" aria-hidden />
-              Coaching nudges queued
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.coachingAlerts}</span>
-          </div>
-        </dl>
-      )}
 
-      {stats.variant === "binary" && (
-        <dl className="grid gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 dark:border-white/10 dark:bg-white/5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4 text-primary" aria-hidden />
-              Matched cycles
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.matchedPairs}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
-              Cycle completion (days)
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cycleDays}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <LineChart className="h-4 w-4 text-primary" aria-hidden />
-              Payout volume
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">
-              {formatter.format(stats.payoutVolume)}
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Activity className="h-4 w-4 text-primary" aria-hidden />
-              Flush risk
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.flushRisk}%</span>
-          </div>
-        </dl>
-      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className="bg-background/80 p-4 dark:border-white/10 dark:bg-white/5 shadow-sm">
+          {stats.variant === "pass-up" && (
+            <dl className="grid gap-3 rounded-2xl">
+              <div className="flex items-center justify-between gap-1 dark:border-white/10 bg-primary/10 p-4 rounded-xl">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="h-4 w-4 text-primary" aria-hidden />
+                  Pass-ups routed
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.passUpsRouted}</span>
+              </div>
+              <div className="flex items-center justify-between gap-1 dark:border-white/10 bg-primary/10 p-4 rounded-xl">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
+                  Cycle completion (days)
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cycleDays}</span>
+              </div>
+              <div className="flex items-center justify-between gap-1 dark:border-white/10 bg-primary/10 p-4 rounded-xl">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <LineChart className="h-4 w-4 text-primary" aria-hidden />
+                  Payout volume
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">
+                  {formatter.format(stats.payoutVolume)}
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-3 1 dark:border-white/10 bg-primary/10 p-4 rounded-xl">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Rocket className="h-4 w-4 text-primary" aria-hidden />
+                  Coaching nudges queued
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.coachingAlerts}</span>
+              </div>
+            </dl>
+          )}
 
-      {stats.variant === "auto-fill" && (
-        <dl className="grid gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 dark:border-white/10 dark:bg-white/5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4 text-primary" aria-hidden />
-              Cycles completed
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cyclesCompleted}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
-              Matrix fill rate
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.fillRate}%</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <LineChart className="h-4 w-4 text-primary" aria-hidden />
-              Payout volume
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">
-              {formatter.format(stats.payoutVolume)}
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Rocket className="h-4 w-4 text-primary" aria-hidden />
-              Re-entries triggered
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.reentriesTriggered}</span>
-          </div>
-        </dl>
-      )}
+          {stats.variant === "binary" && (
+            <dl className="grid gap-3 rounded-2xl">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="h-4 w-4 text-primary" aria-hidden />
+                  Matched cycles
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.matchedPairs}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
+                  Cycle completion (days)
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cycleDays}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <LineChart className="h-4 w-4 text-primary" aria-hidden />
+                  Payout volume
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">
+                  {formatter.format(stats.payoutVolume)}
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Activity className="h-4 w-4 text-primary" aria-hidden />
+                  Flush risk
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.flushRisk}%</span>
+              </div>
+            </dl>
+          )}
 
-      {stats.variant === "click" && (
-        <dl className="grid gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 dark:border-white/10 dark:bg-white/5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4 text-primary" aria-hidden />
-              Network clicks
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.totalClicks.toLocaleString()}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Activity className="h-4 w-4 text-primary" aria-hidden />
-              Gross payout
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">
-              {formatter.format(stats.grossPayout)}
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <LineChart className="h-4 w-4 text-primary" aria-hidden />
-              Projected revenue
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">
-              {formatter.format(stats.revenue)}
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
-              ROI margin
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">
-              {`${stats.roi.toFixed(1)}%`}
-            </span>
-          </div>
-        </dl>
-      )}
+          {stats.variant === "auto-fill" && (
+            <dl className="grid gap-3 rounded-2xl">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="h-4 w-4 text-primary" aria-hidden />
+                  Cycles completed
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cyclesCompleted}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
+                  Matrix fill rate
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.fillRate}%</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <LineChart className="h-4 w-4 text-primary" aria-hidden />
+                  Payout volume
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">
+                  {formatter.format(stats.payoutVolume)}
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Rocket className="h-4 w-4 text-primary" aria-hidden />
+                  Re-entries triggered
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.reentriesTriggered}</span>
+              </div>
+            </dl>
+          )}
 
-      {stats.variant === "crowd" && (
-        <dl className="grid gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 dark:border-white/10 dark:bg-white/5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4 text-primary" aria-hidden />
-              Contributors
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.donorTeams.toLocaleString()}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
-              Campaign goal
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.campaignGoal)}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <LineChart className="h-4 w-4 text-primary" aria-hidden />
-              Net payout pool
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.netPayoutPool)}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Activity className="h-4 w-4 text-primary" aria-hidden />
-              Compliance reviews
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.complianceReviews}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Rocket className="h-4 w-4 text-primary" aria-hidden />
-              ROI margin
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{`${stats.roi.toFixed(1)}%`}</span>
-          </div>
-        </dl>
-      )}
+          {stats.variant === "click" && (
+            <dl className="grid gap-3 rounded-2xl">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="h-4 w-4 text-primary" aria-hidden />
+                  Network clicks
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.totalClicks.toLocaleString()}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Activity className="h-4 w-4 text-primary" aria-hidden />
+                  Gross payout
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">
+                  {formatter.format(stats.grossPayout)}
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <LineChart className="h-4 w-4 text-primary" aria-hidden />
+                  Projected revenue
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">
+                  {formatter.format(stats.revenue)}
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
+                  ROI margin
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">
+                  {`${stats.roi.toFixed(1)}%`}
+                </span>
+              </div>
+            </dl>
+          )}
 
-      {stats.variant === "gift" && (
-        <dl className="grid gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 dark:border-white/10 dark:bg-white/5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4 text-primary" aria-hidden />
-              Active circles
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.activeCircles}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
-              Cycle completion (days)
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.payoutVelocity}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <LineChart className="h-4 w-4 text-primary" aria-hidden />
-              Net payout pool
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.netPayoutPool)}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Activity className="h-4 w-4 text-primary" aria-hidden />
-              Compliance hold
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.complianceHold)}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Rocket className="h-4 w-4 text-primary" aria-hidden />
-              Reviews flagged
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.flaggedReviews}</span>
-          </div>
-        </dl>
-      )}
+          {stats.variant === "crowd" && (
+            <dl className="grid gap-3 rounded-2xl">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="h-4 w-4 text-primary" aria-hidden />
+                  Contributors
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.donorTeams.toLocaleString()}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
+                  Campaign goal
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.campaignGoal)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <LineChart className="h-4 w-4 text-primary" aria-hidden />
+                  Net payout pool
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.netPayoutPool)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Activity className="h-4 w-4 text-primary" aria-hidden />
+                  Compliance reviews
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.complianceReviews}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Rocket className="h-4 w-4 text-primary" aria-hidden />
+                  ROI margin
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{`${stats.roi.toFixed(1)}%`}</span>
+              </div>
+            </dl>
+          )}
 
-      {stats.variant === "emgoldex" && (
-        <dl className="grid gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 dark:border-white/10 dark:bg-white/5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4 text-primary" aria-hidden />
-              Board slots
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.boardSlots}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
-              Cycle time (days)
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cycleTime}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <LineChart className="h-4 w-4 text-primary" aria-hidden />
-              Net member payout
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.payoutPool)}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Activity className="h-4 w-4 text-primary" aria-hidden />
-              Leadership bonus
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.leadershipBonus)}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Rocket className="h-4 w-4 text-primary" aria-hidden />
-              Compliance reviews
-            </div>
-            <span className="text-sm font-semibold text-foreground dark:text-white">{stats.complianceReviews}</span>
-          </div>
-        </dl>
-      )}
+          {stats.variant === "gift" && (
+            <dl className="grid gap-3 rounded-2xl">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="h-4 w-4 text-primary" aria-hidden />
+                  Active circles
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.activeCircles}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
+                  Cycle completion (days)
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.payoutVelocity}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <LineChart className="h-4 w-4 text-primary" aria-hidden />
+                  Net payout pool
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.netPayoutPool)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Activity className="h-4 w-4 text-primary" aria-hidden />
+                  Compliance hold
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.complianceHold)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Rocket className="h-4 w-4 text-primary" aria-hidden />
+                  Reviews flagged
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.flaggedReviews}</span>
+              </div>
+            </dl>
+          )}
 
-      <div className="grid gap-3">
-        {stats.timeline.map((step) => (
-          <div
-            key={step.label}
-            className={cn(
-              "flex items-start gap-3 rounded-2xl border border-border/60 p-3 text-sm dark:border-white/10",
-              step.highlighted
-                ? "bg-primary/10 text-foreground dark:bg-primary/20"
-                : "bg-background/80 text-muted-foreground dark:bg-white/5"
-            )}
-          >
-            <ArrowRight className="mt-1 h-4 w-4 text-primary" aria-hidden />
-            <div>
-              <p className="font-semibold">{step.value}</p>
-              <p className="text-xs text-muted-foreground dark:text-white/70">{step.hint}</p>
+
+          {stats.variant === "emgoldex" && (
+            <dl className="grid gap-3 rounded-2xl">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="h-4 w-4 text-primary" aria-hidden />
+                  Board slots
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.boardSlots}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <GaugeCircle className="h-4 w-4 text-primary" aria-hidden />
+                  Cycle time (days)
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.cycleTime}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <LineChart className="h-4 w-4 text-primary" aria-hidden />
+                  Net member payout
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.payoutPool)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Activity className="h-4 w-4 text-primary" aria-hidden />
+                  Leadership bonus
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{formatter.format(stats.leadershipBonus)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Rocket className="h-4 w-4 text-primary" aria-hidden />
+                  Compliance reviews
+                </div>
+                <span className="text-sm font-semibold text-foreground dark:text-white">{stats.complianceReviews}</span>
+              </div>
+            </dl>
+          )}
+        </Card>
+        <div className="grid gap-3">
+          {stats.timeline.map((step) => (
+            <div
+              key={step.label}
+              className={cn(
+                "flex items-start gap-3 rounded-2xl border border-border/60 p-3 text-sm dark:border-white/10",
+                step.highlighted
+                  ? "bg-primary/10 text-foreground dark:bg-primary/20"
+                  : "bg-background/80 text-muted-foreground dark:bg-white/5"
+              )}
+            >
+              <ArrowRight className="mt-1 h-4 w-4 text-primary" aria-hidden />
+              <div>
+                <p className="font-semibold">{step.value}</p>
+                <p className="text-xs text-muted-foreground dark:text-white/70">{step.hint}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

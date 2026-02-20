@@ -22,8 +22,8 @@ export const cloudMlmSoftwareBasicContent: PricingSubPageContent = {
     title: "Cloud MLM Software Basic pricing and roadmap.",
     description:
       "Build trust with distributors and customers using a polished, automation-ready MLM platform. We combine strategy, configuration, and enablement into one fixed-fee engagement so your leadership team can focus on growth.",
-    primaryCta: "Talk to an advisor",
-    secondaryCta: "Explore live demo",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Average go-live",
@@ -234,8 +234,8 @@ export const cloudMlmSoftwareBasicContent: PricingSubPageContent = {
     heading: "Ready to launch with confidence?",
     description:
       "Schedule a pricing consultation to map your go-live timeline, resource plan, and investment model tailored to Cloud MLM Software Basic.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "View product tour",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Expect a follow-up agenda within one business day",
     cardBody:
       "We help you align stakeholders, estimate ROI, and de-risk implementation.",

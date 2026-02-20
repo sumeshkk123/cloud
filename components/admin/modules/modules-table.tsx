@@ -20,7 +20,6 @@ interface ModuleRow {
   title: string;
   description: string;
   image?: string;
-  hasDetailPage: boolean;
   showOnHomePage: boolean;
   locale: string;
   availableLocales?: string[];
@@ -80,7 +79,6 @@ export function ModulesTable() {
             title: String(item.title || ''),
             description: String(item.description || ''),
             image: normalizedIcon || undefined,
-            hasDetailPage: Boolean(item.hasDetailPage ?? false),
             showOnHomePage: Boolean(item.showOnHomePage ?? false),
             locale: String(item.locale || 'en'),
             updatedAt: item.updatedAt ? new Date(item.updatedAt) : undefined,
@@ -111,10 +109,6 @@ export function ModulesTable() {
     return items.slice(start, start + ITEMS_PER_PAGE);
   }, [items, currentPage]);
 
-  const hasAnyDetailPage = useMemo(() => {
-    return items.some((item) => item.hasDetailPage);
-  }, [items]);
-
   const getIconComponent = (iconValue?: string | null) => {
     return resolveIcon(iconValue || null, Package);
   };
@@ -123,11 +117,8 @@ export function ModulesTable() {
     const baseColumns = [
       { key: 'icon', label: 'Icon', className: 'w-24' },
       { key: 'title', label: 'Title', className: 'w-1/4' },
+      { key: 'slug', label: 'Slug', className: 'w-1/6' },
     ];
-
-    if (hasAnyDetailPage) {
-      baseColumns.push({ key: 'slug', label: 'Slug', className: 'w-1/6' });
-    }
 
     baseColumns.push(
       { key: 'description', label: 'Description', className: 'w-2/4' },
@@ -137,7 +128,7 @@ export function ModulesTable() {
     );
 
     return baseColumns;
-  }, [hasAnyDetailPage]);
+  }, []);
 
   const handleDelete = async () => {
     if (!deleteId) return;
@@ -211,10 +202,7 @@ export function ModulesTable() {
             return <span className="font-medium text-gray-900">{row.title}</span>;
           }
           if (column.key === 'slug') {
-            if (!row.hasDetailPage) {
-              return <span className="text-gray-400 text-sm">—</span>;
-            }
-            return <span className="font-mono text-sm text-gray-600">{row.slug || '—'}</span>;
+            return <span className="font-mono text-sm text-gray-600">{row.slug || '-'}</span>;
           }
           if (column.key === 'description') {
             return <span className="line-clamp-2 text-gray-700">{row.description}</span>;

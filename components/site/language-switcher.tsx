@@ -5,7 +5,10 @@ import { ChevronDown } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { supportedLocales, type SupportedLocale } from "@/config/site";
-import { buildLocalizedPath } from "@/lib/locale-links";
+import { buildLocalizedPath, getModulesUrlLocale } from "@/lib/locale-links";
+import { getModuleSlugFromTitleOrId, isModulesSubpageSlug } from "@/lib/modules-subpage-slugs";
+import { getPageFromSlug } from "@/lib/page-slugs";
+import { MLM_PLAN_SEGMENT } from "@/lib/mlm-plan-subpage-slugs";
 import type { LanguageOption } from "@/types/global";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +17,14 @@ type LanguageSwitcherProps = {
   label?: string | null;
   ariaLabel?: string | null;
   options: LanguageOption[];
+};
+
+type ModuleRow = {
+  id: string;
+  title: string;
+  slug?: string | null;
+  image?: string | null;
+  showOnHomePage?: boolean;
 };
 
 // Flag emoji mapping for each locale (must match SupportedLocale: en, es, fr, it, de, pt, zh)
@@ -37,7 +48,7 @@ export function LanguageSwitcher({ locale, label, ariaLabel, options }: Language
   const currentOption = options.find((opt) => opt.locale === locale);
 
   // Memoize path calculation for faster switching
-  const handleLanguageChange = useCallback((nextLocale: SupportedLocale) => {
+  const handleLanguageChange = useCallback(async (nextLocale: SupportedLocale) => {
     if (nextLocale === locale) {
       setIsOpen(false);
       return;
@@ -46,12 +57,177 @@ export function LanguageSwitcher({ locale, label, ariaLabel, options }: Language
     // Fast path calculation - optimize by using window.location for more accurate path
     const currentPath = typeof window !== 'undefined' ? window.location.pathname : pathname;
     const segments = currentPath.split("/").filter(Boolean);
-    const hasLocale = segments.length > 0 && supportedLocales.includes(segments[0] as SupportedLocale);
+    const firstSegment = segments[0];
+    const normalizedLocalePrefix =
+      firstSegment === "pt-pt" ? "pt" : firstSegment === "zh-hans" ? "zh" : firstSegment;
+    const hasLocale =
+      segments.length > 0 &&
+      supportedLocales.includes(normalizedLocalePrefix as SupportedLocale);
+    const sourceLocale = hasLocale
+      ? (normalizedLocalePrefix as SupportedLocale)
+      : locale;
     const pathWithoutLocale = hasLocale ? segments.slice(1) : segments;
     const normalizedPath = pathWithoutLocale.length ? `/${pathWithoutLocale.join("/")}` : "/";
     
-    // Pre-calculate path for instant navigation
-    const nextPath = buildLocalizedPath(normalizedPath, nextLocale);
+    let nextPath = buildLocalizedPath(normalizedPath, nextLocale);
+
+    // Module custom slug translation across locales.
+    if (pathWithoutLocale.length === 1 && pathWithoutLocale[0]) {
+      const currentSlug = decodeURIComponent(pathWithoutLocale[0]).toLowerCase();
+      try {
+        const [sourceRes, targetRes] = await Promise.all([
+          fetch(`/api/modules?locale=${sourceLocale}`, { cache: "no-store" }),
+          fetch(`/api/modules?locale=${nextLocale}`, { cache: "no-store" }),
+        ]);
+
+        if (sourceRes.ok && targetRes.ok) {
+          const sourceModulesRaw = await sourceRes.json();
+          const targetModulesRaw = await targetRes.json();
+          const englishModulesRaw = nextLocale === "en"
+            ? targetModulesRaw
+            : sourceLocale === "en"
+              ? sourceModulesRaw
+              : await (await fetch(`/api/modules?locale=en`, { cache: "no-store" })).json();
+          const sourceModules: ModuleRow[] = Array.isArray(sourceModulesRaw) ? sourceModulesRaw : [];
+          const targetModules: ModuleRow[] = Array.isArray(targetModulesRaw) ? targetModulesRaw : [];
+          const englishModules: ModuleRow[] = Array.isArray(englishModulesRaw) ? englishModulesRaw : [];
+          const canonicalFromPath =
+            getPageFromSlug(currentSlug, sourceLocale) ??
+            getPageFromSlug(currentSlug, "en");
+          const canonicalFromUrl =
+            canonicalFromPath && isModulesSubpageSlug(canonicalFromPath) ? canonicalFromPath : null;
+
+          const resolveCanonical = (m: ModuleRow, moduleLocale: SupportedLocale): string | null => {
+            const explicit = String(m.slug || "").trim().toLowerCase();
+            if (explicit && isModulesSubpageSlug(explicit)) return explicit;
+            if (explicit) {
+              const explicitBase = explicit.replace(/[-_]?(\d+)$/, "");
+              const fromExplicitText = getModuleSlugFromTitleOrId(explicitBase, null);
+              if (fromExplicitText && isModulesSubpageSlug(fromExplicitText)) return fromExplicitText;
+              const mappedFromExplicit =
+                getPageFromSlug(explicitBase, moduleLocale) ??
+                getPageFromSlug(explicitBase, "en");
+              if (mappedFromExplicit && isModulesSubpageSlug(mappedFromExplicit)) return mappedFromExplicit;
+            }
+
+            const direct = getModuleSlugFromTitleOrId(m.title, m.id);
+            if (direct && isModulesSubpageSlug(direct)) return direct;
+
+            const image = String(m.image || "");
+            const show = Boolean(m.showOnHomePage ?? false);
+            const enMatch = englishModules.find(
+              (em) =>
+                String(em.image || "") === image &&
+                Boolean(em.showOnHomePage ?? false) === show
+            );
+            if (!enMatch) return null;
+
+            const enDirect = getModuleSlugFromTitleOrId(enMatch.title, enMatch.id);
+            if (enDirect && isModulesSubpageSlug(enDirect)) return enDirect;
+
+            const enExplicit = String(enMatch.slug || "").trim().toLowerCase();
+            return enExplicit && isModulesSubpageSlug(enExplicit) ? enExplicit : null;
+          };
+
+          const sourceMatch = sourceModules.find((m) => {
+            const explicit = String(m.slug || "").trim().toLowerCase();
+            const canonical = resolveCanonical(m, sourceLocale);
+            return (
+              explicit === currentSlug ||
+              canonical === currentSlug ||
+              (canonicalFromUrl != null && canonical === canonicalFromUrl)
+            );
+          });
+
+          const canonical =
+            (sourceMatch ? resolveCanonical(sourceMatch, sourceLocale) : null) ?? canonicalFromUrl;
+
+          if (canonical) {
+            const targetCandidates = targetModules.filter(
+              (m) => resolveCanonical(m, nextLocale) === canonical
+            );
+            const sourceImage = String(sourceMatch?.image || "");
+            const sourceShow = Boolean(sourceMatch?.showOnHomePage ?? false);
+            const familyCandidates = sourceMatch
+              ? targetModules.filter(
+                  (m) =>
+                    String(m.image || "") === sourceImage &&
+                    Boolean(m.showOnHomePage ?? false) === sourceShow
+                )
+              : [];
+            const targetMatch =
+              targetCandidates.find((m) => String(m.slug || "").trim() !== "") ??
+              targetCandidates[0] ??
+              familyCandidates.find((m) => String(m.slug || "").trim() !== "") ??
+              familyCandidates[0];
+            const targetExplicit = targetMatch ? String(targetMatch.slug || "").trim() : "";
+            const targetSlug = targetExplicit || canonical;
+            // Use backend slug path directly for module pages to avoid static-slug remapping.
+            const moduleLocale = getModulesUrlLocale(nextLocale);
+            nextPath =
+              nextLocale === "en"
+                ? `/${targetSlug}`
+                : `/${moduleLocale}/${targetSlug}`;
+          }
+        }
+      } catch {
+        // Fallback to default localized path behavior.
+      }
+    }
+
+    // MLM plan detail pages: use backend slug in target locale first.
+    if (pathWithoutLocale.length >= 2 && pathWithoutLocale[0] === MLM_PLAN_SEGMENT) {
+      const sourcePlanSlug = decodeURIComponent(pathWithoutLocale[1] || "").trim();
+      if (sourcePlanSlug) {
+        try {
+          const planRes = await fetch(
+            `/api/mlm-plans/match?sourceSlug=${encodeURIComponent(sourcePlanSlug)}&sourceLocale=${encodeURIComponent(sourceLocale)}&targetLocale=${encodeURIComponent(nextLocale)}`,
+            { cache: "no-store" }
+          );
+          if (planRes.ok) {
+            const match = await planRes.json();
+            if (match?.matched && typeof match?.slug === "string" && match.slug.trim()) {
+              const rest = pathWithoutLocale.slice(2).join("/");
+              const targetPath = `/${MLM_PLAN_SEGMENT}/${match.slug.trim()}${rest ? `/${rest}` : ""}`;
+              nextPath = buildLocalizedPath(targetPath, nextLocale);
+            }
+          }
+        } catch {
+          // fallback to default localized path behavior
+        }
+      }
+    }
+
+    // MLM company detail pages need translated company slug when switching locale:
+    // /es/mlm-companies/4life-investigacion instead of preserving source slug.
+    if (pathWithoutLocale[0] === "mlm-companies" && pathWithoutLocale[1]) {
+      try {
+        const {
+          getMlmCompanySlugs,
+          resolveCompanySlug,
+          getTranslatedCompanySlug,
+        } = await import("@/lib/mlm-companies");
+
+        const sourceCompanySlug = pathWithoutLocale[1];
+        const allCompanySlugs = new Set(getMlmCompanySlugs());
+        let canonicalCompanySlug = sourceCompanySlug;
+
+        if (!allCompanySlugs.has(sourceCompanySlug)) {
+          for (const candidateLocale of supportedLocales) {
+            const resolved = resolveCompanySlug(sourceCompanySlug, candidateLocale);
+            if (allCompanySlugs.has(resolved)) {
+              canonicalCompanySlug = resolved;
+              break;
+            }
+          }
+        }
+
+        const translatedCompanySlug = getTranslatedCompanySlug(canonicalCompanySlug, nextLocale);
+        nextPath = buildLocalizedPath(`/mlm-companies/${translatedCompanySlug}`, nextLocale);
+      } catch {
+        // Fallback to default localized path behavior.
+      }
+    }
 
     setIsOpen(false);
 

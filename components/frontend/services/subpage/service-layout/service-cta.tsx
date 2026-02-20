@@ -35,7 +35,7 @@ export function ServiceCta({
       primaryButton={{ text: cta.buttonText, href: contactHref }}
       primaryButtonOpensDemoModal={
         openDemoModalOnPrimary
-          ? { source: "cta-section", subheading: "From: CTA section", locale, sourcePage: serviceSlug ? `services-${serviceSlug}` : undefined }
+          ? { source: "cta-section", subheading: "From: CTA section", locale, sourcePage: serviceSlug ? `Services - ${serviceSlug}` : undefined }
           : undefined
       }
       secondaryButton={

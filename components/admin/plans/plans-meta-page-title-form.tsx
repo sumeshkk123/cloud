@@ -1,266 +1,266 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/adminUi/button';
+import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/adminUi/input';
 import { Textarea } from '@/components/ui/adminUi/textarea';
 import { FieldLabel } from '@/components/ui/adminUi/field-label';
+import { Select } from '@/components/ui/adminUi/select';
 import { useToast } from '@/components/ui/toast';
-import { i18n } from '@/i18n-config';
-import { AdminLanguageTabs } from '@/components/admin/common/admin-language-tabs';
+import { localeNames } from '@/i18n-config';
+import { Loader } from '@/components/ui/adminUi/loader';
+import { supportedLocales } from '@/config/site';
 
-const PLAN_PAGE = 'mlm-plans';
+const locales = supportedLocales;
 
-interface FormData {
-  metaTitle: string;
-  metaDescription: string;
-  metaKeywords: string;
-  pageTitle: string;
-  pagePill: string;
-  sectionSubtitle: string;
+interface MetaFormData {
+  title: string;
+  description: string;
+  keywords: string;
 }
 
 interface PlansMetaPageTitleFormProps {
-  onClose: () => void;
-  onSave: () => void;
-  onLoadingChange: (loading: boolean) => void;
-  onSavingChange: (saving: boolean) => void;
+  initialPage?: string;
+  initialLocale?: string;
+  planPages?: Array<{ value: string; label: string }>;
+  onClose?: () => void;
+  onSave?: () => void;
+  onToastChange?: (toast: React.ReactNode) => void;
+  onLoadingChange?: (isLoading: boolean) => void;
+  onSavingChange?: (isSaving: boolean) => void;
 }
 
 export function PlansMetaPageTitleForm({
-  onClose,
+  initialPage,
+  initialLocale = 'en',
+  planPages = [],
   onSave,
+  onToastChange,
   onLoadingChange,
   onSavingChange,
 }: PlansMetaPageTitleFormProps) {
-  const { showToast } = useToast();
-  const [activeTab, setActiveTab] = useState<string>('en');
-  const [translations, setTranslations] = useState<Record<string, FormData>>({});
-  const [isLoading, setIsLoading] = useState(true);
-
-  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FormData>({
-    defaultValues: {
-      metaTitle: '',
-      metaDescription: '',
-      metaKeywords: '',
-      pageTitle: '',
-      pagePill: '',
-      sectionSubtitle: '',
-    },
+  const { showToast, ToastComponent } = useToast();
+  const [formPage, setFormPage] = useState<string>(initialPage || '');
+  const [activeLocale, setActiveLocale] = useState<string>(initialLocale);
+  const isEditing = !!initialPage;
+  const [metaFormData, setMetaFormData] = useState<Record<string, MetaFormData>>(() => {
+    const initial: Record<string, MetaFormData> = {};
+    locales.forEach((loc) => {
+      initial[loc] = { title: '', description: '', keywords: '' };
+    });
+    return initial;
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [metaSavedLocales, setMetaSavedLocales] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    loadData();
-  }, []);
-
-  useEffect(() => {
-    if (translations[activeTab]) {
-      const data = translations[activeTab];
-      setValue('metaTitle', data.metaTitle || '');
-      setValue('metaDescription', data.metaDescription || '');
-      setValue('metaKeywords', data.metaKeywords || '');
-      setValue('pageTitle', data.pageTitle || '');
-      setValue('pagePill', data.pagePill || '');
-      setValue('sectionSubtitle', data.sectionSubtitle || '');
+    if (onToastChange) {
+      onToastChange(ToastComponent);
     }
-  }, [activeTab, translations, setValue]);
+  }, [ToastComponent, onToastChange]);
 
-  const loadData = async () => {
+  useEffect(() => {
+    onLoadingChange?.(isLoading);
+  }, [isLoading, onLoadingChange]);
+
+  useEffect(() => {
+    onSavingChange?.(isSaving);
+  }, [isSaving, onSavingChange]);
+
+  useEffect(() => {
+    if (formPage) {
+      loadAllData();
+    }
+  }, [formPage]);
+
+  const loadAllData = async () => {
+    if (!formPage) return;
     try {
       setIsLoading(true);
-      onLoadingChange(true);
-      
-      const allTranslations: Record<string, FormData> = {};
-      
-      for (const locale of i18n.locales) {
-        const metaRes = await fetch(`/api/admin/meta-details?page=${encodeURIComponent(PLAN_PAGE)}&locale=${locale}`, {
+      const metaPromises = locales.map((locale) =>
+        fetch(`/api/admin/meta-details?page=${encodeURIComponent(formPage)}&locale=${locale}`, {
           cache: 'no-store',
-        });
-        const pageTitleRes = await fetch(`/api/admin/page-titles?page=${encodeURIComponent(PLAN_PAGE)}&locale=${locale}`, {
-          cache: 'no-store',
-        });
-        
-        const metaData = metaRes.ok ? await metaRes.json() : [];
-        const pageTitleData = pageTitleRes.ok ? await pageTitleRes.json() : [];
-        
-        const metaItem = Array.isArray(metaData) ? metaData.find((item: any) => item.page === PLAN_PAGE && item.locale === locale) : null;
-        const pageTitleItem = Array.isArray(pageTitleData) ? pageTitleData.find((item: any) => item.page === PLAN_PAGE && item.locale === locale) : null;
-        
-        allTranslations[locale] = {
-          metaTitle: metaItem?.title || '',
-          metaDescription: metaItem?.description || '',
-          metaKeywords: metaItem?.keywords || '',
-          pageTitle: pageTitleItem?.title || '',
-          pagePill: pageTitleItem?.pagePill || '',
-          sectionSubtitle: pageTitleItem?.sectionSubtitle || '',
-        };
-      }
-      
-      setTranslations(allTranslations);
-      
-      // Set initial values for active tab
-      if (allTranslations[activeTab]) {
-        const data = allTranslations[activeTab];
-        setValue('metaTitle', data.metaTitle);
-        setValue('metaDescription', data.metaDescription);
-        setValue('metaKeywords', data.metaKeywords);
-        setValue('pageTitle', data.pageTitle);
-        setValue('pagePill', data.pagePill);
-        setValue('sectionSubtitle', data.sectionSubtitle);
+        }).then((res) => (res.ok ? res.json() : null))
+      );
+      const metaResults = await Promise.all(metaPromises);
+      const newMetaData: Record<string, MetaFormData> = {};
+      const metaSaved = new Set<string>();
+
+      locales.forEach((locale, index) => {
+        const metaResult = metaResults[index];
+        if (metaResult && (metaResult.title || metaResult.description || metaResult.keywords)) {
+          newMetaData[locale] = {
+            title: String(metaResult.title || ''),
+            description: String(metaResult.description || ''),
+            keywords: String(metaResult.keywords || ''),
+          };
+          metaSaved.add(locale);
+        } else {
+          newMetaData[locale] = { title: '', description: '', keywords: '' };
+        }
+      });
+
+      setMetaFormData(newMetaData);
+      setMetaSavedLocales(metaSaved);
+      if (initialLocale && metaSaved.has(initialLocale)) {
+        setActiveLocale(initialLocale);
+      } else if (metaSaved.size > 0) {
+        setActiveLocale(Array.from(metaSaved)[0]);
+      } else {
+        setActiveLocale(initialLocale || 'en');
       }
     } catch (error) {
       console.error('Error loading data:', error);
-      showToast('Failed to load data.', 'error');
+      showToast('Failed to load meta details.', 'error');
     } finally {
       setIsLoading(false);
-      onLoadingChange(false);
     }
   };
 
-  const onSubmit = async (data: FormData) => {
+  const updateMetaField = (locale: string, field: keyof MetaFormData, value: string) => {
+    setMetaFormData((prev) => ({
+      ...prev,
+      [locale]: { ...prev[locale], [field]: value },
+    }));
+  };
+
+  const handleSave = async () => {
+    if (!formPage) {
+      showToast('Please select a page.', 'error');
+      return;
+    }
     try {
-      onSavingChange(true);
-      
-      // Save meta details
-      const metaRes = await fetch('/api/admin/meta-details', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          page: PLAN_PAGE,
-          locale: activeTab,
-          title: data.metaTitle,
-          description: data.metaDescription,
-          keywords: data.metaKeywords,
-        }),
-      });
-      
-      // Save page title
-      const pageTitleRes = await fetch('/api/admin/page-titles', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          page: PLAN_PAGE,
-          locale: activeTab,
-          title: data.pageTitle,
-          pagePill: data.pagePill,
-          sectionSubtitle: data.sectionSubtitle,
-        }),
-      });
-      
-      if (!metaRes.ok || !pageTitleRes.ok) {
-        throw new Error('Failed to save');
+      setIsSaving(true);
+      for (const locale of locales) {
+        const meta = metaFormData[locale];
+        const hasMeta = meta.title || meta.description || meta.keywords;
+        if (hasMeta) {
+          const metaRes = await fetch('/api/admin/meta-details', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              page: formPage,
+              locale,
+              title: meta.title,
+              description: meta.description,
+              keywords: meta.keywords,
+            }),
+          });
+          if (metaRes.ok) {
+            setMetaSavedLocales((prev) => new Set([...prev, locale]));
+          }
+        }
       }
-      
-      // Update local translations
-      setTranslations(prev => ({
-        ...prev,
-        [activeTab]: data,
-      }));
-      
       showToast('Saved successfully.', 'success');
-      onSave();
+      onSave?.();
     } catch (error) {
       console.error('Error saving:', error);
       showToast('Failed to save.', 'error');
     } finally {
-      onSavingChange(false);
+      setIsSaving(false);
     }
   };
 
+  const currentMeta = metaFormData[activeLocale] || { title: '', description: '', keywords: '' };
+
   if (isLoading) {
-    return <div className="text-center py-8">Loading...</div>;
+    return <Loader />;
   }
 
   return (
-    <form id="plans-meta-page-title-form" onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <AdminLanguageTabs
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        locales={i18n.locales}
-      />
+    <form
+      id="plans-meta-page-title-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSave();
+      }}
+      className="space-y-6"
+    >
+      <div className="space-y-1.5">
+        <FieldLabel required>Page</FieldLabel>
+        <Select
+          options={planPages}
+          value={formPage}
+          onValueChange={(value) => {
+            if (!isEditing) {
+              setFormPage(value);
+            }
+          }}
+          placeholder="Select a page"
+          required
+          disabled={isSaving || isLoading || isEditing}
+        />
+        {isEditing && (
+          <p className="text-xs text-gray-500 mt-1">
+            Editing: <span className="font-medium text-gray-700">{formPage}</span>
+          </p>
+        )}
+      </div>
+
+      <div className="border-b border-gray-200 dark:border-gray-700">
+        <nav className="flex gap-2">
+          {locales.map((locale) => {
+            const isActive = activeLocale === locale;
+            const localeMeta = metaFormData[locale];
+            const hasContent =
+              localeMeta.title?.trim() || localeMeta.description?.trim() || localeMeta.keywords?.trim();
+            const exists = metaSavedLocales.has(locale);
+            return (
+              <button
+                key={locale}
+                type="button"
+                onClick={() => setActiveLocale(locale)}
+                className={`px-4 py-2 text-sm font-medium rounded-t-md border-b-2 transition-colors ${
+                  isActive
+                    ? 'border-blue-500 text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                    : hasContent
+                      ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 bg-green-50 dark:bg-green-900/10'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <span>{localeNames[locale as keyof typeof localeNames] ?? locale}</span>
+                  {exists && <span className="w-2 h-2 bg-green-500 rounded-full" title="Saved" />}
+                </div>
+              </button>
+            );
+          })}
+        </nav>
+      </div>
 
       <div className="space-y-4">
-        <div>
-          <FieldLabel htmlFor="metaTitle" required>
-            Meta Title
-          </FieldLabel>
-          <Input
-            id="metaTitle"
-            {...register('metaTitle', { required: 'Meta title is required' })}
-            placeholder="Enter meta title"
-          />
-          {errors.metaTitle && (
-            <p className="mt-1 text-sm text-red-600">{errors.metaTitle.message}</p>
-          )}
-        </div>
-
-        <div>
-          <FieldLabel htmlFor="metaDescription" required>
-            Meta Description
-          </FieldLabel>
-          <Textarea
-            id="metaDescription"
-            {...register('metaDescription', { required: 'Meta description is required' })}
-            placeholder="Enter meta description"
-            rows={3}
-          />
-          {errors.metaDescription && (
-            <p className="mt-1 text-sm text-red-600">{errors.metaDescription.message}</p>
-          )}
-        </div>
-
-        <div>
-          <FieldLabel htmlFor="metaKeywords">
-            Meta Keywords
-          </FieldLabel>
-          <Input
-            id="metaKeywords"
-            {...register('metaKeywords')}
-            placeholder="Enter meta keywords (comma-separated)"
-          />
-        </div>
-
-        <div className="border-t pt-4">
-          <h3 className="text-lg font-semibold mb-4">Page Title Settings</h3>
-          
-          <div className="space-y-4">
-            <div>
-              <FieldLabel htmlFor="pageTitle" required>
-                Page Title
-              </FieldLabel>
-              <Input
-                id="pageTitle"
-                {...register('pageTitle', { required: 'Page title is required' })}
-                placeholder="Enter page title"
-              />
-              {errors.pageTitle && (
-                <p className="mt-1 text-sm text-red-600">{errors.pageTitle.message}</p>
-              )}
-            </div>
-
-            <div>
-              <FieldLabel htmlFor="pagePill">
-                Page Pill (Badge)
-              </FieldLabel>
-              <Input
-                id="pagePill"
-                {...register('pagePill')}
-                placeholder="Enter page pill text"
-              />
-            </div>
-
-            <div>
-              <FieldLabel htmlFor="sectionSubtitle">
-                Section Subtitle
-              </FieldLabel>
-              <Textarea
-                id="sectionSubtitle"
-                {...register('sectionSubtitle')}
-                placeholder="Enter section subtitle"
-                rows={2}
-              />
-            </div>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Meta Details</h3>
+        <div className="space-y-4">
+          <div>
+            <FieldLabel htmlFor="meta-title">Meta Title</FieldLabel>
+            <Input
+              id="meta-title"
+              value={currentMeta.title}
+              onChange={(e) => updateMetaField(activeLocale, 'title', e.target.value)}
+              placeholder="Enter meta title"
+              disabled={isSaving || isLoading}
+            />
+          </div>
+          <div>
+            <FieldLabel htmlFor="meta-description">Meta Description</FieldLabel>
+            <Textarea
+              id="meta-description"
+              value={currentMeta.description}
+              onChange={(e) => updateMetaField(activeLocale, 'description', e.target.value)}
+              placeholder="Enter meta description"
+              rows={3}
+              disabled={isSaving || isLoading}
+            />
+          </div>
+          <div>
+            <FieldLabel htmlFor="meta-keywords">Meta Keywords</FieldLabel>
+            <Input
+              id="meta-keywords"
+              value={currentMeta.keywords}
+              onChange={(e) => updateMetaField(activeLocale, 'keywords', e.target.value)}
+              placeholder="Enter keywords (comma-separated)"
+              disabled={isSaving || isLoading}
+            />
           </div>
         </div>
       </div>

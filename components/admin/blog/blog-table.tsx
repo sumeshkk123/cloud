@@ -23,6 +23,7 @@ export interface BlogRow {
   availableLocales: string[];
   image?: string | null;
   updatedAt?: Date | string;
+  translationGroupId?: string;
 }
 
 const ITEMS_PER_PAGE = 20;
@@ -34,13 +35,14 @@ const DEFAULT_LOCALE = 'en';
 function normalizeApiPosts(data: any[]): BlogRow[] {
   const idMap = new Map<string, BlogRow>();
   for (const item of data) {
-    const id = String(item.id || '');
-    if (!id) continue;
+    // Use translation_group_id for grouping, fallback to id
+    const groupId = String(item.translationGroupId || item.id || '');
+    if (!groupId) continue;
 
-    let row = idMap.get(id);
+    let row = idMap.get(groupId);
     if (!row) {
       row = {
-        id,
+        id: groupId, // Use translation group ID as the main ID for grouping
         title: '',
         slug: item.slug || '',
         published: Boolean(item.published),
@@ -49,8 +51,9 @@ function normalizeApiPosts(data: any[]): BlogRow[] {
         availableLocales: [],
         image: item.image ?? undefined,
         updatedAt: item.updatedAt,
+        translationGroupId: item.translationGroupId || undefined,
       };
-      idMap.set(id, row);
+      idMap.set(groupId, row);
     }
 
     if (item.locale && !row.availableLocales.includes(item.locale)) {
@@ -111,7 +114,8 @@ export function BlogTable({
   const loadPosts = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch('/api/admin/blog', { cache: 'no-store', credentials: 'include' });
+      // Use grouped=true to get one row per translation group
+      const res = await fetch('/api/admin/blog?grouped=true', { cache: 'no-store', credentials: 'include' });
       const data = await res.json();
 
       if (!res.ok) {
@@ -129,7 +133,25 @@ export function BlogTable({
         return;
       }
 
-      setPosts(normalizeApiPosts(data));
+      // Transform grouped data to BlogRow format
+      const groupedPosts = data.map((item: any) => ({
+        id: item.id,
+        title: item.title || '',
+        slug: item.slug || '',
+        published: Boolean(item.published),
+        date: item.date ? new Date(item.date).toISOString().slice(0, 10) : '',
+        locale: item.locale || 'en',
+        availableLocales: item.translations?.map((t: any) => t.locale) || [item.locale],
+        image: item.image ?? undefined,
+        updatedAt: item.updatedAt,
+        translationGroupId: item.translationGroupId || undefined,
+      }));
+
+      setPosts(groupedPosts.sort((a: BlogRow, b: BlogRow) => {
+        const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+        const bTime = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+        return bTime - aTime;
+      }));
     } catch (error) {
       showToast('Failed to load blog posts. Please try again.', 'error');
       setPosts([]);
@@ -305,12 +327,15 @@ export function BlogTable({
             return <span className="text-sm text-gray-600">{row.date || '-'}</span>;
           }
           if (column.key === 'languages') {
+            const hasTranslations = row.availableLocales && row.availableLocales.length > 1;
             return (
-              <LanguageBadges
-                availableLocales={row.availableLocales?.length ? row.availableLocales : ['en']}
-                allLocales={[...LOCALES]}
-                layout="grid"
-              />
+              <div className={hasTranslations ? 'bg-green-50 dark:bg-green-900/20 rounded p-1' : ''}>
+                <LanguageBadges
+                  availableLocales={row.availableLocales?.length ? row.availableLocales : ['en']}
+                  allLocales={[...LOCALES]}
+                  layout="grid"
+                />
+              </div>
             );
           }
           if (column.key === 'actions') {

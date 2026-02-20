@@ -1,5 +1,9 @@
 import type { MetadataRoute } from "next";
 import { siteBaseConfig, supportedLocales, type SupportedLocale } from "@/config/site";
+
+/** Refresh sitemap periodically so it uses current slugs. */
+export const revalidate = 3600;
+
 import { i18n } from "@/i18n-config";
 import {
   getSlugForPricingSubpage,
@@ -8,6 +12,7 @@ import {
   pricingSubpageToSlugMap,
 } from "@/lib/page-slugs";
 import { ALL_SERVICES_SUBPAGE_SLUGS, getSlugForServiceSubpage } from "@/lib/services-subpage-slugs";
+import { ALL_MLM_PLAN_SUBPAGE_SLUGS, getSlugForPlanSubpage, MLM_PLAN_SEGMENT } from "@/lib/mlm-plan-subpage-slugs";
 
 const BASE = (siteBaseConfig.url || "").replace(/\/$/, "");
 const DEFAULT_LOCALE = i18n.defaultLocale as SupportedLocale;
@@ -72,6 +77,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         seen.add(path);
         entries.push(toEntry(path));
       }
+    }
+
+    // MLM plan subpages (/mlm-plan/<translated-slug>) – one entry per plan per locale
+    for (const planSlug of ALL_MLM_PLAN_SUBPAGE_SLUGS) {
+      const translatedSlug = getSlugForPlanSubpage(planSlug, locale);
+      const path = buildPath([MLM_PLAN_SEGMENT, translatedSlug], locale);
+      if (seen.has(path)) continue;
+      seen.add(path);
+      entries.push(toEntry(path));
     }
   }
 

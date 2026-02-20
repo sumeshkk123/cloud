@@ -1,4 +1,5 @@
 import { HeroSection } from "@/components/frontend/common/hero-section";
+import { cn } from "@/lib/utils";
 import type { PricingSubHero } from "./types";
 
 /** Split title so a key phrase gets the gradient highlight (e.g. product/module name before "pricing"). */
@@ -25,6 +26,8 @@ interface PricingSubHeroProps {
   content: PricingSubHero;
   contactHref: string;
   secondaryHref: string;
+  onPrimaryCtaClick?: () => void;
+  onSecondaryCtaClick?: () => void;
   variant?: "default" | "dark";
 }
 
@@ -32,6 +35,8 @@ export function PricingSubPageHero({
   content,
   contactHref,
   secondaryHref,
+  onPrimaryCtaClick,
+  onSecondaryCtaClick,
   variant = "default",
 }: PricingSubHeroProps) {
   const isDark = variant === "dark";
@@ -46,11 +51,13 @@ export function PricingSubPageHero({
       description={content.description}
       primaryCta={{
         label: content.primaryCta,
-        href: contactHref,
+        href: onPrimaryCtaClick ? undefined : contactHref,
+        onClick: onPrimaryCtaClick,
       }}
       secondaryCta={{
         label: content.secondaryCta,
-        href: secondaryHref,
+        href: onSecondaryCtaClick ? undefined : secondaryHref,
+        onClick: onSecondaryCtaClick,
       }}
       metrics={[]}
       rightSlot={
@@ -60,20 +67,22 @@ export function PricingSubPageHero({
             return (
               <article
                 key={metric.label}
-                className={
+                className={cn(
+                  "group transition-all hover:scale-[1.02]",
                   isDark
                     ? "flex flex-col gap-3 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur"
                     : "flex flex-col gap-3 rounded-3xl border border-border/60 bg-background/80 p-6 shadow-sm backdrop-blur dark:bg-slate-950/70"
-                }
+                )}
               >
                 <span
-                  className={
+                  className={cn(
+                    "transition-all duration-300",
                     isDark
-                      ? "inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white"
-                      : "inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary"
-                  }
+                      ? "inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 border border-white/20 text-white group-hover:bg-white group-hover:text-primary"
+                      : "inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
+                  )}
                 >
-                  <Icon className="h-5 w-5" aria-hidden />
+                  <Icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-x-[-1]" aria-hidden />
                 </span>
                 <div>
                   <p

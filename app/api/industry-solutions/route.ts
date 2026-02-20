@@ -7,12 +7,21 @@ export async function GET(request: Request) {
     const locale = searchParams.get('locale') || 'en';
     const showOnHomePage = searchParams.get('showOnHomePage') === 'true' ? true : undefined;
 
+    console.log(`[API /api/industry-solutions] Fetching locale=${locale}, showOnHomePage=${showOnHomePage}`);
+
     const solutions = await listIndustrySolutions(locale, showOnHomePage);
+    console.log(`[API /api/industry-solutions] Found ${solutions.length} solutions`);
+    if (solutions.length > 0) {
+      console.log(`[API /api/industry-solutions] Sample keys: ${Object.keys(solutions[0]).join(', ')}`);
+      console.log(`[API /api/industry-solutions] Sample slug: "${(solutions[0] as any).slug}"`);
+    }
 
     return NextResponse.json(
       solutions.map((solution) => ({
         id: String(solution.id),
+        slug: String((solution as any).slug || ''),
         title: String(solution.title || ''),
+        debugKeys: Object.keys(solution), // <--- DEBUG ONLY
         description: String(solution.description || ''),
         icon: String(solution.icon || ''),
         showOnHomePage: Boolean(solution.showOnHomePage ?? false),

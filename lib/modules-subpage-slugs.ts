@@ -21,7 +21,6 @@ export const MODULES_SUBPAGE_SLUGS = [
   "multi-lingual-system",
   "kyc-documentation",
   "backup-manager",
-  "email-module",
 ] as const;
 
 /** Slugs that use the feature layout (not pricing sub-page layout). */
@@ -35,7 +34,6 @@ export const MODULE_FEATURE_SLUGS = [
   "multi-lingual-system",
   "kyc-documentation",
   "backup-manager",
-  "email-module",
 ] as const;
 
 export function isModuleFeatureSlug(slug: string): boolean {
@@ -165,12 +163,6 @@ const SLUG_META: Record<
       "Automated backups and recovery for your MLM data. Part of Cloud MLM Software modules.",
     fallbackKeywords: "MLM backup, backup manager module, Cloud MLM Software backup",
   },
-  "email-module": {
-    fallbackTitle: "Email Module | Cloud MLM Software",
-    fallbackDescription:
-      "Email and communications module for MLM: templates, tracking, and automation. Part of Cloud MLM Software modules.",
-    fallbackKeywords: "MLM email module, email communications, Cloud MLM Software email",
-  },
 };
 
 export function getModulesSubpageMeta(slug: string) {
@@ -191,20 +183,19 @@ const TRANSLATED_KEYWORDS: Record<string, string[]> = {
   "compensation-module": ["compensation", "compensación", "commission", "comisión", "plan", "module", "módulo"],
   "ecommerce-module": ["ecommerce", "e-commerce", "commerce", "comercio", "comercio electrónico", "ecommerce-module"],
   "marketing-automation": ["marketing", "automation", "automatización", "campaña", "campaign"],
-  compliance: ["compliance", "cumplimiento", "governance", "gobernanza"],
+  compliance: ["compliance", "cumplimiento", "governance", "gobernanza", "conformita", "conformite", "konformitat", "conformidade"],
   analytics: ["analytics", "analítica", "reporting", "informes", "informe"],
   genealogy: ["genealogy", "genealogía", "tree", "árbol", "network", "red"],
-  "customer-engagement-module": ["customer", "cliente", "engagement", "compromiso", "support", "soporte", "module", "módulo"],
+  "customer-engagement-module": ["customer", "cliente", "engagement", "compromiso", "support", "soporte"],
   "mass-email-sending-module": ["mass", "email", "masivo", "correo", "envío"],
   "e-voucher": ["e-voucher", "voucher", "vale", "cupón", "bono"],
   "e-wallet": ["e-wallet", "wallet", "cartera", "monedero", "billetera"],
   "ticket-system": ["ticket", "soporte", "support", "incidencia"],
   "auto-responder": ["auto", "respond", "responder", "autoresponder", "respuesta automática"],
-  "multi-currency": ["multi", "currency", "moneda", "divisa", "multimoneda"],
+  "multi-currency-module": ["multi", "currency", "moneda", "divisa", "devise", "devises", "multimoneda"],
   "multi-lingual-system": ["multi", "lingual", "language", "idioma", "idiomas", "multilingüe"],
   "kyc-documentation": ["kyc", "documentation", "documentación", "identidad", "verificación"],
   "backup-manager": ["backup", "copia", "respaldo", "respaldo de seguridad"],
-  "email-module": ["email", "correo", "módulo de correo", "email module"],
 };
 
 function titleMatchesSlug(t: string, slug: string): boolean {
@@ -217,24 +208,51 @@ export function getModuleSlugFromTitleOrId(title: string | null, id: string | nu
   if (!title && !id) return null;
   const t = (title ?? id ?? "").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
   const idStr = (id ?? "").toLowerCase();
-  // Prefer slug that matches a known sub-page (English + translated keywords). Check specific slugs before generic "emails".
-  if (titleMatchesSlug(t, "compensation-module") || idStr.includes("compensation")) return "compensation-module";
-  if (titleMatchesSlug(t, "ecommerce-module") || idStr.includes("ecommerce-module") || idStr.includes("ecommerce")) return "ecommerce-module";
-  if ((t.includes("marketing") || t.includes("automatización")) && (t.includes("automation") || t.includes("campaign") || t.includes("campaña"))) return "marketing-automation";
-  if (titleMatchesSlug(t, "compliance")) return "compliance-modules";
-  if (titleMatchesSlug(t, "analytics")) return "analytics";
-  if (titleMatchesSlug(t, "genealogy")) return "genealogy";
-  if (titleMatchesSlug(t, "customer-engagement-module")) return "customer-engagement-module";
-  if ((t.includes("mass") || t.includes("masivo")) && (t.includes("email") || t.includes("correo"))) return "mass-email-sending-module";
-  if (titleMatchesSlug(t, "e-voucher")) return "e-voucher";
-  if (titleMatchesSlug(t, "e-wallet")) return "e-wallet";
-  if (titleMatchesSlug(t, "ticket-system")) return "ticket-system";
-  if ((t.includes("auto") || t.includes("automátic")) && (t.includes("respond") || t.includes("respuesta"))) return "auto-responder";
-  if ((t.includes("multi") || t.includes("mult")) && (t.includes("currency") || t.includes("moneda") || t.includes("divisa"))) return "multi-currency-module";
-  if ((t.includes("multi") || t.includes("mult")) && (t.includes("lingual") || t.includes("idioma") || t.includes("language"))) return "multi-lingual-system";
-  if (titleMatchesSlug(t, "kyc-documentation")) return "kyc-documentation";
-  if (titleMatchesSlug(t, "backup-manager")) return "backup-manager";
-  if (titleMatchesSlug(t, "email-module")) return "email-module";
+  // Check mass-email before generic email so "Mass Email Sending Module" does not match emails
+  const hasMassKeyword =
+    t.includes("mass") ||
+    t.includes("masivo") ||
+    t.includes("massa") ||
+    t.includes("masse") ||
+    t.includes("massen");
+  const hasEmailKeyword =
+    t.includes("email") ||
+    t.includes("e-mail") ||
+    t.includes("correo") ||
+    t.includes("courriel");
+  if (hasMassKeyword && hasEmailKeyword) return "mass-email-sending-module";
+  // Email/emails module (e.g. "Email Module", "Emails")
   if (titleMatchesSlug(t, "emails") || t.includes("email") || idStr.includes("email")) return "emails";
+  // Check backup-manager before compensation-module so "Backup Manager Module" does not match compensation (keyword "module")
+  if (titleMatchesSlug(t, "backup-manager") || idStr.includes("backup")) return "backup-manager";
+  // Check multi-currency and multi-lingual before compensation so "Multi Currency Module" etc. do not match (keyword "module")
+  if ((t.includes("multi") || t.includes("mult")) && (t.includes("currency") || t.includes("moneda") || t.includes("divisa") || t.includes("devise"))) return "multi-currency-module";
+  if ((t.includes("multi") || t.includes("mult")) && (t.includes("lingual") || t.includes("idioma") || t.includes("language"))) return "multi-lingual-system";
+  // Check ticket-system before compensation so "Ticket system module" does not match (keyword "module")
+  if (titleMatchesSlug(t, "ticket-system") || t.includes("ticket") || idStr.includes("ticket")) return "ticket-system";
+  // Check e-wallet before compensation so "E-Wallet module" does not match (keyword "module")
+  if (titleMatchesSlug(t, "e-wallet") || t.includes("e-wallet") || t.includes("ewallet") || idStr.includes("wallet")) return "e-wallet";
+  // Check analytics before compensation so "Analytics & Reporting Module" does not match (keyword "module")
+  if (titleMatchesSlug(t, "analytics") || t.includes("analytics") || t.includes("reporting") || idStr.includes("analytics")) return "analytics";
+  // Check marketing-automation before compensation so "Marketing Automation Module" does not match (keyword "module")
+  if (titleMatchesSlug(t, "marketing-automation") || ((t.includes("marketing") || t.includes("automatización")) && (t.includes("automation") || t.includes("campaign") || t.includes("campaña")))) return "marketing-automation";
+  // Check genealogy before compensation so "Genealogy Tree Module" does not match (keyword "module")
+  if (titleMatchesSlug(t, "genealogy") || t.includes("genealogy") || idStr.includes("genealogy")) return "genealogy";
+  // Check compliance before compensation so "Compliance module" does not match (keyword "module")
+  if (
+    titleMatchesSlug(t, "compliance") ||
+    t.includes("compliance") ||
+    t.includes("conform") ||
+    idStr.includes("compliance") ||
+    idStr.includes("conform")
+  ) return "compliance-modules";
+  // Check customer-engagement before compensation so "Customer Engagement module" does not match (keyword "module")
+  if (titleMatchesSlug(t, "customer-engagement-module") || (t.includes("customer") && t.includes("engagement")) || idStr.includes("customer-engagement")) return "customer-engagement-module";
+  // Check ecommerce before compensation so "E-Commerce module" does not match (keyword "module") or return null
+  if (titleMatchesSlug(t, "ecommerce-module") || t.includes("e-commerce") || t.includes("ecommerce") || idStr.includes("ecommerce-module") || idStr.includes("ecommerce")) return "ecommerce-module";
+  if (titleMatchesSlug(t, "compensation-module") || idStr.includes("compensation")) return "compensation-module";
+  if (titleMatchesSlug(t, "e-voucher")) return "e-voucher";
+  if ((t.includes("auto") || t.includes("automátic")) && (t.includes("respond") || t.includes("respuesta"))) return "auto-responder";
+  if (titleMatchesSlug(t, "kyc-documentation")) return "kyc-documentation";
   return null;
 }

@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import type { PageTitleRecord } from "@/lib/api/page-titles";
 import { PricingSubPageLayout } from "@/components/frontend/pricing/sub-page";
 import type { PricingSubPageContent } from "@/components/frontend/pricing/sub-page";
 import { cloudMlmSoftwareBasicContent } from "./content";
+import { HeroSectionPopup } from "@/components/frontend/common/hero-section-popup";
+import { useToast } from "@/components/ui/toast";
 
 type CloudMlmSoftwareBasicClientProps = {
   pageTitleData: PageTitleRecord | null;
@@ -32,12 +35,26 @@ export function CloudMlmSoftwareBasicClient({
   contactHref,
   secondaryHref,
 }: CloudMlmSoftwareBasicClientProps) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const { showToast, ToastComponent } = useToast();
   const content = mergeContentWithPageTitle(cloudMlmSoftwareBasicContent, pageTitleData);
+
   return (
-    <PricingSubPageLayout
-      content={content}
-      contactHref={contactHref}
-      secondaryHref={secondaryHref}
-    />
+    <>
+      {ToastComponent}
+      <PricingSubPageLayout
+        content={content}
+        contactHref={contactHref}
+        secondaryHref={secondaryHref}
+        onPrimaryCtaClick={() => setModalOpen(true)}
+      />
+      <HeroSectionPopup
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        source="Pricing - Basic Software"
+        notes="Enquiry from Basic Software pricing page (Book a pricing session)"
+        onSuccess={(msg) => showToast(msg, "success")}
+      />
+    </>
   );
 }

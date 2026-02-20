@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import type { PageTitleRecord } from "@/lib/api/page-titles";
 import { PricingSubPageLayout } from "@/components/frontend/pricing/sub-page";
 import type { PricingSubPageContent } from "@/components/frontend/pricing/sub-page";
 import { autoResponderModuleContent } from "./content";
+import { HeroSectionPopup } from "@/components/frontend/common/hero-section-popup";
+import { useToast } from "@/components/ui/toast";
 
 type AutoResponderModuleClientProps = {
   pageTitleData: PageTitleRecord | null;
@@ -32,12 +35,26 @@ export function AutoResponderModuleClient({
   contactHref,
   secondaryHref,
 }: AutoResponderModuleClientProps) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const { showToast, ToastComponent } = useToast();
   const content = mergeContentWithPageTitle(autoResponderModuleContent, pageTitleData);
+
   return (
-    <PricingSubPageLayout
-      content={content}
-      contactHref={contactHref}
-      secondaryHref={secondaryHref}
-    />
+    <>
+      {ToastComponent}
+      <PricingSubPageLayout
+        content={content}
+        contactHref={contactHref}
+        secondaryHref={secondaryHref}
+        onPrimaryCtaClick={() => setModalOpen(true)}
+      />
+      <HeroSectionPopup
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        source="Pricing - Auto Responder"
+        notes="Enquiry from Auto Responder module pricing page (Book a pricing session)"
+        onSuccess={(msg) => showToast(msg, "success")}
+      />
+    </>
   );
 }

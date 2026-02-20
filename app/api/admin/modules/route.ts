@@ -63,20 +63,23 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, description, image, showOnHomePage, locale = 'en' } = body || {};
+    const { title, description, image, showOnHomePage, locale = 'en', slug } = body || {};
 
     if (!title || !description || !image) {
       return NextResponse.json({ error: 'title, description, and image are required.' }, { status: 400 });
     }
 
+    const targetLocale = String(locale);
+    const normalizedSlug = slug != null && String(slug).trim() ? String(slug).trim() : null;
+    const slugValue = normalizedSlug;
+
     const moduleRecord = await createModule({
-      slug: null,
+      slug: slugValue,
       title: String(title),
       description: String(description),
       image: String(image),
-      hasDetailPage: false,
       showOnHomePage: Boolean(showOnHomePage ?? false),
-      locale: String(locale),
+      locale: targetLocale,
     });
 
     return NextResponse.json(moduleRecord);
@@ -96,7 +99,7 @@ export async function PUT(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const body = await request.json();
-    const { title, description, image, showOnHomePage, locale = 'en' } = body || {};
+    const { title, description, image, showOnHomePage, locale = 'en', slug } = body || {};
 
     if (!id) {
       return NextResponse.json({ error: 'id is required in query params.' }, { status: 400 });
@@ -105,6 +108,10 @@ export async function PUT(request: Request) {
     if (!title || !description || !image) {
       return NextResponse.json({ error: 'title, description, and image are required.' }, { status: 400 });
     }
+
+    const targetLocale = String(locale);
+    const normalizedSlug = slug != null && String(slug).trim() ? String(slug).trim() : null;
+    const slugForLocale = () => normalizedSlug;
 
     const existing = await getModuleById(id);
     if (!existing) {
@@ -115,21 +122,18 @@ export async function PUT(request: Request) {
 
         if (englishMatch) {
           const moduleRecord = await createModule({
-            slug: null,
+            slug: slugForLocale(targetLocale),
             title,
             description,
             image: englishMatch.image || image,
-            hasDetailPage: false,
             showOnHomePage: englishMatch.showOnHomePage,
-            locale: String(locale),
+            locale: targetLocale,
           });
           return NextResponse.json(moduleRecord);
         }
       }
       return NextResponse.json({ error: 'Module not found.' }, { status: 404 });
     }
-
-    const targetLocale = String(locale);
 
     // If locale is different, check if translation exists
     if (targetLocale !== existing.locale) {
@@ -142,22 +146,20 @@ export async function PUT(request: Request) {
 
       if (existingTranslation) {
         const moduleRecord = await updateModule(existingTranslation.id, {
-          slug: null,
+          slug: slugForLocale(),
           title,
           description,
           image: imageToUse,
-          hasDetailPage: false,
           showOnHomePage: showOnHomePageToUse,
           locale: targetLocale,
         });
         return NextResponse.json(moduleRecord);
       } else {
         const moduleRecord = await createModule({
-          slug: null,
+          slug: slugForLocale(),
           title,
           description,
           image: imageToUse,
-          hasDetailPage: false,
           showOnHomePage: showOnHomePageToUse,
           locale: targetLocale,
         });
@@ -179,10 +181,9 @@ export async function PUT(request: Request) {
               updateModule(t.id, {
                 image: imageToUse,
                 showOnHomePage: showOnHomePageToUse,
-                slug: null,
+                slug: t.slug ?? null,
                 title: t.title,
                 description: t.description,
-                hasDetailPage: false,
                 locale: t.locale,
               })
             )
@@ -198,11 +199,10 @@ export async function PUT(request: Request) {
     }
 
     const moduleRecord = await updateModule(id, {
-      slug: null,
+      slug: slugForLocale(),
       title,
       description,
       image: imageToUse,
-      hasDetailPage: false,
       showOnHomePage: showOnHomePageToUse,
       locale: targetLocale,
     });

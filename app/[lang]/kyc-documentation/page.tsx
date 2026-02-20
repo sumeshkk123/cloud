@@ -3,13 +3,13 @@ import { isSupportedLocale } from "@/lib/i18n-utils";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
-import { getPageTitle } from "@/lib/api/page-titles";
+import { getModuleSubpageHeroDataBySlug } from "@/lib/module-subpage-hero";
 import { KycDocumentationClient } from "./kyc-documentation-client";
 
 export const dynamic = "force-dynamic";
 
 const DEMO_URL = "https://demo.cloudmlmsoftware.com";
-const PAGE_KEY = "mlm-software-modules-kyc-documentation";
+const MODULE_SLUG = "kyc-documentation";
 
 function resolveLocale(lang: string): Locale {
   return (isSupportedLocale(lang) ? lang : i18n.defaultLocale) as Locale;
@@ -17,6 +17,7 @@ function resolveLocale(lang: string): Locale {
 
 type KycDocumentationPageProps = {
   params?: Promise<{ lang: SupportedLocale }> | { lang: SupportedLocale };
+  searchParams?: Promise<{ mid?: string }> | { mid?: string };
 };
 
 export default async function KycDocumentationPage(props: KycDocumentationPageProps) {
@@ -24,7 +25,8 @@ export default async function KycDocumentationPage(props: KycDocumentationPagePr
   const resolvedParams =
     params != null ? (params instanceof Promise ? await params : params) : null;
   const locale = resolveLocale(resolvedParams?.lang ?? i18n.defaultLocale);
-  const pageTitleData = await getPageTitle(PAGE_KEY, locale);
+  const resolvedSearch = props?.searchParams != null ? (props.searchParams instanceof Promise ? await props.searchParams : props.searchParams) : undefined;
+  const pageTitleData = await getModuleSubpageHeroDataBySlug(MODULE_SLUG, locale, resolvedSearch?.mid);
   const contactHref = buildLocalizedPath("/contact", locale);
 
   return (

@@ -20,8 +20,8 @@ export const replicatingWebsiteForMlmBusinessContent: PricingSubPageContent = {
     title: "Replicating website pricing for modern MLM growth.",
     description:
       "Cloud MLM Software equips your field with compliant, on-brand microsites that convert. We deliver templates, personalisation, and automation so every distributor launches ready to win.",
-    primaryCta: "Plan your rollout",
-    secondaryCta: "Explore pricing hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "Replicated sites managed",
@@ -243,8 +243,8 @@ export const replicatingWebsiteForMlmBusinessContent: PricingSubPageContent = {
     heading: "Ready to amplify every distributor online?",
     description:
       "Share your launch calendar, localisation needs, and integrations. We'll prepare a pricing proposal and timeline tailored to your growth strategy.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore pricing hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our replicating website specialists",
     cardBody:
       "Expect a discovery agenda and content inventory checklist within one business day. We partner with you through launch and continuous optimisation.",

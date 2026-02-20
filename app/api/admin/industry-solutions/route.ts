@@ -35,6 +35,7 @@ export async function GET(request: Request) {
       }
       return NextResponse.json({
         id: String(solution.id),
+        slug: String(solution.slug || ''),
         title: String(solution.title || ''),
         description: String(solution.description || ''),
         icon: String(solution.icon || ''),
@@ -49,13 +50,18 @@ export async function GET(request: Request) {
 
     const withTranslations = searchParams.get('withTranslations') === 'true';
     if (withTranslations) {
-      const groupKey = (s: { icon: string; showOnHomePage: boolean }) =>
-        `${s.icon || 'no-icon'}_${s.showOnHomePage ? 'home' : 'no-home'}`;
+      const groupKey = (s: { icon: string; showOnHomePage: boolean; slug: string }) =>
+        `${s.slug || s.icon || 'no-icon'}_${s.showOnHomePage ? 'home' : 'no-home'}`;
       const localeMap = new Map<string, string[]>();
       for (const sol of solutions) {
         const key = groupKey(sol);
         const translations = await prisma.industry_solutions.findMany({
-          where: { icon: sol.icon, showOnHomePage: sol.showOnHomePage },
+          where: {
+            OR: [
+              { icon: sol.icon, showOnHomePage: sol.showOnHomePage },
+              { slug: sol.slug }
+            ]
+          },
           orderBy: { locale: 'asc' },
         });
         const locales = translations.map((t) => t.locale);
@@ -63,6 +69,7 @@ export async function GET(request: Request) {
       }
       const safeSolutions = solutions.map((sol) => ({
         id: String(sol.id),
+        slug: String(sol.slug || ''),
         title: String(sol.title || ''),
         description: String(sol.description || ''),
         icon: String(sol.icon || ''),
@@ -77,6 +84,7 @@ export async function GET(request: Request) {
 
     const safeSolutions = solutions.map((sol) => ({
       id: String(sol.id),
+      slug: String(sol.slug || ''),
       title: String(sol.title || ''),
       description: String(sol.description || ''),
       icon: String(sol.icon || ''),
@@ -100,7 +108,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, description, icon, showOnHomePage, locale = 'en' } = body || {};
+    const { slug, title, description, icon, showOnHomePage, locale = 'en' } = body || {};
 
     if (!title || !description || !icon) {
       return NextResponse.json(
@@ -110,6 +118,7 @@ export async function POST(request: Request) {
     }
 
     const solution = await createIndustrySolution({
+      slug: String(slug || ''),
       title: String(title),
       description: String(description),
       icon: String(icon),
@@ -134,7 +143,7 @@ export async function PUT(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const body = await request.json();
-    const { title, description, icon, showOnHomePage, locale = 'en' } = body || {};
+    const { slug, title, description, icon, showOnHomePage, locale = 'en' } = body || {};
 
     if (!id) {
       return NextResponse.json({ error: 'id is required in query params.' }, { status: 400 });
@@ -151,10 +160,11 @@ export async function PUT(request: Request) {
       if (locale !== 'en') {
         const englishList = await listIndustrySolutions('en');
         const englishMatch = englishList.find(
-          (s) => s.icon === String(icon) && s.showOnHomePage === Boolean(showOnHomePage ?? false)
+          (s) => (s.slug === String(slug) || s.icon === String(icon)) && s.showOnHomePage === Boolean(showOnHomePage ?? false)
         );
         if (englishMatch) {
           const solution = await createIndustrySolution({
+            slug: englishMatch.slug || String(slug),
             title: String(title),
             description: String(description),
             icon: englishMatch.icon || String(icon),
@@ -174,9 +184,11 @@ export async function PUT(request: Request) {
       const englishVersion = allTranslations.find((t) => t.locale === 'en') || existing;
       const iconToUse = englishVersion.icon || String(icon);
       const showOnHomePageToUse = englishVersion.showOnHomePage;
+      const slugToUse = englishVersion.slug || String(slug);
 
       if (existingTranslation) {
         const solution = await updateIndustrySolution(existingTranslation.id, {
+          slug: slugToUse,
           title: String(title),
           description: String(description),
           icon: iconToUse,
@@ -186,6 +198,7 @@ export async function PUT(request: Request) {
         return NextResponse.json(solution);
       }
       const solution = await createIndustrySolution({
+        slug: slugToUse,
         title: String(title),
         description: String(description),
         icon: iconToUse,
@@ -197,10 +210,12 @@ export async function PUT(request: Request) {
 
     let iconToUse = String(icon);
     let showOnHomePageToUse = Boolean(showOnHomePage ?? false);
+    let slugToUse = String(slug);
 
     if (targetLocale === 'en') {
       const allTranslationsBeforeUpdate = await getAllIndustrySolutionTranslations(id);
       const updatedSolution = await updateIndustrySolution(id, {
+        slug: slugToUse,
         title: String(title),
         description: String(description),
         icon: iconToUse,
@@ -213,6 +228,7 @@ export async function PUT(request: Request) {
             .filter((t) => t.locale !== 'en')
             .map((t) =>
               updateIndustrySolution(t.id, {
+                slug: slugToUse,
                 icon: iconToUse,
                 showOnHomePage: showOnHomePageToUse,
                 title: t.title,
@@ -230,9 +246,11 @@ export async function PUT(request: Request) {
     if (englishVersion) {
       iconToUse = englishVersion.icon || iconToUse;
       showOnHomePageToUse = englishVersion.showOnHomePage;
+      slugToUse = englishVersion.slug || slugToUse;
     }
 
     const solution = await updateIndustrySolution(id, {
+      slug: slugToUse,
       title: String(title),
       description: String(description),
       icon: iconToUse,

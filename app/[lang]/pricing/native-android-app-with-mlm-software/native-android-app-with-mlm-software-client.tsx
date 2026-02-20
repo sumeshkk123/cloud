@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import type { PageTitleRecord } from "@/lib/api/page-titles";
 import { PricingSubPageLayout } from "@/components/frontend/pricing/sub-page";
 import type { PricingSubPageContent } from "@/components/frontend/pricing/sub-page";
 import { nativeAndroidAppWithMlmSoftwareContent } from "./content";
+import { HeroSectionPopup } from "@/components/frontend/common/hero-section-popup";
+import { useToast } from "@/components/ui/toast";
 
 type NativeAndroidAppWithMlmSoftwareClientProps = {
   pageTitleData: PageTitleRecord | null;
@@ -32,15 +35,29 @@ export function NativeAndroidAppWithMlmSoftwareClient({
   contactHref,
   secondaryHref,
 }: NativeAndroidAppWithMlmSoftwareClientProps) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const { showToast, ToastComponent } = useToast();
   const content = mergeContentWithPageTitle(
     nativeAndroidAppWithMlmSoftwareContent,
     pageTitleData
   );
+
   return (
-    <PricingSubPageLayout
-      content={content}
-      contactHref={contactHref}
-      secondaryHref={secondaryHref}
-    />
+    <>
+      {ToastComponent}
+      <PricingSubPageLayout
+        content={content}
+        contactHref={contactHref}
+        secondaryHref={secondaryHref}
+        onPrimaryCtaClick={() => setModalOpen(true)}
+      />
+      <HeroSectionPopup
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        source="Pricing - Android App"
+        notes="Enquiry from Native Android App pricing page (Book a pricing session)"
+        onSuccess={(msg) => showToast(msg, "success")}
+      />
+    </>
   );
 }

@@ -74,7 +74,7 @@ export function PageTitlesTable() {
             // Single pass through data
             for (const item of data) {
                 const pageKey = String(item.page || '');
-                if (!pageKey) continue;
+                if (!pageKey || pageKey.startsWith('industry-solutions/')) continue;
 
                 // Track earliest createdAt per page (when the page was first added) for stable sort
                 if (item.createdAt) {

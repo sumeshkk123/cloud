@@ -22,8 +22,8 @@ export const lcpPageDevelopmentContent: PricingSubPageContent = {
     title: "LCP page development pricing for high-velocity MLM launches.",
     description:
       "Activate campaigns that turn curiosity into enrolment. Cloud MLM Software delivers conversion design, automation, and analytics in a single engagement so marketing teams can scale without friction.",
-    primaryCta: "Book a launch session",
-    secondaryCta: "Compare pricing catalogue",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     metrics: [
       {
         label: "LCPs launched",
@@ -227,8 +227,8 @@ export const lcpPageDevelopmentContent: PricingSubPageContent = {
     heading: "Ready to transform your landing experiences?",
     description:
       "Share your campaign goals and target cohorts. We'll prepare a pricing proposal, creative direction, and launch plan aligned to your timeline.",
-    primaryCta: "Schedule consultation",
-    secondaryCta: "Explore pricing hub",
+    primaryCta: "Book a pricing session",
+    secondaryCta: "Pricing",
     cardTitle: "Connect with our team",
     cardBody:
       "Expect a discovery agenda and stakeholder checklist within one business day. Our mission is to make every landing moment count.",
