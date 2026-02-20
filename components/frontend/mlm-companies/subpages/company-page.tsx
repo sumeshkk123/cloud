@@ -5,7 +5,7 @@ import type { Locale } from "@/i18n-config";
 import { i18n } from "@/i18n-config";
 import type { SupportedLocale } from "@/config/site";
 import { buildLocalizedPath } from "@/lib/locale-links";
-import { getMlmCompanyContent, getAllCompanySlugs } from "@/lib/mlm-companies";
+import { getMlmCompanyContent, getAllCompanySlugs, resolveCompanySlug, getCompanySlugsForLocale } from "@/lib/mlm-companies";
 import { MlmCompanyLayout } from "./company-layout";
 import { MlmCompanyHero } from "./company-hero";
 import { MlmCompanyIntroSection } from "./company-intro-section";
@@ -23,11 +23,12 @@ interface MlmCompanyPageProps {
 }
 
 export async function generateStaticParams(): Promise<{ lang: SupportedLocale; companySlug: string }[]> {
-  const slugs = getAllCompanySlugs();
   const locales: SupportedLocale[] = [...i18n.locales];
   const params: { lang: SupportedLocale; companySlug: string }[] = [];
   
   for (const lang of locales) {
+    // Get all slugs for this locale (includes translated slugs)
+    const slugs = getCompanySlugsForLocale(lang as Locale);
     for (const slug of slugs) {
       params.push({ lang, companySlug: slug });
     }
@@ -39,7 +40,10 @@ export async function generateStaticParams(): Promise<{ lang: SupportedLocale; c
 export async function generateMetadata({ params }: MlmCompanyPageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const { lang, companySlug } = resolvedParams;
-  const content = await getMlmCompanyContent(companySlug, lang as Locale);
+  
+  // Resolve translated slug to original English slug for content lookup
+  const originalSlug = resolveCompanySlug(companySlug, lang as Locale);
+  const content = await getMlmCompanyContent(originalSlug, lang as Locale, companySlug);
 
   if (!content) {
     return {
@@ -61,7 +65,10 @@ export async function generateMetadata({ params }: MlmCompanyPageProps): Promise
 export default async function MlmCompanyPage({ params }: MlmCompanyPageProps) {
   const resolvedParams = await params;
   const { lang, companySlug } = resolvedParams;
-  const content = await getMlmCompanyContent(companySlug, lang as Locale);
+  
+  // Resolve translated slug to original English slug for content lookup
+  const originalSlug = resolveCompanySlug(companySlug, lang as Locale);
+  const content = await getMlmCompanyContent(originalSlug, lang as Locale, companySlug);
 
   if (!content) {
     notFound();

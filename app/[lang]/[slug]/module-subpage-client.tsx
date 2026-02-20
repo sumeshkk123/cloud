@@ -11,6 +11,8 @@ import { AnalyticsClient } from "@/app/[lang]/analytics/analytics-client";
 import { KycDocumentationClient } from "@/app/[lang]/kyc-documentation/kyc-documentation-client";
 import { MarketingAutomationClient } from "@/app/[lang]/marketing-automation/marketing-automation-client";
 import { GenealogyClient } from "@/app/[lang]/genealogy/genealogy-client";
+import { TicketSystemClient } from "@/app/[lang]/ticket-system-module-for-mlm-software/ticket-system-client";
+import { EWalletClient } from "@/app/[lang]/e-wallet-module-for-mlm-software/e-wallet-client";
 
 const DEMO_URL = "https://demo.cloudmlmsoftware.com";
 
@@ -23,7 +25,7 @@ type ModuleSubpageClientProps = {
 };
 
 /** Feature-style modules with their own layout – render their client so translated slugs work. */
-const FEATURE_MODULE_SLUGS = ["e-voucher", "mass-email-sending-module", "analytics", "kyc-documentation", "marketing-automation", "genealogy"] as const;
+const FEATURE_MODULE_SLUGS = ["e-voucher", "e-wallet", "mass-email-sending-module", "analytics", "kyc-documentation", "marketing-automation", "genealogy", "ticket-system"] as const;
 
 export function ModuleSubpageClient({
   slug,
@@ -42,6 +44,26 @@ export function ModuleSubpageClient({
             serverTitle != null || serverBadge != null || serverDescription != null
               ? {
                   page: "mlm-software-modules-e-voucher",
+                  locale,
+                  title: serverTitle ?? "",
+                  pagePill: serverBadge ?? undefined,
+                  sectionSubtitle: serverDescription ?? undefined,
+                }
+              : null
+          }
+          contactHref={contactHref}
+          secondaryHref={DEMO_URL}
+          locale={locale}
+        />
+      );
+    }
+    if (slug === "e-wallet") {
+      return (
+        <EWalletClient
+          pageTitleData={
+            serverTitle != null || serverBadge != null || serverDescription != null
+              ? {
+                  page: "mlm-software-modules-e-wallet",
                   locale,
                   title: serverTitle ?? "",
                   pagePill: serverBadge ?? undefined,
@@ -142,6 +164,26 @@ export function ModuleSubpageClient({
             serverTitle != null || serverBadge != null || serverDescription != null
               ? {
                   page: "mlm-software-modules-genealogy",
+                  locale,
+                  title: serverTitle ?? "",
+                  pagePill: serverBadge ?? undefined,
+                  sectionSubtitle: serverDescription ?? undefined,
+                }
+              : null
+          }
+          contactHref={contactHref}
+          secondaryHref={DEMO_URL}
+          locale={locale}
+        />
+      );
+    }
+    if (slug === "ticket-system") {
+      return (
+        <TicketSystemClient
+          pageTitleData={
+            serverTitle != null || serverBadge != null || serverDescription != null
+              ? {
+                  page: "mlm-software-modules-ticket-system",
                   locale,
                   title: serverTitle ?? "",
                   pagePill: serverBadge ?? undefined,

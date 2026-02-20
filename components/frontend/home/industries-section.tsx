@@ -7,10 +7,8 @@ import { Package, Code } from "lucide-react";
 import { SectionTitle } from "@/components/ui/section-title";
 import { InfoCtaBox } from "@/components/ui/info-cta-box";
 import { IndustryCard } from "@/components/frontend/common/industry-card";
-import { resolveIcon, localizedHref } from "./utils";
-import { buildLocalizedPath } from "@/lib/locale-links";
+import { resolveIcon } from "./utils";
 import { getIndustryPathSlug } from "@/lib/industries-subpage";
-import type { SupportedLocale } from "@/config/site";
 import { getIndustriesContent } from "@/lib/industries";
 import Image from "next/image";
 
@@ -57,9 +55,9 @@ export function IndustriesSection({ locale, data }: { locale: Locale; data: Home
           const fetchedSolutions = Array.isArray(apiData) ? apiData : [];
 
           const mappedSolutions: IndustrySolution[] = fetchedSolutions.map((solution: any) => {
-            const slug = generateSlug(solution.title);
+            const slug = solution.slug || generateSlug(solution.title);
             const pathSlug = getIndustryPathSlug(slug);
-            const href = buildLocalizedPath(`/industries/${pathSlug}`, locale as SupportedLocale);
+            const href = `/industries/${pathSlug}`;
 
             return {
               title: solution.title,
@@ -140,7 +138,7 @@ export function IndustriesSection({ locale, data }: { locale: Locale; data: Home
                   icon={IconComponent}
                   title={industry.title}
                   description={industry.description}
-                  href={localizedHref(locale, industry.href)}
+                  href={industry.href}
                   buttonText={readMoreButtonText}
                 />
               );
@@ -156,7 +154,7 @@ export function IndustriesSection({ locale, data }: { locale: Locale; data: Home
             </>
           }
           buttonText={data?.ctaButtonText || "Explore all industries"}
-          buttonHref={localizedHref(locale, "/industries")}
+          buttonHref="/industries"
         />
       </div>
     </section>

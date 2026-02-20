@@ -17,6 +17,7 @@ import { supportedLocales } from '@/config/site';
 const locales = supportedLocales;
 
 type FormState = {
+  slug: string;
   title: string;
   subtitle: string;
   description: string;
@@ -41,6 +42,7 @@ interface PlansFormProps {
 
 const emptyTranslation = (locale: string, overrides: Partial<PlanTranslation> = {}): PlanTranslation => ({
   locale,
+  slug: '',
   title: '',
   subtitle: '',
   description: '',
@@ -155,6 +157,7 @@ export function PlansForm({
         if (existing) {
           loaded[loc] = {
             locale: loc,
+            slug: String(existing.slug || ''),
             title: String(existing.title || ''),
             subtitle: String(existing.subtitle || ''),
             description: String(existing.description || ''),
@@ -467,6 +470,7 @@ export function PlansForm({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            slug: updatedCurrent.slug?.trim() || null,
             title: trimmedTitle,
             subtitle: updatedCurrent.subtitle?.trim() || null,
             description: trimmedDescription,
@@ -497,6 +501,7 @@ export function PlansForm({
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          slug: updatedCurrent.slug?.trim() || null,
           title: trimmedTitle,
           subtitle: updatedCurrent.subtitle?.trim() || null,
           description: trimmedDescription,
@@ -602,6 +607,16 @@ export function PlansForm({
         }}
         className="space-y-5"
       >
+        <div className="space-y-1.5">
+          <FieldLabel>Slug ({localeNames[activeTab as keyof typeof localeNames]})</FieldLabel>
+          <Input
+            value={current.slug}
+            onChange={(e) => updateTranslation(activeTab, 'slug', e.target.value)}
+            placeholder="custom-plan-slug"
+            disabled={isSaving || isLoading}
+          />
+        </div>
+
         <div className="space-y-1.5">
           <FieldLabel required={activeTab === 'en'}>Icon {activeTab === 'en' ? '(Common for all languages)' : ''}</FieldLabel>
           <IconPicker

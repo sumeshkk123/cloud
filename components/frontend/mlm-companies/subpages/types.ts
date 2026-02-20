@@ -52,6 +52,15 @@ export interface MlmCompanyContent {
     website: string;
     metrics: MlmCompanyHeroMetric[];
   };
+  intro: {
+    heading: string;
+    description: string;
+    labels: {
+      founded: string;
+      headquarters: string;
+      industry: string;
+    };
+  };
   features: {
     heading: string;
     description: string;

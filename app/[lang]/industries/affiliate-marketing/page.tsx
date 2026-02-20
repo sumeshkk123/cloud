@@ -1,4 +1,5 @@
 import type { SupportedLocale } from "@/config/site";
+import { notFound } from "next/navigation";
 import { isSupportedLocale } from "@/lib/i18n-utils";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import type { Locale } from "@/i18n-config";
@@ -17,20 +18,9 @@ export default async function AffiliateMarketingPage({ params }: AffiliateMarket
 
   // Fetch primary industry content from the industry_solutions table (managed in Industry Solution admin)
   const industryData = await getIndustrySolutionBySlug("affiliate-marketing", locale);
-
-  // Map industryData to the format expected by the client component (matching PageTitleRecord)
-  const pageTitleData = industryData
-    ? {
-      id: industryData.id,
-      page: `industry-solutions/affiliate-marketing`,
-      locale: industryData.locale,
-      title: industryData.title,
-      pagePill: undefined,
-      sectionSubtitle: industryData.description,
-      createdAt: industryData.createdAt,
-      updatedAt: industryData.updatedAt,
-    }
-    : null;
+  if (!industryData) {
+    notFound();
+  }
 
   const contactHref = buildLocalizedPath("/contact", locale);
   const pricingHref = buildLocalizedPath("/pricing", locale);
@@ -38,7 +28,8 @@ export default async function AffiliateMarketingPage({ params }: AffiliateMarket
 
   return (
     <AffiliateMarketingClient
-      pageTitleData={pageTitleData}
+      heroTitle={industryData.title}
+      heroDescription={industryData.description}
       contactHref={contactHref}
       demoHref={demoHref}
       pricingHref={pricingHref}

@@ -9,6 +9,7 @@ import { Menu, ChevronDown } from "lucide-react";
 
 import type { SupportedLocale } from "@/config/site";
 import { buildLocalizedPath, resolveHref } from "@/lib/locale-links";
+import { getPageFromSlug } from "@/lib/page-slugs";
 import { cn } from "@/lib/utils";
 import type {
     CmsLink,
@@ -40,6 +41,34 @@ export function MenuBar({
     languageOptions
 }: MenuBarProps) {
     const pathname = usePathname();
+    const normalizedPathWithoutLocale = useMemo(() => {
+        if (!pathname || typeof pathname !== "string") return "/";
+        const segments = pathname.split("/").filter(Boolean);
+        if (segments.length === 0) return "/";
+
+        const first = segments[0];
+        const normalizedFirst =
+            first === "pt-pt" ? "pt" : first === "zh-hans" ? "zh" : first;
+        const localeSet = new Set<SupportedLocale>(["en", "es", "fr", "it", "de", "pt", "zh"]);
+        const hasLocale = localeSet.has(normalizedFirst as SupportedLocale);
+        const rest = hasLocale ? segments.slice(1) : segments;
+        const safeRest = Array.isArray(rest) ? rest : [];
+        return `/${safeRest.join("/")}`;
+    }, [pathname]);
+    const hideLanguageSwitcher = useMemo(() => {
+        const rest = normalizedPathWithoutLocale.split("/").filter(Boolean);
+        if (rest.length === 0) return false;
+
+        const firstSegment = rest[0];
+        const pageId =
+            getPageFromSlug(firstSegment, locale) ||
+            getPageFromSlug(firstSegment, "en") ||
+            firstSegment;
+
+        if (pageId !== "industries") return false;
+        return normalizedPathWithoutLocale === `/${firstSegment}` || normalizedPathWithoutLocale.startsWith(`/${firstSegment}/`);
+    }, [normalizedPathWithoutLocale, locale]);
+
     const [openMega, setOpenMega] = useState<string | null>(null);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -131,8 +160,21 @@ export function MenuBar({
         [sortedNav, openMega]
     );
 
+    function stripLocalePrefix(path: string): string {
+        const segments = path.split("/").filter(Boolean);
+        if (segments.length === 0) return "/";
+        const first = segments[0];
+        const normalizedFirst =
+            first === "pt-pt" ? "pt" : first === "zh-hans" ? "zh" : first;
+        const localeSet = new Set<SupportedLocale>(["en", "es", "fr", "it", "de", "pt", "zh"]);
+        if (localeSet.has(normalizedFirst as SupportedLocale)) {
+            segments.shift();
+        }
+        return `/${segments.join("/")}` || "/";
+    }
+
     function isNavItemActive(itemHref: string): boolean {
-        const pathWithoutLocale = pathname?.replace(/^\/[a-z]{2}(?:\/|$)/i, "/") || "/";
+        const pathWithoutLocale = stripLocalePrefix(pathname || "/");
         const normalizedPath = pathWithoutLocale.replace(/\/$/, "") || "/";
         const normalizedHref = (itemHref || "").replace(/\/$/, "") || "/";
         return normalizedPath === normalizedHref || (normalizedHref !== "/" && normalizedPath.startsWith(normalizedHref + "/"));
@@ -140,7 +182,7 @@ export function MenuBar({
 
     function HeaderLink({ item, locale }: { item: NavItem; locale: SupportedLocale }) {
         if (!item.href) return null;
-        const href = resolveHref(item.href, locale);
+        const href = resolveIndustryAwareHref(item.href, locale);
         if (!href) return null;
         const isActive = isNavItemActive(item.href);
 
@@ -157,6 +199,40 @@ export function MenuBar({
                 {item.label}
             </Link>
         );
+    }
+
+    function resolveIndustryAwareHref(rawHref: string, activeLocale: SupportedLocale) {
+        if (rawHref) {
+            const rawPath = rawHref.startsWith("http://") || rawHref.startsWith("https://")
+                ? (() => {
+                    try {
+                        return new URL(rawHref).pathname;
+                    } catch {
+                        return rawHref;
+                    }
+                })()
+                : rawHref;
+            const rawStripped = rawPath.replace(/^\/(?:en|es|fr|it|de|pt|zh|pt-pt|zh-hans)(?=\/|$)/, "");
+            const rawSegments = rawStripped.split("/").filter(Boolean);
+            const rawFirst = rawSegments[0] || "";
+            const rawPageId = getPageFromSlug(rawFirst, activeLocale) || getPageFromSlug(rawFirst, "en");
+            if (rawStripped === "/industries" || rawStripped.startsWith("/industries/") || rawPageId === "industries") {
+                const rest = rawSegments.length > 1 ? `/${rawSegments.slice(1).join("/")}` : "";
+                return { href: `/industries${rest}`, external: false };
+            }
+        }
+
+        const resolved = resolveHref(rawHref, activeLocale);
+        if (resolved.external) return resolved;
+        const stripped = resolved.href.replace(/^\/(?:en|es|fr|it|de|pt|zh|pt-pt|zh-hans)(?=\/|$)/, "");
+        const segments = stripped.split("/").filter(Boolean);
+        const first = segments[0] || "";
+        const pageId = getPageFromSlug(first, activeLocale) || getPageFromSlug(first, "en");
+        if (stripped === "/industries" || stripped.startsWith("/industries/") || pageId === "industries") {
+            const rest = segments.length > 1 ? `/${segments.slice(1).join("/")}` : "";
+            return { href: `/industries${rest}`, external: false };
+        }
+        return resolved;
     }
 
     function CtaButton({ href, external, label }: { href: string; external?: boolean; label: string }) {
@@ -268,12 +344,14 @@ export function MenuBar({
                             </nav>
                             <div className="hidden items-center gap-3 lg:flex">
                                 <ThemeToggle />
-                                <LanguageSwitcher
-                                    locale={locale}
-                                    label={resolvedLanguageLabel}
-                                    ariaLabel={resolvedLanguageAriaLabel}
-                                    options={resolvedLanguageOptions}
-                                />
+                                {!hideLanguageSwitcher ? (
+                                    <LanguageSwitcher
+                                        locale={locale}
+                                        label={resolvedLanguageLabel}
+                                        ariaLabel={resolvedLanguageAriaLabel}
+                                        options={resolvedLanguageOptions}
+                                    />
+                                ) : null}
                                 {resolvedHeaderCta && cta ? <CtaButton href={cta.href} external={cta.external} label={resolvedHeaderCta.title} /> : null}
                             </div>
                             <button

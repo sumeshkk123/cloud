@@ -17,6 +17,7 @@ const locales = supportedLocales;
 
 interface ModuleTranslation {
     locale: string;
+    slug: string;
     title: string;
     description: string;
     image: string;
@@ -55,6 +56,7 @@ export function ModulesForm({
         locales.forEach((loc) => {
             initial[loc] = {
                 locale: loc,
+                slug: '',
                 title: '',
                 description: '',
                 image: '',
@@ -69,7 +71,6 @@ export function ModulesForm({
     const [isTranslating, setIsTranslating] = useState(false);
     const [currentModuleId, setCurrentModuleId] = useState<string | null>(moduleId || null);
     const [savedLocales, setSavedLocales] = useState<string[]>([]);
-    const [moduleSlug, setModuleSlug] = useState<string>('');
     const preserveTabRef = React.useRef<string | null>(null);
 
     // Reset loading state on unmount
@@ -109,6 +110,7 @@ export function ModulesForm({
             locales.forEach((loc) => {
                 reset[loc] = {
                     locale: loc,
+                    slug: '',
                     title: '',
                     description: '',
                     image: '',
@@ -118,7 +120,6 @@ export function ModulesForm({
             });
             setTranslations(reset);
             setSavedLocales([]);
-            setModuleSlug('');
             setActiveTab('en');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -135,7 +136,6 @@ export function ModulesForm({
         try {
             setIsLoading(true);
             onLoadingChange?.(true);
-            setModuleSlug('');
             console.log('Starting to load module:', currentModuleId);
 
             const response = await fetch(`/api/admin/modules?id=${encodeURIComponent(currentModuleId)}&all=true`);
@@ -166,16 +166,12 @@ export function ModulesForm({
                 const imageValue = String(englishVersion.image || '').trim();
                 sharedImage = imageValue;
                 sharedShowOnHomePage = Boolean(englishVersion.showOnHomePage || false);
-                setModuleSlug(String(englishVersion.slug || '').trim());
                 console.log('English version found:', { ...englishVersion, imageValue });
             } else if (existingTranslations.length > 0) {
                 const imageValue = String(existingTranslations[0].image || '').trim();
                 sharedImage = imageValue;
                 sharedShowOnHomePage = Boolean(existingTranslations[0].showOnHomePage || false);
-                setModuleSlug(String(existingTranslations[0].slug || '').trim());
                 console.log('Using first translation as fallback:', { ...existingTranslations[0], imageValue });
-            } else {
-                setModuleSlug('');
             }
 
             const loaded: Record<string, ModuleTranslation> = {};
@@ -186,6 +182,7 @@ export function ModulesForm({
                 if (existing) {
                     loaded[loc] = {
                         locale: loc,
+                        slug: String(existing.slug || ''),
                         title: String(existing.title || ''),
                         description: String(existing.description || ''),
                         image: String(existing.image || sharedImage || ''),
@@ -197,6 +194,7 @@ export function ModulesForm({
                 } else {
                     loaded[loc] = {
                         locale: loc,
+                        slug: '',
                         title: '',
                         description: '',
                         image: String(sharedImage || ''),
@@ -250,7 +248,7 @@ export function ModulesForm({
         }
     };
 
-    const updateTranslation = (locale: string, field: 'title' | 'description' | 'image' | 'showOnHomePage', value: string | boolean) => {
+    const updateTranslation = (locale: string, field: 'slug' | 'title' | 'description' | 'image' | 'showOnHomePage', value: string | boolean) => {
         setTranslations((prev) => {
             const updated = {
                 ...prev,
@@ -356,6 +354,7 @@ export function ModulesForm({
         const trimmedTitle = current.title.trim();
         const trimmedDescription = current.description.trim();
         const trimmedIcon = current.image.trim();
+        const trimmedSlug = current.slug.trim();
 
         if (!trimmedTitle || !trimmedDescription || !trimmedIcon) {
             const missingFields = [];
@@ -387,7 +386,7 @@ export function ModulesForm({
                         image: trimmedIcon,
                         showOnHomePage: current.showOnHomePage,
                         locale: 'en',
-                        slug: (moduleSlug || '').trim() || undefined,
+                        slug: trimmedSlug || undefined,
                     }),
                 });
                 const payload = await res.json();
@@ -425,7 +424,7 @@ export function ModulesForm({
                     image: trimmedIcon,
                     showOnHomePage: current.showOnHomePage,
                     locale: activeTab,
-                    slug: (moduleSlug || '').trim() || undefined,
+                    slug: trimmedSlug || undefined,
                 }),
             });
             const payload = await res.json();
@@ -470,6 +469,7 @@ export function ModulesForm({
         title: '',
         description: '',
         image: '',
+        slug: '',
         showOnHomePage: false,
         exists: false,
     };
@@ -547,6 +547,21 @@ export function ModulesForm({
             {/* Form Fields */}
             <div className="space-y-4">
                 <div>
+                    <FieldLabel htmlFor="moduleSlug">
+                        Page slug
+                    </FieldLabel>
+                    <Input
+                        id="moduleSlug"
+                        value={current.slug}
+                        onChange={(e) => updateTranslation(activeTab, 'slug', e.target.value)}
+                        placeholder="e.g. backup-manager, emails"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                        Links this module to the page URL. Set to &quot;backup-manager&quot; for /backup-manager, &quot;emails&quot; for /emails, etc. Leave empty to match by title only.
+                    </p>
+                </div>
+
+                <div>
                     <FieldLabel htmlFor="icon" required>
                         Icon
                     </FieldLabel>
@@ -591,21 +606,6 @@ export function ModulesForm({
                         checked={current.showOnHomePage}
                         onCheckedChange={(checked) => updateTranslation(activeTab, 'showOnHomePage', checked)}
                     />
-                </div>
-
-                <div>
-                    <FieldLabel htmlFor="moduleSlug">
-                        Page slug
-                    </FieldLabel>
-                    <Input
-                        id="moduleSlug"
-                        value={moduleSlug}
-                        onChange={(e) => setModuleSlug(e.target.value)}
-                        placeholder="e.g. backup-manager, emails"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                        Links this module to the page URL. Set to &quot;backup-manager&quot; for /backup-manager, &quot;emails&quot; for /emails, etc. Leave empty to match by title only.
-                    </p>
                 </div>
             </div>
 

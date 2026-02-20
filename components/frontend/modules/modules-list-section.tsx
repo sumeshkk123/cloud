@@ -8,7 +8,7 @@ import { resolveIcon } from "@/components/frontend/home/utils";
 import type { Locale } from "@/i18n-config";
 import { Section } from "@/components/ui/section";
 import { getModulesContent } from "@/lib/modules";
-import { getModuleSlugFromTitleOrId, isModulesSubpageSlug } from "@/lib/modules-subpage-slugs";
+import { getModuleSlugFromTitleOrId } from "@/lib/modules-subpage-slugs";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import { Typography } from "@/components/ui/typography";
 
@@ -90,12 +90,8 @@ export function ModulesListSection({ locale }: ModulesListSectionProps) {
                         {modules.map((module) => {
                             const Icon = resolveIcon(module.image, Package);
                             const derivedFromTitle = getModuleSlugFromTitleOrId(module.title, module.id);
-                            let subSlug =
-                                module.slug && isModulesSubpageSlug(module.slug)
-                                    ? module.slug
-                                    : derivedFromTitle;
-                            // Always link email module to /emails
-                            if (derivedFromTitle === "emails" || subSlug === "emails") subSlug = "emails";
+                            const explicitSlug = module.slug?.trim() || null;
+                            const subSlug = explicitSlug || derivedFromTitle;
                             const href = subSlug
                                 ? buildLocalizedPath(`/${subSlug}`, locale)
                                 : buildLocalizedPath("/mlm-software-modules", locale);

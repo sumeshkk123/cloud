@@ -31,9 +31,10 @@ export function IndustryProgrammesSection({ content }: IndustryProgrammesSection
     <Section
       padding="lg"
       variant="gradient"
+      className="overflow-visible"
       containerClassName="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12"
     >
-      <div className="relative min-w-0 w-full container">
+      <div className="relative min-w-0 w-full self-start lg:sticky lg:top-24">
         <div className="relative w-full rounded-xl">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

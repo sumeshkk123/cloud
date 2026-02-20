@@ -11,6 +11,30 @@ import {
   getAllMlmPlanTranslations,
 } from '@/lib/api/mlm-plans';
 
+function toClientSafePlansError(error: unknown, fallback: string): string {
+  const raw = error instanceof Error ? error.message : '';
+  const msg = raw.toLowerCase();
+
+  // Friendly validation for slug uniqueness per locale.
+  if (
+    msg.includes('p2002') ||
+    msg.includes('unique constraint') ||
+    msg.includes('mlm_plans_slug_locale_key')
+  ) {
+    return 'Slug already exists for this language. Please use a different slug.';
+  }
+
+  // Handle database that has not yet been updated with recent plans columns.
+  if (msg.includes('mlm_plans.slug') && msg.includes('does not exist')) {
+    return 'Plans slug is not enabled in the database yet. Please update database changes and try again.';
+  }
+  if (msg.includes('mlm_plans.groupid') && msg.includes('does not exist')) {
+    return 'Plans translation grouping is not enabled in the database yet. Please update database changes and try again.';
+  }
+
+  return fallback;
+}
+
 export async function GET(request: Request) {
   try {
     const session = await getServerSession(authOptions);
@@ -45,7 +69,7 @@ export async function GET(request: Request) {
     const plans = await listMlmPlans(locale);
     return NextResponse.json(plans);
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Failed to process request.';
+    const message = toClientSafePlansError(error, 'Failed to process request.');
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -59,6 +83,7 @@ export async function POST(request: Request) {
 
     const body = await request.json();
     const {
+      slug,
       title,
       subtitle,
       description,
@@ -77,6 +102,7 @@ export async function POST(request: Request) {
     }
 
     const plan = await createMlmPlan({
+      slug: slug != null && String(slug).trim() ? String(slug).trim() : null,
       title: String(title).trim(),
       subtitle: subtitle != null ? String(subtitle).trim() : null,
       description: String(description).trim(),
@@ -89,7 +115,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(plan);
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Failed to process request.';
+    const message = toClientSafePlansError(error, 'Unable to save plan.');
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -105,6 +131,7 @@ export async function PUT(request: Request) {
     const id = searchParams.get('id');
     const body = await request.json();
     const {
+      slug,
       title,
       subtitle,
       description,
@@ -139,9 +166,11 @@ export async function PUT(request: Request) {
       const englishVersion = allTranslations.find((t) => t.locale === 'en') ?? allTranslations[0];
       const iconToUse = icon != null ? String(icon) : (englishVersion?.icon ?? existing.icon);
       const showOnHomePageToUse = showOnHomePage !== undefined ? Boolean(showOnHomePage) : (englishVersion?.showOnHomePage ?? existing.showOnHomePage);
+      const slugToUse = slug != null && String(slug).trim() ? String(slug).trim() : null;
 
       if (existingTranslation) {
         const plan = await updateMlmPlan(existingTranslation.id, {
+          slug: slugToUse,
           title: String(title).trim(),
           subtitle: subtitle != null ? String(subtitle).trim() : null,
           description: String(description).trim(),
@@ -155,6 +184,7 @@ export async function PUT(request: Request) {
 
       const plan = await createMlmPlan({
         groupId: groupKey,
+        slug: slugToUse,
         title: String(title).trim(),
         subtitle: subtitle != null ? String(subtitle).trim() : null,
         description: String(description).trim(),
@@ -170,8 +200,10 @@ export async function PUT(request: Request) {
       const allTranslations = await getAllMlmPlanTranslations(id);
       const iconToUse = icon != null ? String(icon) : existing.icon;
       const showOnHomePageToUse = showOnHomePage !== undefined ? Boolean(showOnHomePage) : existing.showOnHomePage;
+      const slugToUse = slug != null && String(slug).trim() ? String(slug).trim() : null;
 
       const plan = await updateMlmPlan(id, {
+        slug: slugToUse,
         title: String(title).trim(),
         subtitle: subtitle != null ? String(subtitle).trim() : null,
         description: String(description).trim(),
@@ -201,8 +233,10 @@ export async function PUT(request: Request) {
     const englishVersion = allTranslations.find((t) => t.locale === 'en');
     const iconToUse = icon != null ? String(icon) : (englishVersion?.icon ?? existing.icon);
     const showOnHomePageToUse = showOnHomePage !== undefined ? Boolean(showOnHomePage) : (englishVersion?.showOnHomePage ?? existing.showOnHomePage);
+    const slugToUse = slug != null && String(slug).trim() ? String(slug).trim() : null;
 
     const plan = await updateMlmPlan(id, {
+      slug: slugToUse,
       title: String(title).trim(),
       subtitle: subtitle != null ? String(subtitle).trim() : null,
       description: String(description).trim(),
@@ -214,7 +248,7 @@ export async function PUT(request: Request) {
 
     return NextResponse.json(plan);
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Failed to process request.';
+    const message = toClientSafePlansError(error, 'Unable to save plan translation.');
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -236,7 +270,7 @@ export async function DELETE(request: Request) {
     await deleteMlmPlan(id);
     return NextResponse.json({ success: true });
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Failed to process request.';
+    const message = toClientSafePlansError(error, 'Unable to delete plan.');
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -183,7 +183,7 @@ const TRANSLATED_KEYWORDS: Record<string, string[]> = {
   "compensation-module": ["compensation", "compensación", "commission", "comisión", "plan", "module", "módulo"],
   "ecommerce-module": ["ecommerce", "e-commerce", "commerce", "comercio", "comercio electrónico", "ecommerce-module"],
   "marketing-automation": ["marketing", "automation", "automatización", "campaña", "campaign"],
-  compliance: ["compliance", "cumplimiento", "governance", "gobernanza"],
+  compliance: ["compliance", "cumplimiento", "governance", "gobernanza", "conformita", "conformite", "konformitat", "conformidade"],
   analytics: ["analytics", "analítica", "reporting", "informes", "informe"],
   genealogy: ["genealogy", "genealogía", "tree", "árbol", "network", "red"],
   "customer-engagement-module": ["customer", "cliente", "engagement", "compromiso", "support", "soporte"],
@@ -192,7 +192,7 @@ const TRANSLATED_KEYWORDS: Record<string, string[]> = {
   "e-wallet": ["e-wallet", "wallet", "cartera", "monedero", "billetera"],
   "ticket-system": ["ticket", "soporte", "support", "incidencia"],
   "auto-responder": ["auto", "respond", "responder", "autoresponder", "respuesta automática"],
-  "multi-currency": ["multi", "currency", "moneda", "divisa", "multimoneda"],
+  "multi-currency-module": ["multi", "currency", "moneda", "divisa", "devise", "devises", "multimoneda"],
   "multi-lingual-system": ["multi", "lingual", "language", "idioma", "idiomas", "multilingüe"],
   "kyc-documentation": ["kyc", "documentation", "documentación", "identidad", "verificación"],
   "backup-manager": ["backup", "copia", "respaldo", "respaldo de seguridad"],
@@ -209,13 +209,24 @@ export function getModuleSlugFromTitleOrId(title: string | null, id: string | nu
   const t = (title ?? id ?? "").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
   const idStr = (id ?? "").toLowerCase();
   // Check mass-email before generic email so "Mass Email Sending Module" does not match emails
-  if ((t.includes("mass") || t.includes("masivo")) && (t.includes("email") || t.includes("correo"))) return "mass-email-sending-module";
+  const hasMassKeyword =
+    t.includes("mass") ||
+    t.includes("masivo") ||
+    t.includes("massa") ||
+    t.includes("masse") ||
+    t.includes("massen");
+  const hasEmailKeyword =
+    t.includes("email") ||
+    t.includes("e-mail") ||
+    t.includes("correo") ||
+    t.includes("courriel");
+  if (hasMassKeyword && hasEmailKeyword) return "mass-email-sending-module";
   // Email/emails module (e.g. "Email Module", "Emails")
   if (titleMatchesSlug(t, "emails") || t.includes("email") || idStr.includes("email")) return "emails";
   // Check backup-manager before compensation-module so "Backup Manager Module" does not match compensation (keyword "module")
   if (titleMatchesSlug(t, "backup-manager") || idStr.includes("backup")) return "backup-manager";
   // Check multi-currency and multi-lingual before compensation so "Multi Currency Module" etc. do not match (keyword "module")
-  if ((t.includes("multi") || t.includes("mult")) && (t.includes("currency") || t.includes("moneda") || t.includes("divisa"))) return "multi-currency-module";
+  if ((t.includes("multi") || t.includes("mult")) && (t.includes("currency") || t.includes("moneda") || t.includes("divisa") || t.includes("devise"))) return "multi-currency-module";
   if ((t.includes("multi") || t.includes("mult")) && (t.includes("lingual") || t.includes("idioma") || t.includes("language"))) return "multi-lingual-system";
   // Check ticket-system before compensation so "Ticket system module" does not match (keyword "module")
   if (titleMatchesSlug(t, "ticket-system") || t.includes("ticket") || idStr.includes("ticket")) return "ticket-system";
@@ -228,7 +239,13 @@ export function getModuleSlugFromTitleOrId(title: string | null, id: string | nu
   // Check genealogy before compensation so "Genealogy Tree Module" does not match (keyword "module")
   if (titleMatchesSlug(t, "genealogy") || t.includes("genealogy") || idStr.includes("genealogy")) return "genealogy";
   // Check compliance before compensation so "Compliance module" does not match (keyword "module")
-  if (titleMatchesSlug(t, "compliance") || t.includes("compliance") || idStr.includes("compliance")) return "compliance-modules";
+  if (
+    titleMatchesSlug(t, "compliance") ||
+    t.includes("compliance") ||
+    t.includes("conform") ||
+    idStr.includes("compliance") ||
+    idStr.includes("conform")
+  ) return "compliance-modules";
   // Check customer-engagement before compensation so "Customer Engagement module" does not match (keyword "module")
   if (titleMatchesSlug(t, "customer-engagement-module") || (t.includes("customer") && t.includes("engagement")) || idStr.includes("customer-engagement")) return "customer-engagement-module";
   // Check ecommerce before compensation so "E-Commerce module" does not match (keyword "module") or return null

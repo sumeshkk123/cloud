@@ -8,7 +8,6 @@ export interface ModuleRecord {
   title: string;
   description: string;
   image?: string | null;
-  hasDetailPage: boolean;
   showOnHomePage: boolean;
   locale: string;
   createdAt: Date;
@@ -34,7 +33,6 @@ export async function listModules(locale?: string, showOnHomePage?: boolean): Pr
         title: true,
         description: true,
         image: true,
-        hasDetailPage: true,
         showOnHomePage: true,
         locale: true,
         createdAt: true,
@@ -54,7 +52,6 @@ export async function listModules(locale?: string, showOnHomePage?: boolean): Pr
           title: true,
           description: true,
           image: true,
-          hasDetailPage: true,
           showOnHomePage: true,
           locale: true,
           createdAt: true,
@@ -78,7 +75,6 @@ export async function getModuleById(id: string, locale?: string): Promise<Module
       title: true,
       description: true,
       image: true,
-      hasDetailPage: true,
       showOnHomePage: true,
       locale: true,
       createdAt: true,
@@ -153,7 +149,6 @@ export async function getModuleBySubpageSlug(
       title: true,
       description: true,
       image: true,
-      hasDetailPage: true,
       showOnHomePage: true,
       locale: true,
       createdAt: true,
@@ -193,7 +188,6 @@ export async function listModulesWithLocales(
       title: true,
       description: true,
       image: true,
-      hasDetailPage: true,
       showOnHomePage: true,
       locale: true,
       createdAt: true,
@@ -244,7 +238,6 @@ export async function getAllModuleTranslations(id: string): Promise<ModuleRecord
       title: true,
       description: true,
       image: true,
-      hasDetailPage: true,
       showOnHomePage: true,
       locale: true,
       createdAt: true,
@@ -254,9 +247,10 @@ export async function getAllModuleTranslations(id: string): Promise<ModuleRecord
 
   if (!original) return [];
 
-  // Modules are linked by image and showOnHomePage (same icon and home page status = same module, different languages)
-  // Find all modules with the same image and showOnHomePage
-  const translations = await prisma.modules.findMany({
+  // Heuristic linkage: image + showOnHomePage.
+  // When multiple module families share the same icon/status, select one row per locale
+  // by nearest createdAt to the original row to avoid cross-family collisions.
+  const candidates = await prisma.modules.findMany({
     where: {
       image: original.image || undefined,
       showOnHomePage: original.showOnHomePage,
@@ -268,7 +262,6 @@ export async function getAllModuleTranslations(id: string): Promise<ModuleRecord
       title: true,
       description: true,
       image: true,
-      hasDetailPage: true,
       showOnHomePage: true,
       locale: true,
       createdAt: true,
@@ -276,7 +269,32 @@ export async function getAllModuleTranslations(id: string): Promise<ModuleRecord
     },
   });
 
-  return translations.length > 0 ? translations : [original];
+  if (candidates.length === 0) return [original];
+
+  const byLocale = new Map<string, ModuleRecord[]>();
+  for (const row of candidates) {
+    if (!byLocale.has(row.locale)) byLocale.set(row.locale, []);
+    byLocale.get(row.locale)!.push(row);
+  }
+
+  const selected: ModuleRecord[] = [];
+  for (const [locale, rows] of byLocale) {
+    if (locale === original.locale) {
+      selected.push(original);
+      continue;
+    }
+
+    const nearest = rows.reduce((best, row) => {
+      const bestDiff = Math.abs(best.createdAt.getTime() - original.createdAt.getTime());
+      const rowDiff = Math.abs(row.createdAt.getTime() - original.createdAt.getTime());
+      return rowDiff < bestDiff ? row : best;
+    }, rows[0]);
+    selected.push(nearest);
+  }
+
+  const deduped = Array.from(new Map(selected.map((row) => [row.id, row])).values());
+  deduped.sort((a, b) => a.locale.localeCompare(b.locale));
+  return deduped;
 }
 
 export async function createModule(data: {
@@ -284,7 +302,6 @@ export async function createModule(data: {
   title: string;
   description: string;
   image?: string | null;
-  hasDetailPage?: boolean;
   showOnHomePage?: boolean;
   locale: string;
 }): Promise<ModuleRecord> {
@@ -295,7 +312,6 @@ export async function createModule(data: {
       title: data.title,
       description: data.description,
       image: data.image || null,
-      hasDetailPage: data.hasDetailPage ?? false,
       showOnHomePage: data.showOnHomePage ?? false,
       locale: data.locale,
       updatedAt: new Date(),
@@ -310,7 +326,6 @@ export async function updateModule(
     title: string;
     description: string;
     image?: string | null;
-    hasDetailPage?: boolean;
     showOnHomePage?: boolean;
     locale: string;
   }
@@ -319,7 +334,6 @@ export async function updateModule(
     title: data.title,
     description: data.description,
     image: data.image || null,
-    hasDetailPage: data.hasDetailPage ?? false,
     showOnHomePage: data.showOnHomePage ?? false,
     locale: data.locale,
     updatedAt: new Date(),

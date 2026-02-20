@@ -1,9 +1,11 @@
 import { randomUUID } from 'crypto';
 import { prisma } from '@/lib/db/prisma';
+import { getPlanSubpageCanonicalFromSlug, getCanonicalSlugForPlanTitle } from '@/lib/mlm-plan-subpage-slugs';
 
 export interface MlmPlanRecord {
   id: string;
   groupId: string | null;
+  slug?: string | null;
   title: string;
   subtitle?: string | null;
   description: string;
@@ -67,6 +69,7 @@ export async function getMlmPlanById(id: string, _locale?: string): Promise<MlmP
 }
 
 export async function createMlmPlan(data: {
+  slug?: string | null;
   title: string;
   subtitle?: string | null;
   description: string;
@@ -82,6 +85,7 @@ export async function createMlmPlan(data: {
     data: {
       id,
       groupId,
+      slug: data.slug ?? null,
       title: data.title,
       subtitle: data.subtitle ?? null,
       description: data.description,
@@ -103,6 +107,7 @@ export async function createMlmPlan(data: {
 export async function updateMlmPlan(
   id: string,
   data: {
+    slug?: string | null;
     title?: string;
     subtitle?: string | null;
     description?: string;
@@ -114,6 +119,7 @@ export async function updateMlmPlan(
 ): Promise<MlmPlanRecord> {
   const updateData: Record<string, unknown> = { updatedAt: new Date() };
   if (data.title !== undefined) updateData.title = data.title;
+  if (data.slug !== undefined) updateData.slug = data.slug ?? null;
   if (data.subtitle !== undefined) updateData.subtitle = data.subtitle ?? null;
   if (data.description !== undefined) updateData.description = data.description;
   if (data.icon !== undefined) updateData.icon = data.icon ?? null;
@@ -231,6 +237,15 @@ function findPlanBySlugMatch(
   plans: MlmPlanRecord[],
   canonicalSlug: string
 ): MlmPlanRecord | null {
+  const byExplicit = plans.find((p) => {
+    const explicit = String(p.slug || "").trim().toLowerCase();
+    if (!explicit) return false;
+    const explicitBase = explicit.replace(/[-_]?(\d+)$/, "");
+    const explicitCanonical = getPlanSubpageCanonicalFromSlug(explicitBase);
+    return explicitCanonical === canonicalSlug;
+  });
+  if (byExplicit) return byExplicit;
+
   const exact = plans.find((p) => generateSlug(p.title) === canonicalSlug);
   if (exact) return exact;
   const withPrefix = plans
@@ -293,21 +308,33 @@ export async function getMlmPlanByCanonicalSlug(
 export async function getPlansForMenu(locale: string): Promise<Array<{ title: string; slug: string }>> {
   try {
     // Get all plans from the requested locale
-    const selectFields = { title: true, groupId: true };
+    const selectFields = { title: true, groupId: true, slug: true };
     const rawPlans = await prisma.mlm_plans.findMany({
       where: { locale },
       select: selectFields as Record<string, boolean>,
       orderBy: { title: 'asc' },
     });
-    const localePlans = rawPlans as unknown as { title: string }[];
+    const localePlans = rawPlans as unknown as { title: string; slug?: string | null }[];
 
     // Return plans with generated slugs
     return localePlans.map((plan) => ({
       title: plan.title,
-      slug: generateSlug(plan.title),
+      slug: (plan.slug && plan.slug.trim()) || generateSlug(plan.title),
     }));
   } catch (error) {
     console.error('Error fetching plans for menu:', error);
     return [];
   }
+}
+
+export function resolveCanonicalSlugForPlanRecord(
+  plan: Pick<MlmPlanRecord, 'title' | 'slug'>
+): string | null {
+  const explicit = String(plan.slug || "").trim().toLowerCase();
+  if (explicit) {
+    const explicitBase = explicit.replace(/[-_]?(\d+)$/, "");
+    const explicitCanonical = getPlanSubpageCanonicalFromSlug(explicitBase);
+    if (explicitCanonical) return explicitCanonical;
+  }
+  return getCanonicalSlugForPlanTitle(plan.title, generateSlug(plan.title));
 }

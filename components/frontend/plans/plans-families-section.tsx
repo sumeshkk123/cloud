@@ -72,9 +72,12 @@ export async function PlansFamiliesSection({ locale }: PlansFamiliesSectionProps
                 }
 
                 const highlights = Array.isArray(plan.features) ? plan.features.slice(0, 4) : [];
+                const explicitSlug = String((plan as any).slug || "").trim();
                 const derivedSlug = generateSlug(plan.title);
                 const canonicalSlug = getCanonicalSlugForPlanTitle(plan.title, derivedSlug);
-                const planHref = canonicalSlug
+                const planHref = explicitSlug
+                  ? buildLocalizedPath(`/mlm-plan/${explicitSlug}`, locale as SupportedLocale)
+                  : canonicalSlug
                   ? buildLocalizedPath(`/mlm-plan/${canonicalSlug}`, locale as SupportedLocale)
                   : buildLocalizedPath("/mlm-plans", locale as SupportedLocale);
 

@@ -782,7 +782,10 @@ export function SiteHeader({
                     // Strip locale prefix from pathname for comparison
                     const stripLocalePrefix = (path: string): string => {
                       const segments = path.split('/').filter(Boolean);
-                      if (segments.length > 0 && supportedLocales.includes(segments[0] as SupportedLocale)) {
+                      const maybeLocale = segments[0];
+                      const normalizedLocale =
+                        maybeLocale === "pt-pt" ? "pt" : maybeLocale === "zh-hans" ? "zh" : maybeLocale;
+                      if (segments.length > 0 && supportedLocales.includes(normalizedLocale as SupportedLocale)) {
                         segments.shift();
                       }
                       return '/' + segments.join('/');
@@ -890,7 +893,10 @@ function HeaderLink({ item, locale }: { item: NavItem; locale: SupportedLocale }
   // Strip locale prefix from pathname for comparison
   const stripLocalePrefix = (path: string): string => {
     const segments = path.split('/').filter(Boolean);
-    if (segments.length > 0 && supportedLocales.includes(segments[0] as SupportedLocale)) {
+    const maybeLocale = segments[0];
+    const normalizedLocale =
+      maybeLocale === "pt-pt" ? "pt" : maybeLocale === "zh-hans" ? "zh" : maybeLocale;
+    if (segments.length > 0 && supportedLocales.includes(normalizedLocale as SupportedLocale)) {
       segments.shift();
     }
     return '/' + segments.join('/');

@@ -9,7 +9,7 @@ import type { Locale } from "@/i18n-config";
 import { Section } from "@/components/ui/section";
 import { buildLocalizedPath } from "@/lib/locale-links";
 import { Typography } from "@/components/ui/typography";
-import { getMlmCompaniesContent } from "@/lib/mlm-companies";
+import { getMlmCompaniesContent, getTranslatedCompanySlug } from "@/lib/mlm-companies";
 
 interface MlmCompany {
   id: string;
@@ -70,7 +70,8 @@ export function MlmCompaniesListSection({ locale }: MlmCompaniesListSectionProps
         badge={t.badge}
         heading={t.heading}
         description={t.description}
-        maxWidth="3xl"
+        centered={false}
+        maxWidth="full"
       />
       <div className="container px-4">
 
@@ -89,7 +90,9 @@ export function MlmCompaniesListSection({ locale }: MlmCompaniesListSectionProps
         ) : companies.length > 0 ? (
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {companies.map((company, index) => {
-              const href = buildLocalizedPath(`/mlm-companies/${company.slug}`, locale);
+              // Get translated slug for the current locale
+              const translatedSlug = getTranslatedCompanySlug(company.slug, locale);
+              const href = buildLocalizedPath(`/mlm-companies/${translatedSlug}`, locale);
               
               return (
                 <div

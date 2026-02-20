@@ -22,7 +22,8 @@ export function MlmCompaniesPrimarySection({ locale }: MlmCompaniesPrimarySectio
                 <SectionTitle
                     heading={t.heading}
                     description={t.description}
-                    maxWidth="3xl"
+                    centered={false}
+                    maxWidth="full"
                 />
                 <div className="grid gap-8 md:grid-cols-3">
                     {t.features.map((feature, index) => {

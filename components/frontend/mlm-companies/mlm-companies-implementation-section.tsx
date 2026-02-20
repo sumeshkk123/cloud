@@ -13,7 +13,7 @@ export function MlmCompaniesImplementationSection({ locale = "en" }: MlmCompanie
     const t = getMlmCompaniesContent(locale).implementationSection;
 
     return (
-        <Section variant="muted" padding="lg">
+        <Section variant="gradient" padding="lg">
             <div className="container space-y-12">
                 <SectionTitle
                     heading={t.heading}

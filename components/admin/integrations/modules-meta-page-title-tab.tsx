@@ -166,7 +166,7 @@ export function ModulesMetaPageTitleTab() {
       if (res.ok) {
         const modules = await res.json();
         const dbPages = modules
-          .filter((m: any) => m.hasDetailPage && m.slug)
+          .filter((m: any) => m.slug)
           .map((m: any) => ({
             value: `${MODULE_PAGE_PREFIX}/${m.slug}`,
             label: m.title || m.slug,

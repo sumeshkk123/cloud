@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/db/prisma';
+import { listMlmPlans, resolveCanonicalSlugForPlanRecord } from '@/lib/api/mlm-plans';
 
 /**
  * API endpoint to find a plan in a target locale by matching slug from source locale
@@ -20,41 +20,14 @@ export async function GET(request: Request) {
   }
 
   try {
-    type PlanRow = { id: string; title: string; groupId: string | null };
-    const selectPlanFields = { groupId: true, title: true, id: true };
+    const normalizedSourceSlug = sourceSlug.toLowerCase().trim();
+    const sourcePlans = await listMlmPlans(sourceLocale);
+    const targetPlans = await listMlmPlans(targetLocale);
+    const enPlans = sourceLocale === 'en' || targetLocale === 'en' ? [] : await listMlmPlans('en');
 
-    // Generate slug from sourceSlug if it's a title, or use as-is if it's already a slug
-    // Step 1: Find source plan - try to match by title first (in case sourceSlug is a title)
-    let sourcePlan = (await prisma.mlm_plans.findFirst({
-      where: {
-        title: {
-          contains: sourceSlug,
-        },
-        locale: sourceLocale,
-      },
-      select: selectPlanFields as Record<string, boolean>,
-    })) as unknown as PlanRow | null;
-
-    // If not found by title, try to find by matching a generated slug from title
-    if (!sourcePlan) {
-      const allSourcePlans = (await prisma.mlm_plans.findMany({
-        where: {
-          locale: sourceLocale,
-        },
-        select: selectPlanFields as Record<string, boolean>,
-      })) as unknown as PlanRow[];
-
-      // Try to find a plan whose generated slug matches sourceSlug
-      sourcePlan = allSourcePlans.find((plan) => {
-        const generatedSlug = plan.title
-          .toLowerCase()
-          .replace(/^mlm\s+/i, '')
-          .replace(/\s+/g, '-')
-          .replace(/&/g, 'and')
-          .replace(/[^a-z0-9-]/g, '');
-        return generatedSlug === sourceSlug.toLowerCase();
-      }) || null;
-    }
+    const sourcePlan =
+      sourcePlans.find((plan) => String(plan.slug || '').trim().toLowerCase() === normalizedSourceSlug) ??
+      sourcePlans.find((plan) => resolveCanonicalSlugForPlanRecord(plan) === normalizedSourceSlug);
 
     if (!sourcePlan) {
       return NextResponse.json(
@@ -63,27 +36,27 @@ export async function GET(request: Request) {
       );
     }
 
-    const groupKey = sourcePlan.groupId || sourcePlan.id;
+    const canonical = resolveCanonicalSlugForPlanRecord(sourcePlan);
+    if (!canonical) {
+      return NextResponse.json(
+        { error: 'Unable to resolve source plan canonical slug', matched: false },
+        { status: 404 }
+      );
+    }
 
-    // Step 2: Find the plan with the same groupId in target locale
-    // Plans are linked across locales by their shared groupId field (where cast for outdated Prisma client types)
-    const whereByGroupOrId = {
-      OR: [{ groupId: groupKey }, { id: groupKey }],
-      locale: targetLocale,
-    } as { OR: Array<{ groupId?: string; id?: string }>; locale: string };
-    const matchingPlan = await prisma.mlm_plans.findFirst({
-      where: whereByGroupOrId as never,
-      select: { title: true, id: true },
-    });
+    const matchingPlan =
+      targetPlans.find((plan) => resolveCanonicalSlugForPlanRecord(plan) === canonical) ??
+      (targetLocale !== 'en'
+        ? (() => {
+            const enMatch = enPlans.find((plan) => resolveCanonicalSlugForPlanRecord(plan) === canonical);
+            if (!enMatch) return null;
+            const groupKey = enMatch.groupId ?? enMatch.id;
+            return targetPlans.find((plan) => (plan.groupId ?? plan.id) === groupKey) ?? null;
+          })()
+        : null);
 
     if (matchingPlan) {
-      // Generate slug from title
-      const slug = matchingPlan.title
-        .toLowerCase()
-        .replace(/^mlm\s+/i, '')
-        .replace(/\s+/g, '-')
-        .replace(/&/g, 'and')
-        .replace(/[^a-z0-9-]/g, '');
+      const slug = String(matchingPlan.slug || '').trim() || canonical;
       
       return NextResponse.json({
         slug: slug,

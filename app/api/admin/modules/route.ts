@@ -69,16 +69,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'title, description, and image are required.' }, { status: 400 });
     }
 
-    const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
+    const targetLocale = String(locale);
+    const normalizedSlug = slug != null && String(slug).trim() ? String(slug).trim() : null;
+    const slugValue = normalizedSlug;
 
     const moduleRecord = await createModule({
       slug: slugValue,
       title: String(title),
       description: String(description),
       image: String(image),
-      hasDetailPage: false,
       showOnHomePage: Boolean(showOnHomePage ?? false),
-      locale: String(locale),
+      locale: targetLocale,
     });
 
     return NextResponse.json(moduleRecord);
@@ -108,6 +109,10 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'title, description, and image are required.' }, { status: 400 });
     }
 
+    const targetLocale = String(locale);
+    const normalizedSlug = slug != null && String(slug).trim() ? String(slug).trim() : null;
+    const slugForLocale = () => normalizedSlug;
+
     const existing = await getModuleById(id);
     if (!existing) {
       // If module doesn't exist, try to find by image+showOnHomePage for translation
@@ -116,23 +121,19 @@ export async function PUT(request: Request) {
         const englishMatch = englishModules.find((m) => m.image === image && m.showOnHomePage === Boolean(showOnHomePage ?? false));
 
         if (englishMatch) {
-          const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
           const moduleRecord = await createModule({
-            slug: slugValue,
+            slug: slugForLocale(targetLocale),
             title,
             description,
             image: englishMatch.image || image,
-            hasDetailPage: false,
             showOnHomePage: englishMatch.showOnHomePage,
-            locale: String(locale),
+            locale: targetLocale,
           });
           return NextResponse.json(moduleRecord);
         }
       }
       return NextResponse.json({ error: 'Module not found.' }, { status: 404 });
     }
-
-    const targetLocale = String(locale);
 
     // If locale is different, check if translation exists
     if (targetLocale !== existing.locale) {
@@ -143,25 +144,22 @@ export async function PUT(request: Request) {
       const imageToUse = englishVersion.image || image;
       const showOnHomePageToUse = englishVersion.showOnHomePage;
 
-      const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
       if (existingTranslation) {
         const moduleRecord = await updateModule(existingTranslation.id, {
-          slug: slugValue,
+          slug: slugForLocale(),
           title,
           description,
           image: imageToUse,
-          hasDetailPage: false,
           showOnHomePage: showOnHomePageToUse,
           locale: targetLocale,
         });
         return NextResponse.json(moduleRecord);
       } else {
         const moduleRecord = await createModule({
-          slug: slugValue,
+          slug: slugForLocale(),
           title,
           description,
           image: imageToUse,
-          hasDetailPage: false,
           showOnHomePage: showOnHomePageToUse,
           locale: targetLocale,
         });
@@ -176,7 +174,6 @@ export async function PUT(request: Request) {
     if (targetLocale === 'en') {
       const allTranslations = await getAllModuleTranslations(id);
       if (allTranslations.length > 0 && imageToUse) {
-        const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
         await Promise.all(
           allTranslations
             .filter((t) => t.locale !== 'en')
@@ -184,10 +181,9 @@ export async function PUT(request: Request) {
               updateModule(t.id, {
                 image: imageToUse,
                 showOnHomePage: showOnHomePageToUse,
-                slug: slugValue,
+                slug: t.slug ?? null,
                 title: t.title,
                 description: t.description,
-                hasDetailPage: false,
                 locale: t.locale,
               })
             )
@@ -202,13 +198,11 @@ export async function PUT(request: Request) {
       }
     }
 
-    const slugValue = slug != null && String(slug).trim() ? String(slug).trim() : null;
     const moduleRecord = await updateModule(id, {
-      slug: slugValue,
+      slug: slugForLocale(),
       title,
       description,
       image: imageToUse,
-      hasDetailPage: false,
       showOnHomePage: showOnHomePageToUse,
       locale: targetLocale,
     });

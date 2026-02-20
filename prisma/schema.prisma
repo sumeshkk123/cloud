@@ -239,6 +239,7 @@ model meta_details {
 
 model mlm_plans {
   id             String   @id @default(cuid())
+  slug           String?
   title          String
   description    String
   locale         String   @default("en")
@@ -253,24 +254,25 @@ model mlm_plans {
   @@index([groupId])
   @@index([locale])
   @@index([showOnHomePage])
+  @@index([slug])
+  @@unique([slug, locale])
 }
 
 model modules {
   id             String   @id @default(cuid())
-  slug           String?  @unique
+  slug           String?
   title          String
   description    String
   image          String?
-  hasDetailPage  Boolean  @default(false)
   showOnHomePage Boolean  @default(false)
   locale         String   @default("en")
   createdAt      DateTime @default(now())
   updatedAt      DateTime
 
-  @@index([hasDetailPage])
   @@index([locale])
   @@index([showOnHomePage])
   @@index([slug])
+  @@unique([slug, locale])
 }
 
 model industry_solutions {

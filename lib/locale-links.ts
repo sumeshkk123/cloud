@@ -54,6 +54,12 @@ export function resolveHref(rawHref: string | null | undefined, locale: Supporte
 // Cache for page ID lookups to avoid repeated iterations
 const pageIdCache = new Map<string, string | null>();
 
+function getUrlLocale(locale: SupportedLocale): string {
+  if (locale === "pt") return "pt-pt";
+  if (locale === "zh") return "zh-hans";
+  return locale;
+}
+
 export function buildLocalizedPath(path: string, locale: SupportedLocale): string {
   const { pathname, search, hash } = normalizePath(path);
   const stripped = stripLocaleFromPath(pathname);
@@ -138,23 +144,7 @@ export function buildLocalizedPath(path: string, locale: SupportedLocale): strin
         }
         const fullPath = `/${translatedSlug}${remainingPath ? `/${remainingPath}` : ""}`;
 
-        // Use pt-pt in URL path for Portuguese ONLY for blog top-mlm-companies page
-        let urlLocale: string = locale;
-        if (locale === "pt" && pageId === "blog") {
-          // Check if remaining path is the Portuguese translated slug
-          const ptSlug = getSlugForBlogSubpage("top-mlm-companies", "pt");
-          if (remainingPath === ptSlug) {
-            urlLocale = "pt-pt";
-          }
-        }
-        // Use zh-hans in URL path for Chinese ONLY for blog top-mlm-companies page
-        if (locale === "zh" && pageId === "blog") {
-          // Check if remaining path is the Chinese translated slug
-          const zhSlug = getSlugForBlogSubpage("top-mlm-companies", "zh");
-          if (remainingPath === zhSlug) {
-            urlLocale = "zh-hans";
-          }
-        }
+        const urlLocale = getUrlLocale(locale);
 
         if (urlLocale === (i18n.defaultLocale as SupportedLocale)) {
           return `${fullPath}${search}${hash}`;
@@ -173,7 +163,7 @@ export function buildLocalizedPath(path: string, locale: SupportedLocale): strin
       if (locale === (i18n.defaultLocale as SupportedLocale)) {
         return `${fullPath}${search}${hash}`;
       }
-      return `/${locale}${fullPath}${search}${hash}`;
+      return `/${getUrlLocale(locale)}${fullPath}${search}${hash}`;
     }
   }
   
@@ -182,7 +172,11 @@ export function buildLocalizedPath(path: string, locale: SupportedLocale): strin
     const basePath = normalized === "" ? "/" : normalized;
     return `${basePath}${search}${hash}`;
   }
-  return `/${locale}${normalized}${search}${hash}`;
+  return `/${getUrlLocale(locale)}${normalized}${search}${hash}`;
+}
+
+export function getModulesUrlLocale(locale: SupportedLocale): string {
+  return getUrlLocale(locale);
 }
 
 export function parseLocaleFromHref(href: string): SupportedLocale | null {
@@ -192,7 +186,9 @@ export function parseLocaleFromHref(href: string): SupportedLocale | null {
     if (segments.length === 0) {
       return i18n.defaultLocale as SupportedLocale;
     }
-    const maybeLocale = segments[0];
+    const maybeLocaleRaw = segments[0];
+    const maybeLocale =
+      maybeLocaleRaw === "pt-pt" ? "pt" : maybeLocaleRaw === "zh-hans" ? "zh" : maybeLocaleRaw;
     if (supportedLocales.includes(maybeLocale as SupportedLocale)) {
       return maybeLocale as SupportedLocale;
     }

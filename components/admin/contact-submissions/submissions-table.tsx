@@ -40,10 +40,36 @@ function slugToPageName(slug: string): string {
     .join(' ');
 }
 
+/** Normalize industry source labels to: "industry - <slug>". */
+function normalizeIndustryLabel(value: string): string | null {
+  const trimmed = value.trim();
+  const withoutPrefix = trimmed.replace(
+    /^(?:hero(?:\s|-)?section|cta(?:\s|-)?section|hero|cta)\s*-\s*/i,
+    ''
+  );
+
+  const pathMatch = withoutPrefix.match(
+    /^\/?(?:[a-z]{2}\/)?(?:industry|industries)\/([^/?\s]+)/i
+  );
+  if (pathMatch?.[1]) {
+    return `industry - ${pathMatch[1].toLowerCase()}`;
+  }
+
+  const dashMatch = withoutPrefix.match(/^industry[-_/ ]+([a-z0-9-]+)/i);
+  if (dashMatch?.[1]) {
+    return `industry - ${dashMatch[1].toLowerCase()}`;
+  }
+
+  return null;
+}
+
 /** Derive display label; show only the page name, removing prefixes like Module, Service, Demo, Hero, etc. */
 function getSourceLabel(source?: string, notes?: string | null) {
   const s = (source || "contact").trim();
   const n = (notes || "").toLowerCase();
+
+  const industryFromSource = normalizeIndustryLabel(s);
+  if (industryFromSource) return industryFromSource;
 
   // 0. Specific transformation requested by user: /services/path -> Services - slug
   // Also handles Service - slug or Services - slug
@@ -92,6 +118,9 @@ function getSourceLabel(source?: string, notes?: string | null) {
     const extractedPage = pageMatch?.[1]?.trim();
 
     if (extractedPage) {
+      const industryFromPage = normalizeIndustryLabel(extractedPage);
+      if (industryFromPage) return industryFromPage;
+
       // If extracted page is a path, transform it
       const pMatch = extractedPage.match(/\/?(?:[a-z]{2}\/)?services\/([^/?]+)/i);
       if (pMatch?.[1]) return `Services - ${pMatch[1]}`;
